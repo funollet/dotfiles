@@ -1,6 +1,6 @@
 #!/bin/bash
 # run
 
-packages='awesome aws bash git gpg'
+packages='awesome aws bash git gpg screen'
 
 stow ${packages}
