@@ -1,0 +1,6 @@
+#!/bin/bash
+# run
+
+packages='bash'
+
+stow ${packages}
