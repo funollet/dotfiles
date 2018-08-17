@@ -1,6 +1,6 @@
 #!/bin/bash
 # run
 
-packages='awesome bash'
+packages='awesome bash git'
 
 stow ${packages}

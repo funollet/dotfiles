@@ -1,0 +1,34 @@
+[user]
+    name = Jordi Funollet
+    email = funollet@fastmail.fm
+    mail = funollet@fastmail.fm
+[color]
+    diff = auto
+    status = auto
+    branch = auto
+    ui = auto
+[core]
+    excludesfile = /home/jordif/.git_excludes
+    pager = less -RFX
+[pager]
+    diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+[push]
+	default = current
+[alias]
+    default = simple
+    ; short names
+    st = status
+    ci = commit
+    co = checkout
+    br = branch
+    ; colorful log
+    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    ; my log
+    me = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --author '.*(unollet|jordi@onna).*'
+    ; list files staged
+    ls-staged = diff --name-only --cached
+    ; list files non-staged or untracked
+    ls-changed = ls-files --others --exclude-standard --modified
+
+; [include]
+; path = ~/pim/pam
