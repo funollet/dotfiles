@@ -1,0 +1,4 @@
+[diff "gpg"]
+    binary = true
+    textconv = gpg2 -d --quiet --yes --compress-algo=none --no-encrypt-to --batch --use-agent
+
