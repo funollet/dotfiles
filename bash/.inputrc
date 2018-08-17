@@ -1,0 +1,9 @@
+# .inputrc
+# readline config (bash and others)
+
+#set colored-stats On
+set visible-stats On
+set completion-ignore-case On
+set mark-symlinked-directories On
+set show-all-if-ambiguous On
+set show-all-if-unmodified On
