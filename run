@@ -1,6 +1,6 @@
 #!/bin/bash
 # run
 
-packages='awesome aws bash git gpg screen'
+packages='awesome aws bash git gpg screen tmux'
 
 stow ${packages}
