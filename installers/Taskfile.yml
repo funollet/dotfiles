@@ -1,0 +1,199 @@
+# github.com/go-task/task
+
+version: '2'
+
+vars:
+  # List of packages to be installed.
+  rpm_absent: |
+     amarok banshee gbrainy   
+  # Lists of packages to be removed.
+  base_distro: |
+    python-paramiko python-yaml python-jinja2 python-simplejson python-pip
+    yum-cron python3-firewall createrepo
+  devopstools: |
+    vim-X11 vim-enhanced automake gcc gcc-c++ rpm-build subversion
+    # development tools
+    mercurial git hub git-svn gitk sqlite arduino jq ShellCheck
+    direnv stow
+    # vim / syntastic
+    nodejs-js-yaml rubygem-puppet-lint yamllint
+    # Python development.
+    python-devel python-crypto python-virtualenv python-virtualenvwrapper
+    python-psutil
+    pydot python3-ipython httpie python3-requests python-py python-mock pytest python-docopt
+    python-click python-pip python-sh
+    # Ruby development.
+    ruby ruby-devel rubygems rubygem-bundler rubygem-rake rubygem-wirb 
+    rubygem-pry rubygem-pry-doc rubygem-rspec rubygem-rspec-mocks 
+    rubygem-rspec-mocks-doc
+    # Golang devel.
+    golang
+    # Nagios plugins development.
+    pynag pynag-examples
+    #
+    # Ops
+    fabric python-invoke google-cloud-sdk kubectl docker awscli 
+    par pssh pdsh pdsh-mod-dshgroup
+    mysql gnuplot httpd-tools
+    #rubygem-rails      # puppet storedconfigs requirement
+    puppet rubygem-puppet-lint rubygem-puppet-lint-doc pass
+    #
+    # libvirt-bin service must not be run: installs and launches dnsmasq configures virt0 interface.
+    #libvirt-bin
+    virt-manager
+    #kernel-headers kernel-devel      # VMware Player requirements
+  unix_essentials: |
+    ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
+    the_silver_searcher
+  workstation: |
+    kernel-headers kernel-devel dkms
+    # Xwindows
+    kernel-modules-extra joystick-support wmctrl xdotool qgnomeplatform
+    # Command-line.
+    pandoc task unison240 moreutils xclip aspell aspell-ca aspell-en
+    hunspell hunspell-ca hunspell-en-US tmux java-1.8.0-openjdk
+    icedtea-web inotify-tools tiptop
+    ranger w3m w3m-img vpnc
+    # GUI apps.
+    pidgin pidgin-libnotify pidgin-guifications
+    python2-pygpgme keepassx
+    gtg freemind calibre inkscape firefox
+    libreoffice timeline youtube-dl Zim
+    hamster-time-tracker levien-inconsolata-fonts
+    zathura speedcrunch homebank
+    # Graphics
+    gimp ufraw-gimp gimp-wavelet-denoise-plugin gimp-separate+
+    gimp-paint-studio gimp-normalmap gimp-help GREYCstoration-gimp
+    gimp-resynthesizer gimp-lqr-plugin gimp-high-pass-filter gimp-elsamuko
+    gimp-data-extras
+    digikam kf5-kipi-plugins darktable
+    # Multimedia
+    clementine audacity pavucontrol ffmpeg cantata
+    qjackctl jack-audio-connection-kit alsa-plugins-jack sooperlooper
+    vlc                # require: RPMfusion repositories
+    # from local.repo
+    #aws-shell diff-so-fancy sublime-text rubygem-watson
+    # 
+    # linuxconsoletools
+    # skype
+    # sigil                 #needs repo ppa:ikuya-fruitsbasket
+  codecs: |
+    # require: rpmfusion-free
+    xine-lib-extras xine-lib-extras-freeworld k3b-extras-freeworld gstreamer1-libav
+    gstreamer1-plugins-good gstreamer1-plugins-ugly gstreamer1-plugins-bad-free
+    gstreamer-ffmpeg gstreamer-plugins-good gstreamer-plugins-ugly
+    gstreamer-plugins-bad gstreamer-plugins-bad-free ffmpeg
+    # require: rpmfusion-non-free
+    gstreamer-plugins-bad-nonfree
+  nvidia_hardware: |
+    #alternative: - kmod-nvidia-PAE 
+    #alternative: - xorg-x11-drv-nouveau
+    akmod-nvidia-304xx xorg-x11-drv-nvidia-304xx xorg-x11-drv-nvidia-cuda
+    kernel-devel
+    # hardware video acceleration
+    vdpauinfo libva-vdpau-driver libva-utils
+  awesomewm: |
+    awesome awesome-doc vicious scrot slock network-manager-applet
+    lxqt-powermanagement light
+  vagrant: |
+    vagrant vagrant-doc vagrant-lxc vagrant-lxc-doc vagrant-libvirt
+    vagrant-libvirt-doc vagrant-cachier vagrant-cachier-doc
+    vagrant-hostmanager vagrant-hostmanager-doc
+    lxc                 # vagrant-lxc requirement
+    lxc-doc             # vagrant-lxc requirement
+    redir               # vagrant-lxc requirement
+    VirtualBox kmod-VirtualBox
+
+
+
+tasks:
+
+  # Helpers to install/remove packages.
+  dnf:
+    cmds:
+      - sudo dnf install -y {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
+  dnf_remove:
+    cmds:
+      - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }} || :
+
+
+  repo_rpmfusion:
+    # Installs RPMfusion repos.
+    cmds:
+      - sudo dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{.release}}.noarch.rpm
+        https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{.release}}.noarch.rpm
+    vars:
+      release:
+        sh: rpm -E %fedora
+    status:
+      - rpm -q rpmfusion-free-release-{{.release}}
+      - rpm -q rpmfusion-nonfree-release-{{.release}}
+
+  repo_fedora_thirdparty:
+    # Install Fedora Third Party repos.
+    cmds:
+      - sudo dnf install -y fedora-workstation-repositories
+    status:
+      - rpm -q fedora-workstation-repositories
+
+  repos:
+    # Install all repositories.
+    cmds:
+      - task: repo_rpmfusion
+      - task: repo_fedora_thirdparty
+
+  default:
+    desc: Run 'install-workstation'.
+    cmds:
+      - task: install-workstation
+
+  install-workstation:
+    desc: Install all the software required on a Fedora workstation.
+    deps: [repos]
+    cmds:
+      - task: dnf_remove
+        vars: { pkgs: "{{.rpm_absent}}" }
+      - task: dnf
+        vars: { pkgs: "{{.devopstools}} {{.base_distro}} {{.unix_essentials}} {{.workstation}} {{.codecs}} {{.awesomewm}} {{.vagrant}}" }
+      - task: spotify
+      - task: chrome
+      - task: dropbox
+      - task: keybase
+        # Set folder to store Virtualbox machines
+      - VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
+
+  nvidia:
+    desc: Install modules and utils for Nvidia.
+    cmds:
+      - task: dnf
+        vars: { pkgs: "{{.nvidia_hardware}}" }
+
+  spotify:
+    # Install spotify client.
+    cmds:
+      - sudo snap install spotify
+    status:
+      - snap list spotify
+
+  chrome:
+    # Install google chrome
+    cmds:
+      - sudo dnf config-manager --set-enabled google-chrome
+      - sudo dnf install google-chrome-stable
+    status:
+      - rpm -q google-chrome-stable
+
+  keybase:
+    # Install keybase.io client
+    cmds:
+      - sudo dnf install -y https://prerelease.keybase.io/keybase_amd64.rpm
+    status:
+      - rpm -q keybase
+
+  dropbox:
+    # Install Dropbox client.
+    cmds:
+      - sudo dnf install -y dropbox
+      # [todo] - run 'dropbox start -i'
+    status:
+      - rpm -q dropbox
