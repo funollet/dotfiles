@@ -1,0 +1,23 @@
+# github.com/go-task/task
+
+version: '2'
+
+tasks:
+
+  default:
+    desc: Run 'update'.
+    cmds:
+      - task: update
+
+
+  update:
+    desc: Update dotfiles.
+    cmds:
+      - git pull
+      # Symlink files managed in this repo.
+      - stow -S {{.stow_pkgs | catLines}}
+      # Enrich with configuration from other sources.
+      - test -L ~/.bash.d/ag.bash || ln -s /usr/share/bash-completion/completions/ag ~/.bash.d/ag.bash
+    vars:
+      stow_pkgs:
+        sh: ls -I Taskfile.yml -I installers
