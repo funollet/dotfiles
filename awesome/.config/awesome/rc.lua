@@ -1,7 +1,15 @@
+-- Standard awesome library
+local gears = require("gears")
 local awful = require("awful")
-require("awful.autofocus")
+-- Theme handling library
+local beautiful = require("beautiful")
 --local lain = require("lain")
 
+
+
+-- Themes define colours, icons, font and wallpapers.
+beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
+beautiful.font          = "sans 11"
 -- This is used later as the default terminal and editor to run.
 terminal = "konsole"
 editor = os.getenv("EDITOR") or "vim"
@@ -16,12 +24,16 @@ max_tag = 5
 modkey = "Mod4"
 Alt_L = "Mod1"
 
+-- Table of layouts to cover with awful.layout.inc, order matters.
+local layouts = {
+    awful.layout.suit.tile,
+    awful.layout.suit.max,
+    awful.layout.suit.floating,
+}
+
 
 require("rclocal.error")
-require("rclocal.themes")
-require("rclocal.tags")
 require("rclocal.menus")
-require("rclocal.wibox_setup")
 require("rclocal.signals")
 require("rclocal.mouse")
 require("rclocal.keybindings")

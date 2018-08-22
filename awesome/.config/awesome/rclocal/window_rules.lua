@@ -7,15 +7,15 @@ local beautiful = require("beautiful")
 awful.rules.rules = {
     -- All clients will match this rule.
     { rule = { },
-      properties = {
-          border_width = beautiful.border_width,
-          border_color = beautiful.border_normal,
-          focus = awful.client.focus.filter,
-          raise = true,
-          keys = clientkeys,
-          size_hints_honor = true,
-          buttons = clientbuttons
-      },
+      properties = { border_width = beautiful.border_width,
+                     border_color = beautiful.border_normal,
+                     focus = awful.client.focus.filter,
+                     raise = true,
+                     keys = clientkeys,
+                     buttons = clientbuttons,
+                     screen = awful.screen.preferred,
+                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+     }
     },
 
     { rule = { type = "desktop" },
@@ -35,7 +35,7 @@ awful.rules.rules = {
     },
     { rule = { class = "Slack" },
       properties = {
-          tag = tags[1][4],
+          tag = "5",
           --hidden = true, skip_taskbar = true, sticky = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
@@ -43,7 +43,7 @@ awful.rules.rules = {
     },
     { rule = { class = "Telegram" },
       properties = {
-          tag = tags[1][4],
+          tag = "5",
           --hidden = true, skip_taskbar = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
@@ -59,7 +59,7 @@ awful.rules.rules = {
     --        floating = true, ontop = true, above = true, size_hints_honor = true,
     --        width=1366, maximized_horizontal = true
     --} },
-    --{ rule = { class = "Firefox" }, properties = { tag = tags[1][0] } },
+    --{ rule = { class = "Firefox" }, properties = { tag = "1" } },
     --
     { rule_any = { class = { "Plasma-desktop", "gimp", "pinentry", "MPlayer" },
       properties = { floating = true, size_hints_honor = true,maximized_horizontal = false, maximized_vertical = false } } }

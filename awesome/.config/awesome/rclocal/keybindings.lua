@@ -1,10 +1,18 @@
 -- Key bindings / hotkeys
---
+local gears = require("gears")
 local awful = require("awful")
-local naughty = require("naughty")
+require("awful.autofocus")
+local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
-local hotkeys_popup = require("awful.hotkeys_popup").widget
+require("awful.hotkeys_popup.keys")
+
+
+--if screen.count() == 1 then
+--else
+--end
+--
+----------------------------------------------------------------------
 
 require("rclocal.toggle_visibility")
 
@@ -54,14 +62,14 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey },            "r",     function () mypromptbox[mouse.screen]:run() end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description="Jump to 'urgent' client", group="awesome - tags"}),
-    --awful.key({ modkey }, "x",
-    --          function ()
-    --              awful.prompt.run({ prompt = "Run Lua code: " },
-    --              mypromptbox[mouse.screen].widget,
-    --              awful.util.eval, nil,
-    --              awful.util.getdir("cache") .. "/history_eval")
-    --          end,
-    --          {description="Run Lua code", group="awesome"}),
+    awful.key({ modkey }, "x",
+              function ()
+                  awful.prompt.run({ prompt = "Run Lua code: " },
+                  mypromptbox[mouse.screen].widget,
+                  awful.util.eval, nil,
+                  awful.util.getdir("cache") .. "/history_eval")
+              end,
+              {description="Run Lua code", group="awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
             { description = "restart awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
