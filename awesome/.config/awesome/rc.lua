@@ -43,7 +43,7 @@ modkey = "Mod4"
 Alt_L = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
-local layouts = {
+awful.layout.layouts = {
     awful.layout.suit.tile,
     awful.layout.suit.max,
     awful.layout.suit.floating,
@@ -394,6 +394,8 @@ globalkeys = awful.util.table.join(
               {description="Open a terminal", group="awesome"}),
     awful.key({ modkey            }, "r",     function () awful.util.spawn("krunner") end,
               {description="Run command", group="awesome"}),
+    --awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
+    --          {description = "run prompt", group = "launcher"}),
     awful.key({ modkey            }, "e",     function () awful.util.spawn("pcmanfm-qt") end),
     awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("slock") end),
     --awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xdg-screensaver lock") end),
@@ -417,18 +419,18 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey            }, "p", function() menubar.show() end,
               {description="Show menubar", group="awesome"}),
     --awful.key({ modkey,           }, "w", function() mymainmenu:show() end),
-    awful.key({ modkey },            "x",     function () awful.screen.focused().mypromptbox:run() end,
-              {description = "run prompt", group = "launcher"}),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description="Jump to 'urgent' client", group="awesome - tags"}),
-    --awful.key({ modkey }, "x",
-    --          function ()
-    --              awful.prompt.run({ prompt = "Run Lua code: " },
-    --              mypromptbox[mouse.screen].widget,
-    --              awful.util.eval, nil,
-    --              awful.util.getdir("cache") .. "/history_eval")
-    --          end,
-    --          {description="Run Lua code", group="awesome"}),
+    awful.key({ modkey }, "x",
+              function ()
+                  awful.prompt.run {
+                    prompt       = "Run Lua code: ",
+                    textbox      = awful.screen.focused().mypromptbox.widget,
+                    exe_callback = awful.util.eval,
+                    history_path = awful.util.get_cache_dir() .. "/history_eval"
+                  }
+              end,
+              {description = "lua execute prompt", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
             { description = "restart awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
@@ -534,10 +536,11 @@ globalkeys = awful.util.table.join(
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it work on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+for i = 1, max_tag do
     globalkeys = gears.table.join(globalkeys,
         -- View tag only.
-        awful.key({ modkey }, "#" .. i + 9,
+        --awful.key({ modkey }, "#" .. i + max_tag,
+        awful.key({ modkey }, i,
                   function ()
                         local screen = awful.screen.focused()
                         local tag = screen.tags[i]
@@ -545,9 +548,10 @@ for i = 1, 9 do
                            tag:view_only()
                         end
                   end,
-                  {description = "view tag #"..i, group = "tag"}),
+                  {description = "view tag "..i, group = "tag"}),
         -- Toggle tag display.
-        awful.key({ modkey, "Control" }, "#" .. i + 9,
+        --awful.key({ modkey, "Control" }, "#" .. i + max_tag,
+        awful.key({ modkey, "Control" }, i,
                   function ()
                       local screen = awful.screen.focused()
                       local tag = screen.tags[i]
@@ -555,9 +559,10 @@ for i = 1, 9 do
                          awful.tag.viewtoggle(tag)
                       end
                   end,
-                  {description = "toggle tag #" .. i, group = "tag"}),
+                  {description = "toggle tag "..i, group = "tag"}),
         -- Move client to tag.
-        awful.key({ modkey, "Shift" }, "#" .. i + 9,
+        --awful.key({ modkey, "Shift" }, "#" .. i + max_tag,
+        awful.key({ modkey, "Shift" }, i,
                   function ()
                       if client.focus then
                           local tag = client.focus.screen.tags[i]
@@ -566,9 +571,10 @@ for i = 1, 9 do
                           end
                      end
                   end,
-                  {description = "move focused client to tag #"..i, group = "tag"}),
+                  {description = "move focused client to tag "..i, group = "tag"}),
         -- Toggle tag on focused client.
-        awful.key({ modkey, "Control", "Shift" }, "#" .. i + 9,
+        --awful.key({ modkey, "Control", "Shift" }, "#" .. i + max_tag,
+        awful.key({ modkey, "Control", "Shift" }, i,
                   function ()
                       if client.focus then
                           local tag = client.focus.screen.tags[i]
@@ -577,7 +583,7 @@ for i = 1, 9 do
                           end
                       end
                   end,
-                  {description = "toggle focused client on tag #" .. i, group = "tag"})
+                  {description = "toggle focused client on tag " .. i, group = "tag"})
     )
 end
 
@@ -634,12 +640,12 @@ awful.rules.rules = {
      }
     },
 
-    { rule = { type = "desktop" },
-    },
+    --{ rule = { type = "desktop" },     -- just for KDE
+    --},
     -- Plugin-container == Flashplayer
     { rule_any = { class = { 
         "Plugin-container", "Hamster", "Pavucontrol", "Spotify", "Vlc", "VirtualBox",
-        "keepassx"
+        "keepassx2"
       } },
       properties = { floating = true }
     },
