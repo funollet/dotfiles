@@ -636,7 +636,7 @@ awful.rules.rules = {
                      keys = clientkeys,
                      buttons = clientbuttons,
                      screen = awful.screen.preferred,
-                     placement = awful.placement.no_overlap+awful.placement.no_offscreen
+                     placement = awful.placement.no_overlap + awful.placement.no_offscreen
      }
     },
 
@@ -655,7 +655,8 @@ awful.rules.rules = {
           --hidden = true, skip_taskbar = true, sticky = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
-          width=1200, height=800, x=400, y=100 
+          width=1200, height=800,
+          placement = awful.placement.centered
       }
     },
     { rule = { class = "Telegram" },
@@ -664,7 +665,8 @@ awful.rules.rules = {
           --hidden = true, skip_taskbar = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
-          width=1000, height=600, x=500, y=100 
+          width=1000, height=600,
+          placement = awful.placement.centered
       }
     },
     { rule = { 
@@ -680,8 +682,8 @@ awful.rules.rules = {
     --        floating = true, ontop = true, above = true, size_hints_honor = true,
     --        width=1366, maximized_horizontal = true
     --} },
-    --{ rule = { class = "Firefox" }, properties = { tag = "1" } },
-    --
+    { rule = { class = "Firefox" },
+      properties = { tag = "1" } },
     { rule_any = {
         class = { "gimp", "pinentry", "MPlayer" },
       }, properties = { floating = true, size_hints_honor = true, maximized_horizontal = false, maximized_vertical = false } 
