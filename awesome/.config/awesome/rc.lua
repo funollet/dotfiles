@@ -594,11 +594,13 @@ root.keys(globalkeys)
 -- Keybindings for the client.
 -- Table used in window_rules
 clientkeys = awful.util.table.join(
-    -- original fullscreen: W-f
-    -- original floating:   W-Control-space
-    awful.key({ modkey,           }, "v",      function (c) c.fullscreen = not c.fullscreen  end,
+    awful.key({ modkey,           }, "f",
+            function (c)
+                c.fullscreen = not c.fullscreen
+                c:raise()
+            end,
             { description = "fullscreen (toggle)", group = "awesome - client"}),
-    awful.key({ modkey,           }, "f",      awful.client.floating.toggle ,
+    awful.key({ modkey, "Control" }, "space",  awful.client.floating.toggle                     ,
             { description = "floating (toggle)", group = "awesome - client"}),
     awful.key({ "Control", Alt_L  }, "x",      function (c) c:kill() end,
             { description = "kill window", group = "awesome - client"}),
@@ -615,9 +617,22 @@ clientkeys = awful.util.table.join(
     --awful.key({ modkey,           }, "t",      function (c) c.ontop = not c.ontop            end),
     --awful.key({ modkey,           }, "m",
     --    function (c)
+    --        c.maximized = not c.maximized
+    --        c:raise()
+    --    end ,
+    --    {description = "(un)maximize", group = "client"}),
+    --awful.key({ modkey, "Control" }, "m",
+    --    function (c)
+    --        c.maximized_vertical = not c.maximized_vertical
+    --        c:raise()
+    --    end ,
+    --    {description = "(un)maximize vertically", group = "client"}),
+    --awful.key({ modkey, "Shift"   }, "m",
+    --    function (c)
     --        c.maximized_horizontal = not c.maximized_horizontal
-    --        c.maximized_vertical   = not c.maximized_vertical
-    --    end)
+    --        c:raise()
+    --    end ,
+    --    {description = "(un)maximize horizontally", group = "client"})
 )
 
 
