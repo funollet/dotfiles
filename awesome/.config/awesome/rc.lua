@@ -19,15 +19,11 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 --require("awful.hotkeys_popup.keys")
 
 
---
--- [todo] - KDE menu: /usr/bin/plasma-windowed simplelauncher
---
-
-
 
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.font          = "sans 11"
+local titlebars_enabled = false
 -- This is used later as the default terminal and editor to run.
 terminal = "konsole"
 editor = os.getenv("EDITOR") or "vim"
@@ -261,7 +257,6 @@ client.connect_signal("manage", function (c, startup)
         end
     end
 
-    local titlebars_enabled = false
     if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
         -- buttons for the titlebar
         local buttons = awful.util.table.join(
@@ -371,14 +366,6 @@ function toggle_visibility(class_name)
 --            c:raise()
 --        end
 --    end
-end
-
-
-
--- KDE has no widget to see which layout is selected. Workaround: use libnotify.
--- TODO: callback it with a signal.
-function echo_layout()
---    naughty.notify({ title="Awesome layout", text=awful.layout.getname() })
 end
 
 
@@ -493,12 +480,10 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
 
     awful.key({ modkey,           }, "space",
-        function () awful.layout.inc(1, client.focus.screen, layouts) ; echo_layout()
-        end,
+        function () awful.layout.inc(1, client.focus.screen, layouts) end,
         { description = "Next layout (Shift reverses)", group = "awesome - layout"}),
     awful.key({ modkey, "Shift"   }, "space",
-        function () awful.layout.inc(-1, client.focus.screen, layouts) ; echo_layout()
-        end),
+        function () awful.layout.inc(-1, client.focus.screen, layouts) end),
 
     --awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
@@ -655,20 +640,14 @@ awful.rules.rules = {
      }
     },
 
-    --{ rule = { type = "desktop" },     -- just for KDE
-    --},
-    -- Plugin-container == Flashplayer
     { rule_any = { class = { 
         "Plugin-container", "Hamster", "Pavucontrol", "Spotify", "Vlc", "VirtualBox",
-        "keepassx2"
+        "keepassx2", "Pidgin"
       } },
       properties = { floating = true }
     },
     { rule = { class = "krunner" },
-      properties = { floating = true, sticky = true, size_hints_honor = false, y=64 }
-    },
-    { rule = { class = "Pidgin" },
-      properties = { floating = true, sticky = true, size_hints_honor = false }
+      properties = { floating = true, sticky = true, size_hints_honor = false, x=800, y=100 }
     },
     { rule = { class = "Slack" },
       properties = {
@@ -704,7 +683,7 @@ awful.rules.rules = {
     --{ rule = { class = "Firefox" }, properties = { tag = "1" } },
     --
     { rule_any = {
-        class = { "Plasma-desktop", "gimp", "pinentry", "MPlayer" },
+        class = { "gimp", "pinentry", "MPlayer" },
       }, properties = { floating = true, size_hints_honor = true, maximized_horizontal = false, maximized_vertical = false } 
     }
 }
