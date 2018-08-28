@@ -1,7 +1,7 @@
 
 complete -C aws_completer aws       # awscli: autocompletion
 
-which awless > /dev/null && source <(awless completion bash)
+which awless > /dev/null 2>&1 && source <(awless completion bash)
 
 ec2-search-id () {
     # Parallel search of an EC2 InstanceID on multiple accounts.
