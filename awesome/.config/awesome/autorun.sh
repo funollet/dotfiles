@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/bash -x
 # awesome/autorun.sh
 
 # Lock screen after (in minutes).
@@ -13,10 +13,12 @@ function run {
 
 setxkbmap -layout "eu,es"
 
-run xautolock -time ${LOCK_SCREEN_MINS} -locker 'i3lock -c 000000'
+if ! pgrep xautolock ; then
+    xautolock -time ${LOCK_SCREEN_MINS} -locker 'i3lock -c 000000' &
+fi
 
 run nm-applet
 run lxqt-powermanagement
 run Telegram
 run firefox
-run keybase
+dropbox running && dropbox start
