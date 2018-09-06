@@ -18,5 +18,5 @@ run xautolock -time ${LOCK_SCREEN_MINS} -locker 'i3lock -c 000000'
 run nm-applet
 run lxqt-powermanagement
 run Telegram
-run slack
+run firefox
 run keybase
