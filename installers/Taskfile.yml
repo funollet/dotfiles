@@ -49,8 +49,9 @@ vars:
     kernel-headers kernel-devel dkms
     # Xwindows
     kernel-modules-extra joystick-support wmctrl xdotool qgnomeplatform
+    xorg-x11-xkb-extras xorg-x11-xkb-utils xkbset xcape
     # Command-line.
-    pandoc task unison240 moreutils xclip aspell aspell-ca aspell-en
+    pandoc unison240 moreutils xclip aspell aspell-ca aspell-en
     hunspell hunspell-ca hunspell-en-US tmux java-1.8.0-openjdk
     icedtea-web inotify-tools tiptop
     ranger w3m w3m-img vpnc
@@ -71,10 +72,11 @@ vars:
     clementine audacity pavucontrol ffmpeg cantata
     qjackctl jack-audio-connection-kit alsa-plugins-jack sooperlooper
     vlc                # require: RPMfusion repositories
+    # joystick
+    antimicro linuxconsoletools
     # from local.repo
     #aws-shell diff-so-fancy sublime-text rubygem-watson
     # 
-    # linuxconsoletools
     # skype
     # sigil                 #needs repo ppa:ikuya-fruitsbasket
   codecs: |
@@ -93,8 +95,10 @@ vars:
     # hardware video acceleration
     vdpauinfo libva-vdpau-driver libva-utils
   awesomewm: |
-    awesome awesome-doc vicious scrot slock network-manager-applet
-    lxqt-powermanagement light
+    awesome awesome-doc vicious scrot network-manager-applet
+    lxqt-powermanagement light xautolock i3lock
+    feh arandr lxappearance
+    # plank compton
   vagrant: |
     vagrant vagrant-doc vagrant-lxc vagrant-lxc-doc vagrant-libvirt
     vagrant-libvirt-doc vagrant-cachier vagrant-cachier-doc
