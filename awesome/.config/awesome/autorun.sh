@@ -11,7 +11,10 @@ function run {
   fi
 }
 
-setxkbmap -layout "eu,es"
+setxkbmap -layout eu -option ''
+setxkbmap -layout eu -option 'caps:ctrl_modifier' -option 'terminate:ctrl_alt_bksp'
+
+xset r rate 300 50      # key repeate rate: delay 300ms, 50Hz
 
 if ! pgrep xautolock ; then
     xautolock -time ${LOCK_SCREEN_MINS} -locker 'i3lock -c 000000' &
