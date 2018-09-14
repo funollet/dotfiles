@@ -96,8 +96,8 @@ vars:
     vdpauinfo libva-vdpau-driver libva-utils
   awesomewm: |
     awesome awesome-doc vicious scrot network-manager-applet
-    lxqt-powermanagement light xautolock i3lock
-    feh arandr lxappearance
+    light xautolock i3lock
+    feh lximage-qt arandr lxappearance lxqt-powermanagement screengrab
     # plank compton
   vagrant: |
     vagrant vagrant-doc vagrant-lxc vagrant-lxc-doc vagrant-libvirt
