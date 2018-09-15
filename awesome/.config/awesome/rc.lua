@@ -30,12 +30,17 @@ editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 max_tag = 5
 
+-- An external mouse has been detected. This enables/disables custom
+-- actions for a specific device.
+-- [TODO] - mouse_external should be a function that detects devices
+local mouse_external = true
+
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
 -- If you do not like this or do not have such a key,
 -- I suggest you to remap Mod4 to another key using xmodmap or other tools.
 -- However, you can use another modifier like Mod1, but it may interact with others.
-modkey = "Mod4"
+modkey = "Mod4"     -- Super
 Alt_L = "Mod1"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
@@ -311,26 +316,43 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
--- Mouse bindings over the desktop
-root.buttons(awful.util.table.join(
-    awful.button({ }, 3, function () mymainmenu:toggle() end), -- right button: show menu 
-    awful.button({ }, 4, awful.tag.viewnext),                  -- wheel: changes tag
-    awful.button({ }, 5, awful.tag.viewprev),
-    awful.button({ }, 6, awful.tag.viewprev), -- wheel lateral button: changes tag
-    awful.button({ }, 7, awful.tag.viewnext)
-))
+-- Some mouse actions are disabled when only a trackpad is present:
+-- wheel lateral button is easy to control on a mouse/trackball but
+-- on a trackpad it is too easy to misfire with 2-fingers vertical
+-- scroll.
+if mouse_external then
+    -- Mouse bindings over the desktop
+    root.buttons(awful.util.table.join(
+        awful.button({ }, 3, function () mymainmenu:toggle() end), -- right button: show menu 
+        awful.button({ }, 4, awful.tag.viewnext),                  -- wheel: changes tag
+        awful.button({ }, 5, awful.tag.viewprev),
+        awful.button({ }, 6, awful.tag.viewprev), -- wheel lateral button: changes tag
+        awful.button({ }, 7, awful.tag.viewnext)
+    ))
 
-
--- Mouse actions for the client.
--- This variable is used on window_rules
-clientbuttons = awful.util.table.join(
-    awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-    awful.button({ modkey }, 1, awful.mouse.client.move),
-    awful.button({ modkey }, 3, awful.mouse.client.resize),
-    -- wheel lateral button: changes tag
-    awful.button({ }, 6, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end),
-    awful.button({ }, 7, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end)
-    )
+    -- mouse actions for the client.
+    -- This variable is used on window_rules
+    clientbuttons = awful.util.table.join(
+        awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+        awful.button({ modkey }, 1, awful.mouse.client.move),
+        awful.button({ modkey }, 3, awful.mouse.client.resize),
+        -- wheel lateral button: changes tag
+        awful.button({ }, 6, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end),
+        awful.button({ }, 7, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end)
+        )
+else
+    -- Mouse bindings over the desktop
+    root.buttons(awful.util.table.join(
+        awful.button({ }, 3, function () mymainmenu:toggle() end) -- right button: show menu 
+    ))
+    -- Mouse actions for the client.
+    -- This variable is used on window_rules
+    clientbuttons = awful.util.table.join(
+        awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
+        awful.button({ modkey }, 1, awful.mouse.client.move),
+        awful.button({ modkey }, 3, awful.mouse.client.resize)
+        )
+end
 
 
 
@@ -696,7 +718,7 @@ awful.rules.rules = {
 ----------------------------------------------------------------------
 
 -- autorun programs
-awful.util.spawn_with_shell("~/.config/awesome/autorun.sh 2>&1 > /tmp/autorun.log")
+awful.util.spawn_with_shell("~/.config/awesome/autorun.sh")
 
 -- TODO:
 --   * scrot
