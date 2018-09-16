@@ -10,8 +10,6 @@ local beautiful = require("beautiful")
 local naughty = require("naughty")
 -- Widget and layout library
 local wibox = require("wibox")
--- widgets
-local menubar = require("menubar")
 local volume_control = require("volume-control")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
@@ -86,155 +84,13 @@ end
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
--- {{{ Helper functions
-local function client_menu_toggle_fn()
-    local instance = nil
-
-    return function ()
-        if instance and instance.wibox.visible then
-            instance:hide()
-            instance = nil
-        else
-            instance = awful.menu.clients({ theme = { width = 250 } })
-        end
-    end
-end
--- }}}
-
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
-}
-
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
-
--- {{{ Wibar
--- Create a textclock widget
-mytextclock = wibox.widget.textclock()
+-- Widget not used but useful for hotkeys.
 volumecfg = volume_control({})
 
--- Create a wibox for each screen and add it
-local taglist_buttons = gears.table.join(
-                    awful.button({ }, 1, function(t) t:view_only() end),
-                    awful.button({ modkey }, 1, function(t)
-                                              if client.focus then
-                                                  client.focus:move_to_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 3, awful.tag.viewtoggle),
-                    awful.button({ modkey }, 3, function(t)
-                                              if client.focus then
-                                                  client.focus:toggle_tag(t)
-                                              end
-                                          end),
-                    awful.button({ }, 4, function(t) awful.tag.viewnext(t.screen) end),
-                    awful.button({ }, 5, function(t) awful.tag.viewprev(t.screen) end)
-                )
-
-local tasklist_buttons = gears.table.join(
-                     awful.button({ }, 1, function (c)
-                                              if c == client.focus then
-                                                  c.minimized = true
-                                              else
-                                                  -- Without this, the following
-                                                  -- :isvisible() makes no sense
-                                                  c.minimized = false
-                                                  if not c:isvisible() and c.first_tag then
-                                                      c.first_tag:view_only()
-                                                  end
-                                                  -- This will also un-minimize
-                                                  -- the client, if needed
-                                                  client.focus = c
-                                                  c:raise()
-                                              end
-                                          end),
-                     awful.button({ }, 3, client_menu_toggle_fn()),
-                     awful.button({ }, 4, function ()
-                                              awful.client.focus.byidx(1)
-                                          end),
-                     awful.button({ }, 5, function ()
-                                              awful.client.focus.byidx(-1)
-                                          end))
-
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
-
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
-
 awful.screen.connect_for_each_screen(function(s)
-    -- Wallpaper
-    set_wallpaper(s)
-
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
-
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
-    -- Create an imagebox widget which will contain an icon indicating which layout we're using.
-    -- We need one layoutbox per screen.
-    s.mylayoutbox = awful.widget.layoutbox(s)
-    s.mylayoutbox:buttons(gears.table.join(
-                           awful.button({ }, 1, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 3, function () awful.layout.inc(-1) end),
-                           awful.button({ }, 4, function () awful.layout.inc( 1) end),
-                           awful.button({ }, 5, function () awful.layout.inc(-1) end)))
-    -- Create a taglist widget
-    s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
-
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
-
-    -- Create the wibox
-    s.mywibox = awful.wibar({ position = "top", screen = s })
-
-    -- Add widgets to the wibox
-    s.mywibox:setup {
-        layout = wibox.layout.align.horizontal,
-        { -- Left widgets
-            layout = wibox.layout.fixed.horizontal,
-            mylauncher,
-            s.mytaglist,
-            s.mypromptbox,
-        },
-        s.mytasklist, -- Middle widget
-        { -- Right widgets
-            layout = wibox.layout.fixed.horizontal,
-            wibox.widget.systray(),
-            mytextclock,
-            volumecfg.widget,
-            s.mylayoutbox,
-        },
-    }
 end)
--- }}}
-
-
-
 
 
 ----------------------------------------------------------------------
@@ -323,9 +179,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 if mouse_external then
     -- Mouse bindings over the desktop
     root.buttons(awful.util.table.join(
-        awful.button({ }, 3, function () mymainmenu:toggle() end), -- right button: show menu 
-        awful.button({ }, 4, awful.tag.viewnext),                  -- wheel: changes tag
-        awful.button({ }, 5, awful.tag.viewprev),
         awful.button({ }, 6, awful.tag.viewprev), -- wheel lateral button: changes tag
         awful.button({ }, 7, awful.tag.viewnext)
     ))
@@ -341,10 +194,6 @@ if mouse_external then
         awful.button({ }, 7, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end)
         )
 else
-    -- Mouse bindings over the desktop
-    root.buttons(awful.util.table.join(
-        awful.button({ }, 3, function () mymainmenu:toggle() end) -- right button: show menu 
-    ))
     -- Mouse actions for the client.
     -- This variable is used on window_rules
     clientbuttons = awful.util.table.join(
@@ -401,17 +250,17 @@ globalkeys = awful.util.table.join(
     -- original krunner:        Alt-Space
     awful.key({ modkey,           }, "Return",function () awful.util.spawn(terminal) end,
               {description="Open a terminal", group="awesome"}),
-    awful.key({ modkey            }, "r",     function () awful.util.spawn("krunner") end,
+    awful.key({ modkey            }, "r",     function () awful.util.spawn("lxqt-runner") end,
               {description="Run command", group="awesome"}),
     --awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --          {description = "run prompt", group = "launcher"}),
     awful.key({ modkey            }, "e",     function () awful.util.spawn("pcmanfm-qt") end),
-    awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("i3lock -c 000000") end),
+    awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     --awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xdg-screensaver lock") end),
     --awful.key({                   }, "F7", function () awful.util.spawn("toggle-window.sh Telegram") end),
     --awful.key({                   }, "F8", function () awful.util.spawn("toggle-window.sh Slack") end),
     awful.key({                   }, "F7", function () toggle_visibility("Telegram") end),
-    awful.key({                   }, "F8", function () toggle_visibility("Slack") end),
+    --awful.key({                   }, "F8", function () toggle_visibility("Slack") end),
     --awful.key({ }, "F9", function () awful.util.spawn("toggle-window.sh pidgin_conversation") end),
     --awful.key({ }, "F12", function () awful.util.spawn("toggle-window.sh pidgin_buddy_list") end),
     -- volume control
@@ -424,26 +273,12 @@ globalkeys = awful.util.table.join(
     ---- Brightness
     awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 15") end),
     awful.key({}, "XF86MonBrightnessUp",   function () awful.util.spawn("light -A 15") end),
-    -- menu
-    awful.key({ modkey            }, "p", function() menubar.show() end,
-              {description="Show menubar", group="awesome"}),
-    --awful.key({ modkey,           }, "w", function() mymainmenu:show() end),
     awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
               {description="Jump to 'urgent' client", group="awesome - tags"}),
-    awful.key({ modkey }, "x",
-              function ()
-                  awful.prompt.run {
-                    prompt       = "Run Lua code: ",
-                    textbox      = awful.screen.focused().mypromptbox.widget,
-                    exe_callback = awful.util.eval,
-                    history_path = awful.util.get_cache_dir() .. "/history_eval"
-                  }
-              end,
-              {description = "lua execute prompt", group = "awesome"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
             { description = "restart awesome", group = "awesome"}),
     awful.key({ modkey, "Shift"   }, "q", awesome.quit,
-            { description = "restart awesome", group = "awesome"}),
+            { description = "quit awesome", group = "awesome"}),
 
 
     awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
@@ -691,11 +526,8 @@ awful.rules.rules = {
           placement = awful.placement.centered
       }
     },
-    { rule = { 
-        class = "lxqt-panel",
-        type = "dock"
-      },
-      properties = { y = 0, size_hints_honor = false }
+    { rule = { class = "lxqt-panel", type = "dock" },
+      properties = { size_hints_honor = false }
     },
     --
     --{ rule = {
@@ -711,30 +543,5 @@ awful.rules.rules = {
       }, properties = { floating = true, size_hints_honor = true, maximized_horizontal = false, maximized_vertical = false } 
     }
 }
-
-
-
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
-
--- autorun programs
-awful.util.spawn_with_shell("~/.config/awesome/autorun.sh")
-
--- TODO:
---   * scrot
---   * xdg-menu
---   * add new client on the slave area; would be enough doing this for new teminals?
---   * split in multiple files (kde/no-kde, per workstation, docked/undocked)
---
--- Suspend and lock on lid down. https://wiki.archlinux.org/index.php/Power_management#Sleep_hooks
--- 
---   [Unit]
---   Description=Lock the screen on resume from suspend
---   
---   [Service]
---   User=jordif
---   Environment=DISPLAY=:0
---   ExecStart=/usr/bin/slock
---   
---   [Install]
---   WantedBy=suspend.target
