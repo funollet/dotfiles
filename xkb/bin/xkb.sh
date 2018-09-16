@@ -1,5 +1,5 @@
-#!/bin/bash -x
-# awesome/xkb.sh
+#!/bin/bash
+# xkb.sh
 
 
 #### Misc notes
@@ -33,10 +33,21 @@
 
 
 # Delete previous options.
-setxkbmap -layout eu -option ''
-# Set keyboard layout EUrkey.
-setxkbmap -layout eu -option 'ctrl:nocaps'
-    # -option 'terminate:ctrl_alt_bksp'
+setxkbmap -layout us -option ''
+
+# Set keyboard layout.
+setxkbmap -layout us -variant intl \
+    -option 'ctrl:nocaps' \
+    -option 'terminate:ctrl_alt_bksp'
+
+# Extend us(intl).
+# dead_acute is lvl3, single quote is just one keypress.
+# Also, can use AltGr+a to get á, etc.
+xmodmap -e "keycode 48 = apostrophe quotedbl apostrophe quotedbl dead_acute dead_diaeresis dead_acute dead_diaeresis"
+# lvl3 c is ccedila
+xmodmap -e "keycode 54 = c C c C ccedilla Ccedilla ccedilla Ccedilla"
+# lvl4 l is periodcentered
+xmodmap -e "keycode 46 = l L l L periodcentered periodcentered periodcentered periodcentered"
 
 
 # key repeat: <delay>ms <rate>Hz
@@ -75,5 +86,3 @@ xcape -t 800 -e "Hyper_L=space;Super_R=f"
 # xmodmap -e 'keycode any = j'
 # 
 # xcape -t 300 -e 'Control_L=f;Control_R=j'
-
-
