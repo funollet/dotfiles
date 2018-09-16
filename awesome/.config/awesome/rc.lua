@@ -40,6 +40,7 @@ local mouse_external = true
 -- However, you can use another modifier like Mod1, but it may interact with others.
 modkey = "Mod4"     -- Super
 Alt_L = "Mod1"
+Alt_R = "Mod5"
 
 -- Table of layouts to cover with awful.layout.inc, order matters.
 awful.layout.layouts = {
@@ -187,8 +188,8 @@ if mouse_external then
     -- This variable is used on window_rules
     clientbuttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-        awful.button({ modkey }, 1, awful.mouse.client.move),
-        awful.button({ modkey }, 3, awful.mouse.client.resize),
+        awful.button({ Alt_R }, 1, awful.mouse.client.move),
+        awful.button({ Alt_R }, 3, awful.mouse.client.resize),
         -- wheel lateral button: changes tag
         awful.button({ }, 6, function(t) awful.tag.viewprev(awful.tag.getscreen(t)) end),
         awful.button({ }, 7, function(t) awful.tag.viewnext(awful.tag.getscreen(t)) end)
@@ -198,8 +199,8 @@ else
     -- This variable is used on window_rules
     clientbuttons = awful.util.table.join(
         awful.button({ }, 1, function (c) client.focus = c; c:raise() end),
-        awful.button({ modkey }, 1, awful.mouse.client.move),
-        awful.button({ modkey }, 3, awful.mouse.client.resize)
+        awful.button({ Alt_R }, 1, awful.mouse.client.move),
+        awful.button({ Alt_R }, 3, awful.mouse.client.resize)
         )
 end
 
