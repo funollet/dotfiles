@@ -81,9 +81,15 @@ end
 
 
 
+----------------------------------------------------------------------
+----------------------------------------------------------------------
 
-----------------------------------------------------------------------
-----------------------------------------------------------------------
+
+-- KDE has no widget to see which layout is selected. Workaround: use libnotify.
+-- TODO: callback it with a signal.
+function echo_layout()
+    naughty.notify({ title="Awesome layout", text=awful.layout.getname() })
+end
 
 -- Widget not used but useful for hotkeys.
 volumecfg = volume_control({})
@@ -338,10 +344,12 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
 
     awful.key({ modkey,           }, "space",
-        function () awful.layout.inc(1, client.focus.screen, layouts) end,
+        function () awful.layout.inc( 1, client.focus.screen, layouts) ; echo_layout()
+        end,
         { description = "Next layout (Shift reverses)", group = "awesome - layout"}),
     awful.key({ modkey, "Shift"   }, "space",
-        function () awful.layout.inc(-1, client.focus.screen, layouts) end),
+        function () awful.layout.inc(-1, client.focus.screen, layouts) ; echo_layout()
+        end),
 
     --awful.key({ modkey, "Control" }, "n", awful.client.restore),
 
