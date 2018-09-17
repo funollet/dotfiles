@@ -70,7 +70,7 @@ esac
 # fi
 
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -modules 'kube,git,nix-shell,venv,ssh,root,vgo,cwd' -shorten-gke-names -newline -cwd-mode plain -path-aliases \~/code/onna=@ONNA)"
+    PS1="$(powerline-go -error $? -modules 'git,nix-shell,venv,ssh,root,vgo,cwd' -shorten-gke-names -newline -cwd-mode plain -path-aliases \~/code/wallapop=@WPOP)"
     # PS1="$(powerline-go -error $? -modules 'nix-shell,root,cwd' -shorten-gke-names -cwd-mode plain -path-aliases \~/code/onna=@ONNA)"
 }
 
