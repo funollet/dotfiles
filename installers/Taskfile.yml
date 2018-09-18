@@ -114,7 +114,9 @@ vars:
 
 tasks:
 
+  ################################################## 
   # Helpers to install/remove packages.
+
   dnf:
     cmds:
       - sudo dnf install -y {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
@@ -123,6 +125,12 @@ tasks:
       - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }} || :
 
 
+
+
+
+  ################################################## 
+  #
+  
   repo_rpmfusion:
     # Installs RPMfusion repos.
     cmds:
@@ -148,13 +156,15 @@ tasks:
       - task: repo_rpmfusion
       - task: repo_fedora_thirdparty
 
-  default:
-    desc: Run 'install-workstation'.
-    cmds:
-      - task: install-workstation
 
-  install-workstation:
-    desc: Install all the software required on a Fedora workstation.
+
+
+
+  ################################################## 
+  #
+  
+  pkg:
+    desc: Install all the packages to configure a Fedora workstation.
     deps: [repos]
     cmds:
       - task: dnf_remove
@@ -165,24 +175,25 @@ tasks:
       - task: chrome
       - task: dropbox
       - task: keybase
-        # Set folder to store Virtualbox machines
-      - VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
 
   nvidia:
-    desc: Install modules and utils for Nvidia.
+    #desc: Install modules and utils for Nvidia.
+    deps: [repos]
     cmds:
       - task: dnf
         vars: { pkgs: "{{.nvidia_hardware}}" }
 
   spotify:
-    # Install spotify client.
+    #desc: Install spotify client.
+    deps: [repos]
     cmds:
       - sudo snap install spotify
     status:
       - snap list spotify
 
   chrome:
-    # Install google chrome
+    #desc: Install google chrome.
+    deps: [repos]
     cmds:
       - sudo dnf config-manager --set-enabled google-chrome
       - sudo dnf install google-chrome-stable
@@ -190,16 +201,334 @@ tasks:
       - rpm -q google-chrome-stable
 
   keybase:
-    # Install keybase.io client
+    #desc: Install keybase.io client
+    deps: [repos]
     cmds:
       - sudo dnf install -y https://prerelease.keybase.io/keybase_amd64.rpm
     status:
       - rpm -q keybase
 
   dropbox:
-    # Install Dropbox client.
+    #desc: Install Dropbox client.
+    deps: [repos]
     cmds:
       - sudo dnf install -y dropbox
       # [todo] - run 'dropbox start -i'
     status:
       - rpm -q dropbox
+
+
+
+
+
+  ################################################## 
+  #
+
+  config:
+    desc: Post-install config tasks.
+    cmds:
+        # Set folder to store Virtualbox machines
+      - VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
+
+
+
+
+
+
+  ################################################## 
+  #
+
+  non-pkg:
+    desc: Install not-packaged software.
+    deps:
+      - awless
+      - diff-so-fancy
+      - fonts-powerline
+      - fonts-hack
+      - fpm
+      - gron
+      # - helm
+      - hugo
+      - jiq
+      # - kops
+      # - kubectl
+      # - minikube
+      - peco
+      - pet
+      - sheet
+      - telegram
+      # - terraform
+      - vim_vundle
+
+
+  awless:
+    #desc: Install awless.
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}}
+      - tar -xzf awless*tar.gz
+      - sudo install awless /usr/local/bin/
+    status:
+      - which awless
+    vars:
+      VERSION: 0.1.11
+      URL: https://github.com/wallix/awless/releases/download/v{{.VERSION}}/awless-linux-amd64.tar.gz
+
+
+  diff-so-fancy:
+    #desc: Install diff-so-fancy.
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}}
+      - sudo install diff-so-fancy /usr/local/bin/
+    status:
+      - which diff-so-fancy
+    vars:
+      URL: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
+
+
+  docker-machine-driver-kvm2:
+    #desc: Install docker-machine-driver-kvm2.
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/docker-machine-driver-kvm2
+      - sudo install -m 755 docker-machine-driver-kvm2 /usr/local/bin/
+    status:
+      - test -f /usr/local/bin/docker-machine-driver-kvm2
+    vars:
+      URL: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
+
+
+  fonts-powerline:
+    #desc: Install fonts for Powerline on user's home.
+    cmds:
+      - cd ~/.fonts ; git clone https://github.com/Lokaltog/powerline-fonts
+      - fc-cache -vf ~/.fonts
+    status:
+      - test -d ~/.fonts/powerline-fonts
+
+
+  fonts-hack:
+    #desc: Install font Hack on user's home.
+    cmds:
+      - mkdir -p ~/.fonts/Hack
+      - cd ~/.fonts/Hack ; wget -nv -c {{.URL}}
+      - cd ~/.fonts/Hack ; unzip Hack*.zip
+    status:
+      - test -d ~/.fonts/Hack
+    vars:
+      URL: "https://github.com/chrissimpkins/Hack/releases/download/v2.013/Hack-v2_013-ttf.zip"
+
+
+  fpm:
+    #desc: Install 'fpm' at ~/.gem/
+    cmds:
+      - sudo dnf install -y rubygem-ffi rubygem-childprocess rubygem-backports ruby-devel rpm-build
+      - gem install --user-install fpm
+    status:
+      - which fpm > /dev/null
+      # Fetching: cabin-0.6.1.gem (100%)
+      # Fetching: backports-3.6.0.gem (100%)
+      # Fetching: arr-pm-0.0.9.gem (100%)
+      # Fetching: clamp-0.6.3.gem (100%)
+      # Fetching: ffi-1.9.3.gem (100%)
+
+  gron:
+    #desc: Install gron
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}} -O gron.tgz
+      - tar -xzf /tmp/gron.tgz
+      - sudo install gron /usr/local/bin/
+    status:
+      - test -f /usr/local/bin/gron
+    vars:
+      VERSION: 0.5.2
+      URL: https://github.com/tomnomnom/gron/releases/download/v{{.VERSION}}/gron-linux-amd64-{{.VERSION}}.tgz
+
+  helm:
+    #desc: Install helm. https://helm.sh
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}} -O helm.tar.gz
+      - tar -xzf /tmp/helm.tar.gz
+      - sudo install linux-amd64/helm /usr/local/bin/
+    status:
+      - test -f /usr/local/bin/helm
+    vars:
+      VERSION: 2.8.2
+      URL: https://storage.googleapis.com/kubernetes-helm/helm-v{{.VERSION}}-linux-amd64.tar.gz
+
+
+  hugo:
+    #desc: Install hugo. https://github.com/gohugoio/hugo/
+    dir: /usr/local/bin
+    cmds:
+      - cd /tmp ; wget -nv -c {{.URL}} -O hugo.tar.gz
+      - sudo tar -xzf /tmp/hugo.tar.gz hugo
+    status:
+      - test -f /usr/local/bin/hugo
+    vars:
+      VERSION: 0.26
+      URL: https://github.com/gohugoio/hugo/releases/download/v{{.VERSION}}/hugo_{{.VERSION}}_Linux-64bit.tar.gz
+
+
+  jiq:
+    #desc: Install jiq. https://github.com/fiatjaf/jiq
+    dir: /usr/local/bin
+    cmds:
+      - go get github.com/fiatjaf/jiq/cmd/jiq
+      - sudo cp ~/code/go/bin/jiq /usr/local/bin
+    status:
+      - test -f /usr/local/bin/jiq
+
+
+  kops:
+    #desc: Install kops. https://github.com/kubernetes/kops
+    dir: /tmp
+    cmds:
+      - wget -nv {{.URL}}
+      - sudo install kops-linux-amd64 /usr/local/bin/kops
+      - kops completion bash > kops.completion
+      - sudo install -m 644 kops.completion /etc/bash_completion.d/kops
+    status:
+      - which kops > /dev/null
+    vars:
+      VERSION: 1.8.1
+      URL: https://github.com/kubernetes/kops/releases/download/{{.VERSION}}/kops-linux-amd64
+
+
+  kubectl:
+    #desc: Install kubectl
+    cmds:
+      - gcloud components install kubectl
+    status:
+      - which kubectl > /dev/null
+  #
+  # kubernetes:
+  #   #desc: Install kubectl (stable release).
+  #   dir: /tmp
+  #   cmds:
+  #     - wget -nv -c {{.URL}}
+  #     - sudo install kubectl /usr/local/bin
+  #     - kubectl completion bash > k8s.completion
+  #     - sudo install -m 644 k8s.completion /etc/bash_completion.d/kubernetes
+  #   vars:
+  #     VERSION:
+  #       sh: curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
+  #     URL: https://storage.googleapis.com/kubernetes-release/release/{{.VERSION}}/bin/linux/amd64/kubectl
+
+
+  minikube:
+    #desc: Install minikube.
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/minikube
+      - sudo install minikube /usr/local/bin/
+      - minikube completion bash > minikube.completion
+      - sudo install -m 644 minikube.completion /etc/bash_completion.d/minikube
+    status:
+      - test -f /usr/local/bin/minikube
+    vars:
+      VERSION: 0.25.0
+      URL: https://storage.googleapis.com/minikube/releases/v{{.VERSION}}/minikube-linux-amd64
+
+  peco:
+    #desc: Install peco. https://github.com/peco/peco/
+    dir: /usr/local/bin
+    cmds:
+      - wget -P /tmp -nv -c {{.URL}}
+      - sudo tar --strip 1 -xzf /tmp/peco_linux_amd64.tar.gz peco_linux_amd64/peco
+      - sudo chown root:root peco
+    status:
+      - test -f /usr/local/bin/peco
+    vars:
+      VERSION: 0.5.0
+      URL: https://github.com/peco/peco/releases/download/v{{.VERSION}}/peco_linux_amd64.tar.gz
+
+
+  pet:
+    #desc: "Install pet. Required by: peco. https://github.com/knqyf263/pet"
+    dir: /usr/local/bin
+    cmds:
+      - wget -nv -c "{{.URL}}" -O /tmp/pet.zip
+      - sudo unzip /tmp/pet.zip
+    status:
+      - test -f /usr/local/bin/pet
+    vars:
+      VERSION: 0.0.2
+      URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.zip"
+
+
+  sheet:
+    #desc: Install 'sheet' at ~/.gem/
+    cmds:
+      # - sudo dnf install -y rubygem-ffi rubygem-childprocess rubygem-backports ruby-devel rpm-build
+      - gem install --user-install sheet
+    status:
+      - which sheet > /dev/null
+
+
+  telegram:
+    #desc: Install Telegram Linux client.
+    dir: /usr/local/bin
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/tsetup.tar.xz
+      - sudo tar -C /srv -xJf /tmp/tsetup.tar.xz
+      - sudo chown -R root:root /srv/Telegram
+      - sudo ln -s /srv/Telegram/Telegram .
+    status:
+      - test -f /srv/Telegram/Telegram
+    vars:
+      URL: https://telegram.org/dl/desktop/linux
+
+
+  terraform:
+    #desc: Install terraform. https://www.terraform.io
+    dir: /usr/local/bin
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/terraform.zip
+      - sudo unzip /tmp/terraform.zip
+    status:
+      - test -f /usr/local/bin/terraform
+    vars:
+      VERSION: 0.10.0
+      URL: https://releases.hashicorp.com/terraform/{{.VERSION}}/terraform_{{.VERSION}}_linux_amd64.zip
+
+
+  vim_vundle:
+    #desc: Clone Vim Vundle to your ~/.vim/.
+    cmds:
+      - git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    status:
+      - test -d ~/.vim/bundle/Vundle.vim
+
+
+  kubeval:
+    #desc: Install kubeval. https://github.com/garethr/kubeval
+    dir: /usr/local/bin
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/{{.NAME}}.tar.gz
+      - sudo tar -xzf /tmp/{{.NAME}}.tar.gz
+    status:
+      - test -f /usr/local/bin/{{.NAME}}
+    vars:
+      NAME: kubeval
+      VERSION: 0.7.0
+      URL: https://github.com/garethr/{{.NAME}}/releases/download/{{.VERSION}}/{{.NAME}}-linux-amd64.tar.gz
+
+
+  kubetest:
+    #desc: Install kubetest. https://github.com/garethr/kubetest
+    dir: /usr/local/bin
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/{{.NAME}}.tar.gz
+      - sudo tar -xzf /tmp/{{.NAME}}.tar.gz
+    status:
+      - test -f /usr/local/bin/{{.NAME}}
+    vars:
+      NAME: kubetest
+      VERSION: 0.1.1
+      URL: https://github.com/garethr/{{.NAME}}/releases/download/{{.VERSION}}/{{.NAME}}-linux-amd64.tar.gz
+
+
