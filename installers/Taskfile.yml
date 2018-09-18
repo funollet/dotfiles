@@ -9,7 +9,7 @@ vars:
   # Lists of packages to be removed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
-    yum-cron python3-firewall createrepo
+    yum-cron python3-firewall createrepo snapd
   devopstools: |
     vim-X11 vim-enhanced automake gcc gcc-c++ rpm-build subversion
     # development tools
@@ -32,7 +32,7 @@ vars:
     pynag pynag-examples
     #
     # Ops
-    fabric python-invoke google-cloud-sdk kubectl docker awscli 
+    fabric python-invoke docker awscli 
     par pssh pdsh pdsh-mod-dshgroup
     mysql gnuplot httpd-tools
     #rubygem-rails      # puppet storedconfigs requirement
@@ -58,7 +58,7 @@ vars:
     # GUI apps.
     pidgin pidgin-libnotify pidgin-guifications
     python2-pygpgme keepassx
-    gtg freemind calibre inkscape firefox
+    freemind calibre inkscape firefox
     libreoffice timeline youtube-dl Zim
     hamster-time-tracker levien-inconsolata-fonts
     zathura speedcrunch homebank
