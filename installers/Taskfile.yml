@@ -32,7 +32,9 @@ vars:
     pynag pynag-examples
     #
     # Ops
-    fabric python-invoke docker awscli 
+    fabric python-invoke awscli 
+    # -- requires repo_docker
+    docker-ce 
     par pssh pdsh pdsh-mod-dshgroup
     mysql percona-toolkit gnuplot httpd-tools
     #rubygem-rails      # puppet storedconfigs requirement
@@ -157,13 +159,15 @@ tasks:
     status:
       - rpm -q percona-release
 
+  repo_docker:
+    cmds:
+      - sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+    status:
+      - test -f /etc/yum.repos.d/docker-ce.repo
+
   repos:
     # Install all repositories.
-    cmds:
-      - task: repo_rpmfusion
-      - task: repo_fedora_thirdparty
-      - task: repo_percona
-
+    deps: [ repo_rpmfusion, repo_fedora_thirdparty, repo_percona, repo_docker ]
 
 
 
