@@ -34,7 +34,7 @@ vars:
     # Ops
     fabric python-invoke docker awscli 
     par pssh pdsh pdsh-mod-dshgroup
-    mysql gnuplot httpd-tools
+    mysql percona-toolkit gnuplot httpd-tools
     #rubygem-rails      # puppet storedconfigs requirement
     puppet rubygem-puppet-lint rubygem-puppet-lint-doc pass
     #
@@ -150,11 +150,19 @@ tasks:
     status:
       - rpm -q fedora-workstation-repositories
 
+  repo_percona:
+    cmds:
+      - sudo dnf install http://www.percona.com/downloads/percona-release/redhat/0.1-6/percona-release-0.1-6.noarch.rpm
+      - sudo sed -i 's/$releasever/6/g' /etc/yum.repos.d/percona-release.repo
+    status:
+      - rpm -q percona-release
+
   repos:
     # Install all repositories.
     cmds:
       - task: repo_rpmfusion
       - task: repo_fedora_thirdparty
+      - task: repo_percona
 
 
 
