@@ -99,6 +99,8 @@ vars:
     light xautolock i3lock
     feh lximage-qt arandr lxappearance lxqt-powermanagement screengrab
     # plank compton
+  lxqt: |
+    @lxqt
   vagrant: |
     vagrant vagrant-doc vagrant-lxc vagrant-lxc-doc vagrant-libvirt
     vagrant-libvirt-doc vagrant-cachier vagrant-cachier-doc
@@ -158,7 +160,7 @@ tasks:
       - task: dnf_remove
         vars: { pkgs: "{{.rpm_absent}}" }
       - task: dnf
-        vars: { pkgs: "{{.devopstools}} {{.base_distro}} {{.unix_essentials}} {{.workstation}} {{.codecs}} {{.awesomewm}} {{.vagrant}}" }
+        vars: { pkgs: "{{.devopstools}} {{.base_distro}} {{.unix_essentials}} {{.workstation}} {{.codecs}} {{.awesomewm}} {{.lxqt}} {{.vagrant}}" }
       - task: spotify
       - task: chrome
       - task: dropbox
