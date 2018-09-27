@@ -425,22 +425,25 @@ globalkeys = awful.util.table.join(
     --awful.key({ }, "F9", function () awful.util.spawn("toggle-window.sh pidgin_conversation") end),
     --awful.key({ }, "F12", function () awful.util.spawn("toggle-window.sh pidgin_buddy_list") end),
     -- volume control
-    awful.key({}, "XF86AudioRaiseVolume",     function() volumecfg:up() end),
-    awful.key({}, "XF86AudioLowerVolume",     function() volumecfg:down() end),
-    awful.key({}, "XF86AudioMute",            function() volumecfg:toggle() end),
-    awful.key({ modkey            }, "Prior", function() volumecfg:up() end),
-    awful.key({ modkey            }, "Next",  function() volumecfg:down() end),
-    awful.key({ modkey            }, "m",     function() volumecfg:toggle() end),
+    awful.key({}, "XF86AudioRaiseVolume",     function()
+        awful.util.spawn("pactl set-sink-volume 0 +3%") end),
+    awful.key({}, "XF86AudioLowerVolume",     function()
+        awful.util.spawn("pactl set-sink-volume 0 -3%") end),
+    awful.key({}, "XF86AudioMute",            function()
+        awful.util.spawn("pactl set-sink-mute 0 toggle") end),
+    awful.key({ modkey            }, "Prior", function()
+        awful.util.spawn("pactl set-sink-volume 0 +3%") end),
+    awful.key({ modkey            }, "Next",  function()
+        awful.util.spawn("pactl set-sink-volume 0 -3%") end),
+    awful.key({ modkey            }, "m",     function()
+        awful.util.spawn("pactl set-sink-mute 0 toggle") end),
     -- control spotify
     awful.key({}, "XF86AudioPlay",            function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
-    end),
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
     awful.key({}, "XF86AudioNext",            function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
-    end),
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end),
     awful.key({}, "XF86AudioPrev",            function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
-    end),
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end),
     ---- Brightness
     awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 15") end),
     awful.key({}, "XF86MonBrightnessUp",   function () awful.util.spawn("light -A 15") end),
