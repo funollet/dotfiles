@@ -1,6 +1,8 @@
 
 complete -C aws_completer aws       # awscli: autocompletion
 
+export AWS_PROFILE=production
+
 which awless > /dev/null 2>&1 && source <(awless completion bash)
 
 ec2-search-id () {
