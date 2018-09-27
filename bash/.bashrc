@@ -100,6 +100,9 @@ export GPG=gpg2
 # PATH=$PATH:$HOME/.rvm/bin         # Add RVM to PATH for scripting
 unset SSH_ASKPASS
 
+export ONI_NEOVIM_PATH=/usr/bin/nvim
 
+
+for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
 
