@@ -243,6 +243,7 @@ tasks:
     desc: Install not-packaged software.
     deps:
       - awless
+      - caddy
       - diff-so-fancy
       - fonts-powerline
       - fonts-hack
@@ -274,6 +275,17 @@ tasks:
     vars:
       VERSION: 0.1.11
       URL: https://github.com/wallix/awless/releases/download/v{{.VERSION}}/awless-linux-amd64.tar.gz
+
+
+  caddy:
+    #desc: Install caddy
+    dir: /tmp
+    cmds:
+      - curl -s -o caddy.tgz '{{.URL}}'
+      - tar -xzf caddy.tgz caddy
+      - sudo install --mode 0755 caddy /usr/local/bin
+    vars:
+      URL: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
 
 
   diff-so-fancy:
