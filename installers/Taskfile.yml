@@ -19,7 +19,7 @@ vars:
     nodejs-js-yaml rubygem-puppet-lint yamllint
     # Python development.
     python-devel python-crypto python-virtualenv python-virtualenvwrapper
-    python-mock pytest
+    pipenv python-mock pytest
     python3-ipython python3-black
     python-psutil pydot httpie python-py python-docopt
     python-click python-pip python-sh python2-pika
