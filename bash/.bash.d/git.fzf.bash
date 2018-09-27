@@ -1,5 +1,8 @@
 #!/bin/bash
 
+bind '"\er": redraw-current-line'
+bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
+
 gco() {
     # are we in a in git repo?
     git rev-parse HEAD > /dev/null 2>&1 || return
