@@ -19,9 +19,11 @@ vars:
     nodejs-js-yaml rubygem-puppet-lint yamllint
     # Python development.
     python-devel python-crypto python-virtualenv python-virtualenvwrapper
-    python-psutil
-    pydot python3-ipython httpie python3-requests python-py python-mock pytest python-docopt
-    python-click python-pip python-sh
+    python-mock pytest
+    python3-ipython python3-black
+    python-psutil pydot httpie python-py python-docopt
+    python-click python-pip python-sh python2-pika
+    python3-requests python3-pika
     # Ruby development.
     ruby ruby-devel rubygems rubygem-bundler rubygem-rake rubygem-wirb 
     rubygem-pry rubygem-pry-doc rubygem-rspec rubygem-rspec-mocks 
