@@ -431,6 +431,16 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey            }, "Prior", function() volumecfg:up() end),
     awful.key({ modkey            }, "Next",  function() volumecfg:down() end),
     awful.key({ modkey            }, "m",     function() volumecfg:toggle() end),
+    -- control spotify
+    awful.key({}, "XF86AudioPlay",            function()
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause")
+    end),
+    awful.key({}, "XF86AudioNext",            function()
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next")
+    end),
+    awful.key({}, "XF86AudioPrev",            function()
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous")
+    end),
     ---- Brightness
     awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 15") end),
     awful.key({}, "XF86MonBrightnessUp",   function () awful.util.spawn("light -A 15") end),
