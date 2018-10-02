@@ -257,6 +257,15 @@ end)
 
 -- Signal function to execute when a new client appears.
 client.connect_signal("manage", function (c, startup)
+
+    -- ::For LXQT::
+    -- Move the desktop to the bottom so it doesn't get focus on tag switching
+    -- FIXME: Doesn't work perfectly (breaks when awesome is restarted)
+    if c.class == "pcmanfm-qt" and c.type == "desktop" then
+        c:lower()
+        --c:unmanage() -- essentially kill it
+    end
+
     -- Enable sloppy focus
     c:connect_signal("mouse::enter", function(c)
         if awful.layout.get(c.screen) ~= awful.layout.suit.magnifier
@@ -681,6 +690,7 @@ awful.rules.rules = {
       } },
       properties = { floating = true }
     },
+
     { rule = { class = "krunner" },
       properties = { floating = true, sticky = true, size_hints_honor = false, x=800, y=100 }
     },
@@ -721,7 +731,7 @@ awful.rules.rules = {
       }, properties = { floating = true, size_hints_honor = true, maximized_horizontal = false, maximized_vertical = false } 
     }
 }
-----------------------------------------------------------------------
+
 ----------------------------------------------------------------------
 
 
