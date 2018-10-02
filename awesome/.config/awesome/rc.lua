@@ -447,6 +447,13 @@ globalkeys = awful.util.table.join(
     awful.key({ modkey            }, "m",     function()
         awful.util.spawn("pactl set-sink-mute 0 toggle") end),
     -- control spotify
+    awful.key({ modkey            }, "Insert", function()
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
+    awful.key({ modkey            }, "Home",  function()
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end),
+    awful.key({ modkey            }, "End",  function()
+        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end),
+    --
     awful.key({}, "XF86AudioPlay",            function()
         awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
     awful.key({}, "XF86AudioNext",            function()
