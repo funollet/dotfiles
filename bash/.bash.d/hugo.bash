@@ -14,7 +14,7 @@ hugorun () {
 }
 
 hugoedit () {
-    fname=$(cd "${HUGO_BASE}/content/" ; find . -type f \
-        | sed 's|^\./||' | fzf)
+    fname=$(cd "${HUGO_BASE}/content/" ; \
+        fd -t file --exclude '_*.md' | fzf)
     [ -n "${fname}" ] && vim "${HUGO_BASE}/content/${fname}"
 }
