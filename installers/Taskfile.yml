@@ -48,7 +48,7 @@ vars:
     #kernel-headers kernel-devel      # VMware Player requirements
   unix_essentials: |
     ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
-    the_silver_searcher
+    the_silver_searcher fd-find
   workstation: |
     kernel-headers kernel-devel dkms
     # Xwindows
