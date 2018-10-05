@@ -70,7 +70,7 @@ xmodmap -e "add mod4    = Super_R"
 xmodmap -e "keycode any = f"
 
 # Space still works as space, 'f' still works as 'f'.
-xcape -t 800 -e "Hyper_L=space;Super_R=f"
+xcape -t 400 -e "Hyper_L=space;Super_R=f"
 
 
 ## Using f/j as Control keys, too.
