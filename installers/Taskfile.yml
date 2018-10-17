@@ -5,7 +5,7 @@ version: '2'
 vars:
   # List of packages to be installed.
   rpm_absent: |
-     amarok banshee gbrainy   
+     amarok banshee gbrainy awscli
   # Lists of packages to be removed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
@@ -34,7 +34,7 @@ vars:
     pynag pynag-examples
     #
     # Ops
-    fabric python-invoke awscli 
+    fabric python-invoke
     # -- requires repo_docker
     docker-ce 
     par pssh pdsh pdsh-mod-dshgroup
@@ -242,6 +242,7 @@ tasks:
   non-pkg:
     desc: Install not-packaged software.
     deps:
+      - awscli
       - awless
       - caddy
       - diff-so-fancy
@@ -261,6 +262,16 @@ tasks:
       - telegram
       # - terraform
       - vim_vundle
+
+
+  awscli:
+    dir: /tmp
+    cmds:
+      - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+      - unzip awscli-bundle.zip
+      - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+    status:
+      - which aws
 
 
   awless:
