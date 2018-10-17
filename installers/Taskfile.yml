@@ -258,6 +258,7 @@ tasks:
       # - minikube
       - peco
       - pet
+      - pipes
       - sheet
       - telegram
       # - terraform
@@ -482,6 +483,13 @@ tasks:
     vars:
       VERSION: 0.0.2
       URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.zip"
+
+
+  pipes:
+    cmds:
+      - pip3 install pipenv-pipes --user
+    status:
+      - which pipes
 
 
   sheet:
