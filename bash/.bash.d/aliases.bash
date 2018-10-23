@@ -61,9 +61,11 @@ batt () {
 
 runonchange () {
     local cmd=( "$@" )
-    while inotifywait -q -e modify -r . --exclude '\..*\.swp' --exclude '.*\.pyc' 
+    while inotifywait -q -e modify -r . --exclude '(\..*\.swp|.*\.pyc)'
     do
+        echo '# ------------------------------------------------------------'
         "$@"
+        echo '# ------------------------------------------------------------'
     done
 }
 
