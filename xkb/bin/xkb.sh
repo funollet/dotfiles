@@ -63,14 +63,20 @@ xmodmap -e "keycode 65  = Hyper_L"      # keycode <SPC> (65)
 xmodmap -e "add Control = Hyper_L"      # add keysym F20 to Control modifier map
 xmodmap -e "keycode any = space"
 
-# 'f' becomes Super
-xmodmap -e "remove mod4 = Super_R"
-xmodmap -e "keycode 41  = Super_R"      # keycode <f> (41)
-xmodmap -e "add mod4    = Super_R"
-xmodmap -e "keycode any = f"
+# 'v' becomes Super
+xmodmap -e "remove mod4 = Super_L"
+xmodmap -e "keycode 55  = Super_L"      # keycode <v> (55)
+xmodmap -e "add mod4    = Super_L"
+xmodmap -e "keycode any = v"
 
-# Space still works as space, 'f' still works as 'f'.
-xcape -t 400 -e "Hyper_L=space;Super_R=f"
+# 'n' becomes Super
+xmodmap -e "remove mod4 = Super_R"
+xmodmap -e "keycode 57  = Super_R"      # keycode <n> (57)
+xmodmap -e "add mod4    = Super_R"
+xmodmap -e "keycode any = n"
+
+# Space still works as space, 'v' still works as 'v'.
+xcape -t 400 -e "Hyper_L=space;Super_L=v;Super_R=n"
 
 
 ## Using f/j as Control keys, too.
