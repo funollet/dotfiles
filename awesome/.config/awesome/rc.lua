@@ -424,8 +424,8 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
     --          {description = "run prompt", group = "launcher"}),
     awful.key({ modkey            }, "e",     function () awful.util.spawn("pcmanfm-qt") end),
-    awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("i3lock -c 000000") end),
-    --awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
+    --awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("i3lock -c 000000") end),
+    awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     --
     --awful.key({                   }, "F7", function () awful.util.spawn("toggle-window.sh Telegram") end),
     --awful.key({                   }, "F8", function () awful.util.spawn("toggle-window.sh Slack") end),
