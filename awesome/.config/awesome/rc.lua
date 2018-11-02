@@ -377,35 +377,24 @@ end
 ----------------------------------------------------------------------
 ----------------------------------------------------------------------
 
-function toggle_visibility(class_name)
-    -- [TODO] - toggle_visibility fails on empty tags
+function goto_client(class_name)
+    -- Puts a given client into view; call it again, and jumps back
+    -- to the tag we came from.
+
     local is_class = function (c)
        return awful.rules.match(c, {class = class_name})
     end
 
-    --local curidx = awful.tag.getidx()     -- idx of the current tag
-    local tags = awful.tag.gettags(client.focus.screen)
-    for c in awful.client.iterate(is_class) do
-        if c.minimized then
-            client.focus = c
+    for c in awful.client.iterate(is_class) do          -- filter all clients, by class
+        if awful.tag.getidx() == c.first_tag.index then -- already on the client tag?
+            awful.tag.history.restore()                 --     view "previous" tag
+        else                                            -- not on the client tag?
+            awful.tag.viewidx(c.first_tag.index-1)      --     view tag of this client
+            client.focus = c                            --     give it all my attention
             c.minimized = false
-            c.sticky = true
             c:raise()
-            --c.move_to_tag(tags[curidx])    -- move to current tag
-        else
-            c.minimized = true
-            c.sticky = false
-            awful.client.movetotag(tags[#tags], c)     -- move to last tag
         end
     end
---
---    for c in awful.client.iterate(is_class) do
---        c.sticky = not c.sticky
---        if c.sticky then
---            client.focus = c
---            c:raise()
---        end
---    end
 end
 
 
@@ -427,11 +416,8 @@ globalkeys = awful.util.table.join(
     --awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("i3lock -c 000000") end),
     awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     --
-    --awful.key({                   }, "F7", function () awful.util.spawn("toggle-window.sh Telegram") end),
-    --awful.key({                   }, "F8", function () awful.util.spawn("toggle-window.sh Slack") end),
-    --
-    awful.key({                   }, "F7", function () toggle_visibility("Telegram") end),
-    awful.key({                   }, "F8", function () toggle_visibility("Slack") end),
+    awful.key({                   }, "F7", function () goto_client("Telegram") end),
+    awful.key({                   }, "F8", function () goto_client("Slack") end),
     --awful.key({ }, "F9", function () awful.util.spawn("toggle-window.sh pidgin_conversation") end),
     --awful.key({ }, "F12", function () awful.util.spawn("toggle-window.sh pidgin_buddy_list") end),
     -- volume control
@@ -704,7 +690,7 @@ awful.rules.rules = {
     },
     { rule = { class = "Slack" },
       properties = {
-          tag = "5",
+          tag = "4",
           --hidden = true, skip_taskbar = true, sticky = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
@@ -714,7 +700,7 @@ awful.rules.rules = {
     },
     { rule = { class = "Telegram" },
       properties = {
-          tag = "5",
+          tag = "4",
           --hidden = true, skip_taskbar = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
