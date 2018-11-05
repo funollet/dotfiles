@@ -20,7 +20,7 @@ vars:
     # Python development.
     python-devel python-crypto python-virtualenv python-virtualenvwrapper
     pipenv python-mock pytest
-    python3-ipython python3-black
+    python3-ipython python3-black python3-pytest
     python-psutil pydot httpie python-py python-docopt
     python-click python-pip python-sh python2-pika
     python3-requests python3-pika
