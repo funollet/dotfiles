@@ -487,8 +487,8 @@ globalkeys = awful.util.table.join(
 
     awful.key({ modkey, "Control" }, "k", function () awful.client.swap.byidx( -1)    end),
 
-    awful.key({ modkey, "Shift"   }, "i",     function () awful.tag.incmwfact( 0.05)    end),
-    awful.key({ modkey,           }, "i",     function () awful.tag.incmwfact(-0.05)    end,
+    awful.key({ modkey,           }, "Up",    function () awful.tag.incmwfact( 0.05)    end),
+    awful.key({ modkey,           }, "Down",  function () awful.tag.incmwfact(-0.05)    end,
               {description = "decrease master width (Shift reverses)", group = "awesome - layout"}),
 
     --awful.key({ Alt_L,            }, "Tab", function () awful.screen.focus_relative( 0) end),
