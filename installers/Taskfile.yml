@@ -256,7 +256,6 @@ tasks:
       # - kops
       # - kubectl
       # - minikube
-      - peco
       - pet
       - pipes
       - sheet
@@ -458,31 +457,19 @@ tasks:
       VERSION: 0.25.0
       URL: https://storage.googleapis.com/minikube/releases/v{{.VERSION}}/minikube-linux-amd64
 
-  peco:
-    #desc: Install peco. https://github.com/peco/peco/
-    dir: /usr/local/bin
-    cmds:
-      - wget -P /tmp -nv -c {{.URL}}
-      - sudo tar --strip 1 -xzf /tmp/peco_linux_amd64.tar.gz peco_linux_amd64/peco
-      - sudo chown root:root peco
-    status:
-      - test -f /usr/local/bin/peco
-    vars:
-      VERSION: 0.5.0
-      URL: https://github.com/peco/peco/releases/download/v{{.VERSION}}/peco_linux_amd64.tar.gz
-
 
   pet:
-    #desc: "Install pet. Required by: peco. https://github.com/knqyf263/pet"
-    dir: /usr/local/bin
+    #desc: "Install pet. https://github.com/knqyf263/pet"
+    dir: /tmp
     cmds:
-      - wget -nv -c "{{.URL}}" -O /tmp/pet.zip
-      - sudo unzip /tmp/pet.zip
+      - wget -nv -c "{{.URL}}" -O pet.tar.gz
+      - tar -xzf pet.tar.gz
+      - sudo install -m 0755 pet /usr/local/bin
     status:
       - test -f /usr/local/bin/pet
     vars:
-      VERSION: 0.0.2
-      URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.zip"
+      VERSION: 0.3.2
+      URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.tar.gz"
 
 
   pipes:
