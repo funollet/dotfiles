@@ -1,0 +1,59 @@
+#!/bin/sh
+# .lessfilter
+#
+# Jordi Funollet <jordi.f@ati.es>  Mon, 01 Jun 2009 16:21:25 +0200
+# - New version with Pygments ; source:
+#   http://pyside.blogspot.com/2008/03/using-pygments-with-less.html
+#
+# Jordi Funollet <jordi.f@ati.es>  Wed, 06 Feb 2008 22:05:11 +0100
+# - Initial release.
+
+case "$1" in
+    # add all extensions you want to handle here
+    *.awk|*.groff|*.java|*.js|*.m4|*.php|*.pl|*.pm|*.pod|*.sh|\
+        *.ad[asb]|*.asm|*.inc|*.[ch]|*.[ch]pp|*.[ch]xx|*.cc|*.hh|\
+	*.lsp|*.l|*.md|*.pas|*.p|*.xml|*.xps|*.xsl|*.axp|*.ppd|*.pov|\
+	*.diff|*.patch|*.py|*.rb|*.sql|*.ebuild|*.eclass)
+	    pygmentize "$1"; 
+	    exit 0;;
+esac
+
+# Compressed files must be uncompressed by lesspipe.
+case "$1" in
+    *.arj|*.tar.bz2|*.bz|*.bz2|*.deb|*.udeb|*.doc|*.gif|*.jpeg|*.jpg|*.pcd|\
+    *.png|*.tga|*.tiff|*.tif|*.iso|*.bin|*.raw|*.lha|*.lzh|*.tar.lzma|*.lzma\
+    |*.pdf|*.rar|*.r[0-9][0-9]|*.rpm|*.tar.gz|*.tgz|*.tar.z|*.tar.dz|*.gz|*.z\
+    |*.dz|*.tar|*.jar|*.war|*.ear|*.xpi|*.zip|*.7z|*.zoo|*csh)
+        exit 1 ;;
+esac
+
+case `file --mime-type --brief --dereference --uncompress "$1"` in
+    # add all MIME types you want to handle here
+    text/troff) lexer=nroff;;
+    text/html) lexer=html;;
+    application/xml|image/svg+xml) lexer=xml;;
+    text/x-c) lexer=c;;
+    text/x-c++) lexer=cpp;;
+    text/x-makefile) lexer=make;;
+    text/x-pascal) lexer=pascal;;
+    text/x-java) lexer=java;;
+    text/x-po) lexer=po;;
+    text/x-lua) lexer=lua;;
+    text/x-python) lexer=python;;
+    text/x-perl) lexer=perl;;
+    text/x-shellscript) lexer=sh;;
+    text/x-msdos-batch) lexer=bat;;
+    text/x-diff) lexer=diff;;
+    text/x-tex) lexer=latex;;
+    # Types that pygmentize didn't support at time of writing
+    #text/x-gawk, text/x-nawk, text/x-awk, text/x-asm, text/x-bcpl,
+    #text/x-m4, text/x-pl1
+esac
+
+if [ -n "$lexer" ]; then
+    pygmentize -l $lexer "$1"
+    exit 0
+fi
+
+exit 1
+
