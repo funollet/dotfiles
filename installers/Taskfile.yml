@@ -58,7 +58,7 @@ vars:
     pandoc unison240 moreutils xclip aspell aspell-ca aspell-en
     hunspell hunspell-ca hunspell-en-US tmux java-1.8.0-openjdk
     icedtea-web inotify-tools tiptop
-    ranger w3m w3m-img vpnc timew
+    ranger w3m w3m-img vpnc timew imapfilter
     # GUI apps.
     pidgin pidgin-libnotify pidgin-guifications
     python2-pygpgme keepassx
