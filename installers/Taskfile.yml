@@ -258,6 +258,7 @@ tasks:
       # - minikube
       - pet
       - pipes
+      - powerline-go
       - sheet
       - telegram
       # - terraform
@@ -479,6 +480,20 @@ tasks:
       - which pipes
 
 
+  powerline-go:
+    #desc: Install powerline-go. https://github.com/justjanne/powerline-go
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}} -O {{.NAME}}
+      - sudo install -m 0755 {{.NAME}} /usr/local/bin
+    status:
+      - test -f /usr/local/bin/{{.NAME}}
+    vars:
+      NAME: powerline-go
+      VERSION: 1.11.0
+      URL: https://github.com/justjanne/powerline-go/releases/download/v{{.VERSION}}/powerline-go-linux-amd64
+
+
   sheet:
     #desc: Install 'sheet' at ~/.gem/
     cmds:
@@ -549,8 +564,6 @@ tasks:
       NAME: kubetest
       VERSION: 0.1.1
       URL: https://github.com/garethr/{{.NAME}}/releases/download/{{.VERSION}}/{{.NAME}}-linux-amd64.tar.gz
-
-
 
 
 
