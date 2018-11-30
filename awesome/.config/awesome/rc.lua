@@ -389,7 +389,7 @@ function goto_client(class_name)
         if awful.tag.getidx() == c.first_tag.index then -- already on the client tag?
             awful.tag.history.restore()                 --     view "previous" tag
         else                                            -- not on the client tag?
-            awful.tag.viewidx(c.first_tag.index-1)      --     view tag of this client
+            c:jump_to()                                 --     view tag of this client
             client.focus = c                            --     give it all my attention
             c.minimized = false
             c:raise()
@@ -690,7 +690,7 @@ awful.rules.rules = {
     },
     { rule = { class = "Slack" },
       properties = {
-          tag = "4",
+          tag = "5",
           --hidden = true, skip_taskbar = true, sticky = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
@@ -700,7 +700,7 @@ awful.rules.rules = {
     },
     { rule = { class = "Telegram" },
       properties = {
-          tag = "4",
+          tag = "5",
           --hidden = true, skip_taskbar = true,
           floating = true, maximized = false, sticky = false,
           --size_hints_honor = false,
