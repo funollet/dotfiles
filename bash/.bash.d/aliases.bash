@@ -86,3 +86,4 @@ git-pull-dirs() {
 }
 
 alias cal='cal -m'
+alias xclip='xclip -selection clipboard'
