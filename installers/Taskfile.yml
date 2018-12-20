@@ -248,6 +248,7 @@ tasks:
     desc: Install not-packaged software.
     deps:
       - awscli
+      - aws-sam-cli
       - awless
       - caddy
       - diff-so-fancy
@@ -278,6 +279,13 @@ tasks:
       - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     status:
       - which aws
+
+
+  aws-sam-cli:
+    cmds:
+      - pip3 install --user --upgrade aws-sam-cli
+    status:
+      - which sam
 
 
   awless:
@@ -483,7 +491,6 @@ tasks:
       - pip3 install pipenv-pipes --user
     status:
       - which pipes
-
 
   powerline-go:
     #desc: Install powerline-go. https://github.com/justjanne/powerline-go
