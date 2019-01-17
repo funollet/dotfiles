@@ -251,6 +251,7 @@ tasks:
       - aws-sam-cli
       - awless
       - caddy
+      - cfn-lint
       - diff-so-fancy
       - fonts-powerline
       - fonts-hack
@@ -279,7 +280,6 @@ tasks:
       - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     status:
       - which aws
-
 
   aws-sam-cli:
     cmds:
@@ -311,6 +311,13 @@ tasks:
       - sudo install --mode 0755 caddy /usr/local/bin
     vars:
       URL: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
+
+
+  cfn-lint:
+    cmds:
+      - pip3 install --user --upgrade cfn-lint
+    status:
+      - which cfn-lint
 
 
   diff-so-fancy:
