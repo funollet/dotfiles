@@ -250,7 +250,6 @@ tasks:
     desc: Install not-packaged software.
     deps:
       - awscli
-      - aws-google-auth
       - aws-sam-cli
       - awless
       - caddy
@@ -268,7 +267,6 @@ tasks:
       # - minikube
       - pet
       - pipes
-      - pipsi_installer
       - powerline-go
       - sheet
       - telegram
@@ -284,12 +282,6 @@ tasks:
       - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
     status:
       - which aws
-
-  aws-google-auth:
-    cmds:
-      - pipsi  install "aws-google-auth[u2f]"
-    status:
-      - pipsi list | grep aws-google-auth
 
   aws-sam-cli:
     cmds:
@@ -508,13 +500,6 @@ tasks:
       - pip3 install pipenv-pipes --user
     status:
       - which pipes
-    
-  pipsi_installer:
-    # Requires: libusb-devel systemd-devel (for libudev-devel)
-    cmds:
-      - curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
-    status:
-      - which pipsi
 
   powerline-go:
     #desc: Install powerline-go. https://github.com/justjanne/powerline-go
@@ -600,6 +585,33 @@ tasks:
       NAME: kubetest
       VERSION: 0.1.1
       URL: https://github.com/garethr/{{.NAME}}/releases/download/{{.VERSION}}/{{.NAME}}-linux-amd64.tar.gz
+
+
+
+
+
+
+  ################################################## 
+  #
+
+  pipsi:
+    desc: Install python utilities with pipsi.
+    deps:
+      - pipsi_installer
+      - aws-google-auth
+
+  pipsi_installer:
+    # Requires: libusb-devel systemd-devel (for libudev-devel)
+    cmds:
+      - curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
+    status:
+      - which pipsi
+
+  aws-google-auth:
+    cmds:
+      - pipsi  install "aws-google-auth[u2f]"
+    status:
+      - pipsi list | grep aws-google-auth
 
 
 
