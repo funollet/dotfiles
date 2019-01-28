@@ -47,6 +47,8 @@ vars:
     #libvirt-bin
     virt-manager
     #kernel-headers kernel-devel      # VMware Player requirements
+    # dependencies for pipsi
+    libusb-devel systemd-devel
   unix_essentials: |
     ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
     the_silver_searcher fd-find
@@ -131,7 +133,7 @@ tasks:
       - sudo dnf install -y {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
   dnf_remove:
     cmds:
-      - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
+      - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }} || true
 
 
 
@@ -248,6 +250,7 @@ tasks:
     desc: Install not-packaged software.
     deps:
       - awscli
+      - aws-google-auth
       - aws-sam-cli
       - awless
       - caddy
@@ -265,6 +268,7 @@ tasks:
       # - minikube
       - pet
       - pipes
+      - pipsi_installer
       - powerline-go
       - sheet
       - telegram
@@ -281,12 +285,17 @@ tasks:
     status:
       - which aws
 
+  aws-google-auth:
+    cmds:
+      - pipsi  install "aws-google-auth[u2f]"
+    status:
+      - pipsi list | grep aws-google-auth
+
   aws-sam-cli:
     cmds:
       - pip3 install --user --upgrade aws-sam-cli
     status:
       - which sam
-
 
   awless:
     #desc: Install awless.
@@ -301,7 +310,6 @@ tasks:
       VERSION: 0.1.11
       URL: https://github.com/wallix/awless/releases/download/v{{.VERSION}}/awless-linux-amd64.tar.gz
 
-
   caddy:
     #desc: Install caddy
     dir: /tmp
@@ -309,6 +317,8 @@ tasks:
       - curl -s -o caddy.tgz '{{.URL}}'
       - tar -xzf caddy.tgz caddy
       - sudo install --mode 0755 caddy /usr/local/bin
+    status:
+      - which caddy
     vars:
       URL: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
 
@@ -498,6 +508,13 @@ tasks:
       - pip3 install pipenv-pipes --user
     status:
       - which pipes
+    
+  pipsi_installer:
+    # Requires: libusb-devel systemd-devel (for libudev-devel)
+    cmds:
+      - curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
+    status:
+      - which pipsi
 
   powerline-go:
     #desc: Install powerline-go. https://github.com/justjanne/powerline-go
