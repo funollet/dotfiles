@@ -599,6 +599,7 @@ tasks:
     deps:
       - pipsi_installer
       - aws-google-auth
+      - pew
 
   pipsi_installer:
     # Requires: libusb-devel systemd-devel (for libudev-devel)
@@ -612,6 +613,12 @@ tasks:
       - pipsi  install "aws-google-auth[u2f]"
     status:
       - pipsi list | grep aws-google-auth
+
+  pew:
+    cmds:
+      - pipsi install pew
+    status:
+      - pipsi list | grep ' pew$'
 
 
 
