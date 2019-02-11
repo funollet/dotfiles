@@ -30,14 +30,14 @@ editor = os.getenv("EDITOR") or "vim"
 editor_cmd = terminal .. " -e " .. editor
 max_tag = 5
 
--- An external mouse has been detected. This enables/disables custom
+local mouse_external = false
+-- True if an external mouse has been detected. This enables/disables custom
 -- actions for a specific device.
-local mouse_external = true
--- [TODO] - mouse_external should be a function that detects devices
---awful.spawn.easy_async_with_shell('xinput --list --name-only | grep -iq "elecom trackball"',
---    function(stdout, stderr, reason, exit_code)
---        naughty.notify { text = stdout }
---end)
+mouse_names = io.popen('xinput --list --name-only'):read("*all")
+if string.match(mouse_names, 'ELECOM TrackBall') then
+    mouse_external = true
+end
+
 
 -- Default modkey.
 -- Usually, Mod4 is the key with a logo between Control and Alt.
