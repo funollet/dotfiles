@@ -42,7 +42,7 @@ alias fuck='eval $(thefuck $(fc -ln -1))'
 
 alias greperb='ag -G erb$'
 
-alias me='fab -f ~/bin/me.py'
+alias me='invoke3 -r ~/bin -c me'
 jless () { jq -C '.' | less ; }
 
 
