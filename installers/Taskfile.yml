@@ -6,7 +6,7 @@ vars:
   # List of packages to be installed.
   rpm_absent: |
      amarok banshee gbrainy awscli
-     python2-pytest
+     python2-pytest python2-fabric python2-invoke
   # Lists of packages to be removed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
@@ -35,7 +35,7 @@ vars:
     pynag pynag-examples
     #
     # Ops
-    fabric python-invoke
+    python3-fabric
     # -- requires repo_docker
     docker-ce 
     par pssh pdsh pdsh-mod-dshgroup
