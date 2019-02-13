@@ -12,7 +12,6 @@ local naughty = require("naughty")
 local wibox = require("wibox")
 -- widgets
 local menubar = require("menubar")
-local volume_control = require("volume-control")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -142,7 +141,6 @@ menubar.utils.terminal = terminal -- Set the terminal for applications that requ
 -- {{{ Wibar
 -- Create a textclock widget
 --mytextclock = wibox.widget.textclock()
-volumecfg = volume_control({})
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -245,7 +243,6 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
             --mytextclock,
-            volumecfg.widget,
         },
     }
 end)
@@ -423,17 +420,17 @@ globalkeys = awful.util.table.join(
     --awful.key({ }, "F12", function () awful.util.spawn("toggle-window.sh pidgin_buddy_list") end),
     -- volume control
     awful.key({}, "XF86AudioRaiseVolume",     function()
-        awful.util.spawn("pactl set-sink-volume 0 +3%") end),
+        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
     awful.key({}, "XF86AudioLowerVolume",     function()
-        awful.util.spawn("pactl set-sink-volume 0 -3%") end),
+        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
     awful.key({}, "XF86AudioMute",            function()
-        awful.util.spawn("pactl set-sink-mute 0 toggle") end),
+        awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
     awful.key({ modkey            }, "Prior", function()
-        awful.util.spawn("pactl set-sink-volume 0 +3%") end),
+        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
     awful.key({ modkey            }, "Next",  function()
-        awful.util.spawn("pactl set-sink-volume 0 -3%") end),
+        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
     awful.key({ modkey            }, "m",     function()
-        awful.util.spawn("pactl set-sink-mute 0 toggle") end),
+        awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
     -- control spotify
     awful.key({ modkey            }, "Insert", function()
         awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
