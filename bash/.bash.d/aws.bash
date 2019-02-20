@@ -19,22 +19,44 @@ which awless > /dev/null 2>&1 && source <(awless completion bash)
 ## }
 
 ec2-by-tag () {
-    local env
-    local role
+    local env role prefix addr
 
     case $1 in
-        Prod) env=prod ;;
-        Beta) env=beta ;;
-        *) env=$1
+        Prod)   env=prod ;;
+        Beta)   env=beta ;;
+        *)      env=$1
     esac
     case $2 in
-        Fluent|fluentd|fluent) role=Fluentd ;;
-        *) role=$2
+        Fluent|fluentd|fluent)  role=Fluentd ;;
+        *)                      role=$2
     esac
+    case ${role} in
+        Fluentd)    prefix='ubuntu@' ;;
+        *)          prefix='' ;;
+    esac
+
+    ec2query () {
+        aws ec2 describe-instances --no-paginate --output json \
+            --filters "Name=tag:Env,Values=${env}" "Name=tag:Role,Values=${role}" \
+                      "Name=instance-state-name,Values=running" \
+            --query "Reservations[].Instances"
+    }
     
-    aws ec2 describe-instances --no-paginate \
-        --filters "Name=tag:Env,Values=${env}" "Name=tag:Role,Values=${role}" \
-                  "Name=instance-state-name,Values=running" \
-        --query "Reservations[].Instances" \
-    | jq '.[][] | .Tags[] + { "Ip": .PrivateIpAddress } | select(.Key=="Name") | del(.Key)'
+    jq_filter () {
+        cat <<.
+            .[][] |
+            # enrich all tags with user@IP
+            .Tags[] + { "Ip": ["${prefix}", .PrivateIpAddress]|join("") } |
+            # keep only tags with Key="Name"
+            select(.Key=="Name") |
+            [ .Value, .Ip ] | @tsv
+.
+    }
+
+    addr=$(ec2query | jq -r -f <(jq_filter) | fzf -n1 | awk '{print $2}' )
+    ssh "${addr}"
+
+    # Remove the local functions from global env.
+    unset -f jq_filter
+    unset -f ec2query
 }
