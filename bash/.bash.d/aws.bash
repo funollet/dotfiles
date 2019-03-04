@@ -18,6 +18,17 @@ which awless > /dev/null 2>&1 && source <(awless completion bash)
 ##             --output text
 ## }
 
+
+ec2roles () {
+    # shows all EC2 tags "Role"
+    aws ec2 describe-instances --no-paginate --output json \
+        --query "Reservations[].Instances" \
+        --filters "Name=tag:Env,Values=prod" "Name=instance-state-name,Values=running" \
+    | jq -r '.[][].Tags[] | select(.Key=="Role") | .Value' \
+    | sort | uniq | fzf
+}
+
+
 ec2-by-tag () {
     local env role prefix addr
 
@@ -54,6 +65,7 @@ ec2-by-tag () {
     }
 
     addr=$(ec2query | jq -r -f <(jq_filter) | fzf -n1 | awk '{print $2}' )
+    echo "${addr}"
     ssh "${addr}"
 
     # Remove the local functions from global env.
