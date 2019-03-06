@@ -590,6 +590,40 @@ tasks:
     status:
       - which pipsi
 
+  pipx-packages:
+    deps: [ pipx ]
+    cmds:
+      # - task: aws-google-auth
+      - task: pipx
+        vars: { pkg: "aws-sam-cli" }
+      # - task: pipx
+      #   vars: { pkg: cfn-lint }
+      # - task: pipx
+      #   vars: { pkg: pew }
+      # - task: pipx
+      #   vars: { pkg: pipenv-pipes }
+
+  aws-google-auth:
+    deps: [ pipx-binary ]
+    cmds:
+      - pipx install aws-google-auth --spec "aws-google-auth[u2f]"
+    status:
+      - pipx list | grep -q aws-google-auth
+
+  pipx:
+    deps: [ pipx-binary ]
+    cmds: 
+      - echo {{.pkg}}
+      - pipx install {{ .pkg }}
+    status:
+      - pipx list | grep -q {{ .pkg }}
+
+  pipx-binary:
+    cmds:
+      - pip3 install --user pipx
+    status:
+      - which pipx
+
 
 
 
@@ -604,7 +638,7 @@ tasks:
       - VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
       - sudo usermod -aG docker $(whoami)
 
-  config_firefox:
+  config-firefox:
     desc: Minor Firefox tweaks.
     cmds:
       - test -f ~/.gtkrc-2.0 || touch ~/.gtkrc-2.0
