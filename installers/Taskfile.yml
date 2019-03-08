@@ -105,7 +105,7 @@ vars:
     # hardware video acceleration
     vdpauinfo libva-vdpau-driver libva-utils
   kde: |
-    xdg-desktop-portal-kde
+    xdg-desktop-portal-kde plasma-browser-integration
   awesomewm: |
     awesome awesome-doc vicious scrot network-manager-applet
     light xautolock i3lock
