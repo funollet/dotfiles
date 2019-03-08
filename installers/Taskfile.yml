@@ -46,8 +46,7 @@ vars:
     # libvirt-bin service must not be run: installs and launches dnsmasq configures virt0 interface.
     #libvirt-bin
     virt-manager
-    #kernel-headers kernel-devel      # VMware Player requirements
-    # dependencies for pipsi
+    # dependencies for building aws-google-auth
     libusb-devel systemd-devel
   unix_essentials: |
     ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
@@ -271,16 +270,16 @@ tasks:
       - telegram
       # - terraform
       - vim_vundle
-
-
-  awscli:
-    dir: /tmp
-    cmds:
-      - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-      - unzip awscli-bundle.zip
-      - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-    status:
-      - which aws
+# 
+# 
+#   awscli:
+#     dir: /tmp
+#     cmds:
+#       - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
+#       - unzip awscli-bundle.zip
+#       - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
+#     status:
+#       - which aws
 
   awless:
     #desc: Install awless.
@@ -573,52 +572,11 @@ tasks:
 
   ################################################## 
   #
-
-  pipsi:
-    desc: Install python utilities with pipsi.
-    deps:
-      - pipsi_installer
-    cmds:
-      - pipsi install aws-google-auth || true
-      - pipsi install aws-sam-cli || true
-      - pipsi install cfn-lint || true
-      - pipsi install pew || true
-      - pipsi install pipenv-pipes || true
-
-  pipsi_installer:
-    # Requires: libusb-devel systemd-devel (for libudev-devel)
-    cmds:
-      - curl https://raw.githubusercontent.com/mitsuhiko/pipsi/master/get-pipsi.py | python3
-    status:
-      - which pipsi
-
-  pipx-packages:
-    deps: [ pipx ]
-    cmds:
-      # - task: aws-google-auth
-      - task: pipx
-        vars: { pkg: "aws-sam-cli" }
-      # - task: pipx
-      #   vars: { pkg: cfn-lint }
-      # - task: pipx
-      #   vars: { pkg: pew }
-      # - task: pipx
-      #   vars: { pkg: pipenv-pipes }
-
-  aws-google-auth:
-    deps: [ pipx-binary ]
-    cmds:
-      - pipx install aws-google-auth --spec "aws-google-auth[u2f]"
-    status:
-      - pipx list | grep -q aws-google-auth
-
   pipx:
-    deps: [ pipx-binary ]
-    cmds: 
-      - echo {{.pkg}}
-      - pipx install {{ .pkg }}
-    status:
-      - pipx list | grep -q {{ .pkg }}
+    desc: "Use pipx to install python packages on venvs"
+    cmds:
+      - task: pipx-binary
+      - task: pipx-packages
 
   pipx-binary:
     cmds:
@@ -626,6 +584,25 @@ tasks:
     status:
       - which pipx
 
+  pipx-packages:
+    deps:
+      - task: pipx-install
+        vars:
+          pkg: "aws-google-auth"
+          args: "--spec 'aws-google-auth[u2f]'"
+        # build dependencies: libusb-devel systemd-devel
+      - { task: pipx-install, vars: { pkg: "awscli" } }
+      - { task: pipx-install, vars: { pkg: "cfn-lint" } }
+      - { task: pipx-install, vars: { pkg: "pew" } }
+      - { task: pipx-install, vars: { pkg: "pipenv-pipes" } }
+      # - { task: pipx-install, vars: { pkg: "aws-sam-cli" } }
+
+  pipx-install:
+    # Helper to install packages using pipx
+    cmds: 
+      - pipx install {{ .pkg }} {{ .args|default "" }}
+    status:
+      - pipx list | grep -q {{ .pkg }}
 
 
 
