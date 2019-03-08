@@ -105,6 +105,8 @@ vars:
     kernel-devel
     # hardware video acceleration
     vdpauinfo libva-vdpau-driver libva-utils
+  kde: |
+    xdg-desktop-portal-kde
   awesomewm: |
     awesome awesome-doc vicious scrot network-manager-applet
     light xautolock i3lock
@@ -191,7 +193,7 @@ tasks:
       - task: dnf_remove
         vars: { pkgs: "{{.rpm_absent}}" }
       - task: dnf
-        vars: { pkgs: "{{.devopstools}} {{.base_distro}} {{.unix_essentials}} {{.workstation}} {{.codecs}} {{.awesomewm}} {{.lxqt}} {{.vagrant}}" }
+        vars: { pkgs: "{{.devopstools}} {{.base_distro}} {{.unix_essentials}} {{.workstation}} {{.codecs}} {{.kde}} {{.awesomewm}} {{.lxqt}} {{.vagrant}}" }
       - task: spotify
       - task: chrome
       - task: dropbox
@@ -645,3 +647,13 @@ tasks:
       - sed -i 's/# *gtk-key-theme-name =/gtk-key-theme-name =/' ~/.gtkrc-2.0
       - grep -q 'gtk-key-theme-name =' ~/.gtkrc-2.0 
         || echo 'gtk-key-theme-name = "Emacs"' >> ~/.gtkrc-2.0
+        # Firefox uses kde file manager: requires xdg-desktop-portal-kde
+        # Set the app launcher command to: GTK_USE_PORTAL=1 firefox %u
+
+  config-kde:
+    desc: KDE tweaks.
+    cmds:
+        # https://userbase.kde.org/Plasma/Tips
+        # 'Meta' opens krunner
+      - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/krunner,org.kde.kglobalaccel.Component,invokeShortcut,run command"
+      - qdbus org.kde.KWin /KWin reconfigure
