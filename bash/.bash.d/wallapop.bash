@@ -18,3 +18,5 @@ alias wallapop-aws-credentials="aws-google-auth \
     --sp-id \${WPOP_GOOGLE_SP_ID} \
     --region eu-west-1 \
     --profile production"
+
+alias cfn-lint="cfn-lint -a ~/code/wallapop/platform/docker-base-images/cfn-lint/custom_rules/"

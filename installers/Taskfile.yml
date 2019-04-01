@@ -20,7 +20,7 @@ vars:
     nodejs-js-yaml rubygem-puppet-lint yamllint
     # Python development.
     python-devel python-crypto python-virtualenv python-virtualenvwrapper
-    pipenv python-mock 
+    python-mock 
     python3-ipython python3-black python3-pytest python3-flake8 python3-jedi
     python-psutil pydot httpie python-py python-docopt
     python-click python-pip python-sh python2-pika
@@ -250,7 +250,6 @@ tasks:
   non-pkg:
     desc: Install not-packaged software.
     deps:
-      - awscli
       - awless
       - caddy
       - diff-so-fancy
@@ -270,16 +269,6 @@ tasks:
       - telegram
       # - terraform
       - vim_vundle
-# 
-# 
-#   awscli:
-#     dir: /tmp
-#     cmds:
-#       - curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
-#       - unzip awscli-bundle.zip
-#       - sudo /usr/bin/python3 awscli-bundle/install -i /usr/local/aws -b /usr/local/bin/aws
-#     status:
-#       - which aws
 
   awless:
     #desc: Install awless.
@@ -594,6 +583,7 @@ tasks:
       - { task: pipx-install, vars: { pkg: "awscli" } }
       - { task: pipx-install, vars: { pkg: "cfn-lint" } }
       - { task: pipx-install, vars: { pkg: "pew" } }
+      - { task: pipx-install, vars: { pkg: "pipenv" } }
       - { task: pipx-install, vars: { pkg: "pipenv-pipes" } }
       # - { task: pipx-install, vars: { pkg: "aws-sam-cli" } }
 
@@ -627,10 +617,10 @@ tasks:
         # Firefox uses kde file manager: requires xdg-desktop-portal-kde
         # Set the app launcher command to: GTK_USE_PORTAL=1 firefox %u
 
-  config-kde:
-    desc: KDE tweaks.
-    cmds:
-        # https://userbase.kde.org/Plasma/Tips
-        # 'Meta' opens krunner
-      - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/krunner,org.kde.kglobalaccel.Component,invokeShortcut,run command"
-      - qdbus org.kde.KWin /KWin reconfigure
+  # config-kde:
+  #   desc: KDE tweaks.
+  #   cmds:
+  #       # https://userbase.kde.org/Plasma/Tips
+  #       # 'Meta' opens krunner
+  #     - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/krunner,org.kde.kglobalaccel.Component,invokeShortcut,run command"
+  #     - qdbus org.kde.KWin /KWin reconfigure
