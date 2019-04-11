@@ -617,10 +617,14 @@ tasks:
         # Firefox uses kde file manager: requires xdg-desktop-portal-kde
         # Set the app launcher command to: GTK_USE_PORTAL=1 firefox %u
 
-  # config-kde:
-  #   desc: KDE tweaks.
-  #   cmds:
-  #       # https://userbase.kde.org/Plasma/Tips
-  #       # 'Meta' opens krunner
-  #     - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/krunner,org.kde.kglobalaccel.Component,invokeShortcut,run command"
-  #     - qdbus org.kde.KWin /KWin reconfigure
+  config-kde:
+    desc: KDE tweaks.
+    cmds:
+        # https://userbase.kde.org/Plasma/Tips
+        # 'Meta' opens krunner
+      # - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/krunner,org.kde.kglobalaccel.Component,invokeShortcut,run command"
+      # - qdbus org.kde.KWin /KWin reconfigure
+        #
+        # 'Meta' does nothing by itself
+      - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
+      - qdbus org.kde.KWin /KWin reconfigure
