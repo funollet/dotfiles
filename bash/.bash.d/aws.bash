@@ -19,9 +19,20 @@ which awless > /dev/null 2>&1 && source <(awless completion bash)
 ## }
 
 ec2whois () {
-    # $1: Private IP of the instance
-    aws ec2 describe-instances --output json \
-        --filters "Name=network-interface.addresses.private-ip-address,Values=$1" \
-        --query 'Reservations[].Instances[]' \
-    | jq --sort-keys '.[] | (.Tags | from_entries) + {"InstanceId": .InstanceId} '
+  # $1: Private IP of the instance or instance_id
+  id=$1
+
+  if [ "${id::2}" = 'i-' ] ; then
+    filter_name="instance-id"
+  else
+    filter_name="network-interface.addresses.private-ip-address"
+  fi
+  aws ec2 describe-instances --output json \
+      --filters "Name=${filter_name},Values=${id}" \
+      --query 'Reservations[].Instances[]' \
+  | jq --sort-keys '.[] | (.Tags | from_entries) + {"InstanceId": .InstanceId} '
+}
+
+ec2bytag () {
+    aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2"
 }

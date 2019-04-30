@@ -20,3 +20,9 @@ alias wallapop-aws-credentials="aws-google-auth \
     --profile production"
 
 alias cfn-lint="cfn-lint -a ~/code/wallapop/platform/docker-base-images/cfn-lint/custom_rules/"
+
+ec2listenvs () {
+    aws ec2 describe-instances --output json --filters "Name=tag-key,Values=Env" \
+        | jq '.Reservations[].Instances[].Tags[] | select(.Key=="Env")' \
+        | grep Value | sort | uniq
+}
