@@ -253,6 +253,7 @@ tasks:
       - awless
       - caddy
       - diff-so-fancy
+      - fasd
       - fonts-powerline
       - fonts-hack
       - fpm
@@ -318,6 +319,14 @@ tasks:
       - test -f /usr/local/bin/docker-machine-driver-kvm2
     vars:
       URL: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
+
+  fasd:
+    dir: /tmp
+    cmds:
+      - curl -sO https://raw.githubusercontent.com/clvv/fasd/master/fasd
+      - sudo install -m 755 fasd /usr/local/bin
+    status:
+      - test -f /usr/local/bin/fasd 
 
 
   fonts-powerline:
