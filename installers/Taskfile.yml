@@ -257,6 +257,7 @@ tasks:
       - fonts-powerline
       - fonts-hack
       - fpm
+      - fx
       - gron
       # - helm
       - hugo
@@ -363,6 +364,19 @@ tasks:
       # Fetching: clamp-0.6.3.gem (100%)
       # Fetching: ffi-1.9.3.gem (100%)
 
+  fx:
+    #desc: Install fx
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}}
+      - unzip /tmp/fx-linux.zip
+      - sudo install fx-linux /usr/local/bin/fx
+    status:
+      - test -f /usr/local/bin/fx
+    vars:
+      VERSION: 14.0.1
+      URL: https://github.com/antonmedv/fx/releases/download/{{.VERSION}}/fx-linux.zip
+
   gron:
     #desc: Install gron
     dir: /tmp
@@ -373,7 +387,7 @@ tasks:
     status:
       - test -f /usr/local/bin/gron
     vars:
-      VERSION: 0.5.2
+      VERSION: 0.6.0
       URL: https://github.com/tomnomnom/gron/releases/download/v{{.VERSION}}/gron-linux-amd64-{{.VERSION}}.tgz
 
   helm:
