@@ -58,6 +58,7 @@ export GPG=gpg2
 unset SSH_ASKPASS
 
 export ONI_NEOVIM_PATH=/usr/bin/nvim
+export FORGIT_COPY_CMD=xclip
 
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
