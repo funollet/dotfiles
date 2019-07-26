@@ -651,3 +651,17 @@ tasks:
         # 'Meta' does nothing by itself
       - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
       - qdbus org.kde.KWin /KWin reconfigure
+
+
+  gotask:
+    desc: install go-task
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}}
+      - tar -xzf task_linux_amd64.tar.gz
+      - sudo install task /usr/local/bin/
+    status:
+      - which task
+    vars:
+      VERSION: 2.6.0
+      URL: https://github.com/go-task/task/releases/download/v{{.VERSION}}/task_linux_amd64.tar.gz
