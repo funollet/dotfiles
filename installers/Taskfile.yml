@@ -62,7 +62,7 @@ vars:
     mythes mythes-ca mythes-en mythes-es
     hyphen hyphen-ca hyphen-en hyphen-es
     autocorr-ca autocorr-en autocorr-es
-    pandoc unison240 moreutils xclip tmux
+    pandoc unison240 moreutils xclip tmux lastpass-cli
     inotify-tools tiptop ranger w3m w3m-img vpnc timew imapfilter
     java-1.8.0-openjdk icedtea-web 
     # GUI apps.
