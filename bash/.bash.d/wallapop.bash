@@ -1,23 +1,21 @@
 #!/bin/bash
 
 # Config for wallapop-aws-credentials.
-test -f 00.bash.secrets && source 00.bash.secrets
-
+# test -f ~/.bash.d/00.bash.secrets && source ~/.bash.d/00.bash.secrets
+# 
 # alias wallapop-aws-credentials="docker run --rm -it \
-#     -v ~/.aws/credentials:/data/credentials \
-#         -e PROFILE=production \
-#         -e GOOGLE_USERNAME=\${WPOP_GOOGLE_USERNAME} \
-#         -e GOOGLE_IDP_ID=\${WPOP_GOOGLE_IDP_ID} \
-#         -e GOOGLE_SP_ID=\${WPOP_GOOGLE_SP_ID} \
+#     -v ~/.aws/credentials:/root/credentials \
+#         -e GOOGLE_USERNAME=\${GOOGLE_USERNAME} \
+#         -e GOOGLE_IDP_ID=\${GOOGLE_IDP_ID} \
+#         -e GOOGLE_SP_ID=\${GOOGLE_SP_ID} \
 #         -e REGION=eu-west-1 \
-#     wallapop/federated-credentials:latest"
+#     wallapop/federated-credentials:latest --log debug"
 
-alias wallapop-aws-credentials="aws-google-auth \
-    --username \${WPOP_GOOGLE_USERNAME} \
-    --idp-id \${WPOP_GOOGLE_IDP_ID} \
-    --sp-id \${WPOP_GOOGLE_SP_ID} \
-    --region eu-west-1 \
-    --profile production"
+# Running locally:
+# No need to load 00.bash.secrets: just provide the values on the first run and
+# those will be cached on ~/.aws/config.
+#
+#     aws-google-auth --region eu-west-1
 
 alias cfn-lint="cfn-lint -a ~/code/wallapop/platform/docker-base-images/cfn-lint/custom_rules/"
 
