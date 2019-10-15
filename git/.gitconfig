@@ -29,6 +29,8 @@
     ls-staged = diff --name-only --cached
     ; list files non-staged or untracked
     ls-changed = ls-files --others --exclude-standard --modified
+    ; delete current branch; only works if it's already merged to develop
+    rm-branch = '!f(){ OLD_BRANCH=$(git rev-parse --abbrev-ref HEAD) && git checkout develop && git pull && git branch -d $OLD_BRANCH ; } ; f'
 
 ; [include]
 ; path = ~/pim/pam
