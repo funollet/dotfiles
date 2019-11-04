@@ -557,6 +557,19 @@ tasks:
       URL: https://releases.hashicorp.com/terraform/{{.VERSION}}/terraform_{{.VERSION}}_linux_amd64.zip
 
 
+  packer:
+    #desc: Install packer. https://www.packer.io/
+    dir: /usr/local/bin
+    cmds:
+      - wget -nv -c {{.URL}} -O /tmp/packer.zip
+      - sudo unzip /tmp/packer.zip
+    status:
+      - test -f /usr/local/bin/packer
+    vars:
+      VERSION: 1.4.4
+      URL: https://releases.hashicorp.com/packer/{{.VERSION}}/packer_{{.VERSION}}_linux_amd64.zip
+
+
   vim_vundle:
     #desc: Clone Vim Vundle to your ~/.vim/.
     cmds:
