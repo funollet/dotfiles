@@ -2,7 +2,7 @@
 
 complete -C aws_completer aws       # awscli: autocompletion
 
-export AWS_PROFILE=production
+export AWS_PROFILE=default
 
 which awless > /dev/null 2>&1 && source <(awless completion bash)
 
