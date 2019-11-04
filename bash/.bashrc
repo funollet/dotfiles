@@ -47,7 +47,7 @@ fi
 
 ############################################################
 
-export PATH=~/bin:~/code/user-land:~/code/git-aliases:~/code/onna/ops-team/scripts:/usr/local/sbin:/usr/sbin:/sbin:$PATH
+export PATH=~/bin:~/code/user-land:~/code/git-aliases:/usr/local/sbin:/usr/sbin:/sbin:$PATH
 shopt -s histappend
 
 export VISUAL='vim'
