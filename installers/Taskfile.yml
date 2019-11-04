@@ -265,6 +265,7 @@ tasks:
       # - kops
       # - kubectl
       # - minikube
+      - packer
       - peco
       - pet
       - powerline-go
