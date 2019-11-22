@@ -618,6 +618,7 @@ tasks:
     cmds:
       - task: pipx-binary
       - task: pipx-packages
+      - task: awscli
 
   pipx-binary:
     cmds:
@@ -632,7 +633,6 @@ tasks:
           pkg: "aws-google-auth"
           args: "--spec 'aws-google-auth[u2f]'"
         # build dependencies: libusb-devel systemd-devel
-      - { task: pipx-install, vars: { pkg: "awscli" } }
       - { task: pipx-install, vars: { pkg: "cfn-lint" } }
       - { task: pipx-install, vars: { pkg: "pew" } }
       - { task: pipx-install, vars: { pkg: "pipenv" } }
@@ -646,6 +646,13 @@ tasks:
     status:
       - pipx list | grep -q {{ .pkg }}
 
+  awscli:
+    cmds:
+      - pipx install awscli
+      - pipx inject awscli ec2instanceconnectcli
+      - ln -sf ~/.local/pipx/venvs/awscli/bin/mssh ~/.local/bin
+    status:
+      - pipx list | grep -q awscli
 
 
 
