@@ -29,10 +29,21 @@ ec2whois () {
   fi
   aws ec2 describe-instances --output json \
       --filters "Name=${filter_name},Values=${id}" \
-      --query 'Reservations[].Instances[]' \
-  | jq --sort-keys '.[] | (.Tags | from_entries) + {"InstanceId": .InstanceId}  + {"PrivateIpAddress": .PrivateIpAddress} '
+  | jq --sort-keys '.Reservations[].Instances[] | (.Tags | from_entries) + {"InstanceId": .InstanceId, "PrivateIpAddress": .PrivateIpAddress, "ImageId": .ImageId} '
 }
 
 ec2bytag () {
     aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2"
+}
+
+prodbytag () {
+    aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2" \
+        "Name=instance-state-name,Values=running,pending" "Name=tag:Env,Values=prod" \
+        --query "Reservations[].Instances[]"
+}
+
+betabytag () {
+    aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2" \
+        "Name=instance-state-name,Values=running,pending" "Name=tag:Env,Values=beta"  \
+        --query "Reservations[].Instances[]"
 }
