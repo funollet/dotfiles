@@ -50,7 +50,7 @@ vars:
     libusb-devel systemd-devel
   unix_essentials: |
     ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
-    the_silver_searcher fd-find
+    the_silver_searcher fd-find ncdu
   workstation: |
     kernel-headers kernel-devel dkms
     # Xwindows
