@@ -29,7 +29,7 @@ ec2whois () {
   fi
   aws ec2 describe-instances --output json \
       --filters "Name=${filter_name},Values=${id}" \
-  | jq --sort-keys '.Reservations[].Instances[] | (.Tags | from_entries) + {"InstanceId": .InstanceId, "PrivateIpAddress": .PrivateIpAddress, "ImageId": .ImageId} '
+  | jq --sort-keys '.Reservations[].Instances[] | (.Tags | from_entries) + {"InstanceId": .InstanceId, "PrivateIpAddress": .PrivateIpAddress, "ImageId": .ImageId, "AZ": .Placement.AvailabilityZone} '
 }
 
 ec2bytag () {
