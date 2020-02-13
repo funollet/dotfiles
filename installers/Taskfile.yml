@@ -258,6 +258,7 @@ tasks:
       - fonts-hack
       - fpm
       - fx
+      - gh
       - gotask
       - gron
       # - helm
@@ -353,7 +354,7 @@ tasks:
       - unzip -d ~/.local/share/fonts/Hack Hack.zip
       - fc-cache -fv
     status:
-      - test -d ~/.local/share/.fonts/Hack
+      - test -d ~/.local/share/fonts/Hack
     vars:
       URL: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
 
@@ -383,6 +384,19 @@ tasks:
     vars:
       VERSION: 14.0.1
       URL: https://github.com/antonmedv/fx/releases/download/{{.VERSION}}/fx-linux.zip
+
+
+  gh:
+    #desc: Install Github CLI.
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}}
+      - sudo dnf -y localinstall gh_{{.VERSION}}_linux_amd64.rpm
+    status:
+      - test -f /usr/local/bin/gh
+    vars:
+      VERSION: 0.5.4
+      URL: https://github.com/cli/cli/releases/download/v{{.VERSION}}/gh_{{.VERSION}}_linux_amd64.rpm 
 
 
   gotask:
