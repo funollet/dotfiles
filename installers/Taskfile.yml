@@ -50,7 +50,7 @@ vars:
     libusb-devel systemd-devel
   unix_essentials: |
     ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
-    the_silver_searcher fd-find ncdu
+    the_silver_searcher fd-find ncdu bat
   workstation: |
     kernel-headers kernel-devel dkms
     # Xwindows
@@ -71,7 +71,7 @@ vars:
     freemind calibre inkscape firefox
     libreoffice timeline youtube-dl Zim
     hamster-time-tracker levien-inconsolata-fonts
-    zathura speedcrunch homebank
+    zathura speedcrunch homebank flameshot
     # Graphics
     gimp ufraw-gimp gimp-wavelet-denoise-plugin gimp-separate+
     gimp-paint-studio gimp-normalmap gimp-help GREYCstoration-gimp
@@ -258,6 +258,7 @@ tasks:
       - fonts-hack
       - fpm
       - fx
+      - gh
       - gotask
       - gron
       # - helm
@@ -344,15 +345,18 @@ tasks:
 
 
   fonts-hack:
-    #desc: Install font Hack on user's home.
+    #desc: Install font Hack from https://github.com/ryanoasis/nerd-fonts
+    dir: /tmp
     cmds:
-      - mkdir -p ~/.fonts/Hack
-      - cd ~/.fonts/Hack ; wget -nv -c {{.URL}}
-      - cd ~/.fonts/Hack ; unzip Hack*.zip
+      - wget -nv -c {{.URL}}
+      - test -d ~/.fonts/Hack && rm -r ~/.fonts/Hack || true
+      - mkdir -p ~/.local/share/fonts/Hack
+      - unzip -d ~/.local/share/fonts/Hack Hack.zip
+      - fc-cache -fv
     status:
-      - test -d ~/.fonts/Hack
+      - test -d ~/.local/share/fonts/Hack
     vars:
-      URL: "https://github.com/chrissimpkins/Hack/releases/download/v2.013/Hack-v2_013-ttf.zip"
+      URL: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
 
 
   fpm:
@@ -380,6 +384,19 @@ tasks:
     vars:
       VERSION: 14.0.1
       URL: https://github.com/antonmedv/fx/releases/download/{{.VERSION}}/fx-linux.zip
+
+
+  gh:
+    #desc: Install Github CLI.
+    dir: /tmp
+    cmds:
+      - wget -nv -c {{.URL}}
+      - sudo dnf -y localinstall gh_{{.VERSION}}_linux_amd64.rpm
+    status:
+      - test -f /usr/local/bin/gh
+    vars:
+      VERSION: 0.5.4
+      URL: https://github.com/cli/cli/releases/download/v{{.VERSION}}/gh_{{.VERSION}}_linux_amd64.rpm 
 
 
   gotask:
