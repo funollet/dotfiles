@@ -5,7 +5,7 @@ version: '2'
 vars:
   # List of packages to be installed.
   rpm_absent: |
-     amarok banshee gbrainy awscli
+     amarok banshee gbrainy awscli unison240-gtk
      python2-pytest python2-fabric python2-invoke
   # Lists of packages to be removed.
   base_distro: |
@@ -49,7 +49,7 @@ vars:
     # dependencies for building aws-google-auth
     libusb-devel systemd-devel
   unix_essentials: |
-    ack fzf htop dstat tree unison rsync wget curl screen units vim pv lsof strace colordiff
+    ack fzf htop dstat tree rsync wget curl screen units vim pv lsof strace colordiff
     the_silver_searcher fd-find ncdu bat
   workstation: |
     kernel-headers kernel-devel dkms
@@ -62,7 +62,7 @@ vars:
     mythes mythes-ca mythes-en mythes-es
     hyphen hyphen-ca hyphen-en hyphen-es
     autocorr-ca autocorr-en autocorr-es
-    pandoc unison240 moreutils xclip tmux lastpass-cli
+    pandoc unison240-text moreutils xclip tmux lastpass-cli
     inotify-tools tiptop ranger w3m w3m-img vpnc timew imapfilter
     java-1.8.0-openjdk icedtea-web 
     # GUI apps.
@@ -70,7 +70,7 @@ vars:
     python2-pygpgme keepassx
     freemind calibre inkscape firefox
     libreoffice timeline youtube-dl Zim
-    hamster-time-tracker levien-inconsolata-fonts
+    levien-inconsolata-fonts
     zathura speedcrunch homebank flameshot
     # Graphics
     gimp ufraw-gimp gimp-wavelet-denoise-plugin gimp-separate+
