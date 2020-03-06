@@ -155,6 +155,7 @@ bindsym $mod+Return exec konsole
 # bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
 bindsym Print       exec spectacle
 bindsym $mod+y      exec dolphin
+bindsym Mod1+space  exec krunner
 
 
 # Custom details for some windows.
