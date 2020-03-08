@@ -37,10 +37,13 @@ setxkbmap -layout us -option ''
 
 # Set keyboard layout.
 #   ctrl:nocaps           disable capslock key
-#   shift:both_capslock   capslock with both Shift keys
-#                         Doesn't work with ctrl:nocaps
+#   shift:both_capslock   Both Shift together enable Caps Lock.
+#       Doesn't work with ctrl:nocaps.
+#   caps:escape_shifted_capslock
+#       Make unmodified Caps Lock an additional Esc, but Shift + Caps Lock
+#       behaves like regular Caps Lock
 setxkbmap -layout us -variant intl \
-    -option 'ctrl:nocaps' \
+    -option 'compose:caps' \
     -option 'terminate:ctrl_alt_bksp'
 
 # Extend us(intl).
