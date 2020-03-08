@@ -36,6 +36,9 @@
 setxkbmap -layout us -option ''
 
 # Set keyboard layout.
+#   ctrl:nocaps           disable capslock key
+#   shift:both_capslock   capslock with both Shift keys
+#                         Doesn't work with ctrl:nocaps
 setxkbmap -layout us -variant intl \
     -option 'ctrl:nocaps' \
     -option 'terminate:ctrl_alt_bksp'

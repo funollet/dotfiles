@@ -47,13 +47,17 @@ bindsym $mod+Shift+l move right
 
 
 #   change focus to workspace
-bindsym $mod+h       workspace prev         
-bindsym $mod+l       workspace next
-bindsym $mod+Left    workspace prev         
-bindsym $mod+Right   workspace next
+# bindsym $mod+h       workspace prev         
+# bindsym $mod+l       workspace next
+# bindsym $mod+Left    workspace prev         
+# bindsym $mod+Right   workspace next
+bindsym F1           workspace prev
+bindsym F2           workspace next
 
-bindsym $mod+Up      move container to workspace prev
-bindsym $mod+Down    move container to workspace next
+# bindsym $mod+Up      move container to workspace prev ; workspace prev
+# bindsym $mod+Down    move container to workspace next ; workspace next
+bindsym Shift+F1     move container to workspace prev ; workspace prev
+bindsym Shift+F2     move container to workspace next ; workspace next
 
 bindsym $mod+z       move scratchpad
 bindsym $mod+x       scratchpad show
