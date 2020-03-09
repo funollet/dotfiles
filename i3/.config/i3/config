@@ -166,8 +166,10 @@ bindsym Mod1+space  exec krunner
 bindsym     F7                          [class="Telegram"] scratchpad show
 bindsym     F8                          [class="Slack"] scratchpad show
 for_window  [class="Telegram"]          move scratchpad
-for_window  [class="Slack"]             floating enable ; move scratchpad
 for_window  [class="Spotify"]           floating enable ; move scratchpad
+# Don't force moving Slack to scratchpad, do it manually. Otherwise a videocall
+# moves every other window to scratchpad.
+# for_window  [class="Slack"]             floating enable ; move scratchpad
 
 assign      [class="Firefox"]           1
 assign      [class="google-chrome"]     1
