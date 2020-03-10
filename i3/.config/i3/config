@@ -29,10 +29,10 @@ bindsym Control+Mod1+x      kill
 bindsym $mod+f       fullscreen toggle
 
 #   change focus to window
-bindsym $mod+j       focus left
-bindsym $mod+k       focus down
-# bindsym $mod+k       focus up
-# bindsym $mod+l       focus right
+bindsym $mod+h       focus left
+bindsym $mod+j       focus down
+bindsym $mod+k       focus up
+bindsym $mod+l       focus right
 bindsym $mod+Tab     focus down
 bindsym Mod1+Tab     focus left
 
@@ -169,7 +169,7 @@ for_window  [class="Telegram"]          move scratchpad
 for_window  [class="Spotify"]           floating enable ; move scratchpad
 # Don't force moving Slack to scratchpad, do it manually. Otherwise a videocall
 # moves every other window to scratchpad.
-# for_window  [class="Slack"]             floating enable ; move scratchpad
+for_window  [class="Slack"]             floating enable
 
 assign      [class="Firefox"]           1
 assign      [class="google-chrome"]     1
