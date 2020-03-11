@@ -46,10 +46,14 @@ bindsym $mod+Shift+l move right
 #   change focus to workspace
 # bindsym $mod+h       workspace prev         
 # bindsym $mod+l       workspace next
-bindsym $mod+Left    workspace prev         
-bindsym $mod+Right   workspace next
-bindsym $mod+Up      move container to workspace prev ; workspace prev
-bindsym $mod+Down    move container to workspace next ; workspace next
+# bindsym $mod+Left    workspace prev         
+# bindsym $mod+Right   workspace next
+# bindsym $mod+Up      move container to workspace prev ; workspace prev
+# bindsym $mod+Down    move container to workspace next ; workspace next
+bindsym $mod+u       workspace prev         
+bindsym $mod+i       move container to workspace prev ; workspace prev
+bindsym $mod+o       move container to workspace next ; workspace next
+bindsym $mod+p       workspace next
 
 bindsym F1           workspace prev
 bindsym F2           workspace next

@@ -44,7 +44,8 @@ setxkbmap -layout us -option ''
 #       behaves like regular Caps Lock
 setxkbmap -layout us -variant intl \
     -option 'compose:caps' \
-    -option 'terminate:ctrl_alt_bksp'
+    -option 'terminate:ctrl_alt_bksp' \
+    -option 'ctrl:menu_rctrl'
 
 # Extend us(intl).
 # dead_acute is lvl3, single quote is just one keypress.
@@ -63,20 +64,30 @@ xset r rate 300 50
 # Stop running instances of xcape.
 pkill xcape
 
-# Space becomes Control
-xmodmap -e "remove mod4 = Hyper_L"
-xmodmap -e "keycode 65  = Hyper_L"      # keycode <SPC> (65)
-xmodmap -e "add Control = Hyper_L"      # add keysym F20 to Control modifier map
-xmodmap -e "keycode any = space"
-# 'Tab' becomes Super
+# 'Space' becomes Super
 xmodmap -e "remove mod4 = Super_R"
-xmodmap -e "keycode 23  = Super_R"      # keycode <Tab> (23)
+xmodmap -e "keycode 65  = Super_R"      # keycode <SPC> (65)
 xmodmap -e "add mod4    = Super_R"
-xmodmap -e "keycode any = Tab"
+xmodmap -e "keycode any = space"
 
 # Space still works as space.
-xcape -t 200 -e "Hyper_L=space;Super_R=Tab"
+xcape -t 200 -e "Super_R=space"
 
+
+
+# # Space becomes Control
+# xmodmap -e "remove mod4 = Hyper_L"
+# xmodmap -e "keycode 65  = Hyper_L"      # keycode <SPC> (65)
+# xmodmap -e "add Control = Hyper_L"      # add keysym F20 to Control modifier map
+# xmodmap -e "keycode any = space"
+# # 'Tab' becomes Super
+# xmodmap -e "remove mod4 = Super_R"
+# xmodmap -e "keycode 23  = Super_R"      # keycode <Tab> (23)
+# xmodmap -e "add mod4    = Super_R"
+# xmodmap -e "keycode any = Tab"
+# 
+# # Space still works as space.
+# xcape -t 200 -e "Hyper_L=space;Super_R=Tab"
 
 
 ## Using f/j as Control keys, too.
