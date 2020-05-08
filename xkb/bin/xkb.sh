@@ -71,7 +71,8 @@ xmodmap -e "add mod4    = Super_R"
 xmodmap -e "keycode any = space"
 
 # Space still works as space.
-xcape -t 200 -e "Super_R=space"
+# space cadet shift: shift as (), ctrl as {}
+xcape -t 200 -e "Super_R=space;Shift_L=parenleft;Shift_R=parenright;Control_L=Shift_L|bracketleft;Control_R=Shift_L|bracketright"
 
 
 
