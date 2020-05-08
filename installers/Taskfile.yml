@@ -253,6 +253,7 @@ tasks:
     desc: Install not-packaged software.
     deps:
       - awless
+      - awscli
       - caddy
       - diff-so-fancy
       - fasd
@@ -291,6 +292,17 @@ tasks:
     vars:
       VERSION: 0.1.11
       URL: https://github.com/wallix/awless/releases/download/v{{.VERSION}}/awless-linux-amd64.tar.gz
+
+
+  awscli:
+    dir: /tmp
+      - curl -s -o "awscliv2.zip" {{.URL}}
+      - unzip awscliv2.zip
+      - sudo ./aws/install
+    status:
+      - which aws
+    vars:
+      URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
   caddy:
     #desc: Install caddy
@@ -669,7 +681,6 @@ tasks:
     cmds:
       - task: pipx-binary
       - task: pipx-packages
-      - task: awscli
 
   pipx-binary:
     cmds:
@@ -684,7 +695,9 @@ tasks:
       #     pkg: "aws-google-auth"
       #     args: "--spec 'aws-google-auth[u2f]'"
       #   # build dependencies: libusb-devel systemd-devel
+      - { task: pipx-install, vars: { pkg: "beets" } }
       - { task: pipx-install, vars: { pkg: "cfn-lint" } }
+      - { task: pipx-install, vars: { pkg: "ec2instanceconnectcli" } }
       - { task: pipx-install, vars: { pkg: "pew" } }
       - { task: pipx-install, vars: { pkg: "pex" } }
       - { task: pipx-install, vars: { pkg: "pipenv" } }
@@ -697,15 +710,6 @@ tasks:
       - pipx install {{ .pkg }} {{ .args|default "" }}
     status:
       - pipx list | grep -q {{ .pkg }}
-
-  awscli:
-    cmds:
-      - pipx install awscli
-      - pipx inject awscli ec2instanceconnectcli
-      - ln -sf ~/.local/pipx/venvs/awscli/bin/mssh ~/.local/bin
-    status:
-      - pipx list | grep -q awscli
-
 
 
   ################################################## 
