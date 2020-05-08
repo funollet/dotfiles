@@ -21,6 +21,9 @@ font pango:monospace 8
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
+bindsym $mod+Shift+c reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r restart                
 
 
 #   kill focused window
@@ -41,7 +44,8 @@ bindsym $mod+Shift+h move left
 bindsym $mod+Shift+j move down
 bindsym $mod+Shift+k move up
 bindsym $mod+Shift+l move right
-
+bindsym $mod+Shift+greater  move container to output right
+bindsym $mod+Shift+less     move container to output left
 
 #   change focus to workspace
 # bindsym $mod+h       workspace prev         
@@ -78,7 +82,7 @@ bindsym $mod+space   focus mode_toggle
 bindsym $mod+a       focus parent           
 bindsym $mod+d       focus child            
 
-# workspace_auto_back_and_forth yes
+workspace_auto_back_and_forth yes
 
 bindsym $mod+1       workspace 1
 bindsym $mod+2       workspace 2
@@ -144,11 +148,6 @@ for_window  [class="Plasmoidviewer"]    floating enable
 for_window  [class="systemsettings"]    floating enable
 no_focus    [class="plasmashell"]
 
-
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart                
-
 # Launch on startup.
 exec firefox
 exec slack
@@ -175,8 +174,8 @@ for_window  [class="Spotify"]           floating enable ; move scratchpad
 # moves every other window to scratchpad.
 for_window  [class="Slack"]             floating enable
 
-assign      [class="Firefox"]           1
-assign      [class="google-chrome"]     1
+# assign      [class="Firefox"]           1
+# assign      [class="google-chrome"]     1
 
 # TODO: KDE bar task-manager should hide apps on scratchpad 
 # TODO: create mode 'move focused window'
