@@ -248,36 +248,40 @@ tasks:
 
   ################################################## 
   #
+  brew-ready:
+    desc: Cleanup before reinstalling software with brew.
+    cmds:
+      - sudo dnf remove -y gh
+      - sudo rm -f /usr/local/bin/awless
+      - sudo rm -f /usr/local/bin/caddy
+      - sudo rm -f /usr/local/bin/diff-so-fancy
+      - sudo rm -f /usr/local/bin/fasd
+      - sudo rm -f /usr/local/bin/fx
+      - sudo rm -f /usr/local/bin/gron
+      - sudo rm -f /usr/local/bin//helm
+      - sudo rm -f /usr/local/bin/hugo
+      - sudo rm -f /etc/bash_completion.d/minikube
+      - sudo rm -f /usr/local/bin/minikube
+      - sudo rm -f /usr/local/bin/peco
+      - sudo rm -f /usr/local/bin/pup
+      - sudo rm -f /usr/local/bin/powerline-go
+      - sudo rm -f /usr/local/bin/terraform
+      - sudo rm -f /usr/local/bin/packer
+      - sudo rm -f /usr/local/bin/task
+
 
   non-pkg:
     desc: Install not-packaged software.
     deps:
       - awless
       - awscli
-      - caddy
-      - diff-so-fancy
-      - fasd
       - fonts-powerline
       - fonts-hack
       - fpm
-      - fx
-      - gh
-      - gotask
-      - gron
-      # - helm
-      - hugo
       - jiq
-      # - kops
-      # - kubectl
-      # - minikube
-      - packer
-      - peco
       - pet
-      - pup
-      - powerline-go
       - sheet
       - telegram
-      # - terraform
       - vim_vundle
 
   awless:
@@ -304,30 +308,6 @@ tasks:
     vars:
       URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
-  caddy:
-    #desc: Install caddy
-    dir: /tmp
-    cmds:
-      - curl -s -o caddy.tgz '{{.URL}}'
-      - tar -xzf caddy.tgz caddy
-      - sudo install --mode 0755 caddy /usr/local/bin
-    status:
-      - which caddy
-    vars:
-      URL: https://caddyserver.com/download/linux/amd64?license=personal&telemetry=off
-
-
-  diff-so-fancy:
-    #desc: Install diff-so-fancy.
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}}
-      - sudo install diff-so-fancy /usr/local/bin/
-    status:
-      - which diff-so-fancy
-    vars:
-      URL: https://raw.githubusercontent.com/so-fancy/diff-so-fancy/master/third_party/build_fatpack/diff-so-fancy
-
 
   docker-machine-driver-kvm2:
     #desc: Install docker-machine-driver-kvm2.
@@ -340,13 +320,6 @@ tasks:
     vars:
       URL: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
 
-  fasd:
-    dir: /tmp
-    cmds:
-      - curl -sO https://raw.githubusercontent.com/clvv/fasd/master/fasd
-      - sudo install -m 755 fasd /usr/local/bin
-    status:
-      - test -f /usr/local/bin/fasd 
 
 
   fonts-powerline:
@@ -386,87 +359,6 @@ tasks:
       # Fetching: clamp-0.6.3.gem (100%)
       # Fetching: ffi-1.9.3.gem (100%)
 
-  fx:
-    #desc: Install fx
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}}
-      - unzip /tmp/fx-linux.zip
-      - sudo install fx-linux /usr/local/bin/fx
-    status:
-      - test -f /usr/local/bin/fx
-    vars:
-      VERSION: 14.0.1
-      URL: https://github.com/antonmedv/fx/releases/download/{{.VERSION}}/fx-linux.zip
-
-
-  gh:
-    #desc: Install Github CLI.
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}}
-      - sudo dnf -y localinstall gh_{{.VERSION}}_linux_amd64.rpm
-    status:
-      - test -f /usr/local/bin/gh
-    vars:
-      VERSION: 0.5.4
-      URL: https://github.com/cli/cli/releases/download/v{{.VERSION}}/gh_{{.VERSION}}_linux_amd64.rpm 
-
-
-  gotask:
-    desc: install go-task
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}}
-      - tar -xzf task_linux_amd64.tar.gz
-      - sudo install task /usr/local/bin/
-    status:
-      - which task
-    vars:
-      VERSION: 2.6.0
-      URL: https://github.com/go-task/task/releases/download/v{{.VERSION}}/task_linux_amd64.tar.gz
-
-
-  gron:
-    #desc: Install gron
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}} -O gron.tgz
-      - tar -xzf /tmp/gron.tgz
-      - sudo install gron /usr/local/bin/
-    status:
-      - test -f /usr/local/bin/gron
-    vars:
-      VERSION: 0.6.0
-      URL: https://github.com/tomnomnom/gron/releases/download/v{{.VERSION}}/gron-linux-amd64-{{.VERSION}}.tgz
-
-  helm:
-    #desc: Install helm. https://helm.sh
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}} -O helm.tar.gz
-      - tar -xzf /tmp/helm.tar.gz
-      - sudo install linux-amd64/helm /usr/local/bin/
-    status:
-      - test -f /usr/local/bin/helm
-    vars:
-      VERSION: 2.8.2
-      URL: https://storage.googleapis.com/kubernetes-helm/helm-v{{.VERSION}}-linux-amd64.tar.gz
-
-
-  hugo:
-    #desc: Install hugo. https://github.com/gohugoio/hugo/
-    dir: /usr/local/bin
-    cmds:
-      - cd /tmp ; wget -nv -c {{.URL}} -O hugo.tar.gz
-      - sudo tar -xzf /tmp/hugo.tar.gz hugo
-    status:
-      - test -f /usr/local/bin/hugo
-    vars:
-      VERSION: 0.26
-      URL: https://github.com/gohugoio/hugo/releases/download/v{{.VERSION}}/hugo_{{.VERSION}}_Linux-64bit.tar.gz
-
-
   jiq:
     #desc: Install jiq. https://github.com/fiatjaf/jiq
     dir: /usr/local/bin
@@ -475,73 +367,6 @@ tasks:
       - sudo cp ~/code/go/bin/jiq /usr/local/bin
     status:
       - test -f /usr/local/bin/jiq
-
-
-  kops:
-    #desc: Install kops. https://github.com/kubernetes/kops
-    dir: /tmp
-    cmds:
-      - wget -nv {{.URL}}
-      - sudo install kops-linux-amd64 /usr/local/bin/kops
-      - kops completion bash > kops.completion
-      - sudo install -m 644 kops.completion /etc/bash_completion.d/kops
-    status:
-      - which kops > /dev/null
-    vars:
-      VERSION: 1.8.1
-      URL: https://github.com/kubernetes/kops/releases/download/{{.VERSION}}/kops-linux-amd64
-
-
-  kubectl:
-    #desc: Install kubectl
-    cmds:
-      - gcloud components install kubectl
-    status:
-      - which kubectl > /dev/null
-  #
-  # kubernetes:
-  #   #desc: Install kubectl (stable release).
-  #   dir: /tmp
-  #   cmds:
-  #     - wget -nv -c {{.URL}}
-  #     - sudo install kubectl /usr/local/bin
-  #     - kubectl completion bash > k8s.completion
-  #     - sudo install -m 644 k8s.completion /etc/bash_completion.d/kubernetes
-  #   vars:
-  #     VERSION:
-  #       sh: curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt
-  #     URL: https://storage.googleapis.com/kubernetes-release/release/{{.VERSION}}/bin/linux/amd64/kubectl
-
-
-  minikube:
-    #desc: Install minikube.
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}} -O /tmp/minikube
-      - sudo install minikube /usr/local/bin/
-      - minikube completion bash > minikube.completion
-      - sudo install -m 644 minikube.completion /etc/bash_completion.d/minikube
-    status:
-      - test -f /usr/local/bin/minikube
-    vars:
-      VERSION: 0.25.0
-      URL: https://storage.googleapis.com/minikube/releases/v{{.VERSION}}/minikube-linux-amd64
-
-
-  peco:
-    #desc: "Install peco. https://github.com/peco/peco"
-    dir: /tmp
-    cmds:
-      - wget -nv -c "{{.URL}}" -O {{.NAME}}.tar.gz
-      - tar -xzf {{.NAME}}.tar.gz
-      - sudo install -m 0755 peco_linux_amd64/{{.NAME}} /usr/local/bin
-    status:
-      - test -f /usr/local/bin/{{.NAME}}
-    vars:
-      NAME: peco
-      VERSION: 0.5.3
-      URL: "https://github.com/peco/peco/releases/download/v{{.VERSION}}/peco_linux_amd64.tar.gz"
-
 
   pet:
     #desc: "Install pet. https://github.com/knqyf263/pet"
@@ -555,34 +380,6 @@ tasks:
     vars:
       VERSION: 0.3.2
       URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.tar.gz"
-
-
-  pup:
-    #desc: Install pup
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}} -O pup.zip
-      - unzip /tmp/pup.zip
-      - sudo install pup /usr/local/bin/
-    status:
-      - test -f /usr/local/bin/pup
-    vars:
-      VERSION: 0.4.0
-      URL: https://github.com/ericchiang/pup/releases/download/v{{.VERSION}}/pup_v{{.VERSION}}_linux_amd64.zip
-
-
-  powerline-go:
-    #desc: Install powerline-go. https://github.com/justjanne/powerline-go
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}} -O {{.NAME}}
-      - sudo install -m 0755 {{.NAME}} /usr/local/bin
-    status:
-      - test -f /usr/local/bin/{{.NAME}}
-    vars:
-      NAME: powerline-go
-      VERSION: 1.11.0
-      URL: https://github.com/justjanne/powerline-go/releases/download/v{{.VERSION}}/powerline-go-linux-amd64
 
 
   sheet:
@@ -608,32 +405,6 @@ tasks:
       URL: https://telegram.org/dl/desktop/linux
 
 
-  terraform:
-    #desc: Install terraform. https://www.terraform.io
-    dir: /usr/local/bin
-    cmds:
-      - wget -nv -c {{.URL}} -O /tmp/terraform.zip
-      - sudo unzip /tmp/terraform.zip
-    status:
-      - test -f /usr/local/bin/terraform
-    vars:
-      VERSION: 0.10.0
-      URL: https://releases.hashicorp.com/terraform/{{.VERSION}}/terraform_{{.VERSION}}_linux_amd64.zip
-
-
-  packer:
-    #desc: Install packer. https://www.packer.io/
-    dir: /usr/local/bin
-    cmds:
-      - wget -nv -c {{.URL}} -O /tmp/packer.zip
-      - sudo unzip /tmp/packer.zip
-    status:
-      - test -f /usr/local/bin/packer
-    vars:
-      VERSION: 1.4.4
-      URL: https://releases.hashicorp.com/packer/{{.VERSION}}/packer_{{.VERSION}}_linux_amd64.zip
-
-
   vim_vundle:
     #desc: Clone Vim Vundle to your ~/.vim/.
     cmds:
@@ -642,37 +413,10 @@ tasks:
       - test -d ~/.vim/bundle/Vundle.vim
 
 
-  kubeval:
-    #desc: Install kubeval. https://github.com/garethr/kubeval
-    dir: /usr/local/bin
+  brew:
+    desc: Install software with brew
     cmds:
-      - wget -nv -c {{.URL}} -O /tmp/{{.NAME}}.tar.gz
-      - sudo tar -xzf /tmp/{{.NAME}}.tar.gz
-    status:
-      - test -f /usr/local/bin/{{.NAME}}
-    vars:
-      NAME: kubeval
-      VERSION: 0.7.0
-      URL: https://github.com/garethr/{{.NAME}}/releases/download/{{.VERSION}}/{{.NAME}}-linux-amd64.tar.gz
-
-
-  kubetest:
-    #desc: Install kubetest. https://github.com/garethr/kubetest
-    dir: /usr/local/bin
-    cmds:
-      - wget -nv -c {{.URL}} -O /tmp/{{.NAME}}.tar.gz
-      - sudo tar -xzf /tmp/{{.NAME}}.tar.gz
-    status:
-      - test -f /usr/local/bin/{{.NAME}}
-    vars:
-      NAME: kubetest
-      VERSION: 0.1.1
-      URL: https://github.com/garethr/{{.NAME}}/releases/download/{{.VERSION}}/{{.NAME}}-linux-amd64.tar.gz
-
-
-
-
-
+      - brew bundle
 
   ################################################## 
   #

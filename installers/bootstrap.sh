@@ -1,11 +1,16 @@
 #!/bin/bash -e
 
-version="2.1.1"
-url="https://github.com/go-task/task/releases/download/v${version}/task_linux_amd64.tar.gz"
+# linuxbrew dependencies
+sudo yum groupinstall 'Development Tools'
+sudo yum install curl file git
+sudo yum install libxcrypt-compat # needed by Fedora 30 and up
 
-which task > /dev/null && exit
+# Linuxbrew
+if ! command -v brew > /dev/null ; then
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+fi
 
-cd /tmp || exit
-wget ${url} 
-tar -xzf task_linux_amd64.tar.gz
-sudo install task /usr/local/bin
+# go-task
+if ! command -v task > /dev/null ; then
+  brew install go-task/tap/go-task
+fi
