@@ -47,3 +47,11 @@ betabytag () {
         "Name=instance-state-name,Values=running,pending" "Name=tag:Env,Values=beta"  \
         --query "Reservations[].Instances[]"
 }
+
+asgpick () {
+    ASGTARGET=$(aws autoscaling describe-auto-scaling-groups --output json | \
+        jq .AutoScalingGroups[].AutoScalingGroupName -r \
+        | fzf)
+    export ASGTARGET
+    echo $ASGTARGET
+}
