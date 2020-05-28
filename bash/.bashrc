@@ -47,7 +47,7 @@ fi
 
 ############################################################
 
-export PATH=~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:$PATH
+export PATH=~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:/home/linuxbrew/.linuxbrew/bin/:$PATH
 shopt -s histappend
 
 export VISUAL='vim'
@@ -63,6 +63,7 @@ export FORGIT_COPY_CMD=xclip
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
+for rc in /home/linuxbrew/.linuxbrew/etc/bash_completion.d/* ; do source ${rc} ; done
 source ~/.bash-my-aws/aliases
 source ~/.bash-my-aws/bash_completion.sh
 

@@ -434,11 +434,8 @@ tasks:
 
   pipx-packages:
     deps:
-      # - task: pipx-install
-      #   vars:
-      #     pkg: "aws-google-auth"
-      #     args: "--spec 'aws-google-auth[u2f]'"
-      #   # build dependencies: libusb-devel systemd-devel
+      - { task: pipx-install, vars: { pkg: "aws-google-auth[u2f]" } }
+        # build dependencies: libusb-devel systemd-devel
       - { task: pipx-install, vars: { pkg: "beets" } }
       - { task: pipx-install, vars: { pkg: "cfn-lint" } }
       - { task: pipx-install, vars: { pkg: "ec2instanceconnectcli" } }
@@ -446,7 +443,6 @@ tasks:
       - { task: pipx-install, vars: { pkg: "pex" } }
       - { task: pipx-install, vars: { pkg: "pipenv" } }
       - { task: pipx-install, vars: { pkg: "pipenv-pipes" } }
-      # - { task: pipx-install, vars: { pkg: "aws-sam-cli" } }
 
   pipx-install:
     # Helper to install packages using pipx
