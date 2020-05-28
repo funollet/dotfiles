@@ -9,7 +9,7 @@ tasks:
 
   default:
     desc: Run 'update'.
-    deps: [update, ag]
+    deps: [update]
 
 
   update:
@@ -23,13 +23,6 @@ tasks:
     vars:
       stow_pkgs:
         sh: ls -I Taskfile.yml -I installers
-
-  ag:
-    cmds:
-      - ln -s /usr/share/bash-completion/completions/ag ~/.bash.d/ag.bash
-    status:
-      - test -L ~/.bash.d/ag.bash
-
 
   awesome-libs:
     cmds:
