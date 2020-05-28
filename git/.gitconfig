@@ -31,6 +31,7 @@
     ls-changed = ls-files --others --exclude-standard --modified
     ; delete current branch; only works if it's already merged to develop
     rm-branch = '!f(){ OLD_BRANCH=$(git rev-parse --abbrev-ref HEAD) && git checkout develop && git pull && git branch -d $OLD_BRANCH ; } ; f'
+    set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
 
 ; [include]
 ; path = ~/pim/pam
