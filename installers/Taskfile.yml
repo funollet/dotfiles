@@ -7,6 +7,7 @@ vars:
   rpm_absent: |
      amarok banshee gbrainy awscli unison240-gtk
      python2-pytest python2-fabric python2-invoke
+     docker-ce podman
   # Lists of packages to be removed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
@@ -35,9 +36,7 @@ vars:
     pynag pynag-examples
     #
     # Ops
-    python3-fabric
-    # -- requires repo_docker
-    docker-ce 
+    python3-fabric moby-engine
     par pssh pdsh pdsh-mod-dshgroup
     mysql percona-toolkit gnuplot httpd-tools
     #rubygem-rails      # puppet storedconfigs requirement
@@ -113,6 +112,7 @@ vars:
     # plank compton
   i3:
     i3 python3-i3ipc
+    dunst light i3lock
   lxqt: |
     @lxqt
   vagrant: |
@@ -173,9 +173,9 @@ tasks:
 
   repo_docker:
     cmds:
-      - sudo dnf config-manager --add-repo https://download.docker.com/linux/fedora/docker-ce.repo
+      - sudo rm /etc/yum.repos.d/docker-ce.repo
     status:
-      - test -f /etc/yum.repos.d/docker-ce.repo
+      - test ! -f /etc/yum.repos.d/docker-ce.repo
 
   repos:
     # Install all repositories.
@@ -274,7 +274,7 @@ tasks:
     desc: Install not-packaged software.
     deps:
       - awless
-      - awscli
+      # - awscli
       - fonts-powerline
       - fonts-hack
       - fpm
@@ -298,15 +298,15 @@ tasks:
       URL: https://github.com/wallix/awless/releases/download/v{{.VERSION}}/awless-linux-amd64.tar.gz
 
 
-  awscli:
-    dir: /tmp
-      - curl -s -o "awscliv2.zip" {{.URL}}
-      - unzip awscliv2.zip
-      - sudo ./aws/install
-    status:
-      - which aws
-    vars:
-      URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
+  # awscli:
+  #   dir: /tmp
+  #     - curl -s -o "awscliv2.zip" {{.URL}}
+  #     - unzip awscliv2.zip
+  #     - sudo ./aws/install
+  #   status:
+  #     - which aws
+  #   vars:
+  #     URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
 
   docker-machine-driver-kvm2:

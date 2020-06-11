@@ -131,38 +131,22 @@ bindsym $mod+r mode "resize"
 
 
 
-## Plasma Integration
-# Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
-exec --no-startup-id wmctrl -c Plasma
-for_window [title="Desktop — Plasma"] kill; floating enable; border none
-
-## Avoid tiling popups, dropdown windows from plasma
-# for the first time, manually resize them, i3 will remember the setting for floating windows
-for_window  [class="plasmashell"]       floating enable
-for_window  [class="Plasma"]            floating enable
-for_window  [title="plasma-desktop"]    floating enable
-for_window  [class="krunner"]           floating enable
-for_window  [class="Kmix"]              floating enable
-for_window  [class="Klipper"]           floating enable
-for_window  [class="Plasmoidviewer"]    floating enable
-for_window  [class="systemsettings"]    floating enable
-no_focus    [class="plasmashell"]
-
-# Launch on startup.
-exec firefox
-exec slack
-exec Telegram
-
-# exit i3 (logs you out of your X session)
-# bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-# bindsym $mod+Return exec i3-sensible-terminal
-bindsym $mod+Return exec konsole
-# bindsym $mod+d exec dmenu_run
-# only displays applications shipping a .desktop file
-# bindsym $mod+d exec --no-startup-id i3-dmenu-desktop
-bindsym Print       exec flameshot gui
-bindsym $mod+y      exec dolphin
-bindsym Mod1+space  exec krunner
+## ## Plasma Integration
+## # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
+## exec --no-startup-id wmctrl -c Plasma
+## for_window [title="Desktop — Plasma"] kill; floating enable; border none
+## #
+## ## Avoid tiling popups, dropdown windows from plasma
+## # for the first time, manually resize them, i3 will remember the setting for floating windows
+## for_window  [class="plasmashell"]       floating enable
+## for_window  [class="Plasma"]            floating enable
+## for_window  [title="plasma-desktop"]    floating enable
+## for_window  [class="krunner"]           floating enable
+## for_window  [class="Kmix"]              floating enable
+## for_window  [class="Klipper"]           floating enable
+## for_window  [class="Plasmoidviewer"]    floating enable
+## for_window  [class="systemsettings"]    floating enable
+## no_focus    [class="plasmashell"]
 
 
 # Custom details for some windows.
@@ -173,9 +157,56 @@ for_window  [class="Spotify"]           floating enable ; move scratchpad
 # Don't force moving Slack to scratchpad, do it manually. Otherwise a videocall
 # moves every other window to scratchpad.
 for_window  [class="Slack"]             floating enable
-
+#
 # assign      [class="Firefox"]           1
 # assign      [class="google-chrome"]     1
+
+bar {
+    status_command i3status
+}
+
+# Launch on startup.
+exec dunst
+exec xbindkeys
+exec xkb.sh
+exec lxqt-powermanagement
+exec firefox
+exec slack
+exec Telegram
+
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+bindsym Control+Mod1+l          exec i3lock -c 000000
+
+bindsym $mod+Return exec konsole
+bindsym Print       exec flameshot gui
+bindsym $mod+y      exec dolphin
+bindsym Mod1+space  exec krunner
+
+# Brightness
+bindsym XF86MonBrightnessDown   exec light -U 15
+bindsym XF86MonBrightnessUp     exec light -A 15
+
+# volume control
+bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +3%
+bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -3%
+bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+bindsym $mod+Prior              exec pactl set-sink-volume @DEFAULT_SINK@ +3%
+bindsym $mod+Next               exec pactl set-sink-volume @DEFAULT_SINK@ -3%
+bindsym $mod+m                  exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+
+# clementine
+bindsym $mod+Insert             exec clementine --play-pause
+bindsym $mod+Home               exec clementine --previous
+bindsym $mod+End                exec clementine --next
+
+# spotify
+# bindsym $mod+Insert             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+# bindsym $mod+Home               exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+# bindsym $mod+End                exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+# bindsym XF86AudioPlay           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+# bindsym XF86AudioNext           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+# bindsym XF86AudioPrev           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 # TODO: KDE bar task-manager should hide apps on scratchpad 
 # TODO: create mode 'move focused window'
