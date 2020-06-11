@@ -6,8 +6,9 @@ vars:
   # List of packages to be installed.
   rpm_absent: |
      amarok banshee gbrainy awscli unison240-gtk
-     python2-pytest python2-fabric python2-invoke
+     python2-pytest python2-invoke
      docker-ce podman
+     python3-pika python3-virtualenvwrapper
   # Lists of packages to be removed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
@@ -20,12 +21,12 @@ vars:
     # vim / syntastic
     nodejs-js-yaml rubygem-puppet-lint yamllint
     # Python development.
-    python-devel python-crypto python-virtualenv python-virtualenvwrapper
+    python-devel python-crypto
     python-mock 
     python3-ipython python3-black python3-pytest python3-flake8 python3-jedi
     python-psutil pydot httpie python-py python-docopt
-    python-click python-pip python-sh python2-pika
-    python3-requests python3-pika
+    python-click python-pip python-sh
+    python3-requests
     # Ruby development.
     ruby ruby-devel rubygems rubygem-bundler rubygem-rake rubygem-wirb 
     rubygem-pry rubygem-pry-doc rubygem-rspec rubygem-rspec-mocks 
@@ -36,7 +37,7 @@ vars:
     pynag pynag-examples
     #
     # Ops
-    python3-fabric moby-engine
+    moby-engine
     par pssh pdsh pdsh-mod-dshgroup
     mysql percona-toolkit gnuplot httpd-tools
     #rubygem-rails      # puppet storedconfigs requirement
@@ -66,7 +67,7 @@ vars:
     java-1.8.0-openjdk icedtea-web 
     # GUI apps.
     pidgin pidgin-libnotify pidgin-guifications
-    python2-pygpgme keepassx
+    keepassx
     freemind calibre inkscape firefox
     libreoffice timeline youtube-dl Zim
     levien-inconsolata-fonts
@@ -92,8 +93,9 @@ vars:
     # require: rpmfusion-free
     xine-lib-extras xine-lib-extras-freeworld k3b-extras-freeworld gstreamer1-libav
     gstreamer1-plugins-good gstreamer1-plugins-ugly gstreamer1-plugins-bad-free
-    gstreamer-ffmpeg gstreamer-plugins-good gstreamer-plugins-ugly
-    gstreamer-plugins-bad gstreamer-plugins-bad-free ffmpeg
+    gstreamer-ffmpeg gstreamer-plugins-ugly
+    gstreamer-plugins-bad ffmpeg
+    #   not found: gstreamer-plugins-good gstreamer-plugins-bad-free
     # require: rpmfusion-non-free
     gstreamer-plugins-bad-nonfree
   nvidia_hardware: |
