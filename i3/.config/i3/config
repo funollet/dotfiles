@@ -1,4 +1,5 @@
 # i3 config file (v4)
+# vim:filetype=i3config
 #
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
@@ -119,10 +120,8 @@ mode "resize" {
         bindsym Right resize grow width 2 px or 2 ppt
 
         # back to normal: Enter or Escape
-        bindsym Return mode "default"
         bindsym Escape mode "default"
 }
-
 bindsym $mod+r mode "resize"
 
 # bindsym --whole-window button6      workspace prev         
@@ -161,22 +160,33 @@ for_window  [class="Slack"]             floating enable
 # assign      [class="Firefox"]           1
 # assign      [class="google-chrome"]     1
 
-bar {
-    status_command i3status
+exec_always --no-startup-id ~/.config/i3/display.sh
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
+    bindsym e       exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s       exec --no-startup-id i3lock -c 000000 && systemctl suspend && xkb.sh, mode "default"
+    bindsym r       exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Delete  exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    bindsym Escape mode "default"
 }
+bindsym Control+Mod1+Delete mode "$mode_system"
+bindsym Control+Mod1+l          exec i3lock -c 000000
 
 # Launch on startup.
-exec dunst
-exec xbindkeys
-exec xkb.sh
-exec lxqt-powermanagement
+exec --no-startup-id dunst
+exec --no-startup-id xbindkeys
+exec --no-startup-id xkb.sh
+exec --no-startup-id lxqt-powermanagement
+exec_always --no-startup-id nm-applet
 exec firefox
 exec slack
 exec Telegram
+exec clementine
 
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
-bindsym Control+Mod1+l          exec i3lock -c 000000
 
 bindsym $mod+Return exec konsole
 bindsym Print       exec flameshot gui

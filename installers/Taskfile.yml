@@ -113,8 +113,9 @@ vars:
     feh lximage-qt arandr lxappearance lxqt-powermanagement screengrab
     # plank compton
   i3:
-    i3 python3-i3ipc
-    dunst light i3lock
+    i3 python3-i3ipc i3lock
+    dunst light nitrogen rofi network-manager-applet NetworkManager-tui
+    polybar unifont-fonts
   lxqt: |
     @lxqt
   vagrant: |
