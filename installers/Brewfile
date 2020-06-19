@@ -1,4 +1,5 @@
 brew "diff-so-fancy"
+brew "exa"
 brew "fasd"
 brew "fx"
 brew "gh"
