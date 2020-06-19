@@ -4,6 +4,15 @@
 # Please see https://i3wm.org/docs/userguide.html for a complete reference!
 
 set $mod Mod4
+#   Mod1: Alt
+
+set $left   h
+set $down   j
+set $up     k
+set $right  l
+set $prev   u
+set $next   i
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -22,97 +31,67 @@ font pango:monospace 8
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 
-bindsym $mod+Shift+c reload
-# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r restart                
-
-
 #   kill focused window
-bindsym $mod+Shift+q       kill
-bindsym Control+Mod1+x      kill
-bindsym $mod+f       fullscreen toggle
+bindsym $mod+Shift+q    kill
+bindsym Control+Mod1+x  kill
+bindsym $mod+f          fullscreen toggle
 
-#   change focus to window
-bindsym $mod+h       focus left
-bindsym $mod+j       focus down
-bindsym $mod+k       focus up
-bindsym $mod+l       focus right
-bindsym $mod+Tab     focus down
-bindsym Mod1+Tab     focus left
+#   change focus
+bindsym $mod+$left      focus left
+bindsym $mod+$down      focus down
+bindsym $mod+$up        focus up
+bindsym $mod+$right     focus right
+bindsym $mod+$prev      workspace prev
+bindsym $mod+$next      workspace next
+bindsym $mod+Tab        focus down
+bindsym Mod1+Tab        focus left
 
-#   move focused window
-bindsym $mod+Shift+h move left              
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
-bindsym $mod+Shift+greater  move container to output right
-bindsym $mod+Shift+less     move container to output left
+bindsym $mod+1          workspace 1
+bindsym $mod+2          workspace 2
+bindsym $mod+3          workspace 3
+bindsym $mod+4          workspace 4
+bindsym $mod+5          workspace 5
+bindsym $mod+6          workspace 6
+bindsym $mod+7          workspace 7
+bindsym $mod+8          workspace 8
+bindsym $mod+9          workspace 9
+bindsym $mod+0          workspace 10
 
-#   change focus to workspace
-# bindsym $mod+h       workspace prev         
-# bindsym $mod+l       workspace next
-# bindsym $mod+Left    workspace prev         
-# bindsym $mod+Right   workspace next
-# bindsym $mod+Up      move container to workspace prev ; workspace prev
-# bindsym $mod+Down    move container to workspace next ; workspace next
-bindsym $mod+u       workspace prev         
-bindsym $mod+i       move container to workspace prev ; workspace prev
-bindsym $mod+o       move container to workspace next ; workspace next
-bindsym $mod+p       workspace next
+mode "move" {
+        bindsym $left   move left
+        bindsym $down   move down
+        bindsym $up     move up
+        bindsym $right  move right
 
-bindsym F1           workspace prev
-bindsym F2           workspace next
-bindsym Shift+F1     move container to workspace prev ; workspace prev
-bindsym Shift+F2     move container to workspace next ; workspace next
+        bindsym $prev   move container to workspace prev ; workspace prev
+        bindsym $next   move container to workspace next ; workspace next
 
-bindsym $mod+z       move scratchpad
-bindsym $mod+x       scratchpad show
+        bindsym 1       move container to workspace 1 ; workspace 1
+        bindsym 2       move container to workspace 2 ; workspace 2
+        bindsym 3       move container to workspace 3 ; workspace 3
+        bindsym 4       move container to workspace 4 ; workspace 4
+        bindsym 5       move container to workspace 5 ; workspace 5
+        bindsym 6       move container to workspace 6 ; workspace 6
+        bindsym 7       move container to workspace 7 ; workspace 7
+        bindsym 8       move container to workspace 8 ; workspace 8
+        bindsym 9       move container to workspace 9 ; workspace 9
+        bindsym 0       move container to workspace 10; workspace 10
 
-#   split in horizontal/vertical orientation
-bindsym $mod+b       split h
-bindsym $mod+v       split v
-#   layout
-bindsym $mod+s       layout stacking        
-bindsym $mod+w       layout tabbed
-bindsym $mod+e       layout toggle split
-#   toggle container mode: tiling / floating
-bindsym $mod+Shift+space    floating toggle 
-#   change focus between tiling / floating windows
-bindsym $mod+space   focus mode_toggle      
-#   focus the parent/child container
-bindsym $mod+a       focus parent           
-bindsym $mod+d       focus child            
+        bindsym x       scratchpad show
+        bindsym z       move scratchpad
 
-workspace_auto_back_and_forth yes
-
-bindsym $mod+1       workspace 1
-bindsym $mod+2       workspace 2
-bindsym $mod+3       workspace 3
-bindsym $mod+4       workspace 4
-bindsym $mod+5       workspace 5
-bindsym $mod+6       workspace 6
-bindsym $mod+7       workspace 7
-bindsym $mod+8       workspace 8
-bindsym $mod+9       workspace 9
-bindsym $mod+0       workspace 10
-bindsym $mod+Shift+1 move container to workspace 1
-bindsym $mod+Shift+2 move container to workspace 2
-bindsym $mod+Shift+3 move container to workspace 3
-bindsym $mod+Shift+4 move container to workspace 4
-bindsym $mod+Shift+5 move container to workspace 5
-bindsym $mod+Shift+6 move container to workspace 6
-bindsym $mod+Shift+7 move container to workspace 7
-bindsym $mod+Shift+8 move container to workspace 8
-bindsym $mod+Shift+9 move container to workspace 9
-bindsym $mod+Shift+0 move container to workspace 10
+        # back to normal: Enter or Escape
+        bindsym Escape  mode "default"
+}
+bindsym $mod+m mode "move"
 
 # resize window (you can also use the mouse for that)
 mode "resize" {
         # These bindings trigger as soon as you enter the resize mode
-        bindsym l resize shrink width 2 px or 2 ppt
-        bindsym j resize grow height 2 px or 2 ppt
-        bindsym k resize shrink height 2 px or 2 ppt
-        bindsym h resize grow width 2 px or 2 ppt
+        bindsym $right resize shrink width 2 px or 2 ppt
+        bindsym $down resize grow height 2 px or 2 ppt
+        bindsym $up resize shrink height 2 px or 2 ppt
+        bindsym $left resize grow width 2 px or 2 ppt
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 2 px or 2 ppt
         bindsym Down resize grow height 2 px or 2 ppt
@@ -124,11 +103,113 @@ mode "resize" {
 }
 bindsym $mod+r mode "resize"
 
-# bindsym --whole-window button6      workspace prev         
+
+bindsym $mod+Shift+greater  move container to output right
+bindsym $mod+Shift+less     move container to output left
+
+#       split in horizontal/vertical orientation
+bindsym $mod+b          split h
+bindsym $mod+v          split v
+#       layout
+bindsym $mod+s          layout stacking
+bindsym $mod+w          layout tabbed
+bindsym $mod+e          layout toggle split
+#       toggle container mode: tiling / floating
+bindsym $mod+Shift+space    floating toggle
+#       change focus between tiling / floating windows
+bindsym $mod+space      focus mode_toggle
+#       focus the parent/child container
+bindsym $mod+a          focus parent
+bindsym $mod+d          focus child
+
+workspace_auto_back_and_forth yes
+
+# bindsym --whole-window button6      workspace prev
 # bindsym --whole-window button7      workspace next
 
 
 
+#           Launch on startup.
+exec        --no-startup-id dunst
+exec        --no-startup-id xkb.sh
+exec        --no-startup-id lxqt-powermanagement
+exec_always --no-startup-id xbindkeys
+exec_always --no-startup-id ~/.config/i3/display.sh
+#
+exec_always --no-startup-id nm-applet
+exec firefox
+exec slack
+exec Telegram
+exec clementine
+
+#           Custom details for some windows.
+for_window  [class="Telegram"]          move scratchpad
+for_window  [class="Spotify"]           floating enable ; move scratchpad
+#           Don't force moving Slack to scratchpad, do it manually. Otherwise
+#           a videocall moves every other window to scratchpad.
+for_window  [class="Slack"]             floating enable
+#
+# assign      [class="Firefox"]           1
+# assign      [class="google-chrome"]     1
+
+
+set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
+mode "$mode_system" {
+    bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
+    bindsym e       exec --no-startup-id i3-msg exit, mode "default"
+    bindsym s       exec --no-startup-id i3lock -c 000000 && systemctl suspend && xkb.sh, mode "default"
+    bindsym r       exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Delete  exec --no-startup-id systemctl reboot, mode "default"
+    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
+
+    bindsym Escape mode "default"
+}
+bindsym Control+Mod1+Delete mode "$mode_system"
+
+bindsym $mod+Shift+c    reload
+#       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+r    restart
+
+bindsym Control+Mod1+l          exec i3lock -c 000000
+bindsym $mod+Return             exec konsole
+bindsym Print                   exec flameshot gui
+bindsym $mod+y                  exec dolphin
+bindsym Mod1+space              exec krunner
+bindsym F7                      [class="Telegram"]  scratchpad show
+bindsym F8                      [class="Slack"]     scratchpad show
+
+# Brightness
+bindsym XF86MonBrightnessDown   exec light -U 15
+bindsym XF86MonBrightnessUp     exec light -A 15
+
+# volume control
+bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +3%
+bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -3%
+bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+bindsym $mod+Prior              exec pactl set-sink-volume @DEFAULT_SINK@ +3%
+bindsym $mod+Next               exec pactl set-sink-volume @DEFAULT_SINK@ -3%
+bindsym $mod+n                  exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
+
+# clementine
+bindsym $mod+Insert             exec clementine --play-pause
+bindsym $mod+Home               exec clementine --previous
+bindsym $mod+End                exec clementine --next
+
+
+
+
+
+
+
+
+
+# spotify
+# bindsym $mod+Insert             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+# bindsym $mod+Home               exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+# bindsym $mod+End                exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+# bindsym XF86AudioPlay           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+# bindsym XF86AudioNext           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+# bindsym XF86AudioPrev           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
 
 ## ## Plasma Integration
 ## # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
@@ -148,75 +229,3 @@ bindsym $mod+r mode "resize"
 ## no_focus    [class="plasmashell"]
 
 
-# Custom details for some windows.
-bindsym     F7                          [class="Telegram"] scratchpad show
-bindsym     F8                          [class="Slack"] scratchpad show
-for_window  [class="Telegram"]          move scratchpad
-for_window  [class="Spotify"]           floating enable ; move scratchpad
-# Don't force moving Slack to scratchpad, do it manually. Otherwise a videocall
-# moves every other window to scratchpad.
-for_window  [class="Slack"]             floating enable
-#
-# assign      [class="Firefox"]           1
-# assign      [class="google-chrome"]     1
-
-exec_always --no-startup-id ~/.config/i3/display.sh
-
-set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
-mode "$mode_system" {
-    bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
-    bindsym e       exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s       exec --no-startup-id i3lock -c 000000 && systemctl suspend && xkb.sh, mode "default"
-    bindsym r       exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Delete  exec --no-startup-id systemctl reboot, mode "default"
-    bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
-
-    bindsym Escape mode "default"
-}
-bindsym Control+Mod1+Delete mode "$mode_system"
-bindsym Control+Mod1+l          exec i3lock -c 000000
-
-# Launch on startup.
-exec --no-startup-id dunst
-exec --no-startup-id xbindkeys
-exec --no-startup-id xkb.sh
-exec --no-startup-id lxqt-powermanagement
-exec_always --no-startup-id nm-applet
-exec firefox
-exec slack
-exec Telegram
-exec clementine
-
-
-bindsym $mod+Return exec konsole
-bindsym Print       exec flameshot gui
-bindsym $mod+y      exec dolphin
-bindsym Mod1+space  exec krunner
-
-# Brightness
-bindsym XF86MonBrightnessDown   exec light -U 15
-bindsym XF86MonBrightnessUp     exec light -A 15
-
-# volume control
-bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +3%
-bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -3%
-bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
-bindsym $mod+Prior              exec pactl set-sink-volume @DEFAULT_SINK@ +3%
-bindsym $mod+Next               exec pactl set-sink-volume @DEFAULT_SINK@ -3%
-bindsym $mod+m                  exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
-
-# clementine
-bindsym $mod+Insert             exec clementine --play-pause
-bindsym $mod+Home               exec clementine --previous
-bindsym $mod+End                exec clementine --next
-
-# spotify
-# bindsym $mod+Insert             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-# bindsym $mod+Home               exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-# bindsym $mod+End                exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-# bindsym XF86AudioPlay           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-# bindsym XF86AudioNext           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-# bindsym XF86AudioPrev           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-
-# TODO: KDE bar task-manager should hide apps on scratchpad 
-# TODO: create mode 'move focused window'
