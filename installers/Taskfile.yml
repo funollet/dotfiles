@@ -5,7 +5,7 @@ version: '2'
 vars:
   # List of packages to be installed.
   rpm_absent: |
-     amarok banshee gbrainy awscli unison240-gtk
+     amarok akonadi banshee gbrainy awscli unison240-gtk
      python2-pytest python2-invoke
      docker-ce podman
      python3-pika python3-virtualenvwrapper
