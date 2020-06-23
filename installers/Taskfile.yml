@@ -4,12 +4,6 @@ version: '2'
 
 vars:
   # List of packages to be installed.
-  rpm_absent: |
-     amarok akonadi banshee gbrainy awscli unison240-gtk
-     python2-pytest python2-invoke
-     docker-ce podman
-     python3-pika python3-virtualenvwrapper
-  # Lists of packages to be removed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
     yum-cron python3-firewall createrepo snapd
@@ -84,10 +78,10 @@ vars:
     vlc                # require: RPMfusion repositories
     # joystick
     antimicro linuxconsoletools
+    dropbox google-chrome-stable
     # from local.repo
     #aws-shell sublime-text rubygem-watson
     # 
-    # skype
     # sigil                 #needs repo ppa:ikuya-fruitsbasket
   codecs: |
     # require: rpmfusion-free
@@ -132,14 +126,30 @@ vars:
 tasks:
 
   ################################################## 
-  # Helpers to install/remove packages.
+  # Helpers to install packages.
 
   dnf:
     cmds:
       - sudo dnf install -y {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
-  dnf_remove:
+
+
+  cleanup:
     cmds:
-      - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }} || true
+      - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
+      - test -f /etc/yum.repos.d/docker-ce.repo && sudo rm /etc/yum.repos.d/docker-ce.repo
+      - sudo snap remove spotify
+      - test -f /etc/yum.repos.d/skype-stable.repo && sudo rm /etc/yum.repos.d/skype-stable.repo
+      - sudo dnf copr remove copr.fedorainfracloud.org/phracek/PyCharm
+      - test -f /usr/local/bin/Telegram && sudo rm /usr/local/bin/Telegram
+      - test -d /srv/Telegram/ && sudo rm -r /srv/Telegram/
+    vars:
+      pkgs: |
+       amarok akonadi banshee gbrainy awscli unison240-gtk
+       python2-pytest python2-invoke
+       docker-ce podman
+       python3-pika python3-virtualenvwrapper
+       skypeforlinux zoom keybase slack
+    ignore_error: true
 
 
 
@@ -164,6 +174,7 @@ tasks:
     # Install Fedora Third Party repos.
     cmds:
       - sudo dnf install -y fedora-workstation-repositories
+      - sudo dnf config-manager --set-enabled google-chrome
     status:
       - rpm -q fedora-workstation-repositories
 
@@ -174,15 +185,9 @@ tasks:
     status:
       - rpm -q percona-release
 
-  repo_docker:
-    cmds:
-      - sudo rm /etc/yum.repos.d/docker-ce.repo
-    status:
-      - test ! -f /etc/yum.repos.d/docker-ce.repo
-
   repos:
     # Install all repositories.
-    deps: [ repo_rpmfusion, repo_fedora_thirdparty, repo_percona, repo_docker ]
+    deps: [ repo_rpmfusion, repo_fedora_thirdparty, repo_percona ]
 
 
 
@@ -192,16 +197,10 @@ tasks:
   
   pkg:
     desc: Install all the packages to configure a Fedora workstation.
-    deps: [repos]
+    deps: [cleanup, repos]
     cmds:
-      - task: dnf_remove
-        vars: { pkgs: "{{.rpm_absent}}" }
       - task: dnf
         vars: { pkgs: "{{.devopstools}} {{.base_distro}} {{.unix_essentials}} {{.workstation}} {{.codecs}} {{.kde}} {{.awesomewm}} {{.i3}} {{.lxqt}} {{.vagrant}}" }
-      - task: spotify
-      - task: chrome
-      - task: dropbox
-      - task: keybase
 
   nvidia:
     #desc: Install modules and utils for Nvidia.
@@ -209,40 +208,6 @@ tasks:
     cmds:
       - task: dnf
         vars: { pkgs: "{{.nvidia_hardware}}" }
-
-  spotify:
-    #desc: Install spotify client.
-    deps: [repos]
-    cmds:
-      - sudo snap install spotify
-    status:
-      - snap list spotify
-
-  chrome:
-    #desc: Install google chrome.
-    deps: [repos]
-    cmds:
-      - sudo dnf config-manager --set-enabled google-chrome
-      - sudo dnf install google-chrome-stable
-    status:
-      - rpm -q google-chrome-stable
-
-  keybase:
-    #desc: Install keybase.io client
-    deps: [repos]
-    cmds:
-      - sudo dnf install -y https://prerelease.keybase.io/keybase_amd64.rpm
-    status:
-      - rpm -q keybase
-
-  dropbox:
-    #desc: Install Dropbox client.
-    deps: [repos]
-    cmds:
-      - sudo dnf install -y dropbox
-      # [todo] - run 'dropbox start -i'
-    status:
-      - rpm -q dropbox
 
 
 
@@ -284,7 +249,6 @@ tasks:
       - jiq
       - pet
       - sheet
-      - telegram
       - vim_vundle
 
   awless:
@@ -394,20 +358,6 @@ tasks:
       - which sheet > /dev/null
 
 
-  telegram:
-    #desc: Install Telegram Linux client.
-    dir: /usr/local/bin
-    cmds:
-      - wget -nv -c {{.URL}} -O /tmp/tsetup.tar.xz
-      - sudo tar -C /srv -xJf /tmp/tsetup.tar.xz
-      - sudo chown -R root:root /srv/Telegram
-      - sudo ln -s /srv/Telegram/Telegram .
-    status:
-      - test -f /srv/Telegram/Telegram
-    vars:
-      URL: https://telegram.org/dl/desktop/linux
-
-
   vim_vundle:
     #desc: Clone Vim Vundle to your ~/.vim/.
     cmds:
@@ -486,3 +436,29 @@ tasks:
         # 'Meta' does nothing by itself
       - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
       - qdbus org.kde.KWin /KWin reconfigure
+
+
+  ################################################## 
+  #
+
+  flatpak-ini:
+    cmds:
+      - flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    status:
+      - flatpak remote-list | grep -q '^flathub\s'
+
+  flatpak-install:
+    cmds:
+      - flatpak install --noninteractive {{ .remote|default "flathub" }} {{ .id }}
+    status:
+      - flatpak list | awk '{print $2}' | grep -q '^{{ .id }}$'
+
+  flatpak:
+    deps: [cleanup, flatpak-ini, ]
+    cmds:
+      - { task: flatpak-install, vars: { id: "com.spotify.Client" } }
+      - { task: flatpak-install, vars: { id: "com.skype.Client" } }
+      - { task: flatpak-install, vars: { id: "us.zoom.Zoom" } }
+      - { task: flatpak-install, vars: { id: "org.telegram" } }
+      - { task: flatpak-install, vars: { id: "com.slack.Slack" } }
+
