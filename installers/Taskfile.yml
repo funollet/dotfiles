@@ -136,19 +136,12 @@ tasks:
   cleanup:
     cmds:
       - sudo dnf remove {{ regexReplaceAll "#.*" .pkgs "" | catLines }}
-      - test -f /etc/yum.repos.d/docker-ce.repo && sudo rm /etc/yum.repos.d/docker-ce.repo
-      - sudo snap remove spotify
-      - test -f /etc/yum.repos.d/skype-stable.repo && sudo rm /etc/yum.repos.d/skype-stable.repo
-      - sudo dnf copr remove copr.fedorainfracloud.org/phracek/PyCharm
-      - test -f /usr/local/bin/Telegram && sudo rm /usr/local/bin/Telegram
-      - test -d /srv/Telegram/ && sudo rm -r /srv/Telegram/
     vars:
       pkgs: |
        amarok akonadi banshee gbrainy awscli unison240-gtk
        python2-pytest python2-invoke
        docker-ce podman
        python3-pika python3-virtualenvwrapper
-       skypeforlinux zoom keybase slack
     ignore_error: true
 
 
@@ -216,28 +209,6 @@ tasks:
 
   ################################################## 
   #
-  brew-ready:
-    desc: Cleanup before reinstalling software with brew.
-    cmds:
-      - sudo dnf remove -y gh
-      - sudo rm -f /usr/local/bin/awless
-      - sudo rm -f /usr/local/bin/caddy
-      - sudo rm -f /usr/local/bin/diff-so-fancy
-      - sudo rm -f /usr/local/bin/fasd
-      - sudo rm -f /usr/local/bin/fx
-      - sudo rm -f /usr/local/bin/gron
-      - sudo rm -f /usr/local/bin//helm
-      - sudo rm -f /usr/local/bin/hugo
-      - sudo rm -f /etc/bash_completion.d/minikube
-      - sudo rm -f /usr/local/bin/minikube
-      - sudo rm -f /usr/local/bin/peco
-      - sudo rm -f /usr/local/bin/pup
-      - sudo rm -f /usr/local/bin/powerline-go
-      - sudo rm -f /usr/local/bin/terraform
-      - sudo rm -f /usr/local/bin/packer
-      - sudo rm -f /usr/local/bin/task
-
-
   non-pkg:
     desc: Install not-packaged software.
     deps:
