@@ -441,24 +441,13 @@ tasks:
   ################################################## 
   #
 
-  flatpak-ini:
+  flatpak:
+    desc: Install software with flatpak.
     cmds:
       - flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
-    status:
-      - flatpak remote-list | grep -q '^flathub\s'
-
-  flatpak-install:
-    cmds:
-      - flatpak install --noninteractive {{ .remote|default "flathub" }} {{ .id }}
-    status:
-      - flatpak list | awk '{print $2}' | grep -q '^{{ .id }}$'
-
-  flatpak:
-    deps: [cleanup, flatpak-ini, ]
-    cmds:
-      - { task: flatpak-install, vars: { id: "com.spotify.Client" } }
-      - { task: flatpak-install, vars: { id: "com.skype.Client" } }
-      - { task: flatpak-install, vars: { id: "us.zoom.Zoom" } }
-      - { task: flatpak-install, vars: { id: "org.telegram" } }
-      - { task: flatpak-install, vars: { id: "com.slack.Slack" } }
+      - flatpak install --noninteractive flathub com.spotify.Client
+      - flatpak install --noninteractive flathub com.skype.Client
+      - flatpak install --noninteractive flathub us.zoom.Zoom
+      - flatpak install --noninteractive flathub org.telegram.desktop
+      - flatpak install --noninteractive flathub com.slack.Slack
 
