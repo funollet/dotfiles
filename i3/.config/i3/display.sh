@@ -2,7 +2,14 @@
 # display.sh
 
 setup_displays () {
-    xrandr --output HDMI-1 --primary --auto --output eDP-1 --auto --right-of HDMI-1 --mode 1920x1080
+    if [ $(hostname) = "yak.lan" ] ; then
+        if xrandr | grep -q 'HDMI-1 connected' ; then
+            xrandr --output HDMI-1 --primary --auto \
+                   --output eDP-1 --auto --left-of HDMI-1 --mode 1920x1080
+        else
+            xrandr --output eDP-1 --primary --mode 1920x1080
+        fi
+    fi
 }
 
 
@@ -13,10 +20,10 @@ run_polybar () {
 
     devices=$(polybar --list-monitors | cut -d: -f1)
     primary=$(polybar --list-monitors | grep primary | cut -d: -f1)
-    position=none
 
     for dev in $devices ; do
         echo "---" | tee -a /tmp/polybar.$dev.log
+        position=none
         if [ $dev == $primary ] ; then
             position=center
         fi
