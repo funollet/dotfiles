@@ -137,6 +137,7 @@ exec_always --no-startup-id ~/.config/i3/mouse.sh
 exec_always --no-startup-id ~/.config/i3/display.sh
 #
 exec_always --no-startup-id nm-applet
+exec --no-startup-id xset s 300 5 && xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
 exec firefox
 exec slack
 exec Telegram
@@ -155,9 +156,9 @@ for_window  [class="Slack"]             floating enable
 
 set $mode_system System (l) lock, (e) logout, (s) suspend, (r) reboot, (Shift+s) shutdown
 mode "$mode_system" {
-    bindsym l       exec --no-startup-id i3lock -c 000000, mode "default"
+    bindsym l       exec --no-startup-id xset s activate, mode "default"
     bindsym e       exec --no-startup-id i3-msg exit, mode "default"
-    bindsym s       exec --no-startup-id i3lock -c 000000 && systemctl suspend && xkb.sh, mode "default"
+    bindsym s       exec --no-startup-id xset s activate && systemctl suspend, mode "default"
     bindsym r       exec --no-startup-id systemctl reboot, mode "default"
     bindsym Delete  exec --no-startup-id systemctl reboot, mode "default"
     bindsym Shift+s exec --no-startup-id systemctl poweroff, mode "default"
@@ -170,7 +171,7 @@ bindsym $mod+Shift+c    reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r    restart
 
-bindsym Control+Mod1+l          exec i3lock -c 000000
+bindsym Control+Mod1+l          exec xset s activate
 bindsym $mod+Return             exec konsole
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
