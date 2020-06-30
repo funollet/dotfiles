@@ -188,6 +188,15 @@ tasks:
   ################################################## 
   #
   
+  install:
+    desc: Install everything.
+    deps:
+      - task: pkg
+      - task: non-pkg
+      - task: pipx
+      - task: brew
+      - task: flatpak
+  
   pkg:
     desc: Install all the packages to configure a Fedora workstation.
     deps: [cleanup, repos]
