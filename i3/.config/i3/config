@@ -13,6 +13,17 @@ set $right  l
 set $prev   u
 set $next   i
 
+workspace 1 output HDMI-1 eDP-1
+workspace 2 output HDMI-1 eDP-1
+workspace 3 output HDMI-1 eDP-1
+workspace 4 output HDMI-1 eDP-1
+workspace 5 output HDMI-1 eDP-1
+workspace 6 output HDMI-1 eDP-1
+workspace 7 output HDMI-1 eDP-1
+workspace 8 output HDMI-1 eDP-1
+workspace 9 output eDP-1
+workspace 0 output eDP-1
+
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
 
@@ -139,8 +150,8 @@ exec_always --no-startup-id ~/.config/i3/display.sh
 exec_always --no-startup-id nm-applet
 exec --no-startup-id xset s 300 5 && xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
 exec firefox
-exec slack
-exec Telegram
+exec flatpak run com.slack.Slack
+exec flatpak run org.telegram.desktop
 exec clementine
 
 #           Custom details for some windows.
