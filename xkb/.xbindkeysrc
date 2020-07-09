@@ -36,10 +36,3 @@
 #keystate_numlock = enable
 #keystate_capslock = enable
 #keystate_scrolllock= enable
-
-
-# prev/next desktop with the mouse
-"xdotool set_desktop --relative -- -1"
-  b:6
-"xdotool set_desktop --relative 1"
-  b:7

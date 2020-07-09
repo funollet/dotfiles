@@ -1,12 +1,12 @@
 #!/bin/bash
 # mouse.sh
 
-device_detected=false
+# Custom configuration for this device.
+# Bus 001 Device 002: ID 056e:00fd Elecom Co., Ltd ELECOM TrackBall Mouse
 
-lsusb | grep -qi 'elecom trackball' && device_detected=true
+suffix=""
+lsusb -d 056e:00fd > /dev/null && suffix=".elecom"
 
-if [ "$device_detected" = "true" ] ; then
-    pgrep xbindkeys || xbindkeys
-else
-    pkill xbindkeys
-fi
+pkill xbindkeys
+xbindkeys -f "$HOME/.xbindkeysrc${suffix}"
+
