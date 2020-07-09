@@ -4,9 +4,18 @@
 
 # Unusable with a trackpad, it's too easy to accidentally do a lateral scroll
 # and fly through desktops.
-
+#
 # prev/next desktop with the mouse
 "xdotool set_desktop --relative -- -1"
   b:6
 "xdotool set_desktop --relative 1"
   b:7
+
+
+# Mouse 'back' button.
+"i3-msg -t command move container to output right"
+  b:8
+
+# Mouse 'forward' button.
+"i3-msg -t command move container to output right"
+  b:9
