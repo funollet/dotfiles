@@ -55,3 +55,11 @@ asgpick () {
     export ASGTARGET
     echo $ASGTARGET
 }
+
+ecr-login () {
+    local account
+    account=$(aws sts get-caller-identity | jq -r .Account)
+    aws ecr get-login-password | docker login \
+        --username AWS \
+        --password-stdin "${account}.dkr.ecr.eu-west-1.amazonaws.com"
+}
