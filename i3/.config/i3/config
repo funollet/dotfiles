@@ -80,16 +80,16 @@ mode "move" {
         bindsym $prev   move container to workspace prev ; workspace prev
         bindsym $next   move container to workspace next ; workspace next
 
-        bindsym 1       move container to workspace 1 ; workspace 1
-        bindsym 2       move container to workspace 2 ; workspace 2
-        bindsym 3       move container to workspace 3 ; workspace 3
-        bindsym 4       move container to workspace 4 ; workspace 4
-        bindsym 5       move container to workspace 5 ; workspace 5
-        bindsym 6       move container to workspace 6 ; workspace 6
-        bindsym 7       move container to workspace 7 ; workspace 7
-        bindsym 8       move container to workspace 8 ; workspace 8
-        bindsym 9       move container to workspace 9 ; workspace 9
-        bindsym 0       move container to workspace 10; workspace 10
+        bindsym 1       move container to workspace 1
+        bindsym 2       move container to workspace 2
+        bindsym 3       move container to workspace 3
+        bindsym 4       move container to workspace 4
+        bindsym 5       move container to workspace 5
+        bindsym 6       move container to workspace 6
+        bindsym 7       move container to workspace 7
+        bindsym 8       move container to workspace 8
+        bindsym 9       move container to workspace 9
+        bindsym 0       move container to workspace 10
 
         # back to normal: Enter or Escape
         bindsym Escape  mode "default"
@@ -145,7 +145,7 @@ exec        --no-startup-id dunst
 exec        --no-startup-id xkb.sh
 exec        --no-startup-id lxqt-powermanagement
 exec_always --no-startup-id ~/.config/i3/mouse.sh
-exec_always --no-startup-id ~/.config/i3/display.sh
+exec_always --no-startup-id ~/.config/i3/bar.sh
 #
 exec_always --no-startup-id nm-applet
 exec --no-startup-id xset s 300 5 && xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
@@ -180,7 +180,7 @@ bindsym Control+Mod1+Delete mode "$mode_system"
 
 bindsym $mod+Shift+c    reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r    restart
+bindsym $mod+Shift+r    exec --no-startup-id "~/.config/i3/display.sh ; i3-msg restart"
 
 bindsym Control+Mod1+l          exec xset s activate
 bindsym $mod+Return             exec konsole
