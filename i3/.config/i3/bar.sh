@@ -6,8 +6,8 @@ run_polybar () {
     # Wait until the processes have been shut down
     while pgrep -u $UID -x polybar > /dev/null; do sleep 0.3 ; done
 
-    devices=$(polybar --list-monitors | cut -d: -f1)
-    primary=$(polybar --list-monitors | grep primary | cut -d: -f1)
+    devices=$(xrandr | awk '/ conn/ {print $1}')
+    primary=$(xrandr | grep primary | awk '/ conn/ {print $1}')
 
     for dev in $devices ; do
         echo "---" | tee -a /tmp/polybar.$dev.log
