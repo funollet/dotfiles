@@ -1,21 +1,15 @@
-###########################
-# xbindkeys configuration #
-###########################
+# .xbindkeysrc.elecom
 
 # Unusable with a trackpad, it's too easy to accidentally do a lateral scroll
 # and fly through desktops.
 #
-# prev/next desktop with the mouse
+# prev/next desktop
 "xdotool set_desktop --relative -- -1"
-  b:6
+  b:6           # mouse wheel left button
 "xdotool set_desktop --relative 1"
-  b:7
+  b:7           # mouse wheel right button
 
-
-# Mouse 'back' button.
-"i3-msg -t command move container to output right"
-  b:8
-
-# Mouse 'forward' button.
-"i3-msg -t command move container to output right"
-  b:9
+"i3-msg move container to output right"
+  b:8           # Mouse 'back' button.
+"i3-msg floating toggle"
+  b:9           # Mouse 'forward' button.
