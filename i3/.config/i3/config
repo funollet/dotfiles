@@ -141,6 +141,8 @@ workspace_auto_back_and_forth yes
 
 
 #           Launch on startup.
+# exec_always --no-startup-id xsetroot -solid "#111111"
+exec_always --no-startup-id nitrogen --restore
 exec        --no-startup-id dunst
 exec        --no-startup-id xkb.sh
 exec        --no-startup-id lxqt-powermanagement
