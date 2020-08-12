@@ -91,8 +91,9 @@ mode "move" {
         bindsym 9       move container to workspace 9
         bindsym 0       move container to workspace 10
 
-        # back to normal: Enter or Escape
+        # back to normal
         bindsym Escape  mode "default"
+        bindsym $mod+m  mode "default"
 }
 bindsym $mod+m mode "move"
 
@@ -204,26 +205,45 @@ bindsym $mod+Prior              exec pactl set-sink-volume @DEFAULT_SINK@ +3%
 bindsym $mod+Next               exec pactl set-sink-volume @DEFAULT_SINK@ -3%
 bindsym $mod+n                  exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
 
-# clementine
-bindsym $mod+Insert             exec clementine --play-pause
-bindsym $mod+Home               exec clementine --previous
-bindsym $mod+End                exec clementine --next
+# bindsym --release $mod+Insert exec --no-startup-id xdotool key --clearmodifiers XF86AudioPlay
 
+mode "clementine" {
+        bindsym $up             exec clementine --play-pause
 
+        bindsym $right          exec clementine --next
+        bindsym $left           exec clementine --previous
 
+        bindsym Prior           exec clementine --next
+        bindsym Next            exec clementine --previous
 
+        # back to normal
+        bindsym Escape mode "default"
+        bindsym $mod+c mode "default"
+}
+bindsym $mod+c mode "clementine"
 
+mode "spotify" {
+        bindsym $up             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
+        bindsym $right          exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+        bindsym $left           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
+        bindsym Prior           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+        bindsym Next            exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+
+        # back to normal
+        bindsym Escape mode "default"
+        bindsym $mod+p mode "default"
+}
+bindsym $mod+p mode "spotify"
 
 
 # spotify
-# bindsym $mod+Insert             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-# bindsym $mod+Home               exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-# bindsym $mod+End                exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-# bindsym XF86AudioPlay           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-# bindsym XF86AudioNext           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-# bindsym XF86AudioPrev           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+bindsym XF86AudioPlay           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
+bindsym XF86AudioNext           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+bindsym XF86AudioPrev           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+
+
 
 ## ## Plasma Integration
 ## # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
