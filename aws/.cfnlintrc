@@ -1,0 +1,5 @@
+ignore_templates:
+  - buildspec.yml
+
+append_rules:
+  - /home/jordif/code/wallapop/platform/docker-base-images/cfn-lint/custom_rules/
