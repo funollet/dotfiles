@@ -108,8 +108,9 @@ vars:
     # plank compton
   i3:
     i3 python3-i3ipc i3lock xsecurelock xss-lock
-    dunst light nitrogen rofi network-manager-applet NetworkManager-tui
     polybar unifont-fonts
+    dunst light nitrogen rofi
+    network-manager-applet NetworkManager-tui NetworkManager-openvpn-gnome
   lxqt: |
     @lxqt
   vagrant: |
