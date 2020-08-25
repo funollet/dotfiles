@@ -18,7 +18,7 @@ which awless > /dev/null 2>&1 && source <(awless completion bash)
 ##             --output text
 ## }
 
-ec2whois () {
+aaws-ec2-whois () {
   # $1: Private IP of the instance or instance_id
   id=$1
 
@@ -32,23 +32,23 @@ ec2whois () {
   | jq --sort-keys '.Reservations[].Instances[] | (.Tags | from_entries) + {"InstanceId": .InstanceId, "PrivateIpAddress": .PrivateIpAddress, "ImageId": .ImageId, "AZ": .Placement.AvailabilityZone} '
 }
 
-ec2bytag () {
+aaws-ec2-bytag () {
     aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2"
 }
 
-prodbytag () {
+aaws-prodbytag () {
     aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2" \
         "Name=instance-state-name,Values=running,pending" "Name=tag:Env,Values=prod" \
         --query "Reservations[].Instances[]"
 }
 
-betabytag () {
+aaws-betabytag () {
     aws ec2 describe-instances --output json --filters "Name=tag:$1,Values=$2" \
         "Name=instance-state-name,Values=running,pending" "Name=tag:Env,Values=beta"  \
         --query "Reservations[].Instances[]"
 }
 
-asgpick () {
+aaws-asgpick () {
     ASGTARGET=$(aws autoscaling describe-auto-scaling-groups --output json | \
         jq .AutoScalingGroups[].AutoScalingGroupName -r \
         | fzf)
@@ -56,7 +56,7 @@ asgpick () {
     echo $ASGTARGET
 }
 
-ecr-login () {
+aaws-ecr-login () {
     local account
     account=$(aws sts get-caller-identity | jq -r .Account)
     aws ecr get-login-password | docker login \
