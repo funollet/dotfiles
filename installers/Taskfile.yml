@@ -258,6 +258,20 @@ tasks:
   #     URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
 
+  Chrysalis:
+    #desc: Install 'Chrysalis'
+    dir: /tmp
+    cmds:
+      - curl -sSL -o /tmp/{{.NAME}} {{.URL}}
+      - sudo install /tmp/{{.NAME}} /usr/local/bin
+    status:
+      - which {{.NAME}} > /dev/null
+    vars:
+      NAME: Chrysalis
+      VERSION: 0.7.9
+      URL: "https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-{{.VERSION}}/Chrysalis-{{.VERSION}}.AppImage"
+
+
   docker-machine-driver-kvm2:
     #desc: Install docker-machine-driver-kvm2.
     dir: /tmp
@@ -331,7 +345,7 @@ tasks:
       URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.tar.gz"
 
   render:
-    #desc: Install 'render' at ~/.gem/
+    #desc: Install 'render'
     dir: /tmp
     cmds:
       - curl -sSL -o /tmp/render {{.URL}}
