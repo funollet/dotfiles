@@ -80,16 +80,16 @@ mode "move" {
         bindsym $prev   move container to workspace prev ; workspace prev
         bindsym $next   move container to workspace next ; workspace next
 
-        bindsym 1       move container to workspace 1
-        bindsym 2       move container to workspace 2
-        bindsym 3       move container to workspace 3
-        bindsym 4       move container to workspace 4
-        bindsym 5       move container to workspace 5
-        bindsym 6       move container to workspace 6
-        bindsym 7       move container to workspace 7
-        bindsym 8       move container to workspace 8
-        bindsym 9       move container to workspace 9
-        bindsym 0       move container to workspace 10
+        bindsym 1       move container to workspace number 1  ; workspace number 1
+        bindsym 2       move container to workspace number 2  ; workspace number 2
+        bindsym 3       move container to workspace number 3  ; workspace number 3
+        bindsym 4       move container to workspace number 4  ; workspace number 4
+        bindsym 5       move container to workspace number 5  ; workspace number 5
+        bindsym 6       move container to workspace number 6  ; workspace number 6
+        bindsym 7       move container to workspace number 7  ; workspace number 7
+        bindsym 8       move container to workspace number 8  ; workspace number 8
+        bindsym 9       move container to workspace number 9  ; workspace number 9
+        bindsym 0       move container to workspace number 10 ; workspace number 10
 
         # back to normal
         bindsym Escape  mode "default"
@@ -225,8 +225,8 @@ bindsym $mod+c mode "clementine"
 mode "spotify" {
         bindsym $up             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 
-        bindsym $right          exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-        bindsym $left           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
+        bindsym $left           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
+        bindsym $right          exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
 
         bindsym Prior           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
         bindsym Next            exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
