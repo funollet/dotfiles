@@ -224,10 +224,12 @@ tasks:
     deps:
       - awless
       # - awscli
+      - chrysalis
       - fonts-powerline
       - fonts-hack
       - fpm
       - jiq
+      - kmonad
       - pet
       - render
       - sheet
@@ -258,7 +260,7 @@ tasks:
   #     URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
 
 
-  Chrysalis:
+  chrysalis:
     #desc: Install 'Chrysalis'
     dir: /tmp
     cmds:
@@ -330,6 +332,21 @@ tasks:
       - sudo cp ~/code/go/bin/jiq /usr/local/bin
     status:
       - test -f /usr/local/bin/jiq
+
+
+  kmonad:
+    #desc: Install 'kmonad' https://github.com/david-janssen/kmonad/
+    dir: /tmp
+    cmds:
+      - curl -sSL -o /tmp/{{.NAME}} {{.URL}}
+      - sudo install /tmp/{{.NAME}} /usr/local/bin
+    status:
+      - which {{.NAME}} > /dev/null
+    vars:
+      NAME: kmonad
+      VERSION: 0.4.1
+      URL: "https://github.com/david-janssen/kmonad/releases/download/{{.VERSION}}/kmonad-{{.VERSION}}-linux"
+
 
   pet:
     #desc: "Install pet. https://github.com/knqyf263/pet"
