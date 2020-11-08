@@ -87,3 +87,27 @@
     - name: install with brew
       command: brew bundle
       tags: brew
+
+    - group:
+        name: uinput
+      become: true
+      tags: users
+
+    - file:
+        path: /dev/uinput
+        owner: root
+        group: uinput
+        mode: 0640
+      become: true
+      tags: users
+
+    - user:
+        name: jordif
+        append: yes
+        groups:
+          - wheel
+          - dialout
+          - input
+          - uinput
+      become: true
+      tags: users
