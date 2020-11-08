@@ -1,0 +1,144 @@
+
+pipx: [
+  beets, cfn-lint, ec2instanceconnectcli, fabric, pew, pex,
+  ]
+
+flatpak: [
+  com.spotify.Client, com.skype.Client, us.zoom.Zoom, org.telegram.desktop,
+  com.slack.Slack,
+  ]
+
+rpm_absent: [
+  amarok, akonadi, banshee, gbrainy, awscli, unison240-gtk, python2-pytest, python2-invoke,
+  docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
+  ]
+
+rpm: [
+  ### base_distro
+  python-paramiko, python-yaml, python-jinja2, python-simplejson, python-pip,
+  python3-firewall, createrepo, snapd,
+  
+  ### devopstools
+  vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
+  # development tools
+  mercurial, git, hub, git-svn, gitk, sqlite, arduino, jq, ShellCheck,
+  direnv, stow,
+  # vim / syntastic
+  nodejs-js-yaml, rubygem-puppet-lint, yamllint,
+  # Python development.
+  python-devel, python-crypto,
+  python-mock,
+  python3-ipython, python3-black, python3-pytest, python3-flake8, python3-jedi,
+  python-psutil, pydot, httpie, python-py, python-docopt,
+  python-click, python-pip, python-sh,
+  python3-requests,
+  # Ruby development.
+  ruby, ruby-devel, rubygems, rubygem-bundler, rubygem-rake, rubygem-wirb,
+  rubygem-pry, rubygem-pry-doc, rubygem-rspec, rubygem-rspec-mocks,
+  rubygem-rspec-mocks-doc,
+  # Golang devel.
+  golang,
+  # Nagios plugins development.
+  pynag, pynag-examples,
+  #
+  #, Ops,
+  moby-engine,
+  par, pssh, pdsh, pdsh-mod-dshgroup,
+  mysql, percona-toolkit, gnuplot, httpd-tools,
+  #rubygem-rails            # puppet storedconfigs requirement
+  puppet, rubygem-puppet-lint, rubygem-puppet-lint-doc, pass,
+  #
+  # libvirt-bin service must not be run: installs and launches dnsmasq configures virt0 interface.
+  #libvirt-bin,
+  virt-manager,
+  # dependencies for building aws-google-auth
+  libusb-devel, systemd-devel,
+  
+  ### unix_essentials:
+  ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff,
+  the_silver_searcher, fd-find, ncdu, bat,
+  
+  ### workstation:
+  kernel-headers, kernel-devel, dkms,
+  # Xwindows
+  kernel-modules-extra, joystick-support, wmctrl, xdotool, qgnomeplatform,
+  xorg-x11-xkb-extras, xorg-x11-xkb-utils, xkbset, xcape,
+  # Command-line.
+  aspell, aspell-ca, aspell-en, aspell-es,
+  hunspell, hunspell-ca, hunspell-en-US, hunspell-es-ES,
+  mythes, mythes-ca, mythes-en, mythes-es,
+  hyphen, hyphen-ca, hyphen-en, hyphen-es,
+  autocorr-ca, autocorr-en, autocorr-es,
+  pandoc, unison240-text, moreutils, xclip, tmux, lastpass-cli,
+  inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
+  java-1.8.0-openjdk, icedtea-web,
+  # GUI apps.
+  pidgin, pidgin-libnotify, pidgin-guifications,
+  keepassx,
+  freemind, calibre, inkscape, firefox,
+  libreoffice, timeline, youtube-dl, Zim,
+  levien-inconsolata-fonts,
+  zathura, speedcrunch, homebank, flameshot,
+  # Graphics
+  gimp, ufraw-gimp, gimp-wavelet-denoise-plugin, gimp-separate+,
+  gimp-paint-studio, gimp-normalmap, gimp-help, GREYCstoration-gimp,
+  gimp-resynthesizer, gimp-lqr-plugin, gimp-high-pass-filter, gimp-elsamuko,
+  gimp-data-extras,
+  digikam, kf5-kipi-plugins, darktable,
+  # Multimedia
+  clementine, audacity, pavucontrol, ffmpeg, cantata,
+  qjackctl, jack-audio-connection-kit, alsa-plugins-jack, sooperlooper,
+  vlc,                                              # require: RPMfusion repositories
+  # joystick
+  antimicro, linuxconsoletools,
+  dropbox, google-chrome-stable,
+  # from local.repo
+  #aws-shell, sublime-text, rubygem-watson,
+  # 
+  # sigil                                 #needs repo ppa:ikuya-fruitsbasket
+  
+  ### codecs:
+  # require: rpmfusion-free
+  xine-lib-extras, xine-lib-extras-freeworld, k3b-extras-freeworld, gstreamer1-libav,
+  gstreamer1-plugins-good, gstreamer1-plugins-ugly, gstreamer1-plugins-bad-free,
+  gstreamer-ffmpeg, gstreamer-plugins-ugly,
+  gstreamer-plugins-bad, ffmpeg,
+  #     not found: gstreamer-plugins-good gstreamer-plugins-bad-free
+  # require: rpmfusion-non-free
+  gstreamer-plugins-bad-nonfree,
+  
+  ### nvidia_hardware:
+  #alternative: - kmod-nvidia-PAE 
+  #alternative: - xorg-x11-drv-nouveau
+  # akmod-nvidia-304xx, xorg-x11-drv-nvidia-304xx, xorg-x11-drv-nvidia-cuda,
+  kernel-devel,
+  # hardware video acceleration
+  vdpauinfo, libva-vdpau-driver, libva-utils,
+  
+  ### kde:
+  xdg-desktop-portal-kde, plasma-browser-integration,
+  
+  ### awesomewm:
+  awesome, awesome-doc, vicious, scrot, network-manager-applet,
+  light, xautolock, i3lock,
+  feh, lximage-qt, arandr, lxappearance, lxqt-powermanagement, screengrab,
+  #, plank, compton,
+  
+  ### i3:
+  i3, python3-i3ipc, i3lock, xsecurelock, xss-lock,
+  polybar, unifont-fonts,
+  dunst, light, nitrogen, rofi,
+  network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
+  
+  ### lxqt:
+  "@lxqt",
+  
+  ### vagrant:
+  vagrant, vagrant-doc, vagrant-lxc, vagrant-lxc-doc, vagrant-libvirt,
+  vagrant-libvirt-doc, vagrant-cachier, vagrant-cachier-doc,
+  vagrant-hostmanager, vagrant-hostmanager-doc,
+  lxc,                                  # vagrant-lxc requirement
+  lxc-doc,                              # vagrant-lxc requirement
+  redir,                                # vagrant-lxc requirement
+  VirtualBox, kmod-VirtualBox,
+  ]

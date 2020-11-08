@@ -2,9 +2,6 @@
 
 version: '2'
 
-includes:
-  install: ./installers
-
 tasks:
 
   default:
