@@ -21,15 +21,8 @@ tasks:
     deps:
       - awless
       # - awscli
-      - chrysalis
       - fonts-powerline
       - fonts-hack
-      - fpm
-      - jiq
-      - kmonad
-      - pet
-      - render
-      - sheet
       - vim_vundle
 
   awless:
@@ -44,45 +37,6 @@ tasks:
     vars:
       VERSION: 0.1.11
       URL: https://github.com/wallix/awless/releases/download/v{{.VERSION}}/awless-linux-amd64.tar.gz
-
-
-  # awscli:
-  #   dir: /tmp
-  #     - curl -s -o "awscliv2.zip" {{.URL}}
-  #     - unzip awscliv2.zip
-  #     - sudo ./aws/install
-  #   status:
-  #     - which aws
-  #   vars:
-  #     URL: https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip
-
-
-  chrysalis:
-    #desc: Install 'Chrysalis'
-    dir: /tmp
-    cmds:
-      - curl -sSL -o /tmp/{{.NAME}} {{.URL}}
-      - sudo install /tmp/{{.NAME}} /usr/local/bin
-    status:
-      - which {{.NAME}} > /dev/null
-    vars:
-      NAME: Chrysalis
-      VERSION: 0.7.9
-      URL: "https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-{{.VERSION}}/Chrysalis-{{.VERSION}}.AppImage"
-
-
-  docker-machine-driver-kvm2:
-    #desc: Install docker-machine-driver-kvm2.
-    dir: /tmp
-    cmds:
-      - wget -nv -c {{.URL}} -O /tmp/docker-machine-driver-kvm2
-      - sudo install -m 755 docker-machine-driver-kvm2 /usr/local/bin/
-    status:
-      - test -f /usr/local/bin/docker-machine-driver-kvm2
-    vars:
-      URL: https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2
-
-
 
   fonts-powerline:
     #desc: Install fonts for Powerline on user's home.
@@ -106,77 +60,6 @@ tasks:
       - test -d ~/.local/share/fonts/Hack
     vars:
       URL: https://github.com/ryanoasis/nerd-fonts/releases/download/v2.1.0/Hack.zip
-
-
-  fpm:
-    #desc: Install 'fpm' at ~/.gem/
-    cmds:
-      - sudo dnf install -y rubygem-ffi rubygem-childprocess rubygem-backports ruby-devel rpm-build
-      - gem install --user-install fpm
-    status:
-      - which fpm > /dev/null
-      # Fetching: cabin-0.6.1.gem (100%)
-      # Fetching: backports-3.6.0.gem (100%)
-      # Fetching: arr-pm-0.0.9.gem (100%)
-      # Fetching: clamp-0.6.3.gem (100%)
-      # Fetching: ffi-1.9.3.gem (100%)
-
-  jiq:
-    #desc: Install jiq. https://github.com/fiatjaf/jiq
-    dir: /usr/local/bin
-    cmds:
-      - go get github.com/fiatjaf/jiq/cmd/jiq
-      - sudo cp ~/code/go/bin/jiq /usr/local/bin
-    status:
-      - test -f /usr/local/bin/jiq
-
-
-  kmonad:
-    #desc: Install 'kmonad' https://github.com/david-janssen/kmonad/
-    dir: /tmp
-    cmds:
-      - curl -sSL -o /tmp/{{.NAME}} {{.URL}}
-      - sudo install /tmp/{{.NAME}} /usr/local/bin
-    status:
-      - which {{.NAME}} > /dev/null
-    vars:
-      NAME: kmonad
-      VERSION: 0.4.1
-      URL: "https://github.com/david-janssen/kmonad/releases/download/{{.VERSION}}/kmonad-{{.VERSION}}-linux"
-
-
-  pet:
-    #desc: "Install pet. https://github.com/knqyf263/pet"
-    dir: /tmp
-    cmds:
-      - wget -nv -c "{{.URL}}" -O pet.tar.gz
-      - tar -xzf pet.tar.gz
-      - sudo install -m 0755 pet /usr/local/bin
-    status:
-      - test -f /usr/local/bin/pet
-    vars:
-      VERSION: 0.3.2
-      URL: "https://github.com/knqyf263/pet/releases/download/v{{.VERSION}}/pet_{{.VERSION}}_linux_amd64.tar.gz"
-
-  render:
-    #desc: Install 'render'
-    dir: /tmp
-    cmds:
-      - curl -sSL -o /tmp/render {{.URL}}
-      - sudo install -m 0755 /tmp/render /usr/local/bin
-    status:
-      - which render > /dev/null
-    vars:
-      VERSION: 0.2.0
-      URL: "https://github.com/VirtusLab/render/releases/download/v{{.VERSION}}/render-linux-amd64"
-
-  sheet:
-    #desc: Install 'sheet' at ~/.gem/
-    cmds:
-      # - sudo dnf install -y rubygem-ffi rubygem-childprocess rubygem-backports ruby-devel rpm-build
-      - gem install --user-install sheet
-    status:
-      - which sheet > /dev/null
 
 
   vim_vundle:

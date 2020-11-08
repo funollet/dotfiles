@@ -1,0 +1,19 @@
+
+- name: install required packages
+  dnf:
+    name: "{{ item }}"
+    state: present
+  become: yes
+  loop:
+    - rubygem-ffi 
+    - rubygem-childprocess
+    - rubygem-backports
+    - ruby-devel
+    - rpm-build
+
+- name: install gems
+  gem:
+    name: "{{ item }}"
+    state: present
+    user_install: yes
+  loop: "{{ gems }}"

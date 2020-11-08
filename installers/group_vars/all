@@ -8,6 +8,24 @@ flatpak: [
   com.slack.Slack,
   ]
 
+gems: [
+  fpm, sheet,
+  ]
+
+fatbin:
+  - name: Chrysalis
+    url: "https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-0.7.9/Chrysalis-0.7.9.AppImage"
+  - name: jiq
+    url: "https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64"
+  - name: kmonad
+    url: "https://github.com/david-janssen/kmonad/releases/download/0.4.1/kmonad-0.4.1-linux"
+  - name: pet
+    url: "https://github.com/knqyf263/pet/releases/download/v0.3.2/pet_0.3.2_linux_amd64.tar.gz"
+  - name: render
+    url: "https://github.com/VirtusLab/render/releases/download/v0.2.0/render-linux-amd64"
+  # - name: docker-machine-driver-kvm2
+  #   url: "https://storage.googleapis.com/minikube/releases/latest/docker-machine-driver-kvm2"
+
 rpm_absent: [
   amarok, akonadi, banshee, gbrainy, awscli, unison240-gtk, python2-pytest, python2-invoke,
   docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
