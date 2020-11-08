@@ -6,7 +6,7 @@ vars:
   # List of packages to be installed.
   base_distro: |
     python-paramiko python-yaml python-jinja2 python-simplejson python-pip
-    yum-cron python3-firewall createrepo snapd
+    python3-firewall createrepo snapd
   devopstools: |
     vim-X11 vim-enhanced automake gcc gcc-c++ rpm-build subversion
     # development tools
@@ -142,7 +142,7 @@ tasks:
        amarok akonadi banshee gbrainy awscli unison240-gtk
        python2-pytest python2-invoke
        docker-ce podman
-       python3-pika python3-virtualenvwrapper
+       python3-pika python3-virtualenvwrapper yum-cron
     ignore_error: true
 
 
@@ -474,3 +474,13 @@ tasks:
       - flatpak install --noninteractive flathub org.telegram.desktop
       - flatpak install --noninteractive flathub com.slack.Slack
 
+  users:
+    desc: configure users and groups
+    cmds:
+      - getent group uinput || sudo groupadd uinput
+      - ls -l /dev/uinput | grep -q 'root uinput' || sudo chown root:uinput /dev/uinput
+      - id jordif | grep -q '(dialout)' || sudo usermod -a -G dialout jordif
+      - id jordif | grep -q '(uinput)' || sudo usermod -a -G uinput jordif
+      - id jordif | grep -q '(input)' || sudo usermod -a -G input jordif
+      - ls -l /dev/uinput | grep -q 'root uinput' || sudo chown root:uinput /dev/uinput
+      - ls -l /dev/uinput | grep -q 'rw-rw---- ' || sudo sudo chmod 664 /dev/uinput
