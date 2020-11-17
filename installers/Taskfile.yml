@@ -3,20 +3,7 @@
 version: '2'
 
 tasks:
-
-
-  ################################################## 
-  #
-  
   install:
-    desc: Install everything.
-    deps:
-      - task: non-pkg
-  
-
-  ################################################## 
-  #
-  non-pkg:
     desc: Install not-packaged software.
     deps:
       - awless
