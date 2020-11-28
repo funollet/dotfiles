@@ -33,7 +33,7 @@ rpm_absent: [
 
 rpm: [
   ### base_distro
-  python-paramiko, python-yaml, python-jinja2, python-simplejson, python-pip,
+  python-paramiko, python3-pyyaml, python-jinja2, python-simplejson, python-pip,
   python3-firewall, createrepo, snapd,
   
   ### devopstools
