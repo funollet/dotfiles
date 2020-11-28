@@ -194,6 +194,7 @@ bindsym $mod+y                  exec dolphin
 bindsym Mod1+space              exec krunner
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
+bindsym F9                      [class="Spotify"]   scratchpad show
 
 # Brightness
 bindsym XF86MonBrightnessDown   exec light -U 15

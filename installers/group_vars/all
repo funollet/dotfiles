@@ -9,7 +9,7 @@ flatpak: [
   ]
 
 gems: [
-  fpm, sheet,
+  fpm, sheet, fusuma,
   ]
 
 fatbin:
@@ -146,6 +146,7 @@ rpm: [
   i3, python3-i3ipc, i3lock, xsecurelock, xss-lock,
   polybar, unifont-fonts,
   dunst, light, nitrogen, rofi,
+  dex-autostart,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   
   ### lxqt:

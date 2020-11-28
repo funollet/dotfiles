@@ -42,10 +42,20 @@ setxkbmap -layout us -option ''
 #   caps:escape_shifted_capslock
 #       Make unmodified Caps Lock an additional Esc, but Shift + Caps Lock
 #       behaves like regular Caps Lock
-setxkbmap -layout us -variant intl \
+# setxkbmap -layout us -variant intl \
+setxkbmap -layout us \
     -option 'compose:caps' \
     -option 'terminate:ctrl_alt_bksp' \
     -option 'ctrl:menu_rctrl'
+
+### compose keys
+# á     a '
+# à     a `
+# ü     " u
+# €     e =         euro
+# ·     . -         periodcentered
+# ç     c ,         ccedilla
+# ñ     n ~
 
 # Extend us(intl).
 # dead_acute is lvl3, single quote is just one keypress.
@@ -72,7 +82,8 @@ xmodmap -e "keycode any = space"
 
 # Space still works as space.
 # space cadet shift: shift as (), ctrl as {}
-xcape -t 200 -e "Super_R=space;Shift_L=parenleft;Shift_R=parenright;Control_L=Shift_L|bracketleft;Control_R=Shift_L|bracketright"
+# xcape -t 200 -e "Super_R=space;Shift_L=parenleft;Shift_R=parenright;Control_L=Shift_L|bracketleft;Control_R=Shift_L|bracketright"
+xcape -t 200 -e "Super_R=space;Shift_L=parenleft;Shift_R=parenright;Control_L=Tab;Control_R=Return"
 
 
 
