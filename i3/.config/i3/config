@@ -192,6 +192,7 @@ bindsym $mod+Return             exec konsole
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
 bindsym Mod1+space              exec krunner
+bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
 bindsym F9                      [class="Spotify"]   scratchpad show
