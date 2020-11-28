@@ -1,0 +1,65 @@
+(defcfg
+  input  (device-file "/dev/input/by-id/usb-Gaming_KB_Gaming_KB-event-kbd")
+  output (uinput-sink "kmonad" "sleep 0.3 &&
+            xset r rate 300 50 && 
+            setxkbmap -layout us -option '' &&
+            setxkbmap -layout us -option 'compose:ralt' -option 'compose:caps'")
+  fallthrough true
+  allow-cmd false
+)
+
+(defalias
+  vsft      (tap-next-release v lsft)
+  nsft      (tap-hold-next-release  300 n rsft)
+  spc-meta  (tap-hold-next-release  300 spc lmet)
+  lctl-tab  (tap-hold-next-release  300 tab lctl)
+  rctl-ret  (tap-hold-next-release  300 ret rctl)
+  scln-plus (multi-tap 300 scln :)
+  apos-plus (multi-tap 300 apos ")   ;; "
+  ;; à         (tap-macro ralt a `)
+  ;; amulti    (multi-tap 300 a 300 á 300 @à a)
+)
+;;
+;; caveats
+;;
+;;   - Shift in 'j': can't repeat 'j' by keeping it pressed
+;;
+(defsrc
+  v n
+  spc
+  lctl cmp rctl
+  scln apos
+)
+(deflayer multikeys
+  @vsft @nsft
+  @spc-meta
+  @lctl-tab @rctl-ret @rctl-ret
+  @scln-plus @apos-plus
+)
+
+;; (deflayer name
+;;   _    _    _    _    _    _    _    _    _    _    _       _    _
+;;   _    _    _    _    _    _    _    _    _    _    _       _    _    _     _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _       _    _    _     _    _    _
+;;   _    _    _    _    _    _    _    _    _    _    _       _    _
+;;   _    _    _    _    _    _    _    _    _    _    _       _                    _
+;;   _    _    _              _                   _    _       _               _    _    _
+;; )
+;;
+;; (defsrc
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup
+;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn
+;;   cmp  a    s    d    f    g    h    j    k    l    ;    '    ret
+;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up       
+;;   lctl lmet lalt           spc                 cmp  rctl rctl            left down rght
+;; )
+;; 
+;; (deflayer qwerty
+;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
+;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup
+;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn
+;;   caps a    s    d    f    g    h    j    k    l    ;    '    ret
+;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up       
+;;   lctl lmet lalt           spc                 cmp  rctl rctl            left down rght
+;; )
