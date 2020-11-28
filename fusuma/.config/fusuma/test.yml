@@ -1,0 +1,63 @@
+# https://github.com/iberianpig/fusuma
+
+swipe:
+  3:
+    left:
+      command: "echo swipe 3 left"
+    right:
+      command: "echo swipe 3 right"
+    up:
+      command: "echo swipe 3 up"
+    down:
+      command: "echo swipe 3 down"
+  4:
+    left:
+      command: "echo swipe 4 left"
+    right:
+      command: "echo swipe 4 right"
+    up:
+      command: "echo swipe 4 up"
+    down:
+      command: "echo swipe 4 down"
+
+pinch:
+  2:
+    in:
+      command: "echo pinch 2 in"
+    out:
+      command: "echo pinch 2 out"
+  3:
+    in:
+      command: "echo pinch 3 in"
+    out:
+      command: "echo pinch 3 out"
+  4:
+    in:
+      command: "echo pinch 4 in"
+    out:
+      command: "echo pinch 4 out"
+
+rotate:
+  2:
+    clockwise:
+      command: "echo rotate 2 clockwise"
+    counterclockwise:
+      command: "echo rotate 2 counterclockwise"
+  3:
+    clockwise:
+      command: "echo rotate 3 clockwise"
+    counterclockwise:
+      command: "echo rotate 3 counterclockwise"
+  4:
+    clockwise:
+      command: "echo rotate 4 clockwise"
+    counterclockwise:
+      command: "echo rotate 4 counterclockwise"
+
+# tap
+# hold
+
+
+interval:
+  swipe: 0.5
+
