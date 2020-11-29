@@ -3,29 +3,24 @@
 swipe:
   3:
     left:
+      command: 'xdotool key ctrl+shift+Tab' # previous tab
+    right:
+      command: 'xdotool key ctrl+Tab'       # next tab
+    up:
+      command: 'xdotool key alt+Left'       # backward
+    down:
+      command: 'xdotool key alt+Right'      # forward
+  4:
+    left:
       command: "i3-msg 'workspace prev'"
     right:
       command: "i3-msg 'workspace next'"
-    up:
-      command: 'xdotool key ctrl+shift+Tab'
-    down:
-      command: 'xdotool key ctrl+Tab'
-  4:
-    left:
-      command: 'xdotool key ctrl+shift+Tab'
-    right:
-      command: 'xdotool key ctrl+Tab'
 pinch:
-  2:
-    in:
-      command: 'xdotool key ctrl+plus'
-    out:
-       command: 'xdotool key ctrl+minus'
   3:
-    in:
-      command: 'xdotool key ctrl+w'
+    out:
+      command: 'xdotool key ctrl+w'         # close tab
 rotate:
-  4:
+  3:
     clockwise:
       command: 'pactl set-sink-volume @DEFAULT_SINK@ +3%'
     counterclockwise:
