@@ -50,19 +50,6 @@
       become: yes
       tags: rpm
 
-    - name: install pipx
-      command: pip3 install --user pipx
-      args:
-        creates: ~/.local/bin/pipx
-      tags: pipx
-
-    - name: install with pipx
-      command: pipx install {{ item }}
-      args:
-        creates: ~/.local/pipx/venvs/{{ item }}
-      loop: "{{ pipx }}"
-      tags: pipx
-
     - name: install aws-google-auth
       # build dependencies: libusb-devel systemd-devel
       command: pipx install aws-google-auth[u2f]
@@ -126,3 +113,5 @@
         tags: never
     - import_role:
         name: gems
+    - import_role:
+        name: pipx
