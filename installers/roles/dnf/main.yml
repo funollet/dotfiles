@@ -1,0 +1,47 @@
+- name: install repos
+  dnf:
+    name: "{{ item }}"
+    state: present
+  become: yes
+  loop:
+    - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+    - fedora-workstation-repositories
+    # - "http://www.percona.com/downloads/percona-release/redhat/0.1-6/percona-release-0.1-6.noarch.rpm"
+  tags: [rpm, rpm-repo]
+
+# - replace:
+#     path: /etc/yum.repos.d/percona-release.repo
+#     regexp: '\$releasever'
+#     replace: '6'
+#   become: yes
+#   tags: rpm
+
+- name: "is google-chrome repo enabled?"
+  shell: "dnf repoinfo google-chrome 2>/dev/null | grep '^Repo-status'"
+  args:
+    warn: false
+  register: chrome_repo_enabled
+  ignore_errors: true
+  tags: [rpm, rpm-repo]
+
+- name: enable chrome repo 
+  command: "dnf config-manager --set-enabled google-chrome"
+  when: '"enabled" not in chrome_repo_enabled.stdout'
+  args:
+    warn: false
+  become: yes
+  tags: [rpm, rpm-repo]
+
+- name: remove unwanted packages with dnf
+  dnf:
+    name: "{{ rpm_absent }}"
+    state: absent
+  become: yes
+  tags: rpm
+
+- name: install with dnf
+  dnf:
+    name: "{{ rpm }}"
+    state: present
+  become: yes
+  tags: rpm

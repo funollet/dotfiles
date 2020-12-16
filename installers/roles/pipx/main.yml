@@ -10,3 +10,10 @@
     creates: ~/.local/pipx/venvs/{{ item }}
   loop: "{{ pipx }}"
   tags: pipx
+
+- name: install aws-google-auth
+  # build dependencies: libusb-devel systemd-devel
+  command: pipx install aws-google-auth[u2f]
+  args:
+    creates: ~/.local/pipx/venvs/aws-google-auth
+  tags: pipx
