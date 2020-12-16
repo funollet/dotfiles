@@ -2,6 +2,7 @@
   hosts: localhost
 
   roles:
+    # - awscli
     - role: gems
       tags: gems
 
@@ -113,6 +114,7 @@
           - dialout
           - input
           - uinput
+          - docker
       become: true
       tags: users
 

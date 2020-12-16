@@ -16,3 +16,6 @@ brew "go-task/tap/go-task"
 #
 tap  "funollet/tap"
 brew "funollet/tap/aws-laziness"
+#
+tap "aws/tap"
+brew "aws-sam-cli"

@@ -1,0 +1,19 @@
+- name: download awscli
+  get_url:
+    url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+    dest: /tmp/awscliv2.zip
+  tags: awscli
+
+- name: extract awscli
+  unarchive:
+    src: /tmp/awscliv2.zip
+    dest: /tmp
+  tags: awscli
+
+- name: install awscli
+  command: /tmp/aws/install --bin-dir /usr/local/bin --install-dir /usr/local/aws-cli --update
+  become: true
+  tags: awscli
+
+# TODO: cleanup
+# TODO: make it idempotent
