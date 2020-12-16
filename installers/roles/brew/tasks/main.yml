@@ -1,3 +1,16 @@
+- name: linuxbrew dependencies
+  dnf:
+    name: [curl, file, git, libxcrypt-compat, '@Development Tools']
+    state: present
+  become: yes
+  tags: brew
+    
+- name: install Linuxbrew
+  command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  args:
+    creates: /home/linuxbrew/.linuxbrew/bin/brew
+  tags: brew
+
 - name: install with brew
   command: brew bundle
   tags: brew

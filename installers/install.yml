@@ -3,7 +3,7 @@
 
   tasks:
     - import_role:
-        name: rpm
+        name: dnf
 
     - group:
         name: uinput
@@ -32,7 +32,7 @@
 
     - import_role:
         name: awscli
-        tags: never
+      tags: never
     - import_role:
         name: gems
     - import_role:
