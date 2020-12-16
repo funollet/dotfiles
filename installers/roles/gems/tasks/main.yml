@@ -10,6 +10,7 @@
     - rubygem-backports
     - ruby-devel
     - rpm-build
+  tags: gems
 
 - name: install gems
   gem:
@@ -17,3 +18,4 @@
     state: present
     user_install: yes
   loop: "{{ gems }}"
+  tags: gems
