@@ -5,10 +5,6 @@
     - import_role:
         name: rpm
 
-    - name: install with brew
-      command: brew bundle
-      tags: brew
-
     - group:
         name: uinput
       become: true
@@ -45,3 +41,5 @@
         name: flatpak
     - import_role:
         name: fatbin
+    - import_role:
+        name: brew
