@@ -1,11 +1,6 @@
 - name: install everything
   hosts: localhost
 
-  roles:
-    # - awscli
-    - role: gems
-      tags: gems
-
   tasks:
     - name: install repos
       dnf:
@@ -125,3 +120,10 @@
       loop: "{{ fatbin }}"
       become: true
       tags: fatbin
+
+    - import_role:
+        name: awscli
+        tags: never
+    - import_role:
+        name: gems
+        tags: gems
