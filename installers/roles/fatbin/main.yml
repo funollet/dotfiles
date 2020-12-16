@@ -1,0 +1,7 @@
+- name: Install binaries as fatfiles
+  get_url:
+    dest: "/usr/local/sbin/{{ item.name }}"
+    url: "{{ item.url }}"
+  loop: "{{ fatbin }}"
+  become: true
+  tags: fatbin
