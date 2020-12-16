@@ -1,0 +1,12 @@
+- name: install pipx
+  command: pip3 install --user pipx
+  args:
+    creates: ~/.local/bin/pipx
+  tags: pipx
+
+- name: install with pipx
+  command: pipx install {{ item }}
+  args:
+    creates: ~/.local/pipx/venvs/{{ item }}
+  loop: "{{ pipx }}"
+  tags: pipx

@@ -57,20 +57,6 @@
         creates: ~/.local/pipx/venvs/aws-google-auth
       tags: pipx
 
-    - name: install flatpak remotes
-      flatpak_remote:
-        name: flathub
-        state: present
-        flatpakrepo_url: "https://flathub.org/repo/flathub.flatpakrepo"
-      tags: flatpak
-
-    - name: install with flatpak
-      flatpak:
-        name: "{{ item }}"
-        state: present
-      loop: "{{ flatpak }}"
-      tags: flatpak
-
     - name: install with brew
       command: brew bundle
       tags: brew
@@ -115,3 +101,5 @@
         name: gems
     - import_role:
         name: pipx
+    - import_role:
+        name: flatpak
