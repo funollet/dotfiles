@@ -27,7 +27,7 @@
 # find unused keycodes with xmodmap -pke
 # On layout EU:
 #   8 93 97 103 120 132 149
-# Not reaaly needed: xmodmap can do 'keycode any' on its own.
+# Not realy needed: xmodmap can do 'keycode any' on its own.
 
 ####
 
