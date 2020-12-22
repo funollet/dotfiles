@@ -116,6 +116,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 
+bindsym $mod+o              move container to output right
 bindsym $mod+Shift+greater  move container to output right
 bindsym $mod+Shift+less     move container to output left
 
@@ -155,7 +156,6 @@ exec --no-startup-id xset s 300 5 && xss-lock -n /usr/lib/xsecurelock/dimmer -l 
 exec firefox
 exec flatpak run com.slack.Slack
 exec flatpak run org.telegram.desktop
-exec clementine
 
 #           Custom details for some windows.
 for_window  [class="Telegram"]          move scratchpad
@@ -164,6 +164,7 @@ for_window  [class="Spotify"]           floating enable ; move scratchpad
 #           a videocall moves every other window to scratchpad.
 for_window  [class="Slack"]             floating enable
 for_window  [class="Display"]           floating enable
+for_window  [class="Steam"]             floating enable
 
 #
 # assign      [class="Firefox"]           1
