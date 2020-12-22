@@ -19,6 +19,8 @@ swipe:
       command: "echo swipe 4 up"
     down:
       command: "echo swipe 4 down"
+      interval: 3
+      threshold: 0.3
 
 pinch:
   2:
@@ -37,27 +39,38 @@ pinch:
     out:
       command: "echo pinch 4 out"
 
-rotate:
-  2:
-    clockwise:
-      command: "echo rotate 2 clockwise"
-    counterclockwise:
-      command: "echo rotate 2 counterclockwise"
-  3:
-    clockwise:
-      command: "echo rotate 3 clockwise"
-    counterclockwise:
-      command: "echo rotate 3 counterclockwise"
-  4:
-    clockwise:
-      command: "echo rotate 4 clockwise"
-    counterclockwise:
-      command: "echo rotate 4 counterclockwise"
+# rotate:
+#   2:
+#     clockwise:
+#       command: "echo rotate 2 clockwise"
+#     counterclockwise:
+#       command: "echo rotate 2 counterclockwise"
+#   3:
+#     clockwise:
+#       command: "echo rotate 3 clockwise"
+#     counterclockwise:
+#       command: "echo rotate 3 counterclockwise"
+#   4:
+#     clockwise:
+#       command: "echo rotate 4 clockwise"
+#     counterclockwise:
+#       command: "echo rotate 4 counterclockwise"
 
-# tap
-# hold
+tap:
+  4:
+    command: "echo tap 4"
+hold:
+  3:
+    command: "echo hold 3"
+  4:
+    command: "echo hold 4"
 
 
 interval:
   swipe: 0.5
+  pinch: 0.3
 
+threshold:
+  tap: 0.5
+  pinch: 0.5
+  # rotate: 3
