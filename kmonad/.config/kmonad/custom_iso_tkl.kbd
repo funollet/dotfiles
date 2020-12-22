@@ -1,5 +1,6 @@
 (defcfg
-  input  (device-file "/dev/input/by-id/usb-Gaming_KB_Gaming_KB-event-kbd")
+  ;; input  (device-file "/dev/input/by-id/usb-Gaming_KB_Gaming_KB-event-kbd")
+  input  (device-file "/dev/input/by-id/usb-04d9_USB_Keyboard-event-kbd")
   output (uinput-sink "kmonad" "sleep 0.3 &&
             xset r rate 300 50 && 
             setxkbmap -layout us -option '' &&
