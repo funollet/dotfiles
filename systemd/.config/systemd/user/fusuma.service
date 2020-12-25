@@ -1,0 +1,8 @@
+[Unit]
+Description=Fusuma
+
+[Service]
+ExecStart=/home/jordif/bin/fusuma
+
+[Install]
+WantedBy=default.target
