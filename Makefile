@@ -6,7 +6,6 @@ help:           ## Shows this message.
 
 
 update: ## Update dotfiles.
-	git pull
 	# Delete all symlinks. This deals with deleted config files.
 	# Symlink files managed in this repo.
 	for pkg in $(STOW_PKGS) ; do \

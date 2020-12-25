@@ -186,7 +186,7 @@ bindsym Control+Mod1+Delete mode "$mode_system"
 
 bindsym $mod+Shift+c    reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
-bindsym $mod+Shift+r    exec --no-startup-id "~/.config/i3/display.sh ; i3-msg restart"
+bindsym $mod+Shift+r            exec --no-startup-id "i3-msg restart"
 
 bindsym Control+Mod1+l          exec xset s activate
 bindsym $mod+Return             exec konsole

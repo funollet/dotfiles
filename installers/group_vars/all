@@ -1,6 +1,6 @@
 
 pipx: [
-  beets, cfn-lint, ec2instanceconnectcli, fabric, pew, pex,
+  beets, cfn-lint, ec2instanceconnectcli, fabric, pew, pex, autorandr,
   ]
 
 flatpak: [
