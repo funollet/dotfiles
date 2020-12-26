@@ -10,32 +10,51 @@
 )
 
 (defalias
+  ;;; v/n are shift, too
+  ;;; Caveats: can't repeat 'n' by keeping it pressed; h/j/k/l would be poor choices.
   vsft      (tap-next-release v lsft)
   nsft      (tap-hold-next-release  300 n rsft)
+  ;;;
+  ;;; Space is Meta, too
+  ;;; Makes i3 keybindings much more ergonomic: can be generated with your thumb.
   spc-meta  (tap-hold-next-release  300 spc lmet)
+  ;;;
+  ;;; ctrl are tab/return, too
   lctl-tab  (tap-hold-next-release  300 tab lctl)
   rctl-ret  (tap-hold-next-release  300 ret rctl)
-  scln-plus (multi-tap 300 scln :)
-  apos-plus (multi-tap 300 apos ")   ;; "
-  ;; à         (tap-macro ralt a `)
-  ;; amulti    (multi-tap 300 a 300 á 300 @à a)
+  ;;;
+  ;;; double-tap ; to generate :
+  ;;; double-tap ' to generate "
+  ;;; Set a delay way shorter than the key repeat rate to avoid overlapping keypresses.
+  scln-plus (multi-tap 150 scln :)
+  apos-plus (multi-tap 150 apos ")   ;; "
+  ;;;
+  ;;; space-cadet
+  ;; --fails-- lspccadet (tap-hold  400 (multi-tap 200 \( [) lsft)
+  ;; --fails-- lspccadet (tap-hold-next-release  300 (multi-tap 200 \( [) lsft)
+  ;; --works-- lspccadet (tap-hold-next-release  300 \( lsft)
+  ;; --works-- lspccadet (multi-tap 200 \( [)
+  lspccadet (multi-tap 200 \( [)
+  rspccadet (multi-tap 200 \) ])
+  ;;;
+  ;;; Multi-tap for accented characters. Doesn't work, bug open.
+  ;;; https://github.com/david-janssen/kmonad/issues/81
+  ;;à         (tap-macro ralt a `)
+  ;;amulti    (multi-tap 300 a 300 á 300 @à a)
 )
-;;
-;; caveats
-;;
-;;   - Shift in 'j': can't repeat 'j' by keeping it pressed
-;;
 (defsrc
   v n
   spc
   lctl cmp rctl
   scln apos
+  lsft rsft
 )
 (deflayer multikeys
   @vsft @nsft
   @spc-meta
   @lctl-tab @rctl-ret @rctl-ret
   @scln-plus @apos-plus
+  @lspccadet @rspccadet
 )
 
 ;; (deflayer name
