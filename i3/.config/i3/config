@@ -13,16 +13,16 @@ set $right  l
 set $prev   u
 set $next   i
 
-workspace 1 output HDMI-1 eDP-1
-workspace 2 output HDMI-1 eDP-1
-workspace 3 output HDMI-1 eDP-1
-workspace 4 output HDMI-1 eDP-1
-workspace 5 output HDMI-1 eDP-1
-workspace 6 output HDMI-1 eDP-1
-workspace 7 output HDMI-1 eDP-1
-workspace 8 output HDMI-1 eDP-1
-workspace 9 output eDP-1
-workspace 0 output eDP-1
+workspace  1 output HDMI-1 eDP-1
+workspace  2 output HDMI-1 eDP-1
+workspace  3 output HDMI-1 eDP-1
+workspace  4 output HDMI-1 eDP-1
+workspace  5 output HDMI-1 eDP-1
+workspace  6 output HDMI-1 eDP-1
+workspace  7 output HDMI-1 eDP-1
+workspace  8 output HDMI-1 eDP-1
+workspace  9 output eDP-1
+workspace 10 output eDP-1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
