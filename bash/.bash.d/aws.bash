@@ -4,8 +4,6 @@ complete -C aws_completer aws       # awscli: autocompletion
 
 export AWS_PROFILE=default
 
-which awless > /dev/null 2>&1 && source <(awless completion bash)
-
 ## ec2-search-id () {
 ##     # Parallel search of an EC2 InstanceID on multiple accounts.
 ##     AWS_ACCOUNTS='parsing web rtb info sistemas'
@@ -57,9 +55,7 @@ aaws-asgpick () {
 }
 
 aaws-ecr-login () {
-    local account
-    account=$(aws sts get-caller-identity | jq -r .Account)
     aws ecr get-login-password | docker login \
         --username AWS \
-        --password-stdin "${account}.dkr.ecr.eu-west-1.amazonaws.com"
+        --password-stdin "745640521341.dkr.ecr.eu-west-1.amazonaws.com"
 }
