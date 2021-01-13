@@ -1,5 +1,4 @@
 (defcfg
-  ;; input  (device-file "/dev/input/by-id/usb-Gaming_KB_Gaming_KB-event-kbd")
   input  (device-file "/dev/input/by-id/usb-04d9_USB_Keyboard-event-kbd")
   output (uinput-sink "kmonad" "sleep 0.3 &&
             xset r rate 300 50 && 
@@ -30,12 +29,14 @@
   apos-plus (multi-tap 150 apos ")   ;; "
   ;;;
   ;;; space-cadet
+  ;; --fails-- lspccadet (tap-next (multi-tap 200 \( [) lsft)
   ;; --fails-- lspccadet (tap-hold  400 (multi-tap 200 \( [) lsft)
   ;; --fails-- lspccadet (tap-hold-next-release  300 (multi-tap 200 \( [) lsft)
   ;; --works-- lspccadet (tap-hold-next-release  300 \( lsft)
   ;; --works-- lspccadet (multi-tap 200 \( [)
-  lspccadet (multi-tap 200 \( [)
-  rspccadet (multi-tap 200 \) ])
+  ;; --works-- lspccadet (tap-next \( lsft)
+  lspccadet (tap-next \( lsft)
+  rspccadet (tap-next \) rsft)
   ;;;
   ;;; Multi-tap for accented characters. Doesn't work, bug open.
   ;;; https://github.com/david-janssen/kmonad/issues/81
