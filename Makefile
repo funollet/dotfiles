@@ -9,9 +9,9 @@ update: ## Update dotfiles.
 	# Delete all symlinks. This deals with deleted config files.
 	# Symlink files managed in this repo.
 	for pkg in $(STOW_PKGS) ; do \
-		stow -D $$pkg ; \
-		stow -S $$pkg ; \
+		stow -R $$pkg ; \
 	done
+	stow --dir ~/code/wallapop/self-tools --target ~ -R scripts/
 
 
 awesome-libs:
