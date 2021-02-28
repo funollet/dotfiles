@@ -1,5 +1,6 @@
 brew "diff-so-fancy"
 brew "exa"
+brew "icdiff"
 brew "fasd"
 brew "fx"
 brew "gh"
@@ -13,9 +14,6 @@ brew "powerline-go"
 #
 tap  "go-task/tap"
 brew "go-task/tap/go-task"
-#
-tap  "funollet/tap"
-brew "funollet/tap/aws-laziness"
 #
 tap "aws/tap"
 brew "aws-sam-cli"
