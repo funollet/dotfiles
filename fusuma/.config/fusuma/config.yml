@@ -7,44 +7,80 @@ swipe:
     right:
       command: 'xdotool key ctrl+Tab'       # next tab
     up:
-      command: 'xdotool key alt+Left'       # backward
-    down:
       command: 'xdotool key alt+Right'      # forward
+    down:
+      command: 'xdotool key alt+Left'       # backward
+
   4:
     left:
       command: "i3-msg 'workspace prev'"
+      keypress:
+        RIGHTCTRL:
+          command: "i3-msg 'move container to workspace prev ; workspace prev'"
+        LEFTMETA:
+          command: "i3-msg 'move left'"
+        RIGHTALT:
+          command: "i3-msg 'resize grow width 2 px or 2 ppt'"
     right:
       command: "i3-msg 'workspace next'"
+      keypress:
+        RIGHTCTRL:
+          command: "i3-msg 'move container to workspace next ; workspace next'"
+        LEFTMETA:
+          command: "i3-msg 'move right'"
+        RIGHTALT:
+          command: "i3-msg 'resize shrink width 2 px or 2 ppt'"
     up:
-      command: "i3-msg 'move container to output right'"
+      command: "i3-msg 'fullscreen toggle'"
+      threshold: 1
+      interval: 2
+      keypress:
+        LEFTMETA:
+          command: "i3-msg 'move up'"
+        RIGHTALT:
+          command: "i3-msg 'resize grow height 2 px or 2 ppt'"
     down:
-      command: 'xdotool key ctrl+w'         # close tab
-      interval: 3
-      threshold: 2
+      command: "i3-msg 'floating toggle'"
+      threshold: 1
+      interval: 2
+      keypress:
+        LEFTMETA:
+          command: "i3-msg 'move down'"
+        RIGHTALT:
+          command: "i3-msg 'resize shrink height 2 px or 2 ppt'"
+
 pinch:
   2:
     in:
-      command:
+      command: 'xdotool key ctrl+plus'
     out:
-      command:
+      command: 'xdotool key ctrl+minus'
   3:
     in:
-      command: 'pactl set-sink-volume @DEFAULT_SINK@ -3%'
+      command:
     out:
-      command: 'pactl set-sink-volume @DEFAULT_SINK@ +3%'
+      command:
   4:
     in:
       command:
     out:
-      command: 'xdotool key ctrl+w'         # close tab
+      command:
 
-tap:
-  4:
-      command: 'xdotool keydown ctrl click 1 keyup ctrl'    # ctrl + mouse click
+hold:
+  1:
+    command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
+  3:
+    command: 'xdotool key ctrl+w'                       # close tab
 
 interval:
-  swipe: 0.5
-  pinch: 0.3
+  swipe: 0.3
+  pinch: 0.5
 
 threshold:
-  pinch: 0.5
+  pinch: 0.1
+
+plugin: 
+  inputs:
+    libinput_command_input:
+      enable-tap: true
+      verbose: true

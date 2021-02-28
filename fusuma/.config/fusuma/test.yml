@@ -13,10 +13,15 @@ swipe:
   4:
     left:
       command: "echo swipe 4 left"
+      keypress:
+        RIGHTCTRL:
+          command: "echo swipe 4 left + CTRL"
     right:
       command: "echo swipe 4 right"
     up:
       command: "echo swipe 4 up"
+      threshold: 1  # Those values work well for actions
+      interval: 2   # that we don't want to trigger multiple times.
     down:
       command: "echo swipe 4 down"
       interval: 3
@@ -74,3 +79,17 @@ threshold:
   tap: 0.5
   pinch: 0.5
   # rotate: 3
+
+plugin: 
+  inputs:
+    libinput_command_input:
+      enable-tap: true
+      verbose: true
+
+# Available keypresses:
+#   LEFTALT   RIGHTALT
+#   LEFTCTRL  RIGHTCTRL
+#   LEFTSHIFT RIGHTSHIFT
+#   CAPSLOCK
+#   LEFTMETA
+
