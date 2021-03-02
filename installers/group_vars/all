@@ -5,7 +5,6 @@ pipx: [
 
 flatpak: [
   com.spotify.Client, com.skype.Client, us.zoom.Zoom, org.telegram.desktop,
-  com.slack.Slack,
   ]
 
 gems: [

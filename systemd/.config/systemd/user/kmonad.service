@@ -1,0 +1,8 @@
+[Unit]
+Description=kmonad
+
+[Service]
+ExecStart=kmonad /home/jordif/.config/kmonad/custom_iso_tkl.kbd
+
+[Install]
+WantedBy=default.target

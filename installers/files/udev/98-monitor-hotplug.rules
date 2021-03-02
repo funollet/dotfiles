@@ -1,2 +1,5 @@
-KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="add", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/jordif/.Xauthority", ENV{HOME}="/home/jordif", RUN+="/usr/bin/su jordif -c /home/jordif/.config/i3/monitor.add.sh"
-KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="remove", ENV{DISPLAY}=":0", ENV{XAUTHORITY}="/home/jordif/.Xauthority", ENV{HOME}="/home/jordif", RUN+="/usr/bin/su jordif -c /home/jordif/.config/i3/monitor.remove.sh"
+KERNEL=="card0", SUBSYSTEM=="drm", ACTION=="change", \
+    ENV{DISPLAY}=":0", \
+    ENV{XAUTHORITY}="/home/jordif/.Xauthority", \
+    ENV{HOME}="/home/jordif", \
+    RUN+="/usr/bin/su jordif -c '/home/jordif/.local/bin/autorandr --change'"
