@@ -43,3 +43,5 @@
         name: fatbin
     - import_role:
         name: brew
+    - import_role:
+        name: pyenv
