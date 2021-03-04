@@ -45,3 +45,5 @@
         name: brew
     - import_role:
         name: pyenv
+    - import_role:
+        name: poetry
