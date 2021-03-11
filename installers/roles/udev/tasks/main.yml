@@ -1,0 +1,14 @@
+
+- name: install udev files
+  copy: 
+    src: "{{item}}"
+    dest: /etc/udev/rules.d/
+    owner: root
+    group: root
+    mode: '0644'
+  with_items:
+    - rules.d/98-monitor-hotplug.rules
+  become: yes
+  notify: reload udev rules
+  tags: udev
+

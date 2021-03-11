@@ -47,3 +47,5 @@
         name: pyenv
     - import_role:
         name: poetry
+    - import_role:
+        name: udev
