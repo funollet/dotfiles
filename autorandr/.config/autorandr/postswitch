@@ -25,4 +25,4 @@ else
     i3-msg '[workspace=10] move workspace to output eDP-1'
 fi
 
-~/.config/i3/bar.sh
+~/.config/i3/scripts/bar.sh

@@ -1,0 +1,24 @@
+#!/bin/bash
+# rofi-custom-menu
+
+bluetooth-on () {
+    local DEV
+    DEV=$(bluetoothctl paired-devices | awk '/Soundpeats/ {print $2}')
+    rfkill unblock bluetooth
+    bluetoothctl connect "$DEV"
+}
+
+bluetooth-off () {
+    local DEV
+    DEV=$(bluetoothctl paired-devices | awk '/Soundpeats/ {print $2}')
+    bluetoothctl disconnect "$DEV"
+    rfkill block bluetooth
+}
+
+case $1 in
+    bluetooth-on)   bluetooth-on > /dev/null ; exit ;;
+    bluetooth-off)  bluetooth-off > /dev/null ; exit ;;
+    *)              echo bluetooth-on 
+                    echo bluetooth-off
+                    ;;
+esac
