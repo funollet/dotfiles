@@ -9,6 +9,7 @@
   with_items:
     - rules.d/98-monitor-hotplug.rules
     - rules.d/98-applemagic.rules
+    - rules.d/98-ozone-keyboard.rules
   become: yes
   notify: reload udev rules
   tags: udev
