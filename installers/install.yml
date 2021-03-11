@@ -49,3 +49,5 @@
         name: poetry
     - import_role:
         name: udev
+    - import_role:
+        name: fusuma

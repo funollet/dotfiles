@@ -8,7 +8,7 @@ flatpak: [
   ]
 
 gems: [
-  fpm, sheet, fusuma, fusuma-plugin-keypress, fusuma-plugin-tap,
+  fpm, sheet,
   ]
 
 fatbin:
