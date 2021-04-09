@@ -14,6 +14,8 @@ gems: [
 fatbin:
   # - name: Chrysalis
   #   url: "https://github.com/keyboardio/Chrysalis/releases/download/chrysalis-0.7.9/Chrysalis-0.7.9.AppImage"
+  - name: up
+    url: "https://github.com/akavel/up/releases/download/v0.4/up"
   - name: jiq
     url: "https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64"
   - name: kmonad
