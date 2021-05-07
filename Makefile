@@ -10,8 +10,10 @@ help:           ## Shows this message.
 update: ## Update dotfiles.
 	# Delete all symlinks. This deals with deleted config files.
 	# Symlink files managed in this repo.
-	echo $(STOW_PKGS) | xargs -n1 stow -R
-	stow --dir ~/code/wallapop/self-tools --target ~ -R scripts/
+	for pkg in $(STOW_PKGS) ; do \
+		stow -R $$pkg 2>&1 | sed '/^BUG in/d' ; \
+	done
+	stow --dir ~/code/wallapop/self-tools --target ~ -R scripts/ 2>&1 | sed '/^BUG in/d'
 
 
 .PHONY: awesome-libs
