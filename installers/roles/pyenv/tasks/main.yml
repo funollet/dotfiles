@@ -15,7 +15,7 @@
     - tk-devel
     - libffi-devel
   become: yes
-  tags: [python, pyenv]
+  tags: [python, pyenv, rpm]
 
 - name: install pyenv
   shell:
