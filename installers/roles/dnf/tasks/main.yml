@@ -16,19 +16,12 @@
 #   become: yes
 #   tags: rpm
 
-- name: "is google-chrome repo enabled?"
-  shell: "dnf repoinfo google-chrome 2>/dev/null | grep '^Repo-status'"
-  args:
-    warn: false
-  register: chrome_repo_enabled
-  ignore_errors: true
-  tags: [rpm, rpm-repo]
-
 - name: enable chrome repo 
-  command: "dnf config-manager --set-enabled google-chrome"
-  when: '"enabled" not in chrome_repo_enabled.stdout'
-  args:
-    warn: false
+  ini_file:
+    path: /etc/yum.repos.d/google-chrome.repo
+    section: google-chrome
+    option: enabled
+    value: '1'
   become: yes
   tags: [rpm, rpm-repo]
 
