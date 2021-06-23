@@ -1,9 +1,10 @@
 options.info = True
 
+-- set up an app password, your main password isn't allowed here
 pwd = get_password('Password: ')
 
 fm = IMAP {
- server = 'mail.messagingengine.com',
+ server = 'imap.fastmail.com',
  port = 993,
  ssl = 'tls1.2',
  username = 'funollet@fastmail.fm',
