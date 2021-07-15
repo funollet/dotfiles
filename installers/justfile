@@ -1,0 +1,60 @@
+# https://github.com/casey/just
+
+_default:
+    @just --list
+
+
+# Fedora update.
+update:
+    sudo dnf update --downloadonly -y
+    sudo dnf update -y
+
+# Fedora upgrade, step 0.
+upgrade0:
+    sudo dnf install dnf-plugin-system-upgrade
+    sudo dnf upgrade --refresh
+    mkdir -p /mnt/sdb/system-upgrade
+    @echo Reboot your computer
+
+# Fedora upgrade, step 1.
+upgrade1 version="`expr $(lsb_release -r | cut -f2) + 1`":
+    # https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
+    sudo dnf system-upgrade download -y --releasever={{version}}
+
+# Fedora upgrade, step 2.
+upgrade2:
+    sudo dnf system-upgrade reboot
+
+
+# Reclaim unused space.
+reclaim:
+    sudo dnf clean packages
+    sudo dnf system-ugprade clean
+    flatpak uninstall --unused
+    flatpak uninstall --delete-data
+    sudo journalctl --vacuum-time=10d
+
+
+# Tidy-up system-wide.
+fight-entropy:
+    @echo Modules from older releases
+    -ls -1d /lib/modules/* | grep -v ".fc`lsb_release -sr`."
+    @echo
+
+    @echo Packages with broken dependencies
+    sudo dnf repoquery --unsatisfied
+    @echo
+
+    @echo Packages with multiple versions installed
+    sudo dnf repoquery --duplicates
+    @echo
+
+    @echo Possibly unused packages
+    dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\* | grep -v ".fc`lsb_release -sr`." 
+    @echo
+
+    #@echo Broken symlinks
+    #sudo symlinks -r /usr | grep dangling
+    #@echo
+
+
