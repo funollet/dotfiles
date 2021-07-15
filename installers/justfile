@@ -1,8 +1,8 @@
 # https://github.com/casey/just
 
-_default:
-    @just --list
-
+# Run ansible on the local workstation.
+ansible *args:
+    ansible-playbook -v -c local -i localhost, install.yml {{args}}
 
 # Fedora update.
 update:
