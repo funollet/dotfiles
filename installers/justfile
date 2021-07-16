@@ -1,8 +1,61 @@
 # https://github.com/casey/just
 
+
 # Run ansible on the local workstation.
 ansible *args:
     ansible-playbook -v -c local -i localhost, install.yml {{args}}
+ 
+
+# Remove an executable, if found.
+rmbin cmd:
+    sudo rm `which {{cmd}}`
+
+
+# Install non-packaged software.
+install: _awless _fonts-powerline _fonts-hack _vim-vundle
+
+# Install awless.
+_awless version="0.1.11":
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    which awless > /dev/null 2>&1 && exit
+    cd /tmp
+    wget -nv -c "https://github.com/wallix/awless/releases/download/v{{version}}/awless-linux-amd64.tar.gz"
+    tar -xzf awless*tar.gz
+    sudo install /tmp/awless /usr/local/bin/
+ 
+
+# Install fonts for Powerline on user's home.
+_fonts-powerline:
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    test -d ~/.fonts/powerline-fonts && exit
+    cd ~/.fonts ; git clone https://github.com/Lokaltog/powerline-fonts
+    fc-cache -vf ~/.fonts
+
+
+# Install font Hack from https://github.com/ryanoasis/nerd-fonts
+_fonts-hack version="2.1.0":
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    test -d ~/.local/share/fonts/Hack && exit
+    cd /tmp
+    wget -nv -c "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{version}}/Hack.zip"
+    test -d ~/.fonts/Hack && rm -r ~/.fonts/Hack || true
+    mkdir -p ~/.local/share/fonts/Hack
+    unzip -d ~/.local/share/fonts/Hack Hack.zip
+    fc-cache -fv
+
+
+# Clone Vim Vundle to your ~/.vim/.
+_vim-vundle:
+    test -d ~/.vim/bundle/Vundle.vim \
+    || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+
+
+
+
+
 
 # Fedora update.
 update:
@@ -62,3 +115,35 @@ fight-entropy:
 pipx-cleanup:
     rm -r ~/.local/pipx
     symlinks -d ~/.local/bin | grep -v absolute
+
+
+
+################################################## 
+#
+
+# Post-install config tasks.
+tweak: _tweak-vbox _tweak-firefox _tweak-kde
+
+_tweak-vbox:
+    # Set folder to store Virtualbox machines
+    VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
+
+# Minor Firefox tweaks.
+_tweak-firefox:
+    test -f ~/.gtkrc-2.0 || touch ~/.gtkrc-2.0
+    sed -i 's/# *gtk-key-theme-name =/gtk-key-theme-name =/' ~/.gtkrc-2.0
+    grep -q 'gtk-key-theme-name =' ~/.gtkrc-2.0 \
+    || echo 'gtk-key-theme-name = "Emacs"' >> ~/.gtkrc-2.0
+    # Firefox uses kde file manager: requires xdg-desktop-portal-kde
+    # Set the app launcher command to: GTK_USE_PORTAL=1 firefox %u
+
+# KDE tweaks.
+_tweak-kde:
+    # https://userbase.kde.org/Plasma/Tips
+    # 'Meta' opens krunner
+    # kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta "org.kde.kglobalaccel,/component/krunner,org.kde.kglobalaccel.Component,invokeShortcut,run command"
+    # qdbus org.kde.KWin /KWin reconfigure
+    #
+    # 'Meta' does nothing by itself
+    kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
+    qdbus org.kde.KWin /KWin reconfigure
