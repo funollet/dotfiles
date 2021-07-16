@@ -50,7 +50,7 @@ fight-entropy:
     @echo
 
     @echo Possibly unused packages
-    dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\* | grep -v ".fc`lsb_release -sr`." 
+    sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\* | grep -v ".fc`lsb_release -sr`." 
     @echo
 
     #@echo Broken symlinks
@@ -58,3 +58,7 @@ fight-entropy:
     #@echo
 
 
+# Delete everything installed by pipx.
+pipx-cleanup:
+    rm -r ~/.local/pipx
+    symlinks -d ~/.local/bin | grep -v absolute
