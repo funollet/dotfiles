@@ -1,6 +1,6 @@
 
 pipx: [
-  beets, cfn-lint, ec2instanceconnectcli, pew, pex, autorandr,
+  beets, cfn-lint, ec2instanceconnectcli, pew, pex, autorandr, i3altlayout,
   ]
 
 flatpak: [
@@ -43,7 +43,7 @@ rpm: [
   mercurial, git, hub, git-svn, gitk, sqlite, arduino, jq, ShellCheck,
   direnv, stow, python3-cookiecutter,
   # vim / syntastic
-  nodejs-js-yaml, rubygem-puppet-lint, yamllint,
+  rubygem-puppet-lint, yamllint,
   # Python development.
   python-devel, python-crypto,
   python-mock,
@@ -81,7 +81,7 @@ rpm: [
   kernel-headers, kernel-devel, dkms,
   # Xwindows
   kernel-modules-extra, joystick-support, wmctrl, xdotool, qgnomeplatform,
-  xorg-x11-xkb-extras, xorg-x11-xkb-utils, xkbset, xcape,
+  xkbset, xcape,
   # Command-line.
   aspell, aspell-ca, aspell-en, aspell-es,
   hunspell, hunspell-ca, hunspell-en-US, hunspell-es-ES,
@@ -91,6 +91,7 @@ rpm: [
   pandoc, unison240-text, moreutils, xclip, tmux, lastpass-cli,
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk, icedtea-web,
+  powertop,
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
   keepassx,
@@ -100,13 +101,13 @@ rpm: [
   zathura, speedcrunch, homebank, flameshot,
   # Graphics
   gimp, ufraw-gimp, gimp-wavelet-denoise-plugin, gimp-separate+,
-  gimp-paint-studio, gimp-normalmap, gimp-help, GREYCstoration-gimp,
+  gimp-paint-studio, gimp-help, GREYCstoration-gimp,
   gimp-resynthesizer, gimp-lqr-plugin, gimp-high-pass-filter, gimp-elsamuko,
   gimp-data-extras,
   digikam, kf5-kipi-plugins, darktable,
   # Multimedia
   clementine, audacity, pavucontrol, ffmpeg, cantata,
-  qjackctl, jack-audio-connection-kit, alsa-plugins-jack, sooperlooper,
+  qjackctl, sooperlooper,
   vlc,                                              # require: RPMfusion repositories
   # joystick
   antimicro, linuxconsoletools,
@@ -144,10 +145,11 @@ rpm: [
   #, plank, compton,
   
   ### i3:
-  i3, python3-i3ipc, i3lock, xsecurelock, xss-lock,
-  polybar, unifont-fonts,
-  dunst, light, nitrogen, rofi,
-  dex-autostart,
+  "@i3",
+  python3-i3ipc, xsecurelock, xss-lock,
+  dunst, light, nitrogen,
+  dex-autostart, rofi,
+  polybar, unifont-fonts, volumeicon,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   
   ### lxqt:
