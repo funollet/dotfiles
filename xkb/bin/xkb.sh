@@ -45,8 +45,14 @@ setxkbmap -layout us -option ''
 # setxkbmap -layout us -variant intl \
 setxkbmap -layout us \
     -option 'compose:caps' \
+    -option 'compose:ralt' \
     -option 'terminate:ctrl_alt_bksp' \
     -option 'ctrl:menu_rctrl'
+
+# Initial setup from kmonad config. Just as reference.
+# setxkbmap -layout us \
+#     -option 'compose:ralt' \
+#     -option 'compose:caps'")
 
 ### compose keys
 # á     a '
@@ -67,76 +73,5 @@ xmodmap -e "keycode 54 = c C c C ccedilla Ccedilla ccedilla Ccedilla"
 xmodmap -e "keycode 46 = l L l L periodcentered periodcentered periodcentered periodcentered"
 
 
-# key repeat: <delay>ms <rate>Hz
-xset r rate 300 50
-
-
-# Stop running instances of xcape.
-pkill xcape
-
-# 'Space' becomes Super
-xmodmap -e "remove mod4 = Super_R"
-xmodmap -e "keycode 65  = Super_R"      # keycode <SPC> (65)
-xmodmap -e "add mod4    = Super_R"
-xmodmap -e "keycode any = space"
-
-# Space still works as space.
-# space cadet shift: shift as (), ctrl as {}
-# xcape -t 200 -e "Super_R=space;Shift_L=parenleft;Shift_R=parenright;Control_L=Shift_L|bracketleft;Control_R=Shift_L|bracketright"
-xcape -t 200 -e "Super_R=space;Shift_L=parenleft;Shift_R=parenright;Control_L=Tab;Control_R=Return"
-
-
-
-# # Space becomes Control
-# xmodmap -e "remove mod4 = Hyper_L"
-# xmodmap -e "keycode 65  = Hyper_L"      # keycode <SPC> (65)
-# xmodmap -e "add Control = Hyper_L"      # add keysym F20 to Control modifier map
-# xmodmap -e "keycode any = space"
-# # 'Tab' becomes Super
-# xmodmap -e "remove mod4 = Super_R"
-# xmodmap -e "keycode 23  = Super_R"      # keycode <Tab> (23)
-# xmodmap -e "add mod4    = Super_R"
-# xmodmap -e "keycode any = Tab"
-# 
-# # Space still works as space.
-# xcape -t 200 -e "Hyper_L=space;Super_R=Tab"
-
-
-## Using f/j as Control keys, too.
-## Good: stay on the home row.
-## Bad: typing fast it's easy to type (say) f and type the next character
-##      before letting go f, which launches a 'chord' (ctrl+...)
-##
-# xmodmap -e 'keycode 41  = Control_L'      # f
-# xmodmap -e 'keycode 44  = Control_R'      # j
-# xmodmap -e 'add Control = Control_L'
-# xmodmap -e 'add Control = Control_R'
-# xmodmap -e 'keycode any = f'
-# xmodmap -e 'keycode any = j'
-# 
-# xcape -t 300 -e 'Control_L=f;Control_R=j'
-
-
-## Using v/n as Super.
-## Close alternative to f/j, not so prone to accidentally overlap with typing the next key.
-
-## Space becomes Control
-#xmodmap -e "remove mod4 = Hyper_L"
-#xmodmap -e "keycode 65  = Hyper_L"      # keycode <SPC> (65)
-#xmodmap -e "add Control = Hyper_L"      # add keysym F20 to Control modifier map
-#xmodmap -e "keycode any = space"
-#
-## 'v' becomes Super
-#xmodmap -e "remove mod4 = Super_L"
-#xmodmap -e "keycode 55  = Super_L"      # keycode <v> (55)
-#xmodmap -e "add mod4    = Super_L"
-#xmodmap -e "keycode any = v"
-#
-## 'n' becomes Super
-#xmodmap -e "remove mod4 = Super_R"
-#xmodmap -e "keycode 57  = Super_R"      # keycode <n> (57)
-#xmodmap -e "add mod4    = Super_R"
-#xmodmap -e "keycode any = n"
-#
-## Space still works as space, 'v' still works as 'v'.
-#xcape -t 200 -e "Hyper_L=space;Super_L=v;Super_R=n"
+xset r rate 400 50                      # key repeat: <delay>ms <rate>Hz
+xset b off                              # disable bell
