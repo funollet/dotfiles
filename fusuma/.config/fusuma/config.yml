@@ -1,15 +1,42 @@
 # https://github.com/iberianpig/fusuma
+#
+# swipe, 3 fingers: browser actions
+#
+# swipe, 4 fingers: i3 actions
+#   left/right/up/down:
+#     meta:   move container to ...
+#     alt:    resize container
+#   left/right:
+#     no key: go to workspace prev/next
+#     ctrl:   move container to workspace prev/next
+#   up:
+#     no key: fullscreen
+#   down:
+#     no key: toggle floating
+#  
 
 swipe:
   3:
     left:
       command: 'xdotool key ctrl+shift+Tab' # previous tab
+      keypress:
+        LEFTMETA:                           # move tab to left
+          command: 'xdotool key ctrl+shift+Prior'
     right:
       command: 'xdotool key ctrl+Tab'       # next tab
+      keypress:
+        LEFTMETA:                           # move tab to right
+          command: 'xdotool key ctrl+shift+Next'
     up:
       command: 'xdotool key alt+Right'      # forward
+      keypress:
+        LEFTMETA:                           # move tab to beginning
+          command: 'xdotool sleep .5 key alt+d shift+Tab shift+Tab shift+Tab ctrl+shift+Home'
     down:
       command: 'xdotool key alt+Left'       # backward
+      keypress:
+        LEFTMETA:                           # move tab to end
+          command: 'xdotool sleep .5 key alt+d shift+Tab shift+Tab shift+Tab ctrl+shift+End'
 
   4:
     left:
@@ -64,13 +91,14 @@ pinch:
     in:
       command:
     out:
-      command:
+      command: 'xdotool key ctrl+w'                       # close tab
 
-hold:
-  1:
-    command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
-  3:
-    command: 'xdotool key ctrl+w'                       # close tab
+# Stop using these while fusuma-plugin-tap implements recent changes in libinput.
+# hold:
+#   1:
+#     command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
+#   3:
+#     command: 'xdotool key ctrl+w'                       # close tab
 
 interval:
   swipe: 0.3
