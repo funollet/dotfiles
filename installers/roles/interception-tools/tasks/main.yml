@@ -1,0 +1,21 @@
+- name: install interception-tools
+  dnf:
+    name: "interception-tools"
+    state: present
+  become: yes
+  tags: [interception, interception-tools]
+
+- name: dual-function-keys Git checkout
+  ansible.builtin.git:
+    repo: 'https://gitlab.com/interception/linux/plugins/dual-function-keys.git'
+    dest: /var/tmp
+  tags: [interception, interception-tools]
+
+- name: compile dual-function-keys
+  command: cd /var/tmp/dual-function-keys && make
+  tags: [interception, interception-tools]
+
+- name: install dual-function-keys
+  command: cd /var/tmp/dual-function-keys && make install
+  become: yes
+  tags: [interception, interception-tools]

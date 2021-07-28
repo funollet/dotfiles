@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>emby-server</short>
+  <port port="8096" protocol="tcp"/>
+</service>

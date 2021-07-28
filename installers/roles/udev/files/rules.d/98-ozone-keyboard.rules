@@ -2,4 +2,4 @@
 ACTION=="add", \
   SUBSYSTEM=="input", \
   ATTRS{id/product}=="a096", ATTRS{id/vendor}=="04d9", \
-  RUN+="/usr/bin/su jordif -c 'systemctl --user restart kmonad"
+  RUN+="/usr/bin/su jordif -c '/home/jordif/bin/xkb.sh"
