@@ -60,6 +60,8 @@ unset SSH_ASKPASS
 export ONI_NEOVIM_PATH=/usr/bin/nvim
 export FORGIT_COPY_CMD=xclip
 
+export CHEAT_USE_FZF=true
+
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
