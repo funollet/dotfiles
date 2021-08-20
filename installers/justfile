@@ -12,18 +12,26 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _awless _fonts-powerline _fonts-hack _vim-vundle
+install: _awless _jiq _pet _render _up _fonts-powerline _fonts-hack _vim-vundle
 
-# Install awless.
 _awless version="0.1.11":
-    #!/usr/bin/env bash
-    set -euxo pipefail
-    which awless > /dev/null 2>&1 && exit
-    cd /tmp
-    wget -nv -c "https://github.com/wallix/awless/releases/download/v{{version}}/awless-linux-amd64.tar.gz"
-    tar -xzf awless*tar.gz
-    sudo install /tmp/awless /usr/local/bin/
- 
+    fetchbin.sh awless \
+        https://github.com/wallix/awless/releases/download/v{{version}}/awless-linux-amd64.tar.gz
+_jiq:
+    fetchbin.sh jiq https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64
+_kmonad:
+    fetchbin.sh kmonad \
+        https://github.com/david-janssen/kmonad/releases/download/0.4.1/kmonad-0.4.1-linux
+_pet:
+    fetchbin.sh pet \
+        https://github.com/knqyf263/pet/releases/download/v0.3.2/pet_0.3.2_linux_amd64.tar.gz
+_render:
+    fetchbin.sh render \
+        https://github.com/VirtusLab/render/releases/download/v0.2.0/render-linux-amd64
+_up:
+    fetchbin.sh up https://github.com/akavel/up/releases/download/v0.4/up
+
+
 
 # Install fonts for Powerline on user's home.
 _fonts-powerline:
@@ -49,8 +57,10 @@ _fonts-hack version="2.1.0":
 
 # Clone Vim Vundle to your ~/.vim/.
 _vim-vundle:
-    test -d ~/.vim/bundle/Vundle.vim \
-    || git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    test -d ~/.vim/bundle/Vundle.vim && exit
+    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
 
