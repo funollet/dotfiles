@@ -21,7 +21,7 @@ cdchart () {
 # Default invocations with extra parameters.
 alias top='top -d1'
 # alias kash='kash -p2'
-alias tree='tree -a -I ".git|__pycache__|.pytest_cache|*.swp|*.pyc|.venv"'
+alias tree='tree -a -I ".git|__pycache__|.pytest_cache|.mypy_cache|*.swp|*.pyc|.venv"'
 alias gvim='gvim --remote-tab'
 alias watch='watch -n1 --no-title --color'
 
