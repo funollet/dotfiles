@@ -1,6 +1,6 @@
 
 pipx: [
-  beets, cfn-lint, ec2instanceconnectcli, pew, pex, autorandr, i3altlayout,
+  beets, cfn-lint, ec2instanceconnectcli, pew, pex, autorandr, i3altlayout, termdown,
   ]
 
 flatpak: [
