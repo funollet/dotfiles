@@ -67,6 +67,7 @@ rpm: [
   # Xwindows
   kernel-modules-extra, joystick-support, wmctrl, xdotool, qgnomeplatform,
   xkbset, xcape,
+  xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   # Command-line.
   aspell, aspell-ca, aspell-en, aspell-es,
   hunspell, hunspell-ca, hunspell-en-US, hunspell-es-ES,
