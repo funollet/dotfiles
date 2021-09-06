@@ -156,8 +156,8 @@ exec_always --no-startup-id nitrogen --restore
 exec        --no-startup-id ~/.local/bin/i3altlayout
 exec        --no-startup-id dunst
 exec        --no-startup-id xkb.sh
-exec_always --no-startup-id ~/.config/i3/scripts/mouse.sh
-exec_always --no-startup-id ~/.config/i3/scripts/bar.sh
+exec_always --no-startup-id ~/bin/mouse.sh
+exec_always --no-startup-id ~/bin/bar.sh
 exec        --no-startup-id lxqt-powermanagement
 exec        --no-startup-id nm-applet
 exec        --no-startup-id blueman-applet
@@ -182,7 +182,7 @@ for_window  [class="Steam"]             floating enable
 
 
 # https://github.com/jluttine/rofi-power-menu
-bindsym Control+Mod1+Delete exec "rofi -lines 4 -width 10 -show power-menu -modi 'power-menu:~/.config/i3/scripts/rofi-power-menu --choices suspend/reboot/shutdown/logout'"
+bindsym Control+Mod1+Delete exec "rofi -lines 4 -width 10 -show power-menu -modi 'power-menu:~/bin/rofi-power-menu --choices suspend/reboot/shutdown/logout'"
 
 bindsym $mod+Shift+c    reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -192,7 +192,7 @@ bindsym Control+Mod1+l          exec xset s activate
 bindsym $mod+Return             exec kitty
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
-bindsym $mod+r                  exec "rofi -show drun -modi 'drun,custom-menu:~/.config/i3/scripts/rofi-custom-menu,run'"
+bindsym $mod+r                  exec "rofi -show drun -modi 'drun,custom-menu:~/bin/rofi-custom-menu,run'"
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show

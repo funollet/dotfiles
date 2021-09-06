@@ -49,4 +49,4 @@ case "$AUTORANDR_CURRENT_PROFILE" in
         ;;
 esac
 
-~/.config/i3/scripts/bar.sh
+~/bin/bar.sh
