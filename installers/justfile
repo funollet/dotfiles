@@ -12,7 +12,7 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _awless _jiq _pet _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
+install: _awless _jiq _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
 
 _awless version="0.1.11":
     fetchbin.sh awless \
@@ -22,9 +22,6 @@ _jiq:
 _kmonad:
     fetchbin.sh kmonad \
         https://github.com/david-janssen/kmonad/releases/download/0.4.1/kmonad-0.4.1-linux
-_pet:
-    fetchbin.sh pet \
-        https://github.com/knqyf263/pet/releases/download/v0.3.2/pet_0.3.2_linux_amd64.tar.gz
 _render:
     fetchbin.sh render \
         https://github.com/VirtusLab/render/releases/download/v0.2.0/render-linux-amd64
@@ -34,6 +31,10 @@ _terraform version="1.0.5":
 _up:
     fetchbin.sh up https://github.com/akavel/up/releases/download/v0.4/up
 
+_sysz:
+    # https://github.com/joehillen/sysz
+    wget -O ~/.local/bin/sysz https://raw.githubusercontent.com/joehillen/sysz/master/sysz
+    chmod +x ~/.local/bin/sysz
 
 
 # Install fonts for Powerline on user's home.

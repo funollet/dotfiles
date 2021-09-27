@@ -8,11 +8,11 @@ colorize: true
 # Which 'chroma' colorscheme should be applied to the output?
 # Options are available here:
 #   https://github.com/alecthomas/chroma/tree/master/styles
-style: monokai
+style: solarized-dark256
 
 # Which 'chroma' "formatter" should be applied?
 # One of: "terminal", "terminal256", "terminal16m"
-formatter: terminal16m
+formatter: terminal256
 
 # Through which pager should output be piped? (Unset this key for no pager.)
 pager: less -FRX
@@ -47,14 +47,14 @@ cheatpaths:
   # Once downloaded, ensure that 'path' below points to the location at which
   # you downloaded the community cheatsheets.
   # - name: community
-  #   path: /home/jordif/.config/cheat/cheatsheets/community
+  #   path: ~/.config/cheat/cheatsheets/community
   #   tags: [ community ]
   #   readonly: true
 
   # If you have personalized cheatsheets, list them last. They will take
   # precedence over the more global cheatsheets.
   - name: personal
-    path: /home/jordif/workingon/cheat
+    path: ~/workingon/cheat
     tags: [ personal ]
     readonly: false
 

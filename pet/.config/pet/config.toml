@@ -1,4 +1,0 @@
-[General]
-  snippetfile = "/home/jordif/workingon/apps-data/pet/snippet.toml"
-  editor = "vim"
-  selectcmd = "fzf"
