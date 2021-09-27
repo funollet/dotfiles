@@ -8,7 +8,7 @@ flatpak: [
   ]
 
 gems: [
-  fpm, sheet,
+  fpm,
   ]
 
 rpm_absent: [
