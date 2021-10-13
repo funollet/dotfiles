@@ -1,20 +1,24 @@
 # https://github.com/iberianpig/fusuma
 #
-# swipe, 3 fingers: browser actions
 #
-# swipe, 4 fingers: i3 actions
-#   left/right/up/down:
-#     meta:   move container to ...
-#     alt:    resize container
-#   left/right:
-#     no key: go to workspace prev/next
-#     ctrl:   move container to workspace prev/next
-#   up:
-#     no key: fullscreen
-#   down:
-#     no key: toggle floating
-#  
-
+#   prev/next tab                   swipe-3           left / right
+#   forward/backward                swipe-3           up / down
+#   move tab to left / right        swipe-3 + META    left / right
+#   move tab to beginning / end     swipe-3 + META    up / down
+#
+#   close Tab                       pinch-4 out
+#
+#   toggle fullscreen               swipe-4           up
+#   toggle floating                 swipe-4           down
+#
+#   go to workspace prev/next       swipe-4           left / right
+#   move container to workspace ... swipe-4 + CTRL    left / right
+#   move container to ...           swipe-4 + META
+#
+#   resize container                scroll + META               (configured in i3)
+#
+#   zoom in/out                     pinch-2
+#
 swipe:
   3:
     left:
@@ -42,21 +46,21 @@ swipe:
     left:
       command: "i3-msg 'workspace prev'"
       keypress:
+        LEFTCTRL:
+          command: "i3-msg 'move container to workspace prev ; workspace prev'"
         RIGHTCTRL:
           command: "i3-msg 'move container to workspace prev ; workspace prev'"
         LEFTMETA:
           command: "i3-msg 'move left'"
-        RIGHTALT:
-          command: "i3-msg 'resize grow width 2 px or 2 ppt'"
     right:
       command: "i3-msg 'workspace next'"
       keypress:
+        LEFTCTRL:
+          command: "i3-msg 'move container to workspace next ; workspace next'"
         RIGHTCTRL:
           command: "i3-msg 'move container to workspace next ; workspace next'"
         LEFTMETA:
           command: "i3-msg 'move right'"
-        RIGHTALT:
-          command: "i3-msg 'resize shrink width 2 px or 2 ppt'"
     up:
       command: "i3-msg 'fullscreen toggle'"
       threshold: 1
@@ -64,8 +68,6 @@ swipe:
       keypress:
         LEFTMETA:
           command: "i3-msg 'move up'"
-        RIGHTALT:
-          command: "i3-msg 'resize grow height 2 px or 2 ppt'"
     down:
       command: "i3-msg 'floating toggle'"
       threshold: 1
@@ -73,15 +75,15 @@ swipe:
       keypress:
         LEFTMETA:
           command: "i3-msg 'move down'"
-        RIGHTALT:
-          command: "i3-msg 'resize shrink height 2 px or 2 ppt'"
 
 pinch:
   2:
     in:
       command: 'xdotool key ctrl+plus'
+      # not tested:
     out:
-      command: 'xdotool key ctrl+minus'
+      command: 'xdotool key ctrl+underscore'
+      # not tested:
   3:
     in:
       command:

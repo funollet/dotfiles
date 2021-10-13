@@ -82,8 +82,15 @@ bindsym $mod+0          workspace $w10
 bindsym $mod+x          scratchpad show
 bindsym $mod+z          move scratchpad
 
+
+#### scroll to resize window
+bindsym --whole-window $mod+button4          resize grow height 2 px or 2 ppt
+bindsym --whole-window $mod+button5          resize shrink height 2 px or 2 ppt
+bindsym --whole-window $mod+button6          resize grow width 2 px or 2 ppt
+bindsym --whole-window $mod+button7          resize shrink width 2 px or 2 ppt
+
 mode "change" {
-        ### resize window (you can also use the mouse for that)
+        ### resize window (you can also drag the border with the mouse)
         #
         bindsym $mod+$left   resize shrink width 2 px or 2 ppt
         bindsym $mod+$down   resize grow height 2 px or 2 ppt
@@ -128,20 +135,22 @@ bindsym $mod+o              move container to output right
 bindsym $mod+Shift+greater  move container to output right
 bindsym $mod+Shift+less     move container to output left
 
+#       toggle the tilling orientation of the current container
+bindsym $mod+e              layout toggle split
 #       split in horizontal/vertical orientation
-bindsym $mod+b          split h
-bindsym $mod+v          split v
-#       layout
-bindsym $mod+s          layout stacking
-bindsym $mod+w          layout tabbed
-bindsym $mod+e          layout toggle split
+bindsym $mod+b              split h
+bindsym $mod+v              split v
+
+#       overlapping orientation
+bindsym $mod+s              layout stacking
+bindsym $mod+w              layout tabbed
 #       toggle container mode: tiling / floating
 bindsym $mod+Shift+space    floating toggle
 #       change focus between tiling / floating windows
-bindsym $mod+space      focus mode_toggle
+bindsym $mod+space          focus mode_toggle
 #       focus the parent/child container
-bindsym $mod+a          focus parent
-bindsym $mod+d          focus child
+bindsym $mod+a              focus parent
+bindsym $mod+d              focus child
 
 workspace_auto_back_and_forth yes
 
@@ -169,7 +178,11 @@ exec flatpak run com.spotify.Client
 
 #           Custom details for some windows.
 for_window  [class="Telegram"]          move scratchpad
-for_window  [class="Spotify"]           floating enable ; move scratchpad
+for_window  [class="Spotify"]           floating enable ; move scratchpad ; \
+            [class="Spotify"]           resize shrink width  10000px ; \
+            [class="Spotify"]           resize grow width 1166px ; \
+            [class="Spotify"]           resize shrink height 10000px ; \
+            [class="Spotify"]           resize grow height 770px ;
 #           Don't force moving Slack to scratchpad, do it manually. Otherwise
 #           a videocall moves every other window to scratchpad.
 for_window  [class="Slack"]             floating enable
@@ -197,6 +210,7 @@ bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
 bindsym F9                      [class="Spotify"]   scratchpad show
+bindsym F12                     [class="kitty"]     scratchpad show
 
 # Brightness
 bindsym XF86MonBrightnessDown   exec light -U 15
