@@ -11,11 +11,12 @@ run_polybar () {
 
     for dev in $devices ; do
         echo "---" | tee -a /tmp/polybar.$dev.log
-        position=none
+
+        bar=secondary
         if [ $dev == $primary ] ; then
-            position=center
+            bar=base
         fi
-        TRAY_POSITION=$position MONITOR=$dev polybar base >> /tmp/polybar.$dev.log 2>&1 &
+        MONITOR=$dev polybar --reload $bar >> /tmp/polybar.$dev.log 2>&1 &
     done
 }
 

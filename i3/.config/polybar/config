@@ -57,11 +57,11 @@ font-0 = fixed:pixelsize=10;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:pixelsize=10;1
 
-modules-left = date i3
+modules-left = date i3 polypomo
 ; modules-center = 
 modules-right = wlan eth battery temperature pulseaudio date powermenu
 
-tray-position = ${env:TRAY_POSITION:center}
+tray-position = center
 tray-padding = 2
 ;tray-background = #0063ff
 
@@ -78,12 +78,13 @@ cursor-scroll = ns-resize
 
 
 ; 
-; [bar/eDP-1]
-; inherit = bar/HDMI-1
-; monitor = ${env:MONITOR:eDP-1}
-; 
-; modules-center = xbacklight 
-; tray-position = ${env:TRAY_POSITION:center}
+[bar/secondary]
+inherit = bar/base
+monitor = ${env:MONITOR:eDP-1}
+
+tray-position = none
+modules-center = xbacklight 
+modules-left = date i3
 
 
 [module/xwindow]
@@ -396,5 +397,22 @@ screenchange-reload = true
 [global/wm]
 margin-top = 5
 margin-bottom = 5
+
+[module/polypomo]
+; https://github.com/unode/polypomo
+type = custom/script
+
+exec = ~/bin/polypomo
+tail = true
+
+label = %output%
+click-left = ~/bin/polypomo toggle
+click-right = ~/bin/polypomo end
+click-middle = ~/bin/polypomo lock
+scroll-up = ~/bin/polypomo time +60
+scroll-down = ~/bin/polypomo time -60
+
+font-0 = fixed:pixelsize=10;1
+font-1 = Noto Emoji:scale=15:antialias=false;0
 
 ; vim:ft=dosini
