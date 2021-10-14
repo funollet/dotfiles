@@ -10,37 +10,38 @@
 #
 #   toggle fullscreen               swipe-4           up
 #   toggle floating                 swipe-4           down
+#   toggle split orientation        tap-3 + META                (configured in i3)
 #
 #   go to workspace prev/next       swipe-4           left / right
 #   move container to workspace ... swipe-4 + CTRL    left / right
 #   move container to ...           swipe-4 + META
 #
 #   resize container                scroll + META               (configured in i3)
-#
+# 
 #   zoom in/out                     pinch-2
-#
+# 
 swipe:
   3:
     left:
-      command: 'xdotool key ctrl+shift+Tab' # previous tab
+      sendkey: 'LEFTCTRL+LEFTSHIFT+TAB' # previous tab
       keypress:
         LEFTMETA:                           # move tab to left
-          command: 'xdotool key ctrl+shift+Prior'
+          sendkey: 'LEFTCTRL+LEFTSHIFT+PAGEUP'
     right:
-      command: 'xdotool key ctrl+Tab'       # next tab
+      sendkey: 'LEFTCTRL+TAB'       # next tab
       keypress:
         LEFTMETA:                           # move tab to right
-          command: 'xdotool key ctrl+shift+Next'
+          sendkey: 'LEFTCTRL+LEFTSHIFT+PAGEDOWN'
     up:
-      command: 'xdotool key alt+Right'      # forward
+      sendkey: 'LEFTALT+RIGHT'      # forward
       keypress:
         LEFTMETA:                           # move tab to beginning
-          command: 'xdotool sleep .5 key alt+d shift+Tab shift+Tab shift+Tab ctrl+shift+Home'
+          command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+Home'
     down:
-      command: 'xdotool key alt+Left'       # backward
+      sendkey: 'LEFTALT+LEFT'       # backward
       keypress:
         LEFTMETA:                           # move tab to end
-          command: 'xdotool sleep .5 key alt+d shift+Tab shift+Tab shift+Tab ctrl+shift+End'
+          command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+End'
 
   4:
     left:
@@ -79,11 +80,13 @@ swipe:
 pinch:
   2:
     in:
-      command: 'xdotool key ctrl+plus'
-      # not tested:
+      sendkey: 'LEFTCTRL+KPPLUS'
+      threshold: 0.2
+      interval: 0.2
     out:
-      command: 'xdotool key ctrl+underscore'
-      # not tested:
+      sendkey: 'LEFTCTRL+KPMINUS'
+      threshold: 0.2
+      interval: 0.2
   3:
     in:
       command:
@@ -93,14 +96,14 @@ pinch:
     in:
       command:
     out:
-      command: 'xdotool key ctrl+w'                       # close tab
+      sendkey: 'LEFTCTRL+W'                       # close tab
 
 # Stop using these while fusuma-plugin-tap implements recent changes in libinput.
 # hold:
 #   1:
 #     command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
 #   3:
-#     command: 'xdotool key ctrl+w'                       # close tab
+#     sendkey: 'LEFTCTRL+w'                       # close tab
 
 interval:
   swipe: 0.3

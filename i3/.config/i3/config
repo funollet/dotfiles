@@ -83,6 +83,10 @@ bindsym $mod+x          scratchpad show
 bindsym $mod+z          move scratchpad
 
 
+# bindsym --whole-window $mod+button1          
+bindsym --whole-window $mod+button2          layout toggle split
+# bindsym --whole-window $mod+button3          
+#
 #### scroll to resize window
 bindsym --whole-window $mod+button4          resize grow height 2 px or 2 ppt
 bindsym --whole-window $mod+button5          resize shrink height 2 px or 2 ppt

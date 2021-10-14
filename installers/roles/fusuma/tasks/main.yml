@@ -8,6 +8,7 @@
     - fusuma
     - fusuma-plugin-keypress
     - fusuma-plugin-tap
+    - fusuma-plugin-sendkey
   tags: fusuma
 
 - name: run fusuma

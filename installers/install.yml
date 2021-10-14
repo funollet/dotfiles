@@ -40,8 +40,6 @@
     - import_role:
         name: flatpak
     - import_role:
-        name: fatbin
-    - import_role:
         name: brew
     - import_role:
         name: pyenv
