@@ -209,7 +209,7 @@ bindsym Control+Mod1+l          exec xset s activate
 bindsym $mod+Return             exec kitty
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
-bindsym $mod+r                  exec "rofi -show drun -modi 'drun,custom-menu:~/bin/rofi-custom-menu,run'"
+bindsym $mod+r                  exec "rofi -show drun -modi 'drun,custom-menu:~/bin/rofi-custom-menu,run' -drun-use-desktop-cache"
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
