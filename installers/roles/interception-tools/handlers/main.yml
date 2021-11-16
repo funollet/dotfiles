@@ -1,0 +1,6 @@
+- name: restart udevmon
+  ansible.builtin.systemd:
+    name: udevmon
+    state: restarted
+  become: yes
+  tags: [interception, interception-tools]

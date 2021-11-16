@@ -5,6 +5,15 @@
   become: yes
   tags: [interception, interception-tools]
 
+- name: ensure udevmon is running
+  ansible.builtin.systemd:
+    name: udevmon
+    state: started
+    enabled: true
+  become: yes
+  tags: [interception, interception-tools]
+
+
 - name: check existence of dual-function-keys
   stat:
     path: /usr/local/bin/dual-function-keys
@@ -32,4 +41,29 @@
     cmd: make install
   become: yes
   when: not dual_function_keys.stat.exists
+  tags: [interception, interception-tools]
+
+- name: install config udevmon.yaml
+  ansible.builtin.copy:
+    src: udevmon.yaml
+    dest: /etc/interception/udevmon.yaml
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  notify:
+    - restart udevmon
+  tags: [interception, interception-tools]
+    
+
+- name: install config dual.yaml
+  ansible.builtin.copy:
+    src: dual.yaml
+    dest: /etc/interception/dual.yaml
+    owner: root
+    group: root
+    mode: '0644'
+  become: yes
+  notify:
+    - restart udevmon
   tags: [interception, interception-tools]
