@@ -168,7 +168,6 @@ workspace_auto_back_and_forth yes
 exec_always --no-startup-id nitrogen --restore
 exec        --no-startup-id ~/.local/bin/i3altlayout
 exec        --no-startup-id dunst
-exec        --no-startup-id xkb.sh
 exec_always --no-startup-id ~/bin/mouse.sh
 exec_always --no-startup-id ~/bin/bar.sh
 exec        --no-startup-id lxqt-powermanagement

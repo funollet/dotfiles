@@ -161,3 +161,9 @@ _tweak-kde:
     # 'Meta' does nothing by itself
     kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
     qdbus org.kde.KWin /KWin reconfigure
+
+config-x11:
+    sudo install -m 0644 files/usr/share/X11/xkb/rules/base.lst /usr/share/X11/xkb/rules/
+    sudo install -m 0644 files/usr/share/X11/xkb/symbols/notanumpad /usr/share/X11/xkb/symbols/
+    sudo localectl set-x11-keymap us,notanumpad pc105 "" \
+        "grp:caps_toggle,compose:ralt,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"

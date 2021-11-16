@@ -59,7 +59,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = date i3 polypomo
 ; modules-center = 
-modules-right = wlan eth battery temperature pulseaudio date powermenu
+modules-right = xkeyboard wlan eth battery temperature pulseaudio date powermenu
 
 tray-position = center
 tray-padding = 2

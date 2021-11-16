@@ -1,0 +1,68 @@
+# ~/.XCompose
+# Add Compose key combinations tailored to write catalan.
+# Defaults from 'us' keyboard are still available.
+
+include "%L"
+# Reads everything from /usr/share/X11/locale/en_US.UTF-8/Compose
+
+### default compose keys
+#
+# €     e =         euro
+# ·     . -         periodcentered
+# ç     c ,         ccedilla
+# ñ     n ~
+
+<Multi_key> <c> <c>                     : "ç"
+<Multi_key> <C> <C>                     : "Ç"
+<Multi_key> <l> <l>                     : "·"
+<Multi_key> <e> <e>                     : "€"
+<Multi_key> <u> <u>                     : "ü"
+<Multi_key> <U> <U>                     : "Ü"
+<Multi_key> <n> <n>                     : "ñ"
+<Multi_key> <N> <N>                     : "Ñ"
+
+
+# Default compose keys for accents.
+#
+# à     a `
+# ü     " u
+# á     a '
+#
+# Compose all accented vowels with keys ',' and '.'
+
+<Multi_key> <comma> <a>                : "à"
+<Multi_key> <comma> <e>                : "è"
+
+<Multi_key> <a> <comma>                : "à"
+<Multi_key> <e> <comma>                : "è"
+
+<Multi_key> <comma> <A>                : "À"
+<Multi_key> <comma> <E>                : "È"
+
+<Multi_key> <A> <comma>                : "À"
+<Multi_key> <E> <comma>                : "È"
+
+
+<Multi_key> <period> <a>                : "á"
+<Multi_key> <period> <e>                : "é"
+<Multi_key> <period> <i>                : "í"
+<Multi_key> <period> <o>                : "ó"
+<Multi_key> <period> <u>                : "ú"
+
+<Multi_key> <a> <period>                : "á"
+<Multi_key> <e> <period>                : "é"
+<Multi_key> <i> <period>                : "í"
+<Multi_key> <o> <period>                : "ó"
+<Multi_key> <u> <period>                : "ú"
+
+<Multi_key> <period> <A>                : "Á"
+<Multi_key> <period> <E>                : "É"
+<Multi_key> <period> <I>                : "Í"
+<Multi_key> <period> <O>                : "Ó"
+<Multi_key> <period> <U>                : "Ú"
+
+<Multi_key> <A> <period>                : "Á"
+<Multi_key> <E> <period>                : "É"
+<Multi_key> <I> <period>                : "Í"
+<Multi_key> <O> <period>                : "Ó"
+<Multi_key> <U> <period>                : "Ú"
