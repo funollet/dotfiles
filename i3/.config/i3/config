@@ -174,7 +174,7 @@ exec        --no-startup-id lxqt-powermanagement
 exec        --no-startup-id nm-applet
 exec        --no-startup-id blueman-applet
 exec        --no-startup-id volumeicon
-exec --no-startup-id xset s 300 5 && xss-lock -n /usr/lib/xsecurelock/dimmer -l -- xsecurelock
+exec --no-startup-id xset s 300 5 && xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- xsecurelock
 exec firefox
 exec flatpak run org.telegram.desktop
 exec flatpak run com.spotify.Client
