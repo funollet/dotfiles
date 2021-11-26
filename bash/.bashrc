@@ -28,7 +28,7 @@ screen)
 esac
 
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -modules 'git,nix-shell,venv,ssh,root,vgo,cwd' -shorten-gke-names -newline -cwd-mode plain -path-aliases \~/code/wallapop=@WPOP)"
+    PS1="$(powerline-go -error $? -modules 'git,nix-shell,venv,ssh,root,kube,terraform-workspace,cwd' -newline -cwd-mode plain -path-aliases \~/code/wallapop=@WPOP)"
 }
 
 if [ "$TERM" != "linux" ]; then
