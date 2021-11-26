@@ -1,0 +1,4 @@
+--paging always
+
+# style with everything but line numbers
+--style changes,header,grid,snip
