@@ -12,11 +12,13 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _awless _jiq _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
+install: _awless _eksctl _jiq _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
 
 _awless version="0.1.11":
     fetchbin.sh awless \
         https://github.com/wallix/awless/releases/download/v{{version}}/awless-linux-amd64.tar.gz
+_eksctl:
+    fetchbin.sh eksctl "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz"
 _jiq:
     fetchbin.sh jiq https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64
 _kmonad:
