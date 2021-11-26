@@ -166,7 +166,7 @@ workspace_auto_back_and_forth yes
 #           Launch on startup.
 # exec_always --no-startup-id xsetroot -solid "#111111"
 exec_always --no-startup-id nitrogen --restore
-exec        --no-startup-id ~/.local/bin/i3altlayout
+# exec        --no-startup-id ~/.local/bin/i3altlayout
 exec        --no-startup-id dunst
 exec_always --no-startup-id ~/bin/mouse.sh
 exec_always --no-startup-id ~/bin/bar.sh
@@ -178,6 +178,7 @@ exec --no-startup-id xset s 300 5 && xss-lock -n /usr/libexec/xsecurelock/dimmer
 exec firefox
 exec flatpak run org.telegram.desktop
 exec flatpak run com.spotify.Client
+exec        --no-startup-id dex-autostart -a -ei3 -s ~/.config/autostart/
 
 #           Custom details for some windows.
 for_window  [class="Telegram"]          move scratchpad
