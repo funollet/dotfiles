@@ -1,29 +1,12 @@
 #!/bin/bash
 
-
-# fzf for changing to a chart's directory.
-cdchart () {
-    local dir dest
-
-    # List dirs of charts. Show shortened name for searching in fzf.
-    dest=$(
-    # for dir in $(find "$HOME/code/onna/" -name Chart.yaml -print0 | xargs -0 -n1 dirname) ; do
-    ls -d $HOME/code/onna/*/charts | xargs -n1 dirname | while read dir ; do \
-        printf '%-25s %s\n' "$(basename $dir)" "$dir"
-    done | \
-        sort | fzf -n1 | awk '{print $2}'
-    )
-    cd "$dest"
-}
-
-#alias quicknotes='vim ~/.local/share/quicknotes/quick.md'
-
 # Default invocations with extra parameters.
 alias top='top -d1'
-# alias kash='kash -p2'
 alias tree='tree -a -I ".git|__pycache__|.pytest_cache|.mypy_cache|*.swp|*.pyc|.venv"'
 alias gvim='gvim --remote-tab'
 alias watch='watch -n1 --no-title --color'
+alias cal='cal -m'
+alias xclip='xclip -selection clipboard'
 
 
 psg () {        # bash-expansion: grep [p]attern
@@ -35,12 +18,8 @@ alias trn="tr '\n' ' '"
 alias dnf='sudo dnf'
 # alias puppetlocalrun='sudo puppet apply -v --confdir ~/code/puppet-ws/ ~/code/puppet-ws/manifests/site.pp'
 alias nocomments='egrep -ahv "^[[:space:]]*(#|$)"'
-#alias vimtask='vim ~/Dropbox/pim/sft.taskpaper'
-alias sheetc='sheet copy'
 
 alias fuck='eval $(thefuck $(fc -ln -1))'
-
-alias greperb='ag -G erb$'
 
 jless () { jq -C '.' | less ; }
 
@@ -58,16 +37,6 @@ batt () {
     cd $OLDPWD
 }
 
-runonchange () {
-    local cmd=( "$@" )
-    while inotifywait -q -e modify -r . --exclude '(\..*\.swp|.*\.pyc)'
-    do
-        echo '# ------------------------------------------------------------'
-        "$@"
-        echo '# ------------------------------------------------------------'
-    done
-}
-
 mark () { grep -E "$1|.*" ; }
 
 diffssh () {    #diffssh hostA hostB file
@@ -83,6 +52,3 @@ git-pull-dirs() {
         cd $OLDPWD
     done
 }
-
-alias cal='cal -m'
-alias xclip='xclip -selection clipboard'
