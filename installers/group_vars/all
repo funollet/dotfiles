@@ -137,6 +137,7 @@ rpm: [
   dex-autostart, rofi,
   polybar, unifont-fonts, volumeicon,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
+  udiskie,
   
   ### lxqt:
   "@lxqt",
