@@ -1,0 +1,7 @@
+
+# define a custom 'delete' command
+cmd delete ${{
+  set -f ; rm $fx
+}}
+
+map <delete> delete
