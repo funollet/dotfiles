@@ -52,3 +52,7 @@ git-pull-dirs() {
         cd $OLDPWD
     done
 }
+
+copier-chooser () {
+    copier ~/code/skeletons/$(ls -1 ~/code/skeletons/ | fzf )
+}

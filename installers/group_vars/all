@@ -14,6 +14,7 @@ gems: [
 rpm_absent: [
   amarok, akonadi, banshee, gbrainy, awscli, unison240-gtk, python2-pytest, python2-invoke,
   docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
+  python3-cookiecutter,
   ]
 
 rpm: [
@@ -25,7 +26,7 @@ rpm: [
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
   mercurial, git, hub, git-svn, gitk, sqlite, arduino, jq, ShellCheck,
-  direnv, stow, python3-cookiecutter,
+  direnv, stow,
   # vim / syntastic
   rubygem-puppet-lint, yamllint,
   # Python development.
