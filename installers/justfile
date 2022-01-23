@@ -12,7 +12,11 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _awless _eksctl _jiq _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
+install: _amber _awless _eksctl _jiq _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
+
+_amber:
+    fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
+    fetchbin.sh ambr https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
 
 _awless version="0.1.11":
     fetchbin.sh awless \
@@ -37,7 +41,6 @@ _sysz:
     # https://github.com/joehillen/sysz
     wget -O ~/.local/bin/sysz https://raw.githubusercontent.com/joehillen/sysz/master/sysz
     chmod +x ~/.local/bin/sysz
-
 
 # Install fonts for Powerline on user's home.
 _fonts-powerline:
@@ -98,7 +101,7 @@ upgrade2:
 # Reclaim unused space.
 reclaim:
     sudo dnf clean packages
-    sudo dnf system-ugprade clean
+    sudo dnf system-upgrade clean
     flatpak uninstall --unused
     flatpak uninstall --delete-data
     sudo journalctl --vacuum-time=10d
