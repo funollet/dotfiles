@@ -1,0 +1,6 @@
+{
+    "Layout": "bottom-up",
+    "Keymap": {
+        "Tab": "peco.ToggleSelectionAndSelectNext"
+    }
+}

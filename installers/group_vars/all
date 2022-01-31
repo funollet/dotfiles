@@ -4,7 +4,7 @@ pipx: [
   ]
 
 flatpak: [
-  com.spotify.Client, com.skype.Client, us.zoom.Zoom, org.telegram.desktop,
+  com.spotify.Client, com.skype.Client, us.zoom.Zoom, org.telegram.desktop, org.freeplane.App,
   ]
 
 gems: [
@@ -12,7 +12,7 @@ gems: [
   ]
 
 rpm_absent: [
-  amarok, akonadi, banshee, gbrainy, awscli, unison240-gtk, python2-pytest, python2-invoke,
+  amarok, akonadi, banshee, gbrainy, awscli, python2-pytest, python2-invoke,
   docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
   python3-cookiecutter, snapd,
   ]
@@ -26,14 +26,14 @@ rpm: [
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
   mercurial, git, hub, git-svn, gitk, sqlite, arduino, jq, ShellCheck,
-  direnv, stow,
+  direnv, stow, diff-so-fancy, gron, just,
   # vim / syntastic
   rubygem-puppet-lint, yamllint,
   # Python development.
   python-devel, python-crypto,
   python-mock,
   python3-ipython, python3-black, python3-pytest, python3-flake8, python3-jedi,
-  python3-isort,
+  python3-isort, pipx,
   python-psutil, pydot, httpie, python-py, python-docopt,
   python-click, python-pip, python-sh,
   python3-requests,
@@ -78,14 +78,14 @@ rpm: [
   mythes, mythes-ca, mythes-en, mythes-es,
   hyphen, hyphen-ca, hyphen-en, hyphen-es,
   autocorr-ca, autocorr-en, autocorr-es,
-  pandoc, unison240-text, moreutils, xclip, tmux, lastpass-cli,
+  pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go,
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk, icedtea-web,
-  powertop,
+  powertop, cheat, cheat-bash-completion,
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
   keepassx,
-  freemind, calibre, inkscape, firefox,
+  calibre, inkscape, firefox,
   libreoffice, timeline, youtube-dl, Zim,
   levien-inconsolata-fonts,
   zathura, speedcrunch, homebank, flameshot,
