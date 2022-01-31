@@ -14,13 +14,13 @@ gems: [
 rpm_absent: [
   amarok, akonadi, banshee, gbrainy, awscli, unison240-gtk, python2-pytest, python2-invoke,
   docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
-  python3-cookiecutter,
+  python3-cookiecutter, snapd,
   ]
 
 rpm: [
   ### base_distro
   python-paramiko, python3-pyyaml, python-jinja2, python-simplejson, python-pip,
-  python3-firewall, createrepo, snapd,
+  python3-firewall, createrepo,
   
   ### devopstools
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
@@ -37,6 +37,9 @@ rpm: [
   python-psutil, pydot, httpie, python-py, python-docopt,
   python-click, python-pip, python-sh,
   python3-requests,
+  # python build dependencies
+  make, gcc, zlib-devel, bzip2, bzip2-devel, readline-devel, sqlite, sqlite-devel,
+  openssl-devel, tk-devel, libffi-devel, xz-devel,
   # Ruby development.
   ruby, ruby-devel, rubygems, rubygem-bundler, rubygem-rake, rubygem-wirb,
   rubygem-pry, rubygem-pry-doc, rubygem-rspec, rubygem-rspec-mocks,
@@ -64,9 +67,9 @@ rpm: [
   the_silver_searcher, fd-find, ncdu, bat,
   
   ### workstation:
-  kernel-headers, kernel-devel, dkms,
+  kernel-modules-extra, kernel-headers, kernel-devel, dkms,
   # Xwindows
-  kernel-modules-extra, joystick-support, wmctrl, xdotool, qgnomeplatform,
+  joystick-support, wmctrl, xdotool, qgnomeplatform,
   xkbset, xcape,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   # Command-line.
