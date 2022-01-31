@@ -65,8 +65,6 @@ bindsym $mod+$up        focus up
 bindsym $mod+$right     focus right
 bindsym $mod+$prev      workspace prev
 bindsym $mod+$next      workspace next
-bindsym $mod+Tab        focus down
-bindsym Mod1+Tab        focus left
 
 bindsym $mod+1          workspace $w1
 bindsym $mod+2          workspace $w2
@@ -149,9 +147,9 @@ bindsym $mod+v              split v
 bindsym $mod+s              layout stacking
 bindsym $mod+w              layout tabbed
 #       toggle container mode: tiling / floating
-bindsym $mod+Shift+space    floating toggle
+bindsym $mod+Shift+Tab      floating toggle
 #       change focus between tiling / floating windows
-bindsym $mod+space          focus mode_toggle
+bindsym $mod+Tab            focus mode_toggle
 #       focus the parent/child container
 bindsym $mod+a              focus parent
 bindsym $mod+d              focus child
@@ -170,12 +168,7 @@ exec_always --no-startup-id nitrogen --restore
 exec        --no-startup-id dunst
 exec_always --no-startup-id ~/bin/mouse.sh
 exec_always --no-startup-id ~/bin/bar.sh
-exec        --no-startup-id lxqt-powermanagement
-exec        --no-startup-id nm-applet
-exec        --no-startup-id blueman-applet
-exec        --no-startup-id volumeicon
 exec --no-startup-id xset s 300 5 && xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- xsecurelock
-exec        --no-startup-id udiskie --tray
 exec firefox
 exec flatpak run org.telegram.desktop
 exec flatpak run com.spotify.Client
@@ -183,11 +176,10 @@ exec        --no-startup-id dex-autostart -a -ei3 -s ~/.config/autostart/
 
 #           Custom details for some windows.
 for_window  [class="Telegram"]          move scratchpad
-for_window  [class="Spotify"]           floating enable ; move scratchpad ; \
-            [class="Spotify"]           resize shrink width  10000px ; \
-            [class="Spotify"]           resize grow width 1166px ; \
-            [class="Spotify"]           resize shrink height 10000px ; \
-            [class="Spotify"]           resize grow height 770px ;
+for_window  [class="Keepassx2"]         floating enable, move scratchpad
+for_window  [class="Spotify"]           floating enable, move scratchpad, \
+                                        resize shrink width 10000px, resize grow width 1166px, \
+                                        resize shrink height 10000px, resize grow height 770px
 #           Don't force moving Slack to scratchpad, do it manually. Otherwise
 #           a videocall moves every other window to scratchpad.
 for_window  [class="Slack"]             floating enable
@@ -211,7 +203,9 @@ bindsym $mod+Return             exec kitty
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
 bindsym $mod+r                  exec "rofi -show drun -modi 'drun,custom-menu:~/bin/rofi-custom-menu,run' -drun-use-desktop-cache"
+
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
+bindsym F4                      [class="Keepassx2"] scratchpad show
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
 bindsym F9                      [class="Spotify"]   scratchpad show
