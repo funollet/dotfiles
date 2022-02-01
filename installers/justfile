@@ -12,28 +12,14 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _amber _awless _eksctl _jiq _render _terraform _up _fonts-powerline _fonts-hack _vim-vundle
+install: _amber _jiq _up _fonts-hack _vim-vundle
 
 _amber:
     fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
     fetchbin.sh ambr https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
 
-_awless version="0.1.11":
-    fetchbin.sh awless \
-        https://github.com/wallix/awless/releases/download/v{{version}}/awless-linux-amd64.tar.gz
-_eksctl:
-    fetchbin.sh eksctl "https://github.com/weaveworks/eksctl/releases/latest/download/eksctl_$(uname -s)_amd64.tar.gz"
 _jiq:
     fetchbin.sh jiq https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64
-_kmonad:
-    fetchbin.sh kmonad \
-        https://github.com/david-janssen/kmonad/releases/download/0.4.1/kmonad-0.4.1-linux
-_render:
-    fetchbin.sh render \
-        https://github.com/VirtusLab/render/releases/download/v0.2.0/render-linux-amd64
-_terraform version="1.0.5":
-    fetchbin.sh terraform \
-      https://releases.hashicorp.com/terraform/{{version}}/terraform_{{version}}_linux_amd64.zip
 _up:
     fetchbin.sh up https://github.com/akavel/up/releases/download/v0.4/up
 
@@ -41,14 +27,6 @@ _sysz:
     # https://github.com/joehillen/sysz
     wget -O ~/.local/bin/sysz https://raw.githubusercontent.com/joehillen/sysz/master/sysz
     chmod +x ~/.local/bin/sysz
-
-# Install fonts for Powerline on user's home.
-_fonts-powerline:
-    #!/usr/bin/env bash
-    set -euxo pipefail
-    test -d ~/.fonts/powerline-fonts && exit
-    cd ~/.fonts ; git clone https://github.com/Lokaltog/powerline-fonts
-    fc-cache -vf ~/.fonts
 
 
 # Install font Hack from https://github.com/ryanoasis/nerd-fonts
@@ -72,6 +50,34 @@ _vim-vundle:
     git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 
 
+asdf:
+    -asdf plugin-add awscli
+    -asdf plugin-add aws-sam-cli
+    -asdf plugin-add eksctl
+    -asdf plugin-add gcloud
+    -asdf plugin-add github-cli
+    -asdf plugin-add hugo
+    -asdf plugin-add k3d
+    -asdf plugin-add k9s
+    -asdf plugin-add kubectl
+    -asdf plugin-add packer
+    -asdf plugin-add pre-commit
+    -asdf plugin-add task
+    -asdf plugin-add terraform
+
+    -asdf install awscli
+    -asdf install aws-sam-cli
+    -asdf install eksctl
+    -asdf install gcloud
+    -asdf install github-cli
+    -asdf install hugo
+    -asdf install k3d
+    -asdf install k9s
+    -asdf install kubectl
+    -asdf install packer
+    -asdf install pre-commit
+    -asdf install task
+    -asdf install terraform
 
 
 

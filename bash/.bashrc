@@ -47,7 +47,7 @@ fi
 
 ############################################################
 
-export PATH=~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:/home/linuxbrew/.linuxbrew/bin/:$PATH
+export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases
 shopt -s histappend
 
 export VISUAL='vim'
@@ -65,7 +65,6 @@ export CHEAT_USE_FZF=true
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
-for rc in /home/linuxbrew/.linuxbrew/etc/bash_completion.d/* ; do source ${rc} ; done
-source ~/.bash-my-aws/aliases
-source ~/.bash-my-aws/bash_completion.sh
 
+. ~/.asdf/asdf.sh
+. ~/.asdf/completions/asdf.bash

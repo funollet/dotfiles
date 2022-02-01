@@ -1,6 +1,6 @@
 
 pipx: [
-  beets, cfn-lint, ec2instanceconnectcli, pew, pex, autorandr, i3altlayout, termdown,
+  pew, pex, autorandr, i3altlayout, termdown,
   ]
 
 flatpak: [
@@ -59,8 +59,6 @@ rpm: [
   # libvirt-bin service must not be run: installs and launches dnsmasq configures virt0 interface.
   #libvirt-bin,
   virt-manager,
-  # dependencies for building aws-google-auth
-  libusb-devel, systemd-devel,
   
   ### unix_essentials:
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff,
@@ -78,7 +76,7 @@ rpm: [
   mythes, mythes-ca, mythes-en, mythes-es,
   hyphen, hyphen-ca, hyphen-en, hyphen-es,
   autocorr-ca, autocorr-en, autocorr-es,
-  pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go,
+  pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go, powerline-fonts,
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk, icedtea-web,
   powertop, cheat, cheat-bash-completion,
@@ -97,7 +95,7 @@ rpm: [
   digikam, kf5-kipi-plugins, darktable,
   # Multimedia
   clementine, audacity, pavucontrol, ffmpeg, cantata,
-  qjackctl, sooperlooper,
+  qjackctl, sooperlooper, beets, beets-doc, beeets-plugins,
   vlc,                                              # require: RPMfusion repositories
   # joystick
   antimicro, linuxconsoletools,
