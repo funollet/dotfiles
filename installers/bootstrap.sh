@@ -22,11 +22,12 @@ asdf install pipx
 
 pipx install --include-deps ansible==5.2.0
 ansible-galaxy collection install community.general
-# inject boto?
+# Should I inject boto?
 
 # Alternative, not yet working:
+
 #   asdf plugin add ansible https://github.com/amrox/asdf-pyapp.git
 #   asdf install ansible latest:5.
 #
-# Must find a way to pass --include-deps
-
+# - bins are installed on the venv but not exposed as shims
+# - how do I inject required libraries? (boto,...)
