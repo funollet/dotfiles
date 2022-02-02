@@ -139,7 +139,7 @@ fight-entropy:
     @echo
 
     @echo Possibly unused packages
-    sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\* | grep -v ".fc`lsb_release -sr`." 
+    sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\*,dkms | grep -v ".fc`lsb_release -sr`." 
     @echo
 
     #@echo Broken symlinks
@@ -184,8 +184,30 @@ _tweak-kde:
     kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
     qdbus org.kde.KWin /KWin reconfigure
 
+# configure xkb system-wide
 config-x11:
     sudo install -m 0644 files/usr/share/X11/xkb/rules/base.lst /usr/share/X11/xkb/rules/
-    sudo install -m 0644 files/usr/share/X11/xkb/symbols/notanumpad /usr/share/X11/xkb/symbols/
-    sudo localectl set-x11-keymap us,notanumpad pc105 "" \
-        "grp:caps_toggle,compose:ralt,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
+    sudo install -m 0644 files/usr/share/X11/xkb/symbols/us_funollet /usr/share/X11/xkb/symbols/
+    # sudo install -m 0644 files/usr/share/X11/xkb/symbols/notanumpad /usr/share/X11/xkb/symbols/
+    # sudo install -m 0644 files/usr/share/X11/xkb/symbols/us_numbers_level2 /usr/share/X11/xkb/symbols/
+    sudo localectl set-x11-keymap us_funollet pc105 "" \
+        "compose:caps,shift:both_capslock,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
+
+# reconfigure xkb on a running X session
+xkb-change:
+    # Delete previous options.
+    setxkbmap -layout us -option ''
+    # Set keyboard layout.
+    # compose:caps          caps key is compose key
+    # shift:both_capslock   Both Shift together enable Caps Lock
+    setxkbmap -layout us_funollet \
+        -option 'compose:caps' \
+        -option 'shift:both_capslock' \
+        -option 'terminate:ctrl_alt_bksp' \
+        -option 'ctrl:menu_rctrl'
+    # -option 'caps:none' \
+    # -option 'compose:ralt' \
+    # -option 'grp:caps_toggle' \
+    #       switch layouts with caps key
+
+    source ~/.profile
