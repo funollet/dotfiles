@@ -2,47 +2,19 @@ default partial alphanumeric_keys
 xkb_symbols "basic" {
     include "us(basic)"
     name[Group1]= "Not a numpad";
-//
-// Use right hand letters as numpad
-//              - =
-//      7 8 9 0
-//      4 5 6 +
-//      1 2 3 -
-//      * , . /
-// 
-    key <AE12> { [ equal,       plus            ] };
 
-    key <AE07> { [ 7,           ampersand       ] };
-    key <AE08> { [ 8,           asterisk        ] };
-    key <AE09> { [ 9,           parenleft       ] };
-    key <AE10> { [ 0,           parenright      ] };
+// Return number row to the default US configuration.
 
-    key <AD07> { [ 4,	        U		        ] };    // u
-    key <AD08> { [ 5,	        I		        ] };    // i
-    key <AD09> { [ 6,	        O		        ] };    // o
-    key <AD10> { [ plus,        P               ] };    // p
-
-    key <AC07> { [ 1,	        J		        ] };    // j
-    key <AC08> { [ 2,	        K		        ] };    // k
-    key <AC09> { [ 3,	        L		        ] };    // l
-    key <AC10> { [ minus,       K               ] };    // ;
-    
-    key <AB07> { [ asterisk,	M		        ] };    // m
-    key <AB08> { [ comma,	    less	        ] };    // ,
-    key <AB09> { [ period,	    greater	        ] };    // .
-    key <AB10> { [ slash,       question        ] };    // slash
+    key <AE01> {	[	  1,	exclam 		]	};
+    key <AE02> {	[	  2,	at		    ]	};
+    key <AE03> {	[	  3,	numbersign	]	};
+    key <AE04> {	[	  4,	dollar		]	};
+    key <AE05> {	[	  5,	percent		]	};
+    key <AE06> {	[	  6,	asciicircum	]	};
+    key <AE07> {	[	  7,	ampersand	]	};
+    key <AE08> {	[	  8,	asterisk	]	};
+    key <AE09> {	[	  9,	parenleft	]	};
+    key <AE10> {	[	  0,	parenright	]	};
 
     include "level3(ralt_switch)"
 };
-
-
-
-
-
-// Evaluating alternative layouts:
-//
-//                 - =
-//       
-//       * 6 7 8 9
-//       + 2 3 4 5
-//       - 0 1 . /

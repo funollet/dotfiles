@@ -1,0 +1,18 @@
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+    include "us(basic)"
+    name[Group1]= "US with numbers at level2, symbols at level1";
+
+    key <AE01> {	[	exclam,			  1]	};
+    key <AE02> {	[	at,		    	  2]	};
+    key <AE03> {	[	numbersign,		  3]	};
+    key <AE04> {	[	dollar,			  4]	};
+    key <AE05> {	[	percent,		  5]	};
+    key <AE06> {	[	asciicircum,	  6]	};
+    key <AE07> {	[	ampersand,		  7]	};
+    key <AE08> {	[	asterisk,		  8]	};
+    key <AE09> {	[	parenleft,		  9]	};
+    key <AE10> {	[	parenright,		  0]	};
+
+    include "level3(ralt_switch)"
+};

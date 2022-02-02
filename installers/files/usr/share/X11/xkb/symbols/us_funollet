@@ -1,0 +1,40 @@
+default partial alphanumeric_keys
+xkb_symbols "basic" {
+    include "us(basic)"
+    name[Group1]= "English (US, numbers layer)";
+
+    key <AC10> {	[colon, semicolon, z, Z ]	};
+
+    include "level3(ralt_switch)"
+};
+
+
+
+
+
+// From /usr/share/X11/xkb/symbols/level3
+// TODO: Try changing _Shift to _Latch.
+
+// // These partial variants assign ISO_Level3_Shift to various XKB keycodes
+// // so that the third shift level can be reached.
+// 
+// // The default behaviour:
+// // the right Alt key (AltGr) chooses the third symbol engraved on a key.
+// default partial modifier_keys
+// xkb_symbols "ralt_switch" {
+//   key <RALT> {
+//     type[Group1]="ONE_LEVEL",
+//     symbols[Group1] = [ ISO_Level3_Shift ]
+//   };
+//   include "level3(modifier_mapping)"
+// };
+// 
+// // Ensure a mapping to a real modifier for LevelThree.
+// partial modifier_keys
+// xkb_symbols "modifier_mapping" {
+//   replace key <LVL3> {
+//     type[Group1] = "ONE_LEVEL",
+//     symbols[Group1] = [ ISO_Level3_Shift ]
+//   };
+//   modifier_map Mod5 { <LVL3> };
+// };
