@@ -86,12 +86,12 @@ asdf:
 update:
     sudo dnf update --downloadonly -y
     sudo dnf update -y
+    flatpak update -y
 
 # Fedora upgrade, step 0.
 upgrade0:
     sudo dnf install dnf-plugin-system-upgrade
     sudo dnf upgrade --refresh
-    mkdir -p /mnt/sdb/system-upgrade
     @echo Reboot your computer
 
 # Fedora upgrade, step 1.
@@ -111,6 +111,17 @@ reclaim:
     flatpak uninstall --unused
     flatpak uninstall --delete-data
     sudo journalctl --vacuum-time=10d
+
+
+# Remove old kernels.
+kernel-cleanup:
+    #!/usr/bin/env bash
+    set -euo pipefail
+    old_kernels=($(dnf repoquery --installonly --latest-limit=-1 -q | grep -v `uname -r` || true))
+    if ! sudo dnf remove "${old_kernels[@]}"; then
+      echo "Failed to remove old kernels"
+      exit 1
+    fi
 
 
 # Tidy-up system-wide.
