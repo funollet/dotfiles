@@ -39,8 +39,6 @@
     - import_role:
         name: brew
     - import_role:
-        name: poetry
-    - import_role:
         name: udev
     - import_role:
         name: fusuma
