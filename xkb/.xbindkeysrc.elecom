@@ -9,7 +9,7 @@
 "xdotool set_desktop --relative 1"
   b:7           # mouse wheel right button
 
-"i3-msg move container to output right"
-  b:8           # Mouse 'back' button.
 "i3-msg floating toggle"
-  b:9           # Mouse 'forward' button.
+  b:8           # Mouse 'forward' button.
+"i3-msg move container to output right"
+  b:9           # Mouse 'back' button.

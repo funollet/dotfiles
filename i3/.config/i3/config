@@ -32,8 +32,8 @@ workspace $w5 output HDMI-1 eDP-1
 workspace $w6 output HDMI-1 eDP-1
 workspace $w7 output HDMI-1 eDP-1
 workspace $w8 output HDMI-1 eDP-1
-workspace $w9 output eDP-1
-workspace $w10 output eDP-1
+workspace $w9 output        eDP-1
+workspace $w10 output       eDP-1
 
 # Use Mouse+$mod to drag floating windows to their wanted position
 floating_modifier $mod
@@ -82,27 +82,35 @@ bindsym $mod+z          move scratchpad
 
 
 # bindsym --whole-window $mod+button1          
-bindsym --whole-window $mod+button2          layout toggle split
+bindsym --whole-window  $mod+button2          layout toggle split
 # bindsym --whole-window $mod+button3          
 #
-#### scroll to resize window
-bindsym --whole-window $mod+button4          resize grow height 2 px or 2 ppt
-bindsym --whole-window $mod+button5          resize shrink height 2 px or 2 ppt
-bindsym --whole-window $mod+button6          resize grow width 2 px or 2 ppt
-bindsym --whole-window $mod+button7          resize shrink width 2 px or 2 ppt
+#### scroll wheel to resize window
+bindsym --whole-window  $mod+button4          resize grow   height 2 px or 2 ppt
+bindsym --whole-window  $mod+button5          resize shrink height 2 px or 2 ppt
+bindsym --whole-window  $mod+button6          resize grow   width  2 px or 2 ppt
+bindsym --whole-window  $mod+button7          resize shrink width  2 px or 2 ppt
 
+# Use lateral wheel buttons on Elecom trackball to switch workspaces.
+#   bindsym --whole-window button6      workspace prev
+#   bindsym --whole-window button7      workspace next
+# This works but makes using the trackpad difficult: any lateral scrolling makes you
+# fly across workspaces.
+# Workaround: custom per-device config on mouse.sh
+
+# move and resize windows
 mode "change" {
         ### resize window (you can also drag the border with the mouse)
         #
-        bindsym $mod+$left   resize shrink width 2 px or 2 ppt
-        bindsym $mod+$down   resize grow height 2 px or 2 ppt
+        bindsym $mod+$left   resize shrink width  2 px or 2 ppt
+        bindsym $mod+$down   resize grow   height 2 px or 2 ppt
         bindsym $mod+$up     resize shrink height 2 px or 2 ppt
-        bindsym $mod+$right  resize grow width 2 px or 2 ppt
+        bindsym $mod+$right  resize grow   width  2 px or 2 ppt
         # same bindings, but for the arrow keys
-        bindsym $mod+Left    resize shrink width 2 px or 2 ppt
-        bindsym $mod+Down    resize grow height 2 px or 2 ppt
+        bindsym $mod+Left    resize shrink width  2 px or 2 ppt
+        bindsym $mod+Down    resize grow   height 2 px or 2 ppt
         bindsym $mod+Up      resize shrink height 2 px or 2 ppt
-        bindsym $mod+Right   resize grow width 2 px or 2 ppt
+        bindsym $mod+Right   resize grow   width  2 px or 2 ppt
 
         ### move window
         #
@@ -137,8 +145,6 @@ bindsym $mod+o              move container to output right
 bindsym $mod+Shift+greater  move container to output right
 bindsym $mod+Shift+less     move container to output left
 
-#       toggle the tilling orientation of the current container
-bindsym $mod+e              layout toggle split
 #       split in horizontal/vertical orientation
 bindsym $mod+b              split h
 bindsym $mod+v              split v
@@ -146,6 +152,9 @@ bindsym $mod+v              split v
 #       overlapping orientation
 bindsym $mod+s              layout stacking
 bindsym $mod+w              layout tabbed
+#       toggle the tilling orientation of the current container
+bindsym $mod+e              layout toggle split
+
 #       toggle container mode: tiling / floating
 bindsym $mod+Shift+Tab      floating toggle
 #       change focus between tiling / floating windows
@@ -156,129 +165,45 @@ bindsym $mod+d              focus child
 
 workspace_auto_back_and_forth yes
 
-# bindsym --whole-window button6      workspace prev
-# bindsym --whole-window button7      workspace next
-
-
-
-#           Launch on startup.
-# exec_always --no-startup-id xsetroot -solid "#111111"
-exec_always --no-startup-id nitrogen --restore
-# exec        --no-startup-id ~/.local/bin/i3altlayout
-exec        --no-startup-id dunst
-exec_always --no-startup-id ~/bin/mouse.sh
-exec_always --no-startup-id ~/bin/bar.sh
-exec --no-startup-id xset s 300 5 && xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- xsecurelock
-exec firefox
-exec flatpak run org.telegram.desktop
-exec flatpak run com.spotify.Client
-exec        --no-startup-id dex-autostart -a -ei3 -s ~/.config/autostart/
-
-#           Custom details for some windows.
-for_window  [class="Telegram"]          move scratchpad
-for_window  [class="Keepassx2"]         floating enable, move scratchpad
-for_window  [class="Spotify"]           floating enable, move scratchpad, \
-                                        resize shrink width 10000px, resize grow width 1166px, \
-                                        resize shrink height 10000px, resize grow height 770px
-#           Don't force moving Slack to scratchpad, do it manually. Otherwise
-#           a videocall moves every other window to scratchpad.
-for_window  [class="Slack"]             floating enable
-for_window  [class="Display"]           floating enable
-for_window  [class="Steam"]             floating enable
-
-#
-# assign      [class="Firefox"]           1
-# assign      [class="google-chrome"]     1
-
 
 # https://github.com/jluttine/rofi-power-menu
-bindsym Control+Mod1+Delete exec "rofi -lines 4 -width 10 -show power-menu -modi 'power-menu:~/bin/rofi-power-menu --choices suspend/reboot/shutdown/logout'"
+bindsym Control+Mod1+Delete     exec \
+    rofi -lines 4 -width 10 -show power-menu \
+    -modi 'power-menu:~/bin/rofi-power-menu --choices suspend/reboot/shutdown/logout'
 
-bindsym $mod+Shift+c    reload
+bindsym $mod+Shift+c            reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r            exec --no-startup-id "i3-msg restart"
 
-bindsym Control+Mod1+l          exec xset s activate
-bindsym $mod+Return             exec kitty
+bindsym $mod+Return             exec alacritty
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
-bindsym $mod+r                  exec "rofi -show drun -modi 'drun,custom-menu:~/bin/rofi-custom-menu,run' -drun-use-desktop-cache"
+bindsym $mod+r                  exec \
+    "rofi -drun-use-desktop-cache -show drun -modi 'drun,custom-menu:~/bin/rofi-custom-menu,run'"
 
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F4                      [class="Keepassx2"] scratchpad show
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
 bindsym F9                      [class="Spotify"]   scratchpad show
-bindsym F12                     [class="kitty"]     scratchpad show
+bindsym F12                     [class="alacritty"] scratchpad show
 
 # Brightness
 bindsym XF86MonBrightnessDown   exec light -U 15
 bindsym XF86MonBrightnessUp     exec light -A 15
 
-# volume control
-bindsym XF86AudioRaiseVolume    exec pactl set-sink-volume @DEFAULT_SINK@ +3%
-bindsym XF86AudioLowerVolume    exec pactl set-sink-volume @DEFAULT_SINK@ -3%
-bindsym XF86AudioMute           exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
-bindsym $mod+Prior              exec pactl set-sink-volume @DEFAULT_SINK@ +3%
-bindsym $mod+Next               exec pactl set-sink-volume @DEFAULT_SINK@ -3%
-bindsym $mod+m                  exec pactl set-sink-mute   @DEFAULT_SINK@ toggle
-
-# bindsym --release $mod+Insert exec --no-startup-id xdotool key --clearmodifiers XF86AudioPlay
-
-# mode "clementine" {
-#         bindsym $up             exec clementine --play-pause
-# 
-#         bindsym $right          exec clementine --next
-#         bindsym $left           exec clementine --previous
-# 
-#         bindsym Prior           exec clementine --next
-#         bindsym Next            exec clementine --previous
-# 
-#         # back to normal
-#         bindsym Escape  mode "default"
-#         bindsym Return  mode "default"
-# }
-# bindsym $mod+l mode "clementine"
-
-mode "spotify" {
-        bindsym $up             exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-
-        bindsym $left           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-        bindsym $right          exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-
-        bindsym Prior           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-        bindsym Next            exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-
-        # back to normal
-        bindsym Escape mode "default"
-        bindsym Return mode "default"
-        bindsym $mod+p mode "default"
-}
-bindsym $mod+p mode "spotify"
-
-
-# spotify
-bindsym XF86AudioPlay           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
-bindsym XF86AudioNext           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next
-bindsym XF86AudioPrev           exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous
-
-
-
-## ## Plasma Integration
-## # Try to kill the wallpaper set by Plasma (it takes up the entire workspace and hides everything)
-## exec --no-startup-id wmctrl -c Plasma
-## for_window [title="Desktop — Plasma"] kill; floating enable; border none
-## #
-## ## Avoid tiling popups, dropdown windows from plasma
-## # for the first time, manually resize them, i3 will remember the setting for floating windows
-## for_window  [class="plasmashell"]       floating enable
-## for_window  [class="Plasma"]            floating enable
-## for_window  [title="plasma-desktop"]    floating enable
-## for_window  [class="krunner"]           floating enable
-## for_window  [class="Kmix"]              floating enable
-## for_window  [class="Klipper"]           floating enable
-## for_window  [class="Plasmoidviewer"]    floating enable
-## for_window  [class="systemsettings"]    floating enable
-## no_focus    [class="plasmashell"]
-
-
+include autostart.conf
+include screensaver.conf
+#       Uses keys: Control+Mod1+l
+include volume.conf
+#       Uses keys:
+#           XF86AudioRaiseVolume    $mod+Prior          
+#           XF86AudioLowerVolume    $mod+Next           
+#           XF86AudioMute           $mod+m              
+include mmedia.conf
+#       Uses keys:
+#           XF86AudioPlay           $mod+p 
+#           XF86AudioNext
+#           XF86AudioPrev
+#
+# include plasma.conf

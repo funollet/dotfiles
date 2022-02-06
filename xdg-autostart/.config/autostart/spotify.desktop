@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=spotify
+Exec=flatpak run com.spotify.Client
