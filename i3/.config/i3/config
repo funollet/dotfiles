@@ -42,6 +42,8 @@ floating_modifier $mod
 # is used in the bar {} block below.
 font pango:monospace 8
 
+default_border pixel
+
 # This font is widely installed, provides lots of unicode glyphs, right-to-left
 # text rendering and scalability on retina/hidpi displays (thanks to pango).
 #font pango:DejaVu Sans Mono 8
@@ -52,7 +54,6 @@ font pango:monospace 8
 # clear in small sizes. However, its unicode glyph coverage is limited, the old
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
-
 #   kill focused window
 bindsym $mod+Shift+q    kill
 bindsym Control+Mod1+x  kill
@@ -192,6 +193,7 @@ bindsym F12                     [class="alacritty"] scratchpad show
 bindsym XF86MonBrightnessDown   exec light -U 15
 bindsym XF86MonBrightnessUp     exec light -A 15
 
+include window-rules.conf
 include autostart.conf
 include screensaver.conf
 #       Uses keys: Control+Mod1+l
