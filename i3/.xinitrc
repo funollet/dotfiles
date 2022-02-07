@@ -1,0 +1,5 @@
+autorandr -c
+# key repeat: <delay>ms <rate>Hz
+xset r rate 400 50
+# disable bell
+xset b off
