@@ -211,5 +211,3 @@ xkb-change:
     # -option 'compose:ralt' \
     # -option 'grp:caps_toggle' \
     #       switch layouts with caps key
-
-    source ~/.profile

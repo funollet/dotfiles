@@ -15,16 +15,10 @@ bluetooth-off () {
     rfkill block bluetooth
 }
 
-rofi-flush-cache () {
-    rofi -show drun -modi 'drun' -drun-use-desktop-cache -drun-reload-desktop-cache
-}
-
 case $1 in
     bluetooth-on)       bluetooth-on > /dev/null ; exit ;;
     bluetooth-off)      bluetooth-off > /dev/null ; exit ;;
-    rofi-flush-cache)   rofi-flush-cache > /dev/null ; exit ;;
     *)                  echo bluetooth-on
                         echo bluetooth-off
-                        echo rofi-flush-cache
                         ;;
 esac
