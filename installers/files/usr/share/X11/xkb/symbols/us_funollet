@@ -3,7 +3,22 @@ xkb_symbols "basic" {
     include "us(basic)"
     name[Group1]= "English (US, numbers layer)";
 
-    key <AC10> {	[colon, semicolon, z, Z ]	};
+    // reverse semicolon and colon; colon is not shifted anymore
+    key <AC10> {	[colon, semicolon ]	};
+
+
+    // numbers at level2, symbols at level1
+    key <AE01> {	[	exclam,			  1]	};
+    key <AE02> {	[	at,		    	  2]	};
+    key <AE03> {	[	numbersign,		  3]	};
+    key <AE04> {	[	dollar,			  4]	};
+    key <AE05> {	[	percent,		  5]	};
+    key <AE06> {	[	asciicircum,	  6]	};
+    key <AE07> {	[	ampersand,		  7]	};
+    key <AE08> {	[	asterisk,		  8]	};
+    key <AE09> {	[	9,         		  9]	};
+    key <AE10> {	[	0,         		  0]	};
+    // Omit parenthesis, use space-cadet shift keys
 
     include "level3(ralt_switch)"
 };
