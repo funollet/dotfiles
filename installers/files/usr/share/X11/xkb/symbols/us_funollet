@@ -16,8 +16,8 @@ xkb_symbols "basic" {
     key <AE06> {	[	asciicircum,	  6]	};
     key <AE07> {	[	ampersand,		  7]	};
     key <AE08> {	[	asterisk,		  8]	};
-    key <AE09> {	[	9,         		  9]	};
-    key <AE10> {	[	0,         		  0]	};
+    key <AE09> {	[	parenleft, 		  9]	};
+    key <AE10> {	[	parenright,		  0]	};
     // Omit parenthesis, use space-cadet shift keys
 
     include "level3(ralt_switch)"

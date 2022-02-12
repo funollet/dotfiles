@@ -8,13 +8,18 @@ MAPPINGS:
   - KEY: KEY_SPACE
     TAP: KEY_SPACE
     HOLD: KEY_LEFTMETA
+  #
   # shifts tap ( ) like space cadet
   - KEY: KEY_LEFTSHIFT
-    TAP: [ KEY_LEFTSHIFT, KEY_9, ]
+    TAP: [ KEY_9, ]
     HOLD: KEY_LEFTSHIFT
   - KEY: KEY_RIGHTSHIFT
-    TAP: [ KEY_LEFTSHIFT, KEY_0, ]
+    TAP: [ KEY_0, ]
     HOLD: KEY_RIGHTSHIFT
+  # as I'm using a custom xkb definition where numbers and symbols are
+  # swapped (you must press shift to produce a number) the event to be
+  # emitted is KEY_9 instead of KEY_LEFTSHIFT,KEY_9
+  # 
   # ctrl tap { }
   - KEY: KEY_LEFTCTRL
     TAP: [ KEY_LEFTSHIFT, KEY_LEFTBRACE, ]
