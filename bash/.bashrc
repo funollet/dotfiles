@@ -28,7 +28,7 @@ screen)
 esac
 
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -modules 'git,nix-shell,venv,ssh,root,kube,terraform-workspace,cwd' -newline -cwd-mode plain -path-aliases \~/code/wallapop=@WPOP)"
+    PS1="$(powerline-go -error $? -modules 'git,nix-shell,venv,ssh,root,kube,terraform-workspace,cwd' -newline -cwd-mode plain -shorten-gke-names -path-aliases \~/code/wallapop=@WPOP)"
 }
 
 if [ "$TERM" != "linux" ]; then
@@ -62,9 +62,8 @@ export FORGIT_COPY_CMD=xclip
 
 export CHEAT_USE_FZF=true
 
+. ~/.asdf/asdf.sh
+. ~/.asdf/completions/asdf.bash
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
-
-. ~/.asdf/asdf.sh
-. ~/.asdf/completions/asdf.bash

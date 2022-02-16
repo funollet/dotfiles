@@ -7,6 +7,7 @@ alias gvim='gvim --remote-tab'
 alias watch='watch -n1 --no-title --color'
 alias cal='cal -m'
 alias xclip='xclip -selection clipboard'
+alias ssh='TERM=xterm-256color ssh'
 
 
 psg () {        # bash-expansion: grep [p]attern
