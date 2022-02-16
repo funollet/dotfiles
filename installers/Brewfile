@@ -1,4 +1,5 @@
 brew "copier"
+brew "diff-so-fancy"
 brew "exa"
 brew "fasd"
 brew "fx"

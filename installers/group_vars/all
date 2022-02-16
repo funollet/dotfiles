@@ -5,6 +5,7 @@ pipx: [
 
 flatpak: [
   com.spotify.Client, com.skype.Client, us.zoom.Zoom, org.telegram.desktop, org.freeplane.App,
+  com.slack.Slack, md.obsidian.Obsidian,
   ]
 
 gems: [
@@ -25,8 +26,8 @@ rpm: [
   ### devopstools
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
-  mercurial, git, hub, git-svn, gitk, sqlite, arduino, jq, ShellCheck,
-  direnv, stow, diff-so-fancy, gron, just,
+  mercurial, git, hub, git-svn, gitk, sqlite, jq, ShellCheck,
+  direnv, stow, gron, just,
   # vim / syntastic
   rubygem-puppet-lint, yamllint,
   # Python development.
@@ -41,7 +42,7 @@ rpm: [
   make, gcc, zlib-devel, bzip2, bzip2-devel, readline-devel, sqlite, sqlite-devel,
   openssl-devel, tk-devel, libffi-devel, xz-devel,
   # Ruby development.
-  ruby, ruby-devel, rubygems, rubygem-bundler, rubygem-rake, rubygem-wirb,
+  ruby, ruby-devel, rubygems, rubygem-bundler, rubygem-rake,
   rubygem-pry, rubygem-pry-doc, rubygem-rspec, rubygem-rspec-mocks,
   rubygem-rspec-mocks-doc,
   # Golang devel.
@@ -52,7 +53,7 @@ rpm: [
   #, Ops,
   moby-engine,
   par, pssh, pdsh, pdsh-mod-dshgroup,
-  mysql, percona-toolkit, gnuplot, httpd-tools,
+  mysql, gnuplot, httpd-tools,
   #rubygem-rails            # puppet storedconfigs requirement
   puppet, rubygem-puppet-lint, rubygem-puppet-lint-doc, pass,
   #
@@ -68,7 +69,7 @@ rpm: [
   kernel-modules-extra, kernel-headers, kernel-devel, dkms,
   # Xwindows
   joystick-support, wmctrl, xdotool, qgnomeplatform,
-  xkbset, xcape,
+  xkbset, xbindkeys, xset,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   # Command-line.
   aspell, aspell-ca, aspell-en, aspell-es,
@@ -89,16 +90,16 @@ rpm: [
   zathura, speedcrunch, homebank, flameshot,
   # Graphics
   gimp, ufraw-gimp, gimp-wavelet-denoise-plugin, gimp-separate+,
-  gimp-paint-studio, gimp-help, GREYCstoration-gimp,
+  gimp-paint-studio, gimp-help,
   gimp-resynthesizer, gimp-lqr-plugin, gimp-high-pass-filter, gimp-elsamuko,
   gimp-data-extras,
   digikam, kf5-kipi-plugins, darktable,
   # Multimedia
   clementine, audacity, pavucontrol, ffmpeg, cantata,
-  qjackctl, sooperlooper, beets, beets-doc, beeets-plugins,
+  qjackctl, sooperlooper, beets, beets-doc, beets-plugins,
   vlc,                                              # require: RPMfusion repositories
   # joystick
-  antimicro, linuxconsoletools,
+  linuxconsoletools,
   dropbox, google-chrome-stable,
   # from local.repo
   #aws-shell, sublime-text, rubygem-watson,
@@ -107,7 +108,7 @@ rpm: [
   
   ### codecs:
   # require: rpmfusion-free
-  xine-lib-extras, xine-lib-extras-freeworld, k3b-extras-freeworld, gstreamer1-libav,
+  xine-lib-extras, xine-lib-extras-freeworld, gstreamer1-libav,
   gstreamer1-plugins-good, gstreamer1-plugins-ugly, gstreamer1-plugins-bad-free,
   gstreamer-ffmpeg, gstreamer-plugins-ugly,
   gstreamer-plugins-bad, ffmpeg,
@@ -129,7 +130,7 @@ rpm: [
   ### awesomewm:
   awesome, awesome-doc, vicious, scrot, network-manager-applet,
   light, xautolock, i3lock,
-  feh, lximage-qt, arandr, lxappearance, lxqt-powermanagement, screengrab,
+  feh, lximage-qt, arandr, lxappearance, lxqt-powermanagement,
   #, plank, compton,
   
   ### i3:
@@ -145,7 +146,7 @@ rpm: [
   "@lxqt",
   
   ### vagrant:
-  vagrant, vagrant-doc, vagrant-lxc, vagrant-lxc-doc, vagrant-libvirt,
+  vagrant, vagrant-doc, vagrant-libvirt,
   vagrant-libvirt-doc, vagrant-cachier, vagrant-cachier-doc,
   vagrant-hostmanager, vagrant-hostmanager-doc,
   lxc,                                  # vagrant-lxc requirement
