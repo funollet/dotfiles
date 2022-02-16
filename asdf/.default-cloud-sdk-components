@@ -1,1 +1,4 @@
 gsutil
+kubectl
+docker-credential-gcr
+beta
