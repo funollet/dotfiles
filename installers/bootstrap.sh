@@ -11,17 +11,22 @@ git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
 . $HOME/.asdf/asdf.sh
 
 # make global versions available
-ln -s ~/.tool-versions .dotfiles/asdf/.tool-versions
+ln -s ~/.dotfiles/asdf/.tool-versions ~/.tool-versions
 
 asdf plugin-add python
+sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
 # ensure a clean PATH, linuxbrew shadows system-wide libraries
 PATH=~/.asdf/shims:~/.asdf/bin:/usr/sbin:/usr/bin:/sbin:/bin asdf install python
 
-asdf plugin add pipx https://github.com/amrox/asdf-pyapp.git
-asdf install pipx
-
-pipx install --include-deps ansible==5.2.0
+pip install ansible==5.2.0
+asdf reshim python 3.9.10
 ansible-galaxy collection install community.general
+
+# asdf plugin add pipx https://github.com/amrox/asdf-pyapp.git
+# asdf install pipx
+#
+# pipx install --include-deps ansible==5.2.0
+# ansible-galaxy collection install community.general
 # Should I inject boto?
 
 # Alternative, not yet working:
