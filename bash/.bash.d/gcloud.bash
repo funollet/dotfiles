@@ -4,6 +4,8 @@ source `asdf where gcloud`/completion.bash.inc
 source `asdf where gcloud`/path.bash.inc
 
 alias gssh='gcloud compute ssh --tunnel-through-iap'
+alias gsshbr="gcloud compute ssh --zone southamerica-east1-b --tunnel-through-iap"
+alias gsshusc1="gcloud compute ssh --zone us-central1-a --tunnel-through-iap"
 alias gscp='gcloud compute scp --tunnel-through-iap'
 alias gci='gcloud compute instances'
 
@@ -22,10 +24,8 @@ gcconf () {
 # alias gcp="gcloud compute scp --tunnel-through-iap"
 # alias gci="gcloud compute instances"
 # # BR
-# alias gshbr="gcloud compute ssh --zone southamerica-east1-b --tunnel-through-iap"
 # alias gcpbr="gcloud compute scp --zone southamerica-east1-b --tunnel-through-iap"
 # alias gcibr="gcloud compute instances --zone southamerica-east1-b"
 # # USC1
-# alias gshusc1="gcloud compute ssh --zone us-central1-a --tunnel-through-iap"
 # alias gcpusc1="gcloud compute scp --zone us-central1-a --tunnel-through-iap"
 # alias gciusc1="gcloud compute instances --zone us-central1-a"
