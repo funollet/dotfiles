@@ -38,13 +38,13 @@ texts[shutdown]=""
 # texts[shutdown]="shut down"
 
 declare -A icons
-icons[lockscreen]=""
+icons[lockscreen]=""
 icons[switchuser]="\uf518"
-icons[logout]=""
+icons[logout]=""
 icons[suspend]=""
-icons[hibernate]="\uf7c9"
-icons[reboot]=""
-icons[shutdown]=""
+icons[hibernate]=""
+icons[reboot]=""
+icons[shutdown]=""
 icons[cancel]="\u00d7"
 
 declare -A actions

@@ -71,13 +71,14 @@ rpm: [
   joystick-support, wmctrl, xdotool, qgnomeplatform,
   xkbset, xbindkeys, xset,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
+  gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
   # Command-line.
   aspell, aspell-ca, aspell-en, aspell-es,
   hunspell, hunspell-ca, hunspell-en-US, hunspell-es-ES,
   mythes, mythes-ca, mythes-en, mythes-es,
   hyphen, hyphen-ca, hyphen-en, hyphen-es,
   autocorr-ca, autocorr-en, autocorr-es,
-  pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go, powerline-fonts,
+  pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go,
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk, icedtea-web,
   powertop, cheat, cheat-bash-completion,
@@ -86,7 +87,6 @@ rpm: [
   keepassx,
   calibre, inkscape, firefox,
   libreoffice, timeline, youtube-dl, Zim,
-  levien-inconsolata-fonts,
   zathura, speedcrunch, homebank, flameshot,
   # Graphics
   gimp, ufraw-gimp, gimp-wavelet-denoise-plugin, gimp-separate+,
@@ -138,9 +138,8 @@ rpm: [
   python3-i3ipc, xsecurelock, xss-lock,
   dunst, light, nitrogen,
   dex-autostart, rofi,
-  polybar, unifont-fonts, volumeicon,
+  polybar, volumeicon, udiskie,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
-  udiskie,
   
   ### lxqt:
   "@lxqt",
