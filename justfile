@@ -8,7 +8,7 @@ update:
     for pkg in ${STOW_PKGS} ; do \
         stow -R $pkg 2>&1 | sed '/^BUG in/d' ; \
     done
-    stow --dir ~/code/wallapop/self-tools --target ~ -R scripts/ 2>&1 | sed '/^BUG in/d'
+    # stow --dir ~/code/wallapop/self-tools --target ~ -R scripts/ 2>&1 | sed '/^BUG in/d'
 
 
 awesome-libs:

@@ -179,7 +179,7 @@ bindsym $mod+Return             exec konsole
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
 bindsym $mod+r                  exec \
-    "rofi -theme applications -show-icons -drun-use-desktop-cache \
+    "rofi -theme applications -show-icons -drun-use-desktop-cache -sorting-method fzf \
     -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
 
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
