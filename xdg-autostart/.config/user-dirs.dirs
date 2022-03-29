@@ -1,0 +1,12 @@
+# Default settings for user directories
+#
+# The values are relative pathnames from the home directory and
+# will be translated on a per-path-element basis into the users locale
+DESKTOP="$HOME/spool/Desktop"
+DOWNLOAD="$HOME/spool/Downloads"
+TEMPLATES="$HOME/spool/Templates"
+PUBLICSHARE="$HOME/spool/Public"
+DOCUMENTS="$HOME/spool/Documents"
+MUSIC="$HOME/mmedia/audio"
+PICTURES="$HOME/spool/Pictures"
+VIDEOS="$HOME/spool/Videos"
