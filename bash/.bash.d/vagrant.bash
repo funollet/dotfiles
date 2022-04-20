@@ -1,2 +1,2 @@
 
-export VAGRANT_DEFAULT_PROVIDER=virtualbox
+export VAGRANT_DEFAULT_PROVIDER=libvirt
