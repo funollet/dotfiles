@@ -55,11 +55,11 @@ asdf:
     -asdf plugin-add aws-sam-cli
     -asdf plugin-add eksctl
     -asdf plugin-add gcloud
-    # kubectl is installed by ~/.default-cloud-sdk-components
     -asdf plugin-add github-cli
     -asdf plugin-add hugo
     -asdf plugin-add k3d
     -asdf plugin-add k9s
+    -asdf plugin-add kubectl
     -asdf plugin-add packer
     -asdf plugin-add poetry
     -asdf plugin-add pre-commit
@@ -74,6 +74,7 @@ asdf:
     -asdf install hugo
     -asdf install k3d
     -asdf install k9s
+    -asdf install kubectl
     -asdf install packer
     -asdf install poetry
     -asdf install pre-commit
