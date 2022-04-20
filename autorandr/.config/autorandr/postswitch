@@ -1,42 +1,25 @@
 #!/bin/bash
 # postswitch
 
+move_ws () {
+    echo "[workspace=${1}]  move workspace to output ${2}" ;
+    i3-msg "[workspace=${1}]  move workspace to output ${2}" ;
+}
+
 case "$AUTORANDR_CURRENT_PROFILE" in
+    twobig)
+        for ws in 1 2 3 4 5 6 7 8      ; do move_ws ${ws} HDMI-1 ; done
+        for ws in 9 10                 ; do move_ws ${ws} DP-3   ; done
+        ;;
+    onebig)
+        for ws in 1 2 3 4 5 6 7 8 9 10 ; do move_ws ${ws} HDMI-1 ; done
+        ;;
     alone)
-        i3-msg '[workspace=1]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=2]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=3]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=4]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=5]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=6]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=7]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=8]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=9]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=10] move workspace to output eDP-1' ;
+        for ws in 1 2 3 4 5 6 7 8 9 10 ; do move_ws ${ws} eDP-1  ; done
         ;;
     tv)
-        i3-msg '[workspace=1]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=2]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=3]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=4]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=5]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=6]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=7]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=8]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=9]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=10] move workspace to output HDMI-1' ;
-        ;;
-    *)
-        i3-msg '[workspace=1]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=2]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=3]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=4]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=5]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=6]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=7]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=8]  move workspace to output HDMI-1' ;
-        i3-msg '[workspace=9]  move workspace to output eDP-1' ;
-        i3-msg '[workspace=10] move workspace to output eDP-1' ;
+        for ws in 1 2 3 4 5 6 7 8      ; do move_ws ${ws} eDP-1  ; done
+        for ws in 9 10                 ; do move_ws ${ws} HDMI-1 ; done
         ;;
 esac
 
