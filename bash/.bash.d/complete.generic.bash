@@ -34,3 +34,7 @@ if which cheat > /dev/null 2>&1 ; then
     [ -f /usr/share/bash-completion/completions/cheat ] \
         && source /usr/share/bash-completion/completions/cheat
 fi
+
+if which gh > /dev/null 2>&1 ; then
+    eval "$(gh completion -s bash)"
+fi

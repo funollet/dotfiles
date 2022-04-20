@@ -5,6 +5,8 @@ bind '"\C-g\C-f": "$(gf)\e\C-e\er"'
 bind '"\C-g\C-b": "$(gb)\e\C-e\er"'
 bind '"\C-g\C-v": "$(fshow)\e\C-e\er"'
 
+alias gitc='git checkout $(gb)'
+
 gco() {
     # are we in a in git repo?
     git rev-parse HEAD > /dev/null 2>&1 || return

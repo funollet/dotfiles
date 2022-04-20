@@ -3,7 +3,7 @@
 # Default invocations with extra parameters.
 alias top='top -d1'
 alias tree='tree -a -I ".git|__pycache__|.pytest_cache|.mypy_cache|*.swp|*.pyc|.venv"'
-alias gvim='gvim --remote-tab'
+alias vim=vimx
 alias watch='watch -n1 --no-title --color'
 alias cal='cal -m'
 alias xclip='xclip -selection clipboard'
@@ -43,16 +43,6 @@ mark () { grep -E "$1|.*" ; }
 
 diffssh () {    #diffssh hostA hostB file
     colordiff -U0 <(ssh $1 cat $3) <(ssh $2 cat $3)
-}
-
-git-pull-dirs() {
-    while read dir ; do
-        echo "######## ${dir}"
-        cd $dir
-        git checkout master
-        git pull
-        cd $OLDPWD
-    done
 }
 
 copier-chooser () {
