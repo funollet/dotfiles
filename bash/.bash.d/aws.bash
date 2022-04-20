@@ -1,7 +1,5 @@
 #!/bin/bash
 
-complete -C aws_completer aws       # awscli: autocompletion
-
 export AWS_PROFILE=default
 
 ## ec2-search-id () {
