@@ -40,10 +40,11 @@
   tags: rpm
 
 - name: enable services
-  service:
+  ansible.builtin.systemd:
     name: "{{ item }}"
     enabled: yes
-    status: started
+    state: started
+  become: true
   with_items:
     - libvirtd
     - virtnetworkd
