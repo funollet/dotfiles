@@ -27,7 +27,7 @@ rpm: [
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
   mercurial, git, hub, git-svn, gitk, sqlite, jq, ShellCheck,
-  direnv, stow, gron, just,
+  direnv, stow, gron, just, fx, fx-completion,
   # vim / syntastic
   rubygem-puppet-lint, yamllint,
   # Python development.

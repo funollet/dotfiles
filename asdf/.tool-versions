@@ -3,7 +3,7 @@ pipx 1.0.0
 gcloud 382.0.0
 terraform 1.1.4
 awscli 2.4.15
-github-cli 2.7.0
+github-cli 2.8.0
 packer 1.7.9
 task 3.10.0
 k3d 5.2.2
