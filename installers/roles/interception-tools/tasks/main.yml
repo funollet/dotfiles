@@ -1,3 +1,7 @@
+
+# TODO: libevdev-devel yaml-cpp-devel
+# TODO: mkdir /etc/interception
+
 - name: install interception-tools
   dnf:
     name: "interception-tools"

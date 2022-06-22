@@ -4,7 +4,7 @@ xkb_symbols "basic" {
     name[Group1]= "English (US, numbers layer)";
 
     // reverse semicolon and colon; colon is not shifted anymore
-    key <AC10> {	[colon, semicolon ]	};
+    // key <AC10> {	[colon, semicolon ]	};
 
 
     // numbers at level2, symbols at level1

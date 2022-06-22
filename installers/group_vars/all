@@ -21,7 +21,7 @@ rpm_absent: [
 rpm: [
   ### base_distro
   python-paramiko, python3-pyyaml, python-jinja2, python-simplejson, python-pip,
-  python3-firewall, createrepo,
+  python3-firewall, createrepo, redhat-lsb-core,
   
   ### devopstools
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
@@ -72,6 +72,8 @@ rpm: [
   xkbset, xbindkeys, xset,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
+  # input-remapper dependencies
+  python3-evdev, gtksourceview4, python3-devel, python3-pydantic, python3-pydbus,
   # Command-line.
   aspell, aspell-ca, aspell-en, aspell-es,
   hunspell, hunspell-ca, hunspell-en-US, hunspell-es-ES,
