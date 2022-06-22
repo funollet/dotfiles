@@ -12,6 +12,7 @@ fi
 # pless () { pygmentize -l $1 $2 | less ; }
 
 export PAGER=less
+export LESSOPEN="| $(which highlight) %s --out-format xterm256 --force -s molokai --no-trailing-nl"
 export LESS='-R'
 # Colorized man pages with 'less'.
 export LESS_TERMCAP_mb=$'\E[01;31m'
@@ -21,3 +22,4 @@ export LESS_TERMCAP_se=$'\E[0m'
 export LESS_TERMCAP_so=$'\E[01;44;33m'
 export LESS_TERMCAP_ue=$'\E[0m'
 export LESS_TERMCAP_us=$'\E[01;32m'
+export GROFF_NO_SGR=1                   # For Konsole and Gnome-terminal
