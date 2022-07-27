@@ -4,7 +4,7 @@
 run_polybar () {
     killall -q polybar
     # Wait until the processes have been shut down
-    while pgrep -u $UID -x polybar > /dev/null; do sleep 0.3 ; done
+    while pgrep -u $UID -x polybar > /dev/null; do sleep 0.3 ; killall -q polybar ; done
 
     devices=$(xrandr | awk '/ conn/ {print $1}')
     primary=$(xrandr | grep primary | awk '/ conn/ {print $1}')

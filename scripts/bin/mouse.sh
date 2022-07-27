@@ -6,6 +6,7 @@
 
 suffix=""
 lsusb -d 056e:00fd > /dev/null && suffix=".elecom"
+lsusb -d 046d:c52b > /dev/null && suffix=".elecom"
 
 pkill xbindkeys
 xbindkeys -f "$HOME/.xbindkeysrc${suffix}"

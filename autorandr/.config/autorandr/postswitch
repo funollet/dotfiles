@@ -1,25 +1,25 @@
 #!/bin/bash
 # postswitch
 
+# Names of workspaces in regex-like form. Example: 9|1|2|4|5|6|8
+ws_names=$(i3-msg -t get_workspaces | jq -r '[.[].name] | join("|")')
+
 move_ws () {
-    echo "[workspace=${1}]  move workspace to output ${2}" ;
-    i3-msg "[workspace=${1}]  move workspace to output ${2}" ;
+    if [[ $1 =~ ^(${ws_names})$ ]] ; then
+        i3-msg -q "[workspace=${1}] move workspace to output ${2}" > /dev/null 2>&1
+    fi
 }
 
 case "$AUTORANDR_CURRENT_PROFILE" in
-    twobig)
+    tv|twobig)
         for ws in 1 2 3 4 5 6 7 8      ; do move_ws ${ws} HDMI-1 ; done
-        for ws in 9 10                 ; do move_ws ${ws} DP-3   ; done
+        for ws in                 9 10 ; do move_ws ${ws} DP-3   ; done
         ;;
     onebig)
         for ws in 1 2 3 4 5 6 7 8 9 10 ; do move_ws ${ws} HDMI-1 ; done
         ;;
-    alone)
-        for ws in 1 2 3 4 5 6 7 8 9 10 ; do move_ws ${ws} eDP-1  ; done
-        ;;
-    tv)
-        for ws in 1 2 3 4 5 6 7 8      ; do move_ws ${ws} eDP-1  ; done
-        for ws in 9 10                 ; do move_ws ${ws} HDMI-1 ; done
+    *)
+        for ws in 1 2 3 4 5 6 7 8 9 10 ; do move_ws ${ws} primary ; done
         ;;
 esac
 

@@ -157,9 +157,9 @@ bindsym $mod+w              layout tabbed
 bindsym $mod+e              layout toggle split
 
 #       toggle container mode: tiling / floating
-bindsym $mod+Shift+Tab      floating toggle
+bindsym $mod+Tab            floating toggle
 #       change focus between tiling / floating windows
-bindsym $mod+Tab            focus mode_toggle
+bindsym $mod+Shift+Tab      focus mode_toggle
 #       focus the parent/child container
 # bindsym $mod+a              focus parent
 # bindsym $mod+d              focus child
@@ -170,7 +170,7 @@ focus_wrapping no
 
 # https://github.com/jluttine/rofi-power-menu
 bindsym Control+Mod1+Delete     exec \
-    rofi -theme powermenu -show power-menu -modi 'power-menu:~/.config/rofi/scripts/rofi-power-menu'
+    rofi -theme powermenu -show power-menu -modi 'power-menu:~/.config/rofi/scripts/rofi-power-menu --confirm ""'
 
 bindsym $mod+Shift+c            reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
@@ -180,7 +180,8 @@ bindsym $mod+Return             exec konsole
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
 bindsym $mod+r                  exec \
-    "rofi -theme applications -show-icons -drun-use-desktop-cache -sorting-method fzf \
+    "rofi -theme applications -show-icons -drun-use-desktop-cache \
+    -sorting-method fzf -matching normal \
     -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
 
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
