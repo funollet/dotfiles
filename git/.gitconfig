@@ -22,16 +22,41 @@
     co = checkout
     br = branch
     ; colorful log
-    lg = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+    lg = log --color --graph \
+      --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+      --abbrev-commit
     ; my log
-    me = log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --author unollet --author jordi.fu
+    me = log --color --graph \
+      --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+      --abbrev-commit --author unollet --author jordi.fu
     ; list files staged
     ls-staged = diff --name-only --cached
     ; list files non-staged or untracked
     ls-changed = ls-files --others --exclude-standard --modified
-    ; delete current branch; only works if it's already merged to develop
-    rm-branch = '!f(){ OLD_BRANCH=$(git rev-parse --abbrev-ref HEAD) && git checkout develop && git pull && git branch -d $OLD_BRANCH ; } ; f'
+    ls-ignored = ls-files --others --ignored --exclude-standard	
+    ; delete current branch
+    rm-branch = "!f() { \
+      local ref='$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2)'; \
+      [ -n \"$1\" ] && ref=\"$1\"; \
+      git checkout ${ref} && \
+      git pull && \
+      git branch -D @{-1} ; \
+    }; f"
+    ;
     set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+    ; branch update
+    bup = "!f() { \
+      local ref=\"$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2)\"; \
+      [ -n \"$1\" ] && ref=\"$1\"; \
+      { git stash push --include-untracked; git switch ${ref}; git pull --rebase; } \
+      && { git switch -; git rebase ${ref}; git stash pop --index; } \
+    }; f"
+    ;
+    rebaseme = "!f() { \
+      local ref=\"$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f1)\"; \
+      [ -n \"$1\" ] && ref=\"$1\"; \
+      git rebase --autosquash -i $(git merge-base \"${ref}\" HEAD); \
+    }; f"
 
-; [include]
-; path = ~/pim/pam
+[includeIf "gitdir:~/code/seedtag/"]
+    path = .gitconfig.seedtag
