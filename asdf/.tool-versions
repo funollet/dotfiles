@@ -1,6 +1,6 @@
 python 3.9.10
 pipx 1.0.0
-gcloud 382.0.0
+gcloud 387.0.0
 terraform 1.1.4
 awscli 2.4.15
 github-cli 2.8.0

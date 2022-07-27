@@ -6,7 +6,6 @@ alias tree='tree -a -I ".git|__pycache__|.pytest_cache|.mypy_cache|*.swp|*.pyc|.
 alias vim=vimx
 alias watch='watch -n1 --no-title --color'
 alias cal='cal -m'
-alias xclip='xclip -selection clipboard'
 alias ssh='TERM=xterm-256color ssh'
 alias ssh-blindly='TERM=xterm-256color ssh -o StrictHostKeyChecking=no  -o CheckHostIP=no -o UserKnownHostsFile=/dev/null'
 
