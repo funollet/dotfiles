@@ -98,7 +98,7 @@ rpm: [
   gimp-data-extras,
   digikam, kf5-kipi-plugins, darktable,
   # Multimedia
-  clementine, audacity, pavucontrol, ffmpeg, cantata,
+  clementine, audacity, pavucontrol, ffmpeg, cantata, playerctl,
   qjackctl, sooperlooper, beets, beets-doc, beets-plugins,
   vlc,                                              # require: RPMfusion repositories
   # joystick
