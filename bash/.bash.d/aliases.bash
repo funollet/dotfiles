@@ -47,3 +47,7 @@ diffssh () {    #diffssh hostA hostB file
 copier-chooser () {
     copier ~/code/skeletons/$(ls -1 ~/code/skeletons/ | fzf )
 }
+
+i3keys () {
+    egrep -R ^bind ~/.config/i3/ | cut -d ' ' -f 2- | sed 's/ /\t/' | column -ts $'\t' | pr -2 -w 145 -t
+}
