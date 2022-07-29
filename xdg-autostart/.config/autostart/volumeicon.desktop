@@ -110,3 +110,4 @@ Terminal=false
 StartupNotify=false
 Categories=GTK;AudioVideo;Audio;Mixer
 X-Desktop-File-Install-Version=0.26
+OnlyShowIn=i3
