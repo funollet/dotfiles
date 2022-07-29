@@ -66,6 +66,7 @@ bindsym $mod+$up        focus up
 bindsym $mod+$right     focus right
 bindsym $mod+$prev      workspace prev_on_output
 bindsym $mod+$next      workspace next_on_output
+bindsym $mod+n          exec ~/bin/i3-workspace-new.py
 bindsym $mod+o          focus output left
 
 bindsym $mod+1          workspace $w1
