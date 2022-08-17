@@ -6,7 +6,10 @@
         name: dnf
 
     - group:
-        name: uinput
+        name: "{{ item }}"
+      with_items:
+        - uinput
+        - plugdev
       become: true
       tags: users
 
@@ -27,6 +30,7 @@
           - input
           - uinput
           - docker
+          - plugdev
       become: true
       tags: users
 

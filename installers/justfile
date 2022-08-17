@@ -12,7 +12,7 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _amber _jiq _up _fonts-hack _vim-vundle
+install: _amber _jiq _up _fonts-hack _vim-vundle _wally
 
 _amber:
     fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
@@ -28,6 +28,8 @@ _sysz:
     wget -O ~/.local/bin/sysz https://raw.githubusercontent.com/joehillen/sysz/master/sysz
     chmod +x ~/.local/bin/sysz
 
+_wally:
+    fetchbin.sh wally https://configure.ergodox-ez.com/wally/linux
 
 # Install font Hack from https://github.com/ryanoasis/nerd-fonts
 _fonts-hack version="2.1.0":
