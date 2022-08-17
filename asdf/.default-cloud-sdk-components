@@ -1,3 +1,5 @@
 gsutil
 docker-credential-gcr
 beta
+kubectl
+gke-gcloud-auth-plugin
