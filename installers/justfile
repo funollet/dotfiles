@@ -30,6 +30,7 @@ _sysz:
 
 _wally:
     fetchbin.sh wally https://configure.ergodox-ez.com/wally/linux
+    fetchbin.sh wally-cli https://github.com/zsa/wally-cli/releases/download/2.0.0-linux/wally-cli 
 
 # Install font Hack from https://github.com/ryanoasis/nerd-fonts
 _fonts-hack version="2.1.0":
