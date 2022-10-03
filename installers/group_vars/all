@@ -5,7 +5,7 @@ pipx: [
 
 flatpak: [
   com.spotify.Client, com.skype.Client, us.zoom.Zoom, org.telegram.desktop, org.freeplane.App,
-  com.slack.Slack, md.obsidian.Obsidian, com.rafaelmardojai.Blanket,
+  md.obsidian.Obsidian, com.rafaelmardojai.Blanket,
   ]
 
 gems: [
@@ -47,6 +47,8 @@ rpm: [
   rubygem-rspec-mocks-doc,
   # Golang devel.
   golang,
+  # rust devel
+  cargo, libbsd-devel,
   # Nagios plugins development.
   pynag, pynag-examples,
   #
