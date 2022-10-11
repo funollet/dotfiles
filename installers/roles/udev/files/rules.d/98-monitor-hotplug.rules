@@ -1,5 +1,0 @@
-KERNEL=="card*", SUBSYSTEM=="drm", ACTION=="change", \
-    ENV{DISPLAY}=":0", \
-    ENV{XAUTHORITY}="/home/jordif/.Xauthority", \
-    ENV{HOME}="/home/jordif", \
-    RUN+="/usr/bin/su jordif -c '/home/jordif/.local/bin/autorandr --change'"

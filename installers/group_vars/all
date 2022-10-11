@@ -1,6 +1,6 @@
 
 pipx: [
-  pew, pex, autorandr, i3altlayout, termdown,
+  pew, pex, i3altlayout, termdown,
   ]
 
 flatpak: [
@@ -134,7 +134,7 @@ rpm: [
   ### i3:
   "@i3",
   python3-i3ipc, xsecurelock, xss-lock,
-  dunst, light, nitrogen, arandr,
+  dunst, light, nitrogen, arandr, autorandr, autorandr-bash-completion,
   dex-autostart, rofi,
   polybar, volumeicon, udiskie,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
