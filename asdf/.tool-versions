@@ -13,3 +13,4 @@ pre-commit 2.17.0
 poetry 1.1.12
 tflint 0.41.0
 kubectl 1.23.5
+pulumi 3.43.1
