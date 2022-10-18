@@ -28,13 +28,14 @@ rpm: [
   # development tools
   mercurial, git, hub, git-svn, gitk, sqlite, jq, ShellCheck,
   direnv, stow, gron, just, fx, fx-completion,
-  # vim / syntastic
-  rubygem-puppet-lint, yamllint,
+  # linting
+  rubygem-puppet-lint, yamllint, hadolint,
+  python3-black, python3-pytest, python3-flake8, python3-isort,
   # Python development.
   python-devel, python-crypto,
   python-mock,
-  python3-ipython, python3-black, python3-pytest, python3-flake8, python3-jedi,
-  python3-isort, pipx,
+  python3-ipython, python3-jedi,
+  pipx,
   python-psutil, pydot, httpie, python-py, python-docopt,
   python-click, python-pip, python-sh,
   python3-requests,
