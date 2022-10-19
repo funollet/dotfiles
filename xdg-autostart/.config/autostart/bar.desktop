@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=bar.sh
+Exec=/home/jordif/bin/bar.sh
+OnlyShowIn=i3

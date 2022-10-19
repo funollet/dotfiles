@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+Name=nitrogen
+Exec=nitrogen --restore
+OnlyShowIn=i3
