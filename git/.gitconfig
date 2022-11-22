@@ -60,3 +60,5 @@
 
 [includeIf "gitdir:~/code/seedtag/"]
     path = .gitconfig.seedtag
+[init]
+	defaultBranch = main
