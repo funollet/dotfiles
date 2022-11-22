@@ -6,7 +6,8 @@ if asdf which gcloud > /dev/null 2>&1 ; then
 fi
 
 if which kubectl > /dev/null 2>&1 ; then
-    source <(kubectl completion bash)
+    source <(lazycomplete \
+        kubectl 'kubectl completion bash')
 fi
 
 if which pipx > /dev/null 2>&1 ; then
@@ -27,7 +28,8 @@ if which ag > /dev/null 2>&1 ; then
 fi
 
 if which poetry > /dev/null 2>&1 ; then
-    source <(poetry completions bash)
+    source <(lazycomplete \
+        poetry 'poetry completions bash')
 fi
 
 if which cheat > /dev/null 2>&1 ; then

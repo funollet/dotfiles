@@ -68,6 +68,7 @@ rpm: [
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff,
   the_silver_searcher, fd-find, ncdu, bat, exa, gron, jo,
   highlight,
+  https://github.com/rsteube/lazycomplete/releases/download/v0.0.18/lazycomplete_0.0.18_linux_amd64.rpm,
   
   ### workstation:
   kernel-modules-extra, kernel-headers, kernel-devel, dkms,
