@@ -27,7 +27,7 @@ rpm: [
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
   mercurial, git, hub, git-svn, gitk, sqlite, jq, ShellCheck,
-  direnv, stow, gron, just, fx, fx-completion,
+  direnv, stow, gron, just, fx, fx-completion, jc,
   # linting
   rubygem-puppet-lint, yamllint, hadolint,
   python3-black, python3-pytest, python3-flake8, python3-isort,
@@ -89,6 +89,7 @@ rpm: [
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk, icedtea-web,
   powertop, cheat, cheat-bash-completion,
+  lolcat,
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
   keepassx,
