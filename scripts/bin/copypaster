@@ -1,0 +1,24 @@
+#!/bin/bash
+# copypaster
+#
+# Copies with ctrl+c or shift+ctrl+c, depending on the app focused. Same for paste.
+
+set -eu
+
+if [ "$1" == "copy" ] ; then
+  keys='ctrl+c'
+  if $(xdotool getwindowfocus getwindowname | grep -q "Konsole") ; then
+      keys='shift+ctrl+c'
+  fi
+elif [ "$1" == "paste" ] ; then
+  keys='ctrl+v'
+  if $(xdotool getwindowfocus getwindowname | grep -q "Konsole") ; then
+      keys='shift+ctrl+v'
+  fi
+fi
+
+# Do nothing if the variable is unset.
+test -z "$keys" && exit 1
+
+# Send the right keys.
+xdotool key "$keys"

@@ -197,6 +197,8 @@ bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
 bindsym F9                      [class="Spotify"]   scratchpad show
 bindsym F12                     [class="konsole"] scratchpad show
+bindsym XF86Launch7             exec ~/bin/copypaster copy
+bindsym XF86Launch6             exec ~/bin/copypaster paste
 
 # Brightness
 bindsym XF86MonBrightnessDown   exec light -U 15
