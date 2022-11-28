@@ -12,7 +12,7 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _amber _jiq _up _fonts-hack _vim-vundle _wally
+install: _amber _jiq _lazycomplete _up _fonts-hack _vim-vundle _wally
 
 _amber:
     fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
@@ -20,6 +20,10 @@ _amber:
 
 _jiq:
     fetchbin.sh jiq https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64
+
+_lazycomplete:
+    sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
+
 _up:
     fetchbin.sh up https://github.com/akavel/up/releases/download/v0.4/up
 
