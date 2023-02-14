@@ -2,7 +2,7 @@ python 3.9.10
 pipx 1.0.0
 gcloud 397.0.0
 terraform 1.1.4
-awscli 2.4.15
+awscli 2.9.2
 github-cli 2.8.0
 packer 1.7.9
 task 3.10.0

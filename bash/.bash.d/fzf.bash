@@ -2,12 +2,17 @@
 # source /etc/bash_completion.d/fzf
 source /usr/share/fzf/shell/key-bindings.bash
 
-export FZF_DEFAULT_OPTS="--color=light --reverse"
-export FZF_DEFAULT_COMMAND='ag -l -g ""'
+export FZF_DEFAULT_OPTS="--reverse --no-mouse --tabstop=4 --pointer='•' --marker='‣' --color=dark"
 
-# on ALT-c (dirs) use 'tree' as preview
-command -v tree > /dev/null && export FZF_ALT_C_OPTS="--preview 'tree -C {} | head -$LINES'"
-command -v blsd > /dev/null && export FZF_ALT_C_COMMAND='blsd' \
+export FZF_DEFAULT_COMMAND="fd --type f --hidden --follow --exclude .git --exclude '.*.sw?'"
+export FZF_ALT_C_COMMAND="fd --type d --hidden --follow --exclude .git"
+export FZF_CTRL_T_COMMAND="fd --type f --type d --hidden --follow --exclude .git --exclude '.*.sw?'"
+
+command -v bat > /dev/null && \
+    export FZF_CTRL_T_OPTS="--preview 'bat -n --color=always {}'"
+command -v lsd > /dev/null && \
+    export FZF_ALT_C_OPTS="--preview 'lsd --color always --tree {}'"
+
 
 fzcut () {
     local column headers
