@@ -208,6 +208,8 @@ bindsym XF86Launch6             exec ~/bin/copypaster paste
 bindsym XF86MonBrightnessDown   exec light -U 15
 bindsym XF86MonBrightnessUp     exec light -A 15
 
+bindsym $mod+Mod1+d            exec ~/bin/firefox-detach-window.sh
+
 include window-rules.conf
 include autostart.conf
 include screensaver.conf
