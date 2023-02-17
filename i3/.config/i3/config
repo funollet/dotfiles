@@ -102,7 +102,9 @@ bindsym --whole-window  $mod+button7          resize shrink width  2 px or 2 ppt
 # Workaround: custom per-device config on mouse.sh
 
 # move and resize windows
-mode "change" {
+set $mode_change h,j,k,l: move | +Meta: resize | o: next output | u,i: move to workspace
+bindsym $mod+c mode "$mode_change"
+mode "$mode_change" {
         ### resize window (you can also drag the border with the mouse)
         #
         bindsym $mod+$left   resize shrink width  2 px or 2 ppt
@@ -143,7 +145,6 @@ mode "change" {
         bindsym Return  mode "default"
         bindsym $mod+c  mode "default"
 }
-bindsym $mod+c mode "change"
 
 
 # two-column layout
@@ -198,7 +199,9 @@ bindsym F8                      [class="Slack"]     scratchpad show
 # bindsym F9                      [class="Spotify"]   scratchpad show
 bindsym F9                      [class="1Password"] scratchpad show
 bindsym F12                     [class="konsole"]   scratchpad show
+# F16 on ergodox
 bindsym XF86Launch7             exec ~/bin/copypaster copy
+# F15 on ergodox
 bindsym XF86Launch6             exec ~/bin/copypaster paste
 
 # Brightness
