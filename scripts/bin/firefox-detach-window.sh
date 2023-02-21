@@ -7,7 +7,7 @@
 # go to url 
 # shift+tab backwards to the tab
 # use the contextual menu to detach the tab
-xdotool sleep 500 key --delay 500 \
+xdotool sleep 0.5 key --delay 300 \
   ctrl+l \
   shift+Tab shift+Tab shift+Tab shift+Tab \
   shift+F10 v w
@@ -23,3 +23,4 @@ i3-msg "move container to output next"
 # set focus on the newest Firefox window
 sleep .2
 wmctrl -i -a "$firefox_last_window"
+
