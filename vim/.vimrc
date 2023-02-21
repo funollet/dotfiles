@@ -58,13 +58,9 @@ Plugin 'jonhiggs/vim-readline'
 Plugin 'mileszs/ack.vim'
 Plugin 'tpope/vim-unimpaired'
 Plugin 'supertab'
-"       Plugin 'Gundo'            " not used anymore
 "Plugin 'junegunn/vim-easy-align'
 "
 " -- Development
-" Plugin 'Syntastic'
-" Plugin 'SirVer/ultisnips'
-" Plugin 'honza/vim-snippets'
 Plugin 'tpope/vim-fugitive'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'w0rp/ale'
@@ -96,8 +92,6 @@ Plugin 'wilriker/gcode.vim'
 "   - install sensible
 "   - restore_view
 "   - quickfix: vim-qf, https://github.com/yssl/QFEnter
-"   Asynchronous Lint Engine; replaces syntastic
-"   - Plugin 'w0rp/ale'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -143,21 +137,6 @@ augroup misc_filetypes
 augroup END
 " }}}
 
-" plugin: syntastic {{{
-" Set bash as shell; fish is incompatible with Syntastic
-set shell=bash
-
-" syntastic: no need to run :Errors to use :lnext/:lprev
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_python_python_exec = '/usr/bin/python3'
-
-let g:session_autosave = 'yes'
-let g:session_autosave_periodic = 3
-let g:session_autosave_silent = 1
-let g:session_command_aliases = 1
-" let g:session_persist_globals = ['&makeprg']
-" }}}
-
 " plugin: ale {{{
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
@@ -166,18 +145,6 @@ let g:ale_fixers = {
 \   'python':   ['autopep8', 'isort', 'black', 'remove_trailing_lines', 'trim_whitespace'],
 \   'vim':      ['remove_trailing_lines', 'trim_whitespace']
 \ }
-" }}}
-
-" plugin: vim-which-key {{{
-" https://github.com/liuchengxu/vim-which-key
-call which_key#register('<Space>', "g:which_key_map")
-
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-
-" Define prefix dictionary for vim-which-key
-let g:which_key_map =  {}
-
-set timeoutlen=500
 " }}}
 
 " plugin: lightline {{{
@@ -329,6 +296,12 @@ endif
 
 " search for the visual selection
 vnoremap // y/\V<C-R>=escape(@",'/\')<CR><CR>
+
+" Use <C-L> to clear the highlighting of :set hlsearch.
+if maparg('<C-L>', 'n') ==# ''
+nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+endif
+
 " }}}
 
 " completion {{{
@@ -343,22 +316,6 @@ set completeopt=menuone,longest,preview
 set updatetime=250
 " }}}
 
-" quickfix {{{
-" augroup open_cwindow_after_make
-"     autocmd!
-"     autocmd QuickFixCmdPost * :copen        " Open cwindow after make.
-" augroup END
-
-let g:which_key_map.q = {'name' : '+quickfix'}
-
-nnoremap <leader>qh :cprevious<CR>
-nnoremap <leader>ql :cnext<CR>
-nnoremap <leader>qo :copen<CR>
-nnoremap <leader>qc :cclose<CR>
-nnoremap <leader>q9 :cfirst<CR>
-nnoremap <leader>q0 :clast<CR>
-" }}}
-
 " file navigation {{{
 
 set wildmenu                " Turn on the WiLd menu
@@ -367,11 +324,6 @@ set wildignore=*.o,*~,*.pyc " Ignore compiled files
 let &wildcharm = &wildchar  " Next line requires this to work
 " On WiLd menu, ctrl-j enters a directory
 cnoremap <C-j> <DOWN>
-
-" CD to the directory where the file in the buffer is.
-" nnoremap <leader>cd execute "cd" expand("%:p:h")
-" Switch CWD to the directory of the open buffer
-nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
 " }}}
 
 " plugin: nerdtree {{{
@@ -383,25 +335,9 @@ au BufNewFile,BufRead /home/jordif/.dotfiles/ let NERDTreeShowHidden=1
 " }}}
 
 " plugin: fzf {{{
-nnoremap <leader>fm :FZFMru<CR>
-nnoremap <leader>ff :Files<CR>
-nnoremap <leader>fb :Buffers<CR>
-nnoremap <leader>fa :Ag<CR>
-
-command! Files call fzf#run(fzf#wrap({'source': 'fd --type f --follow ""'}))
-
+command! Files call  fzf#run(fzf#wrap({'source': 'fd --type f --follow ""'}))
 " find hidden files'
-command! Hidden call fzf#run(fzf#wrap({'source': 'fd --type f --hidden --follow --exclude .git --exclude \'.*.sw?\' ""'}))
-map <leader>fh :call fzf#run(fzf#wrap({'source': 'fd --type f --hidden --follow --exclude .git --exclude ".*.sw?" ""'}))<CR>
-
-let g:which_key_map.f = { 'name' : '+find' }
-let g:which_key_map.f.h = 'hidden files'
-" }}}
-
-" git and plugin: fugitive {{{
-map <leader>go :echom system("hub browse -- blob/" . fugitive#head() . "/" . bufname("%") )<CR>
-map <leader>gs :Git<CR>
-let g:which_key_map.g = {'name' : '+git'}
+command! Hidden call fzf#run(fzf#wrap({'source': 'fd --type f --hidden --follow --exclude .git --exclude ".*.sw?" ""'}))
 " }}}
 
 " plugin: operator-flashy {{{
@@ -411,8 +347,6 @@ nmap Y <Plug>(operator-flashy)$
 
 " mappings {{{
 
-" iabbrev @@      Jordi Funollet <funollet@fastmail.fm>
-
 " ESC in insert mode
 inoremap jk <esc>
 " ESC in command mode
@@ -421,40 +355,11 @@ cnoremap jk <C-C>
 " historical vi compatibility reason. We use the alternate method of
 " existing which is Ctrl-C
 
-" Justify paragraph
-" inoremap <leader>q gqip
-
 " C-S-insert pastes from clipboard
 inoremap <C-S-Insert> <C-o>"*P
 
-nnoremap <C-PageUp> :bprev<CR>
-nnoremap <C-PageDown> :bnext<CR>
-nnoremap <leader>bp :bprev<CR>
-nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bd :bd<CR>
-nnoremap <leader>h :bprev<CR>
-nnoremap <leader>l :bnext<CR>
-let g:which_key_map.b = {'name' : '+buffers'}
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-" nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-let g:pep8_map='<Leader>8'
-
-" Maps for editing ~/.vimrc
-nnoremap <leader>ve :e $MYVIMRC<CR>
-nnoremap <leader>vs :source $MYVIMRC<CR>
-let g:which_key_map.v = {'name' : '+vimrc'}
-
-
 " ff folds/unfolds.
 nnoremap ff za
-
-" Use <C-L> to clear the highlighting of :set hlsearch.
-if maparg('<C-L>', 'n') ==# ''
-nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-endif
 
 " Show next matched string at the center of screen.
 " nnoremap n nzz
@@ -463,11 +368,6 @@ nnoremap n nzzzv
 nnoremap N Nzzzv
 nnoremap J mzJ`z
 
-
-" Auto completion via ctrl-space (instead of the nasty ctrl-x ctrl-o)
-" inoremap <Nul> <C-x><C-o>
-
-" nnoremap <leader>o :Files ~/code/onna/<Return>
 command! Hugo :Files $HUGO_CONTENT
 
 " Window navigation.
@@ -477,17 +377,6 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
-
-" Toggle line numbers and fold column for easy copying
-map <leader>tn :set nonumber!<CR>:set foldcolumn=0<CR>
-" Toggle paste mode on and off
-map <leader>tp :setlocal paste!<cr>
-" Toggle cursorline
-nnoremap <leader>tl :set cursorline!<CR>
-" Toggle hidden chars.
-nnoremap <leader>tl :set list!<CR>
-let g:which_key_map.t = {'name' : '+toggle'}
-
 " Grep with motion.
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
@@ -495,11 +384,75 @@ xmap gs  <plug>(GrepperOperator)
 " Reselect visual selection after indenting
 vnoremap < <gv
 vnoremap > >gv
-
-nnoremap <leader>n :NERDTreeToggle<CR>
-" nnoremap <leader>n :NERDTreeTabsToggle<CR>
-let g:which_key_map.n = 'nerdtree'
 " }}}
 
+" plugin: vim-which-key {{{
+call which_key#register('<Space>', "g:which_key_map")
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+set timeoutlen=500
 
-" vim:foldmethod=marker:foldlevel=0
+" Define prefix dictionary for vim-which-key
+let g:which_key_map =  {}
+let g:which_key_map.b = {'name' : '+buffers'}
+let g:which_key_map.f = {'name' : '+find'}
+let g:which_key_map.f.v = {'name' : '+vimrc'}
+let g:which_key_map.g = {'name' : '+git'}
+let g:which_key_map.q = {'name' : '+quickfix'}
+let g:which_key_map.s = {'name' : '+search'}
+let g:which_key_map.t = {'name' : '+toggle'}
+
+
+nnoremap <leader>h :bprev<CR>
+nnoremap <leader>l :bnext<CR>
+
+
+nnoremap <leader>bp :bprev<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bd :bd<CR>
+
+nnoremap <leader>fa :Ag<CR>
+nnoremap <leader>fb :Buffers<CR>
+nnoremap <leader>ff :Files<CR>
+     map <leader>fh :Hidden<CR>
+nnoremap <leader>fm :FZFMru<CR>
+nnoremap <leader>ft :NERDTreeToggle<CR>
+nnoremap <leader>fT :NERDTree<CR>
+" Maps for editing ~/.vimrc
+nnoremap <leader>fve :e $MYVIMRC<CR>
+nnoremap <leader>fvs :source $MYVIMRC<CR>
+
+
+map <leader>go :echom system("hub browse -- blob/" . fugitive#head() . "/" . bufname("%") )<CR>
+map <leader>gs :Git<CR>
+
+nnoremap <leader>qh :cprevious<CR>
+nnoremap <leader>ql :cnext<CR>
+nnoremap <leader>qo :copen<CR>
+nnoremap <leader>qc :cclose<CR>
+nnoremap <leader>q9 :cfirst<CR>
+nnoremap <leader>q0 :clast<CR>
+
+
+" Toggle line numbers and fold column for easy copying
+map      <leader>tn :set nonumber!<CR>:set foldcolumn=0<CR>
+" Toggle paste mode on and off
+map      <leader>tp :setlocal paste!<cr>
+" Toggle cursorline
+nnoremap <leader>tl :set cursorline!<CR>
+" Toggle hidden chars.
+nnoremap <leader>tl :set list!<CR>
+
+
+" nnoremap <leader>o :Files ~/code/onna/<Return>
+"
+" CD to the directory where the file in the buffer is.
+" nnoremap <leader>cd execute "cd" expand("%:p:h")
+" Switch CWD to the directory of the open buffer
+" nnoremap <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+" nnoremap <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+" }}}
+
+" vim: foldmethod=marker:foldlevel=0
