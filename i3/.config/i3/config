@@ -102,7 +102,7 @@ bindsym --whole-window  $mod+button7          resize shrink width  2 px or 2 ppt
 # Workaround: custom per-device config on mouse.sh
 
 # move and resize windows
-set $mode_change h,j,k,l: move | +Meta: resize | o: next output | u,i: move to workspace
+set $mode_change h,j,k,l: move | +Meta: resize | o: move to next output | u,i: move to workspace
 bindsym $mod+c mode "$mode_change"
 mode "$mode_change" {
         ### resize window (you can also drag the border with the mouse)
@@ -196,7 +196,6 @@ bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F6                      [class="Keepassx2"] scratchpad show
 bindsym F7                      [class="Telegram"]  scratchpad show
 bindsym F8                      [class="Slack"]     scratchpad show
-# bindsym F9                      [class="Spotify"]   scratchpad show
 bindsym F9                      [class="1Password"] scratchpad show
 bindsym F12                     [class="konsole"]   scratchpad show
 # F16 on ergodox
@@ -204,11 +203,13 @@ bindsym XF86Launch7             exec ~/bin/copypaster copy
 # F15 on ergodox
 bindsym XF86Launch6             exec ~/bin/copypaster paste
 
+
 # Brightness
 bindsym XF86MonBrightnessDown   exec light -U 15
 bindsym XF86MonBrightnessUp     exec light -A 15
 
-bindsym $mod+Mod1+d            exec ~/bin/firefox-detach-window.sh
+# F17 on ergodox
+bindsym XF86Launch8             exec ~/bin/firefox-detach-window.sh
 
 include window-rules.conf
 include autostart.conf
