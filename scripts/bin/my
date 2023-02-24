@@ -1,0 +1,56 @@
+#!/usr/bin/env -S just --justfile
+# me
+#
+# https://github.com/casey/just
+
+# show this message
+help:
+  @just -l --unsorted --justfile {{justfile()}}
+
+
+# Sync files with ssh tunnel + tmux.
+sync quick="n":
+    tmux has -t tunnel || tmux new -s tunnel \; detach
+    tmux at -t tunnel \; new-window ssh tunnel \; detach
+    sleep 2
+    unison -ui text \
+        {{ if quick == "n" {""} else {"-ignore 'Path fotos'"} }} \
+        /home/jordif \
+        ssh://localhost:2222
+
+
+# (Local network) Sync files with ssh tunnel + tmux.
+sync-local quick="n":
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    
+    net=`hostname -i | cut -d' ' -f2 | cut -d. -f-3`
+    remote="ssh://localhost:2222"
+    if [ "$net" = "192.168.1" ] ; then
+        if [ `hostname` = "alai.lan" ] ; then
+            remote="ssh://yak.lan"
+        else
+            remote="ssh://alai.lan"
+        fi
+    fi
+
+    unison -ui text \
+        {{ if quick == "n" {""} else {"-ignore 'Path fotos' -ignore 'Path mmedia'"} }} \
+        /home/jordif \
+        $remote
+
+
+# Pick a local cookiecutter.
+cookie:
+    ls -1 ~/code/skeletons/ | fzf | xargs -rI% cookiecutter ~/code/skeletons/%
+
+
+# update ergodox firmware
+ergodox-update url:
+    wget -O /tmp/ergodox.hex {{url}}
+    wally-cli /tmp/ergodox.hex
+
+
+
+
+# vim: ft=just
