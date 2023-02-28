@@ -12,7 +12,7 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _amber _jiq _lazycomplete _up _fonts-hack _vim-vundle _wally
+install: _amber _jiq _lazycomplete _up _fonts-hack _wally
 
 _amber:
     fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
@@ -49,21 +49,11 @@ _fonts-hack version="2.1.0":
     fc-cache -fv
 
 
-# Clone Vim Vundle to your ~/.vim/.
-_vim-vundle:
-    #!/usr/bin/env bash
-    set -euxo pipefail
-    test -d ~/.vim/bundle/Vundle.vim && exit
-    git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-
-
 asdf:
     -asdf plugin-add awscli
-    -asdf plugin-add aws-sam-cli
-    -asdf plugin-add eksctl
+    # -asdf plugin-add aws-sam-cli
     -asdf plugin-add gcloud
     -asdf plugin-add github-cli
-    -asdf plugin-add hugo
     -asdf plugin-add k3d
     -asdf plugin-add k9s
     -asdf plugin-add kubectl
@@ -71,14 +61,13 @@ asdf:
     -asdf plugin-add poetry
     -asdf plugin-add pre-commit
     -asdf plugin-add task
+    -asdf plugin-add tflint
     -asdf plugin-add terraform
 
     -asdf install awscli
     #-asdf install aws-sam-cli
-    -asdf install eksctl
     -asdf install gcloud
     -asdf install github-cli
-    -asdf install hugo
     -asdf install k3d
     -asdf install k9s
     -asdf install kubectl
@@ -86,6 +75,7 @@ asdf:
     -asdf install poetry
     -asdf install pre-commit
     -asdf install task
+    -asdf install tflint
     -asdf install terraform
 
 

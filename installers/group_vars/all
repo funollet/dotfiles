@@ -27,7 +27,7 @@ rpm: [
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
   mercurial, git, hub, git-svn, gitk, sqlite, jq, ShellCheck,
-  direnv, stow, gron, just, fx, fx-completion, jc,
+  direnv, stow, gron, just, jc,
   # linting
   rubygem-puppet-lint, yamllint, hadolint,
   python3-black, python3-pytest, python3-flake8, python3-isort,
@@ -65,7 +65,7 @@ rpm: [
   virt-manager,
   
   ### unix_essentials:
-  ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff,
+  ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff, diff-so-fancy,
   the_silver_searcher, fd-find, ncdu, bat, exa, gron, jo, lsd,
   highlight,
   
@@ -86,12 +86,13 @@ rpm: [
   autocorr-ca, autocorr-en, autocorr-es,
   pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go,
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
-  java-1.8.0-openjdk, icedtea-web,
+  java-1.8.0-openjdk,
   powertop, cheat, cheat-bash-completion,
   lolcat,
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
-  keepassx,
+  keepassxc,
+  discord,
   calibre, inkscape, firefox,
   libreoffice, timeline, youtube-dl, Zim,
   zathura, speedcrunch, homebank, flameshot,

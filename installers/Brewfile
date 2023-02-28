@@ -1,6 +1,6 @@
 brew "copier"
-brew "diff-so-fancy"
 brew "fasd"
+brew "fx"
 brew "grex"
 brew "icdiff"
 brew "lf"
