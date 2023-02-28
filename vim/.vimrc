@@ -27,7 +27,7 @@ Plug 'junegunn/fzf.vim', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'pbogut/fzf-mru.vim'
 " Plugin 'minibufexpl.vim'
 Plug 'xolox/vim-misc'
-Plug 'xolox/vim-session'
+" Plug 'xolox/vim-session'
 " evaluate http://www.vim.org/scripts/script.php?script_id=2050 Lustyjuggler
 Plug 'mhinz/vim-grepper'
 Plug 'tpope/vim-vinegar'
@@ -133,8 +133,9 @@ augroup END
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_set_balloons = 1
+" \   'python':   ['autopep8', 'isort', 'black', 'remove_trailing_lines', 'trim_whitespace'],
 let g:ale_fixers = {
-\   'python':   ['autopep8', 'isort', 'black', 'remove_trailing_lines', 'trim_whitespace'],
+\   'python':   ['autopep8', 'black', 'remove_trailing_lines', 'trim_whitespace'],
 \   'vim':      ['remove_trailing_lines', 'trim_whitespace']
 \ }
 " }}}
