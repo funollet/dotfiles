@@ -56,9 +56,9 @@ module-margin-right = 2
 ; font-0 = fixed:pixelsize=10;1
 font-0 = Hack Nerd Font:style=Regular:pixelsize=10;1
 
-modules-left = date i3 polypomo
+modules-left = date i3
 ; modules-center = 
-modules-right = xkeyboard wlan eth battery temperature pulseaudio date powermenu
+modules-right = xkeyboard vpn wlan eth battery temperature pulseaudio date powermenu
 
 tray-position = center
 tray-padding = 2
@@ -197,7 +197,7 @@ label = %percentage_used%%
 
 [module/wlan]
 type = internal/network
-interface = wlp0s20f0u3
+interface = wlp0s20f3
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
@@ -219,7 +219,7 @@ ramp-signal-foreground = ${colors.foreground-alt}
 
 [module/eth]
 type = internal/network
-interface = enp2s0
+interface = enp0s13f0u3u4c2
 interval = 3.0
 
 format-connected-underline = #55aa55
@@ -415,3 +415,12 @@ margin-bottom = 5
 ; font-1 = Noto Emoji:scale=15:antialias=false;0
 
 ; vim:ft=dosini
+
+[module/vpn]
+type = custom/script
+exec = nmcli c show --active | awk '/ vpn / {print $1}'
+exec-if = pgrep -x openvpn
+interval = 5
+format-underline = #268bd2
+format-prefix = "🖧 "
+format-prefix-foreground = #5b

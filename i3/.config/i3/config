@@ -193,9 +193,9 @@ bindsym $mod+r                  exec \
     -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
 
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
-bindsym F6                      [class="Keepassx2"] scratchpad show
+bindsym F6                      [class="KeePassXC"] scratchpad show
 bindsym F7                      [class="Telegram"]  scratchpad show
-bindsym F8                      [class="Slack"]     scratchpad show
+bindsym F8                      [class="discord"]     scratchpad show
 bindsym F9                      [class="1Password"] scratchpad show
 bindsym F12                     [class="konsole"]   scratchpad show
 # F16 on ergodox

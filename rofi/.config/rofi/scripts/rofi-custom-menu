@@ -15,10 +15,18 @@ bluetooth-off () {
     rfkill block bluetooth
 }
 
+i3-move-workspace-to-output-next () {
+    i3-msg 'move workspace to output next'
+}
+
 case $1 in
     bluetooth-on)       bluetooth-on > /dev/null ; exit ;;
     bluetooth-off)      bluetooth-off > /dev/null ; exit ;;
-    *)                  echo bluetooth-on
+    i3-move-desktop)    i3-move-workspace-to-output-next > /dev/null ; exit ;;    
+    vpntoggle)          vpntoggle > /dev/null ; exit ;;    
+    *)                  echo vpntoggle
+                        echo bluetooth-on
                         echo bluetooth-off
+                        echo i3-move-desktop
                         ;;
 esac
