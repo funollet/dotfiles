@@ -2,10 +2,12 @@
 
 # Activate a config. Every config has a *default* GKE cluster but can be associated to
 # multiple clusters.
-# gcconf () {
-#     gcloud config configurations list | fzf +m --header-lines=1 +s | awk '{print $1}' | \
-#         xargs --no-run-if-empty gcloud config configurations activate
-# }
+gcactivate () {
+    gcloud config configurations list \
+        | fzf --no-multi --no-sort --header='gcloud config> ' --header-lines=1 -n1,4 \
+        | awk '{print $1}' | \
+        xargs --no-run-if-empty gcloud config configurations activate
+}
 
 alias gssh='gcloud compute ssh'
 alias gscp='gcloud compute scp'
