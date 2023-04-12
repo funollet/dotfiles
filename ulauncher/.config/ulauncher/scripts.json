@@ -1,0 +1,11 @@
+[
+    {
+        "name": "i3 move workspace to next output",
+        "description": "",
+        "icon": null,
+        "script": "i3-msg 'move workspace to output next'",
+        "default_arguments": [
+            ""
+        ]
+    }
+]

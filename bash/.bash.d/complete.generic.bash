@@ -5,6 +5,16 @@ if asdf which gcloud > /dev/null 2>&1 ; then
     source `asdf where gcloud`/path.bash.inc
 fi
 
+if which k3d > /dev/null 2>&1 ; then
+    source <(lazycomplete \
+        k3d 'k3d completion bash')
+fi
+
+if which kind > /dev/null 2>&1 ; then
+    source <(lazycomplete \
+        kind 'kind completion bash')
+fi
+
 if which kubectl > /dev/null 2>&1 ; then
     source <(lazycomplete \
         kubectl 'kubectl completion bash')
@@ -39,4 +49,8 @@ fi
 
 if which gh > /dev/null 2>&1 ; then
     eval "$(gh completion -s bash)"
+fi
+
+if which helm > /dev/null 2>&1 ; then
+    source <(helm completion bash)
 fi

@@ -12,14 +12,20 @@ rmbin cmd:
 
 
 # Install non-packaged software.
-install: _amber _jiq _lazycomplete _up _fonts-hack _wally
+install: _amber _inputplug _jiq _kind _lazycomplete _up _fonts-hack _wally
 
 _amber:
     fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
     fetchbin.sh ambr https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
 
+_inputplug:
+    fetchbin.sh inputplug https://github.com/funollet/inputplug/releases/download/0.0.1/inputplug
+
 _jiq:
     fetchbin.sh jiq https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64
+
+_kind:
+    fetchbin.sh kind https://kind.sigs.k8s.io/dl/v0.18.0/kind-linux-amd64
 
 _lazycomplete:
     sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
