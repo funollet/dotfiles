@@ -5,6 +5,11 @@ if asdf which gcloud > /dev/null 2>&1 ; then
     source `asdf where gcloud`/path.bash.inc
 fi
 
+if which nuclia-cli > /dev/null 2>&1 ; then
+    source <(lazycomplete \
+        nuclia-cli 'nuclia-cli --show-completion bash')
+fi
+
 if which k3d > /dev/null 2>&1 ; then
     source <(lazycomplete \
         k3d 'k3d completion bash')

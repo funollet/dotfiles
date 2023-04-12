@@ -48,6 +48,6 @@ fshow() {
   git log --graph --color=always \
       --format="%C(auto)%h%d %s %C(black)%C(bold)%cr" "$@" |
   fzf --ansi --no-sort --reverse --tiebreak=index \
-      --preview 'git diff --color=always {2} | head -500' \
+      --preview 'git show --color=always {2} | head -500' \
     | grep -o '[a-f0-9]\{7\}' | head -1
 }
