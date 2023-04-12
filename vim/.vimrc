@@ -37,8 +37,6 @@ Plug 'preservim/nerdtree'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jnurmine/Zenburn'
 Plug 'NLKNguyen/papercolor-theme'
-" Plugin 'itchyny/lightline.vim'
-" Plugin 'taohexxx/lightline-buffer'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'kana/vim-operator-user'
@@ -59,12 +57,14 @@ Plug 'jonhiggs/vim-readline'
 Plug 'mileszs/ack.vim'
 Plug 'tpope/vim-unimpaired'
 Plug 'ervandew/supertab'
+" -- close buffer without closing window
+Plug 'moll/vim-bbye'
 "Plugin 'junegunn/vim-easy-align'
 "
 " -- Development
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
-Plug 'w0rp/ale'
+Plug 'dense-analysis/ale'
 "
 " -- Lang specific
 Plug 'https://github.com/hashivim/vim-terraform.git'
@@ -85,6 +85,7 @@ Plug 'NoahTheDuke/vim-just'
 "       Plugin 'virtualenv.vim'
 Plug 'cweagans/vim-taskpaper'
 Plug 'wilriker/gcode.vim'
+Plug 'towolf/vim-helm'
 "
 " TODO:
 "   - evaluate vim-transpose: transpose rows & columns
@@ -126,109 +127,29 @@ augroup misc_filetypes
     au FileType puppet      set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
     au FileType yaml        set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
     au FileType terraform   set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+    au FileType groovy      set tabstop=2 shiftwidth=2 softtabstop=2 expandtab
+    au FileType make        set tabstop=2 shiftwidth=2 softtabstop=2 noexpandtab
 augroup END
+
+set mouse=a
 " }}}
 
 " plugin: ale {{{
 let g:ale_completion_enabled = 1
 let g:ale_fix_on_save = 1
 let g:ale_set_balloons = 1
+let g:ale_virtualtext_cursor=0
+
 " \   'python':   ['autopep8', 'isort', 'black', 'remove_trailing_lines', 'trim_whitespace'],
 let g:ale_fixers = {
 \   'python':   ['autopep8', 'black', 'remove_trailing_lines', 'trim_whitespace'],
 \   'vim':      ['remove_trailing_lines', 'trim_whitespace']
 \ }
-" }}}
-
-" plugin: lightline {{{
-" let g:lightline = {
-"       \ 'colorscheme': 'PaperColor',
-"       \ 'active': {
-"       \   'left': [ [ 'mode', 'paste' ],
-"       \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ],
-"       \   'right': [ [ 'lineinfo' ],
-"       \              [ 'percent' ],
-"       \              [ 'filetype' ] ],
-"       \ },
-"     \ 'tabline': {
-"     \   'left': [ [ 'bufferinfo' ],
-"     \             [ 'separator' ],
-"     \             [ 'bufferbefore', 'buffercurrent', 'bufferafter' ], ],
-"     \   'right': [ [ 'close' ], ],
-"     \ },
-"     \ 'component_expand': {
-"     \   'buffercurrent': 'lightline#buffer#buffercurrent',
-"     \   'bufferbefore': 'lightline#buffer#bufferbefore',
-"     \   'bufferafter': 'lightline#buffer#bufferafter',
-"     \ },
-"     \ 'component_type': {
-"     \   'buffercurrent': 'tabsel',
-"     \   'bufferbefore': 'raw',
-"     \   'bufferafter': 'raw',
-"     \ },
-"     \ 'component_function': {
-"     \   'bufferinfo': 'lightline#buffer#bufferinfo',
-"       \   'gitbranch': 'fugitive#head'
-"     \ },
-"     \ 'component': {
-"     \   'separator': '',
-"     \ },
-"       \ }
-" " if has('gui_running')
-"     let g:lightline.separator = {
-"         \   'left': '', 'right': ''
-"       \}
-" " endif
-" " see others: :h g:lightline.colorscheme
-"
-" set noshowmode        " don't show --INSERT--
-" set showtabline=2     " always show tabline
-"
-"
-" " lightline-buffer ui settings
-" " replace these symbols with ascii characters if your environment does not support unicode
-" let g:lightline_buffer_logo = ' '
-" let g:lightline_buffer_readonly_icon = ''
-" let g:lightline_buffer_modified_icon = '✭'
-" let g:lightline_buffer_git_icon = ' '
-" let g:lightline_buffer_ellipsis_icon = '..'
-" let g:lightline_buffer_expand_left_icon = '◀ '
-" let g:lightline_buffer_expand_right_icon = ' ▶'
-" let g:lightline_buffer_active_buffer_left_icon = ''
-" let g:lightline_buffer_active_buffer_right_icon = ''
-" let g:lightline_buffer_separator_icon = '  '
-"
-" " enable devicons, only support utf-8
-" " require <https://github.com/ryanoasis/vim-devicons>
-" let g:lightline_buffer_enable_devicons = 1
-"
-" " lightline-buffer function settings
-" let g:lightline_buffer_show_bufnr = 1
-"
-" " :help filename-modifiers
-" let g:lightline_buffer_fname_mod = ':t'
-"
-" " hide buffer list
-" let g:lightline_buffer_excludes = ['vimfiler']
-"
-" " max file name length
-" let g:lightline_buffer_maxflen = 30
-"
-" " max file extension length
-" let g:lightline_buffer_maxfextlen = 3
-"
-" " min file name length
-" let g:lightline_buffer_minflen = 16
-"
-" " min file extension length
-" let g:lightline_buffer_minfextlen = 3
-"
-" " reserve length for other component (e.g. info, close)
-" let g:lightline_buffer_reservelen = 2
+let g:airline#extensions#ale#enabled = 1
+" let g:ale_floating_window_border = ['│', '─', '╭', '╮', '╯', '╰', '│', '─']
 " }}}
 
 " plugin: vim-airline {{{
-let g:airline#extensions#tabline#enabled = 1
 let g:airline_powerline_fonts = 1
 set noshowmode                                  " don't show --INSERT--
 let g:airline_theme='papercolor'
@@ -239,7 +160,6 @@ let g:airline_theme='papercolor'
 " workaround for background color with kitty terminal
 let &t_ut=''
 set t_Co=256
-" set background=light
 set background=dark
 " colorscheme solarized
 colorscheme PaperColor
@@ -248,6 +168,7 @@ colorscheme PaperColor
 " colorscheme mayansmoke
 set guifont=Hack\ 12
 
+" set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+,eof:$
 
 set encoding=utf-8      " Powerline looks better.
 set laststatus=2        " Always show statusline.
@@ -268,7 +189,7 @@ set formatprg=par
 
 set hidden                  " Can open new buffers from one with unsaved changes.
 
-set so=7        " Set 7 lines to the cursor - when moving vertically using j/k
+set scrolloff=7             " Set 7 lines to the cursor - when moving vertically using j/k
 
 set guioptions-=T           " hide toolbar
 " }}}
@@ -321,7 +242,7 @@ cnoremap <C-j> <DOWN>
 
 " plugin: nerdtree {{{
 "let g:nerdtree_tabs_open_on_console_startup = 1
-let g:NERDTreeWinPos = "right"
+let g:NERDTreeWinPos = 'right'
 
 " nerdtree: show hidden files by default
 au BufNewFile,BufRead /home/jordif/.dotfiles/ let NERDTreeShowHidden=1
@@ -370,6 +291,10 @@ nnoremap <c-k> <c-w>k
 nnoremap <c-h> <c-w>h
 nnoremap <c-l> <c-w>l
 
+" Go to previous/next error from ALE.
+" nmap <silent> <C-S-k> <Plug>(ale_previous_wrap)
+" nmap <silent> <C-S-j> <Plug>(ale_next_wrap)
+
 " Grep with motion.
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
@@ -377,10 +302,13 @@ xmap gs  <plug>(GrepperOperator)
 " Reselect visual selection after indenting
 vnoremap < <gv
 vnoremap > >gv
+
+nnoremap H :bprev<CR>
+nnoremap L :bnext<CR>
 " }}}
 
 " plugin: vim-which-key {{{
-call which_key#register('<Space>', "g:which_key_map")
+call which_key#register('<Space>', 'g:which_key_map')
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 set timeoutlen=500
 
@@ -395,21 +323,21 @@ let g:which_key_map.s = {'name' : '+search'}
 let g:which_key_map.t = {'name' : '+toggle'}
 
 
-nnoremap <leader>h :bprev<CR>
-nnoremap <leader>l :bnext<CR>
+" nnoremap <leader>h :bprev<CR>
+" nnoremap <leader>l :bnext<CR>
 
 
 nnoremap <leader>bp :bprev<CR>
 nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bd :bd<CR>
+nnoremap <leader>bd :Bdelete<CR>
 
 nnoremap <leader>fa :Ag<CR>
 nnoremap <leader>fb :Buffers<CR>
 nnoremap <leader>ff :Files<CR>
      map <leader>fh :Hidden<CR>
 nnoremap <leader>fm :FZFMru<CR>
-nnoremap <leader>ft :NERDTreeToggle<CR>
-nnoremap <leader>fT :NERDTree<CR>
+nnoremap <leader>ft :NERDTreeFocus<CR>
+nnoremap <leader>fT :NERDTreeToggle<CR>
 " Maps for editing ~/.vimrc
 nnoremap <leader>fve :e $MYVIMRC<CR>
 nnoremap <leader>fvs :source $MYVIMRC<CR>
