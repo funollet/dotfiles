@@ -22,7 +22,8 @@ alias nocomments='egrep -ahv "^[[:space:]]*(#|$)"'
 
 alias fuck='eval $(thefuck $(fc -ln -1))'
 
-jless () { jq -C '.' | less ; }
+alias jless='bat -l json'
+alias yless='bat -l yaml'
 
 
 alias weight.edit='vim ~/workingon/pim/weight.dat'

@@ -1,4 +1,10 @@
 --paging always
 
+--theme Coldark-Dark
+# --theme 'Solarized (dark)'
+# --theme DarkNeon
+
+--decorations never
+
 # style with everything but line numbers
---style changes,header,grid,snip
+# --style changes,header,grid,snip
