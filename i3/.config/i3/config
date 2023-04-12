@@ -145,6 +145,7 @@ mode "$mode_change" {
         bindsym Return  mode "default"
         bindsym $mod+c  mode "default"
 }
+bindsym $mod+Control+o      move container to output next ; focus output next
 
 
 # two-column layout
@@ -184,13 +185,13 @@ bindsym $mod+Shift+c            reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r            exec --no-startup-id "i3-msg restart"
 
-bindsym $mod+Return             exec konsole
+bindsym $mod+Return             exec kitty
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
-bindsym $mod+r                  exec \
-    "rofi -theme applications -show-icons -drun-use-desktop-cache \
-    -sorting-method fzf -matching normal \
-    -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
+bindsym $mod+r                  exec ulauncher-toggle
+    # "rofi -theme applications -show-icons -drun-use-desktop-cache \
+    # -sorting-method fzf -matching normal \
+    # -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
 
 bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
 bindsym F6                      [class="KeePassXC"] scratchpad show
