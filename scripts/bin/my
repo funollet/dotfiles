@@ -51,6 +51,25 @@ ergodox-update url:
     wally-cli /tmp/ergodox.hex
 
 
+# PCI reset of the wifi device
+wifi-reset:
+    sudo /bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000\:00\:14.3/remove ; sleep 1 ; echo 1 > /sys/bus/pci/rescan'
+
+
+# resync clock
+clock-sync:
+    sudo systemctl restart chronyd.service
+
+
+# all vpn up
+vpnup:
+    -nmcli c up vpn.stashify.nuclia
+    -nmcli c up vpn.prod.nuclia
+
+# all vpn down
+vpndown:
+    -nmcli c down vpn.stashify.nuclia
+    -nmcli c down vpn.prod.nuclia
 
 
 # vim: ft=just
