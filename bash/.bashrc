@@ -12,6 +12,7 @@
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
+export TERM=konsole-256color
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -28,7 +29,7 @@ screen)
 esac
 
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -modules 'git,venv,ssh,root,gcp,kube,cwd' -newline -cwd-mode fancy -shorten-gke-names -path-aliases \~/code/nuclia=@N)"
+    PS1="$(powerline-go -error $? -modules 'git,venv,ssh,root,kube,cwd' -newline -cwd-mode fancy -shorten-gke-names -path-aliases \~/code/nuclia=@N)"
 }
 
 if [ "$TERM" != "linux" ]; then
@@ -47,7 +48,7 @@ fi
 
 ############################################################
 
-export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases
+export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:~/.cargo/bin
 shopt -s histappend
 
 export VISUAL='vim'

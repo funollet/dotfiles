@@ -4,6 +4,7 @@
 alias top='top -d1'
 alias tree='tree -a -I ".git|__pycache__|.pytest_cache|.mypy_cache|*.swp|*.pyc|.venv"'
 alias vim=vimx
+alias nvim=lvim
 alias watch='watch -n1 --no-title --color'
 alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
