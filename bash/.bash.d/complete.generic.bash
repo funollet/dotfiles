@@ -59,3 +59,7 @@ fi
 if which helm > /dev/null 2>&1 ; then
     source <(helm completion bash)
 fi
+
+if which vault > /dev/null 2>&1 ; then
+    complete -C ~/.asdf/installs/vault/1.13.1/bin/vault vault
+fi
