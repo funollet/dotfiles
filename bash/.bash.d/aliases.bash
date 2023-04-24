@@ -9,6 +9,7 @@ alias watch='watch -n1 --no-title --color'
 alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
 alias ssh-blindly='TERM=xterm-256color ssh -o StrictHostKeyChecking=no  -o CheckHostIP=no -o UserKnownHostsFile=/dev/null'
+alias lg='lazygit'
 
 
 psg () {        # bash-expansion: grep [p]attern
