@@ -52,5 +52,5 @@ copier-chooser () {
 }
 
 i3keys () {
-    egrep -R ^bind ~/.config/i3/ | cut -d ' ' -f 2- | sed 's/ /\t/' | column -ts $'\t' | pr -2 -w 145 -t
+    grep -E -R ^bind ~/.config/i3/ | cut -d ' ' -f 2- | sed 's/ /\t/' | column -ts $'\t' | pr -2 -w 145 -t
 }
