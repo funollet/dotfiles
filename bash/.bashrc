@@ -24,7 +24,7 @@ screen)
     ;;
 *)
     # Save/read history at every command.
-    PROMPT_COMMAND='history -n ; history -a'
+    # PROMPT_COMMAND='history -n ; history -a'
     ;;
 esac
 
@@ -51,7 +51,7 @@ fi
 export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:~/.cargo/bin
 shopt -s histappend
 
-export VISUAL='vim'
+export VISUAL='nvim'
 export EDITOR=$VISUAL
 export GPG=gpg2
 
