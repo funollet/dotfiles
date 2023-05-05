@@ -4,9 +4,12 @@
 
 - name: install interception-tools
   dnf:
-    name: "interception-tools"
+    name: "{{ item }}"
     state: present
-  become: yes
+  with_items:
+    - interception-tools
+    - dual-function-keys
+  become: true
   tags: [interception, interception-tools]
 
 - name: ensure udevmon is running
@@ -14,38 +17,14 @@
     name: udevmon
     state: started
     enabled: true
-  become: yes
+  become: true
   tags: [interception, interception-tools]
 
-
-- name: check existence of dual-function-keys
-  stat:
-    path: /usr/local/bin/dual-function-keys
-  register: dual_function_keys
-  tags: [interception, interception-tools]
-
-
-- name: dual-function-keys Git checkout
-  ansible.builtin.git:
-    repo: 'https://gitlab.com/interception/linux/plugins/dual-function-keys.git'
-    dest: /tmp/dual-function-keys
-  when: not dual_function_keys.stat.exists
-  tags: [interception, interception-tools]
-
-- name: compile dual-function-keys
-  command:
-    chdir: /tmp/dual-function-keys
-    cmd: make
-  when: not dual_function_keys.stat.exists
-  tags: [interception, interception-tools]
-
-- name: install dual-function-keys
-  command:
-    chdir: /tmp/dual-function-keys
-    cmd: make install
-  become: yes
-  when: not dual_function_keys.stat.exists
-  tags: [interception, interception-tools]
+- name: create config directory
+  ansible.builtin.file:
+    path: /etc/interception
+    state: directory
+    mode: '0755'
 
 - name: install config udevmon.yaml
   ansible.builtin.copy:
@@ -54,11 +33,10 @@
     owner: root
     group: root
     mode: '0644'
-  become: yes
+  become: true
   notify:
     - restart udevmon
   tags: [interception, interception-tools]
-    
 
 - name: install config dual.yaml
   ansible.builtin.copy:
@@ -67,7 +45,7 @@
     owner: root
     group: root
     mode: '0644'
-  become: yes
+  become: true
   notify:
     - restart udevmon
   tags: [interception, interception-tools]
