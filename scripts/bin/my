@@ -24,9 +24,8 @@ sync-local quick="n":
     #!/usr/bin/env bash
     set -euxo pipefail
     
-    net=`hostname -i | cut -d' ' -f2 | cut -d. -f-3`
     remote="ssh://localhost:2222"
-    if [ "$net" = "192.168.1" ] ; then
+    if ip route | grep default | grep -q 192.168.1. ; then
         if [ `hostname` = "alai.lan" ] ; then
             remote="ssh://yak.lan"
         else
@@ -49,11 +48,20 @@ cookie:
 ergodox-update url:
     wget -O /tmp/ergodox.hex {{url}}
     wally-cli /tmp/ergodox.hex
+    # key repeat: <delay>ms <rate>Hz
+    xset r rate 400 50
+    # disable bell
+    xset b off
 
 
 # PCI reset of the wifi device
 wifi-reset:
     sudo /bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000\:00\:14.3/remove ; sleep 1 ; echo 1 > /sys/bus/pci/rescan'
+
+# PCI reset of the usb hub device
+hub-reset:
+    sudo /bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000\:00\:02.0/remove ; sleep 1 ; echo 1 > /sys/bus/pci/rescan'
+
 
 
 # resync clock

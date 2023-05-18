@@ -79,6 +79,7 @@ rpm: [
   xkbset, xbindkeys, xset,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
+  redshift,
   # input-remapper dependencies
   python3-evdev, gtksourceview4, python3-devel, python3-pydantic, python3-pydbus,
   # Command-line.
