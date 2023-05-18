@@ -170,7 +170,7 @@ config-x11:
     # sudo install -m 0644 files/usr/share/X11/xkb/symbols/notanumpad /usr/share/X11/xkb/symbols/
     # sudo install -m 0644 files/usr/share/X11/xkb/symbols/us_numbers_level2 /usr/share/X11/xkb/symbols/
     sudo localectl set-x11-keymap us_funollet pc105 "" \
-        "compose:caps,shift:both_capslock,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
+        "compose:caps,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
 
 # reconfigure xkb on a running X session
 xkb-change:
@@ -181,7 +181,6 @@ xkb-change:
     # shift:both_capslock   Both Shift together enable Caps Lock
     setxkbmap -layout us_funollet \
         -option 'compose:caps' \
-        -option 'shift:both_capslock' \
         -option 'terminate:ctrl_alt_bksp' \
         -option 'ctrl:menu_rctrl'
     # -option 'caps:none' \
