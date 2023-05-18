@@ -55,8 +55,7 @@ default_border pixel 3
 # X core fonts rendering does not support right-to-left and this being a bitmap
 # font, it doesn’t scale on retina/hidpi displays.
 #   kill focused window
-bindsym $mod+Shift+q    kill
-bindsym Control+Mod1+x  kill
+bindsym $mod+q          kill
 bindsym $mod+f          fullscreen toggle
 
 #   change focus
@@ -178,7 +177,7 @@ focus_wrapping no
 
 
 # https://github.com/jluttine/rofi-power-menu
-bindsym Control+Mod1+Delete     exec \
+bindsym $mod+Escape             exec \
     rofi -theme powermenu -show power-menu -modi 'power-menu:~/.config/rofi/scripts/rofi-power-menu --confirm ""'
 
 bindsym $mod+Shift+c            reload
@@ -200,9 +199,10 @@ bindsym F8                      [class="discord"]     scratchpad show
 bindsym F9                      [class="1Password"] scratchpad show
 bindsym F12                     [class="konsole"]   scratchpad show
 # F16 on ergodox
-bindsym XF86Launch7             exec ~/bin/copypaster copy
+bindsym XF86Launch7             exec "~/bin/copypaster copy"
 # F15 on ergodox
-bindsym XF86Launch6             exec ~/bin/copypaster paste
+bindsym XF86Launch6             exec "~/bin/copypaster paste"
+
 
 
 # Brightness
