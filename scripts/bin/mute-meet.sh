@@ -6,8 +6,8 @@
 
 get_active_call () {
   wmctrl -l | \
-    grep -E ' Slack call with| Zoom Meeting$| Meet – ' | \
-    grep -Eio '(slack|zoom|meet)' | \
+    grep -E ' Slack call with| Zoom Meeting$| Meet – | - Discord$' | \
+    grep -Eio '(slack|zoom|meet)' | uniq | \
     tr '[:upper:]' '[:lower:]'
 }
 
@@ -26,7 +26,8 @@ current=$(xdotool getwindowfocus)
 active_call=$(get_active_call)
 
 case ${active_call} in
-  slack)  focus_and_toggle_audio 'Slack call with' 'm' ;;
-  zoom)   focus_and_toggle_audio 'Zoom Meeting' 'alt+a' ;;
-  meet)   focus_and_toggle_audio 'Meet' 'ctrl+d' ;;
+  slack)    focus_and_toggle_audio 'Slack call with' 'm' ;;
+  zoom)     focus_and_toggle_audio 'Zoom Meeting' 'alt+a' ;;
+  meet)     focus_and_toggle_audio 'Meet' 'ctrl+d' ;;
+  discord)  focus_and_toggle_audio 'Discord' 'ctrl+shift+h' ;;
 esac
