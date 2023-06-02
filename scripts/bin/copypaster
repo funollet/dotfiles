@@ -7,12 +7,12 @@ set -eu
 
 if [ "$1" == "copy" ] ; then
   keys='ctrl+c'
-  if $(xdotool getwindowfocus getwindowname | grep -q "Konsole") ; then
+  if xdotool getwindowfocus getwindowname | grep -q "Konsole" ; then
       keys='shift+ctrl+c'
   fi
 elif [ "$1" == "paste" ] ; then
   keys='ctrl+v'
-  if $(xdotool getwindowfocus getwindowname | grep -q "Konsole") ; then
+  if xdotool getwindowfocus getwindowname | grep -q "Konsole" ; then
       keys='shift+ctrl+v'
   fi
 fi
