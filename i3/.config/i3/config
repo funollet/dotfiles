@@ -187,6 +187,7 @@ bindsym $mod+Shift+r            exec --no-startup-id "i3-msg restart"
 bindsym $mod+Return             exec konsole
 bindsym Print                   exec flameshot gui
 bindsym $mod+y                  exec dolphin
+bindsym $mod+Control+a          exec autorandr 2
 bindsym $mod+r                  exec ulauncher-toggle
     # "rofi -theme applications -show-icons -drun-use-desktop-cache \
     # -sorting-method fzf -matching normal \
