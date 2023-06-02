@@ -4,14 +4,16 @@ export KUBECONFIG=~/.kube/config
 
 which kubectl 2>/dev/null | grep -q kubectl || return
 
-# source <(kubectl completion bash)
-source ~/code/kubefzf/kubectl.fzf.completion.bash
+source <(kubectl completion bash)
+alias k=kubectl
+complete -F __start_kubectl k
+# source ~/code/kubefzf/kubectl.fzf.completion.bash
 
 # Run k8set on Alt-k.
 bind -x '"\ek":"_kube_fzf_resource_selector"'
 
 
-klabels () {
+k8labels () {
     kubectl get pods --show-labels | grep "$@"
 }
 
@@ -25,7 +27,7 @@ k8startedAt () {
 }
 
 
-k8bash () {
+k8sh () {
   local pod ns
   ns=$(kubectl get ns \
       | fzf --header-lines=1 --height=40% --prompt="$(kubectl config current-context):namespace > " \
