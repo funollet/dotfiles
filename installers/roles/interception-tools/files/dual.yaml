@@ -31,9 +31,9 @@ MAPPINGS:
   - KEY: KEY_S
     TAP: KEY_S
     HOLD: KEY_LEFTSHIFT
-  - KEY: KEY_E
-    TAP: KEY_E
-    HOLD: KEY_LEFTALT
+  # - KEY: KEY_E
+  #   TAP: KEY_E
+  #   HOLD: KEY_LEFTALT
 
   - KEY: KEY_J
     TAP: KEY_J
