@@ -1,0 +1,7 @@
+gui:
+  showIcons: true
+
+# customCommands:
+#   - key: q
+#     context: files
+#     command: 'gh pr create -a "@me" -r ferpizza,daper'

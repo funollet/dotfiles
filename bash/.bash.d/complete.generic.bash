@@ -42,6 +42,10 @@ if which ag > /dev/null 2>&1 ; then
         && source /usr/share/bash-completion/completions/ag
 fi
 
+if which argocd > /dev/null 2>&1 ; then
+    source <(argocd completion bash)
+fi
+
 if which poetry > /dev/null 2>&1 ; then
     source <(lazycomplete \
         poetry 'poetry completions bash')

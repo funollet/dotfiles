@@ -13,3 +13,9 @@ update:
 
 awesome-libs:
     cd ~/.config/awesome/ && git clone https://github.com/deficient/volume-control.git
+
+kde-kwin-reload:
+    qdbus org.kde.KWin /KWin reconfigure
+  
+kde-shortcuts-reload:
+    kquitapp5 kglobalaccel && sleep 2s && kglobalaccel5 &

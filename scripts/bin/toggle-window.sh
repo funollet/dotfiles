@@ -11,7 +11,6 @@
 
 
 
-# F12
 toggle_pidgin_buddy_list () {
     set_visible=1
     wmctrl -l -x | grep -q 'Buddy List' && set_visible=0
@@ -20,7 +19,6 @@ toggle_pidgin_buddy_list () {
 }
 
 
-# F9
 toggle_pidgin_conversation () {
     win_id=$(wmctrl -l -x | awk '! /Buddy List/ && /Pidgin.Pidgin/ {print $1}')
     wmctrl -i -r "${win_id}" -b toggle,hidden
@@ -61,16 +59,35 @@ toggle_app () {
 }
 
 
+__toggle_telegram () {
+    wmctrl -l | grep -q 'Telegram'
+    if [ $? == 0 ] ; then wmctrl -F -c 'Telegram'           # close window
+    else flatpak run org.telegram.desktop > /dev/null 2>&1  # activate existing instance or run new instance
+    fi
+}
+
+
+__toggle_discord () {
+    wmctrl -l | grep -q ' Discord'
+    if [ $? == 0 ] ; then wmctrl -c 'Discord'                 # close window
+    else flatpak run com.discordapp.Discord > /dev/null 2>&1  # activate existing instance or run new instance
+    fi
+}
+
+
 case $1 in
     telegram|Telegram)
-        toggle_app Telegram     # F7
+        toggle_app telegram
         ;;
-    slack|Slack)
-        toggle_app slack.Slack  # F8
+    discord|Discord)
+        toggle_app discord
         ;;
-    pidgin_buddy_list|pidgin_conversation|hipchat)
-        "toggle_$1"
-        ;;
+    # slack|Slack)
+    #     toggle_app slack.Slack
+    #     ;;
+    # pidgin_buddy_list|pidgin_conversation|hipchat)
+    #     "toggle_$1"
+    #     ;;
     *)
         exit 1
         ;;
@@ -85,9 +102,3 @@ esac
 #     fi
 # }
 # 
-# __toggle_telegram () {
-#     wmctrl -l | grep -q 'Telegram'
-#     if [ $? == 0 ] ; then wmctrl -F -c 'Telegram'           # close window
-#     else /usr/local/bin/Telegram > /dev/null 2>&1           # activate existing instance or run new instance
-#     fi
-# }

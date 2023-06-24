@@ -18,3 +18,4 @@ lazygit 0.37.0
 vault 1.13.1
 jq system
 kubectx 0.9.4
+argocd 2.7.0
