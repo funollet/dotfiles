@@ -6,6 +6,7 @@ pipx: [
 flatpak: [
   com.spotify.Client, us.zoom.Zoom, org.telegram.desktop, net.lutris.Lutris,
   md.obsidian.Obsidian, com.rafaelmardojai.Blanket, com.discordapp.Discord,
+  com.ultimaker.cura,
   ]
 
 gems: [
@@ -15,7 +16,7 @@ gems: [
 rpm_absent: [
   amarok, akonadi, kf5-akonadi-server, banshee, gbrainy, awscli, python2-pytest, python2-invoke,
   docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
-  python3-cookiecutter, snapd,
+  python3-cookiecutter, snapd, PackageKit-command-not-found,
   ]
 
 rpm: [
