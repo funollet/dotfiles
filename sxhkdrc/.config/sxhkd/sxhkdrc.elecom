@@ -1,0 +1,11 @@
+# mouse wheel left/right button switch to prev/next desktop
+{button6,button7}
+  xdotool set_desktop --relative -- {-1,1}
+
+# Mouse 'forward' button.
+button8
+  xdotool key ctrl+r
+
+# Mouse 'back' button.
+button9
+  i3-msg move container to output right

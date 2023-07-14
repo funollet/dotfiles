@@ -2,4 +2,3 @@
 Type=Application
 Name=inputplug
 Exec=inputplug --bootstrap -c /home/jordif/bin/inputplug-handler.sh
-OnlyShowIn=i3

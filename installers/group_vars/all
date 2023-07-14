@@ -119,6 +119,7 @@ rpm: [
   # sigil
   #
   gtk3, webkit2gtk3, libusb,          # dependencies for https://github.com/zsa/wally/
+  xinput,
   
   ### codecs:
   # require: rpmfusion-free
@@ -132,6 +133,7 @@ rpm: [
   
   ### kde:
   xdg-desktop-portal-kde, plasma-browser-integration,
+  bismuth, sxhkd,
   
   ### awesomewm:
   # awesome, awesome-doc, vicious, scrot, network-manager-applet,

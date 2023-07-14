@@ -2,15 +2,15 @@
 # TODO: libevdev-devel yaml-cpp-devel
 # TODO: mkdir /etc/interception
 
-- name: install interception-tools
-  dnf:
-    name: "{{ item }}"
-    state: present
-  with_items:
-    - interception-tools
-    - dual-function-keys
-  become: true
-  tags: [interception, interception-tools]
+# - name: install interception-tools
+#   dnf:
+#     name: "{{ item }}"
+#     state: present
+#   with_items:
+#     - interception-tools
+#     - dual-function-keys
+#   become: true
+#   tags: [interception, interception-tools]
 
 - name: ensure udevmon is running
   ansible.builtin.systemd:

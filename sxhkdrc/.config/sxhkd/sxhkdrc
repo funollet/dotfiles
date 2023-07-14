@@ -1,0 +1,24 @@
+F1
+  ~/bin/mute-meet.sh
+
+{F7,F8}
+  ~/bin/toggle-window.sh {telegram,discord,spotify}
+F9
+  i3-msg '[class="Spotify"] scratchpad show'
+# ~/bin/toggle-window.sh spotify
+
+super + p ; {j,k,l}
+  playerctl -p spotify {previous,play-pause,next}
+super + p ; {Prior,Next,super + p,space}
+  playerctl -p spotify {previous,next,play-pause,play-pause}
+super + p ; p
+  i3-msg '[class="Spotify"] scratchpad show'
+# ~/bin/toggle-window.sh spotify
+
+{XF86AudioPlay,XF86AudioNext,XF86AudioPrev}
+  playerctl -p spotify {play-pause,next,previous}
+
+super + {Prior,Next}
+  pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
+super + m
+  pactl set-sink-mute @DEFAULT_SINK@ toggle

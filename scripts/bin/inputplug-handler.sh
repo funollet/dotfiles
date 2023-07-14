@@ -12,16 +12,16 @@ case $event in
     XIDeviceEnabled)
         case "$dev_type,$dev_name" in
             XISlavePointer,"ELECOM ELECOM TrackBall Mouse")
-                pkill xbindkeys
-                xbindkeys -f "$HOME/.xbindkeysrc.elecom"
+                pkill sxhkd
+                sxhkd -c "$HOME/.config/sxhkd/sxhkdrc" "$HOME/.config/sxhkd/sxhkdrc.elecom"
                 ;;
         esac
         ;;
     XIDeviceDisabled)
         case "$dev_type,$dev_id" in
             XISlavePointer,10)
-                pkill xbindkeys
-                xbindkeys
+                pkill sxhkd
+                sxhkd
                 ;;
         esac
         ;;
