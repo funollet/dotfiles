@@ -4,6 +4,11 @@
 # Sets focus on any window with an ongoing call, toggles the mic and gets the
 # focus back to the previous window.
 
+lockdir="/tmp/$(basename $0).lock"
+
+mkdir "${lockdir}" || exit 1
+trap "rmdir $lockdir" EXIT
+
 get_active_call () {
   wmctrl -l | \
     grep -E ' Slack call with| Zoom Meeting$| Meet – | - Discord$' | \
@@ -18,7 +23,7 @@ focus_and_toggle_audio () {
     # send hotkeys to toggle the mic
     xdotool key "$2"
     # get focus back to the original window
-    xdotool windowfocus "$current"
+    xdotool windowactivate "$current"
 }
 
 current=$(xdotool getwindowfocus)
@@ -31,3 +36,5 @@ case ${active_call} in
   meet)     focus_and_toggle_audio 'Meet' 'ctrl+d' ;;
   discord)  focus_and_toggle_audio 'Discord' 'ctrl+shift+h' ;;
 esac
+
+sleep .5
