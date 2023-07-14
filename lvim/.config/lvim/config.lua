@@ -35,6 +35,10 @@ lvim.keys.normal_mode["<c-h>"] = "<c-w>h"
 lvim.keys.normal_mode["<c-l>"] = "<c-w>l"
 -- lvim.keys.normal_mode["<c-w><c-w>"] = ""
 
+-- disable increment/decrement numbers
+lvim.keys.normal_mode["<C-a>"] = "<Nop>"
+lvim.keys.normal_mode["<C-x>"] = "<Nop>"
+
 -- unmap a default keymapping
 -- vim.keymap.del("n", "<C-Up>")
 -- override a default keymapping
@@ -42,21 +46,21 @@ lvim.keys.normal_mode["<c-l>"] = "<c-w>l"
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
--- local _, actions = pcall(require, "telescope.actions")
--- lvim.builtin.telescope.defaults.mappings = {
---   -- for input mode
---   i = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---     ["<C-n>"] = actions.cycle_history_next,
---     ["<C-p>"] = actions.cycle_history_prev,
---   },
---   -- for normal mode
---   n = {
---     ["<C-j>"] = actions.move_selection_next,
---     ["<C-k>"] = actions.move_selection_previous,
---   },
--- }
+local _, actions = pcall(require, "telescope.actions")
+lvim.builtin.telescope.defaults.mappings = {
+  -- for input mode
+  i = {
+    ["<C-j>"] = actions.move_selection_next,
+    ["<C-k>"] = actions.move_selection_previous,
+    ["<C-n>"] = actions.cycle_history_next,
+    ["<C-p>"] = actions.cycle_history_prev,
+  },
+  -- for normal mode
+  n = {
+    ["<C-j>"] = actions.move_selection_next,
+    ["<C-k>"] = actions.move_selection_previous,
+  },
+}
 
 -- Change theme settings
 -- lvim.builtin.theme.options.dim_inactive = true
@@ -212,13 +216,14 @@ lvim.plugins = {
       --  vim.o.timeoutlen = 500
     -- end
   },
-  {
-    "nvim-telescope/telescope-project.nvim",
-    event = "BufWinEnter",
-    setup = function()
-      vim.cmd [[packadd telescope.nvim]]
-    end,
-  },
+  { "yasuhiroki/github-actions-yaml.vim" },
+  -- {
+  --   "nvim-telescope/telescope-project.nvim",
+  --   event = "BufWinEnter",
+  --   setup = function()
+  --     vim.cmd [[packadd telescope.nvim]]
+  --   end,
+  -- },
   -- {
   --   "mrjones2014/nvim-ts-rainbow",
   -- },
@@ -229,10 +234,10 @@ lvim.plugins = {
 }
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
-vim.api.nvim_create_autocmd("BufEnter", {
-  pattern = { "Jenkinsfile", "Jenkinsfile.*" },
-  command = "set ft=groovy",
-})
+-- vim.api.nvim_create_autocmd("BufEnter", {
+--   pattern = { "Jenkinsfile", "Jenkinsfile.*" },
+--   command = "set ft=groovy",
+-- })
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = { "*.json", "*.jsonc" },
 --   -- enable wrap mode for json files only
