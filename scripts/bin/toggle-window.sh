@@ -59,29 +59,7 @@ toggle_app () {
 }
 
 
-__toggle_telegram () {
-    wmctrl -l | grep -q 'Telegram'
-    if [ $? == 0 ] ; then wmctrl -F -c 'Telegram'           # close window
-    else flatpak run org.telegram.desktop > /dev/null 2>&1  # activate existing instance or run new instance
-    fi
-}
-
-
-__toggle_discord () {
-    wmctrl -l | grep -q ' Discord'
-    if [ $? == 0 ] ; then wmctrl -c 'Discord'                 # close window
-    else flatpak run com.discordapp.Discord > /dev/null 2>&1  # activate existing instance or run new instance
-    fi
-}
-
-
 case $1 in
-    telegram|Telegram)
-        toggle_app telegram
-        ;;
-    discord|Discord)
-        toggle_app discord
-        ;;
     # slack|Slack)
     #     toggle_app slack.Slack
     #     ;;
@@ -89,7 +67,7 @@ case $1 in
     #     "toggle_$1"
     #     ;;
     *)
-        exit 1
+        toggle_app "$1"
         ;;
 esac
 
@@ -102,3 +80,16 @@ esac
 #     fi
 # }
 # 
+# __toggle_telegram () {
+#     wmctrl -l | grep -q 'Telegram'
+#     if [ $? == 0 ] ; then wmctrl -F -c 'Telegram'           # close window
+#     else flatpak run org.telegram.desktop > /dev/null 2>&1  # activate existing instance or run new instance
+#     fi
+# }
+#
+# __toggle_discord () {
+#     wmctrl -l | grep -q ' Discord'
+#     if [ $? == 0 ] ; then wmctrl -c 'Discord'                 # close window
+#     else flatpak run com.discordapp.Discord > /dev/null 2>&1  # activate existing instance or run new instance
+#     fi
+# }
