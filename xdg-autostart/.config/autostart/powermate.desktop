@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=sxhkd
+Exec=$HOME/code/powermater/powermate.sh
