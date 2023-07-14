@@ -48,7 +48,7 @@ diffssh () {    #diffssh hostA hostB file
 }
 
 copier-chooser () {
-    copier ~/code/skeletons/$(ls -1 ~/code/skeletons/ | fzf )
+    copier copy "~/code/skeletons/$(ls -1 ~/code/skeletons/  | ag -v cookiecutter | fzf )" .
 }
 
 i3keys () {

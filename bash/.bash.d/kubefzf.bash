@@ -63,9 +63,9 @@ _kube_fzf_resource_selector () {
 
     # Read namespace from $KUBECONFIG file.
     context=$(kubectl config current-context)
-    # namespace=$(kubectl config view -o jsonpath="{.contexts[?(.name==\"${context}\")].context.namespace}")
+    namespace=$(kubectl config view -o jsonpath="{.contexts[?(.name==\"${context}\")].context.namespace}")
     # Alternative: pass namespace on current readline, preceded by '-n'.
-    namespace=$(echo $READLINE_LINE | sed 's/.* -n //;s/ .*//')
+    #namespace=$(echo $READLINE_LINE | sed 's/.* -n //;s/ .*//')
     case "${READLINE_LINE}" in
         *" log "*)          prefix="" ;;
         *" logs "*)         prefix="" ;;
