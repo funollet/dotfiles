@@ -19,3 +19,9 @@ vault 1.13.1
 jq system
 kubectx 0.9.4
 argocd 2.7.0
+watchexec 1.22.3
+fx 24.1.0
+grex 1.4.2
+fasd 1.0.1
+bin 0.17.0
+peco 0.5.11

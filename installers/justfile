@@ -6,41 +6,33 @@ ansible *args:
     ansible-playbook -v -c local -i localhost, install.yml {{args}}
  
 
-# Remove an executable, if found.
-rmbin cmd:
-    sudo rm `which {{cmd}}`
+# Install using bin
+_bin-install repo:
+  which {{file_name(repo)}} > /dev/null || bin install {{repo}}
 
 
 # Install non-packaged software.
-install: _amber _inputplug _jiq _kind _lazycomplete _up _fonts-hack _wally
+install: _amber _lazycomplete _fonts-hack _wally (_wally-cli "2.0.0-linux")
+  @just _bin-install https://github.com/funollet/inputplug
+  @just _bin-install https://github.com/fiatjaf/jiq
+  @just _bin-install https://github.com/kubernetes-sigs/kind
+  @just _bin-install https://github.com/gokcehan/lf
+  @just _bin-install https://github.com/ericchiang/pup
+  @just _bin-install https://github.com/joehillen/sysz
+  @just _bin-install https://github.com/akavel/up
 
-_amber:
-    fetchbin.sh ambs https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
-    fetchbin.sh ambr https://github.com/dalance/amber/releases/download/v0.5.9/amber-v0.5.9-x86_64-lnx.zip
-
-_inputplug:
-    fetchbin.sh inputplug https://github.com/funollet/inputplug/releases/download/0.0.1/inputplug
-
-_jiq:
-    fetchbin.sh jiq https://github.com/fiatjaf/jiq/releases/download/0.7.1/jiq_linux_amd64
-
-_kind:
-    fetchbin.sh kind https://kind.sigs.k8s.io/dl/v0.18.0/kind-linux-amd64
+_amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
+    wget -q -c -P /tmp https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
+    unzip /tmp/amber-{{version}}-x86_64-lnx.zip ambr ambs -d ~/.local/bin
 
 _lazycomplete:
     sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
 
-_up:
-    fetchbin.sh up https://github.com/akavel/up/releases/download/v0.4/up
+_wally version=`http https://api.github.com/repos/zsa/wally/releases | jq -r .[].tag_name | grep -i linux | head -1`:
+    which wally > /dev/null || bin install https://github.com/zsa/wally/releases/tag/{{version}}
 
-_sysz:
-    # https://github.com/joehillen/sysz
-    wget -O ~/.local/bin/sysz https://raw.githubusercontent.com/joehillen/sysz/master/sysz
-    chmod +x ~/.local/bin/sysz
-
-_wally:
-    fetchbin.sh wally https://configure.ergodox-ez.com/wally/linux
-    fetchbin.sh wally-cli https://github.com/zsa/wally-cli/releases/download/2.0.0-linux/wally-cli 
+_wally-cli version=`http https://api.github.com/repos/zsa/wally-cli/releases | jq -r .[].tag_name | grep -i linux | head -1`:
+    which wally-cli > /dev/null || bin install https://github.com/zsa/wally-cli/releases/tag/{{version}}
 
 # Install font Hack from https://github.com/ryanoasis/nerd-fonts
 _fonts-hack version="2.1.0":
@@ -53,6 +45,7 @@ _fonts-hack version="2.1.0":
     mkdir -p ~/.local/share/fonts/Hack
     unzip -d ~/.local/share/fonts/Hack Hack.zip
     fc-cache -fv
+
 
 
 asdf-init:

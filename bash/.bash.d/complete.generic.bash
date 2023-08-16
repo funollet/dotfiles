@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if which bin > /dev/null 2>&1 ; then
+    source <(bin completion bash)
+fi
+
 if asdf which gcloud > /dev/null 2>&1 ; then
     source `asdf where gcloud`/completion.bash.inc
     source `asdf where gcloud`/path.bash.inc
