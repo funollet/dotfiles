@@ -4,9 +4,13 @@ if which bin > /dev/null 2>&1 ; then
     source <(bin completion bash)
 fi
 
-if asdf which gcloud > /dev/null 2>&1 ; then
-    source `asdf where gcloud`/completion.bash.inc
-    source `asdf where gcloud`/path.bash.inc
+if which gcloud > /dev/null 2>&1 ; then
+  source $(rtx bin-paths | grep '/installs/gcloud/')/../completion.bash.inc
+  source $(rtx bin-paths | grep '/installs/gcloud/')/../path.bash.inc
+fi
+
+if which rtx > /dev/null 2>&1 ; then
+    source <(rtx completion bash)
 fi
 
 if which nuclia-cli > /dev/null 2>&1 ; then
@@ -69,5 +73,5 @@ if which helm > /dev/null 2>&1 ; then
 fi
 
 if which vault > /dev/null 2>&1 ; then
-    complete -C ~/.asdf/installs/vault/1.13.1/bin/vault vault
+    complete -C $(which vault) vault
 fi

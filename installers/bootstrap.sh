@@ -4,7 +4,7 @@
 
 set -eu
 
-sudo dnf install -y git curl just vim
+sudo dnf install -y git curl just vim dnf-plugins-core
 sudo dnf remove -y nano
 
 ### Workaround for failing ansible role.
@@ -13,22 +13,18 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# install asdf
-git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.9.0
-export ASDF_DIR=$HOME/.asdf
-. $HOME/.asdf/asdf.sh
+# install rtx
+sudo dnf config-manager --add-repo https://rtx.pub/rpm/rtx.repo
+sudo dnf install -y rtx
+export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
+eval "$(/usr/bin/rtx activate bash)"
 
 # make global versions available
-ln -s ~/.dotfiles/asdf/.tool-versions ~/.tool-versions
+mkdir -p ~/.config/rtx/
+ln -s ~/.dotfiles/rtx/.tool-versions ~/.tool-versions
+ln -s ~/.dotfiles/rtx/config.toml ~/.config.toml
 
-asdf plugin-add python
-sudo dnf install make gcc zlib-devel bzip2 bzip2-devel readline-devel sqlite sqlite-devel openssl-devel tk-devel libffi-devel xz-devel
-# ensure a clean PATH, linuxbrew shadows system-wide libraries
-PATH=~/.asdf/shims:~/.asdf/bin:/usr/sbin:/usr/bin:/sbin:/bin asdf install python
-
-pip install ansible==5.2.0
-asdf reshim python 3.9.10
-ansible-galaxy collection install community.general
+sudo dnf install -y ansible
 
 echo
 echo "#################"

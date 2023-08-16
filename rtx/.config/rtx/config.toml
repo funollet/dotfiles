@@ -1,0 +1,2 @@
+[plugins]
+fasd = 'https://github.com/funollet/asdf-fasd'

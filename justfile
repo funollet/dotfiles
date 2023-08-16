@@ -10,6 +10,14 @@ update:
     done
     # stow --dir ~/code/wallapop/self-tools --target ~ -R scripts/ 2>&1 | sed '/^BUG in/d'
 
+check:
+  @echo '### Ignoring autostart files:'
+  ls -1d xdg-autostart/.config/autostart/* | grep -v 'desktop$'
+  @echo '### Check autostart files'
+  for f in xdg-autostart/.config/autostart/*.desktop ; do desktop-file-validate $f ; done
+  @echo 
+  @echo 
+
 
 awesome-libs:
     cd ~/.config/awesome/ && git clone https://github.com/deficient/volume-control.git

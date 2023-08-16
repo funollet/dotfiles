@@ -2,7 +2,7 @@
 
 export KUBECONFIG=~/.kube/config
 
-which kubectl 2>/dev/null | grep -q kubectl || return
+which kubectl > /dev/null 2>&1 || return
 
 source <(kubectl completion bash)
 alias k=kubectl

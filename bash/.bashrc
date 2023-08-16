@@ -63,8 +63,8 @@ export FORGIT_COPY_CMD=xclip
 
 export CHEAT_USE_FZF=true
 
-. ~/.asdf/asdf.sh
-. ~/.asdf/completions/asdf.bash
+export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
+eval "$(/usr/bin/rtx activate bash)"
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done

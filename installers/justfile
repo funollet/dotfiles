@@ -6,6 +6,11 @@ ansible *args:
     ansible-playbook -v -c local -i localhost, install.yml {{args}}
  
 
+# rtx init
+rtx-install:
+  cd ~ ; rtx install
+
+
 # Install using bin
 _bin-install repo:
   which {{file_name(repo)}} > /dev/null || bin install {{repo}}
@@ -46,11 +51,6 @@ _fonts-hack version="2.1.0":
     unzip -d ~/.local/share/fonts/Hack Hack.zip
     fc-cache -fv
 
-
-
-asdf-init:
-    awk '{print $1}' ~/.tool-versions | while read name ; do asdf plugin-add $name ; done
-    awk '{print $1}' ~/.tool-versions | while read name ; do asdf install $name ; done
 
 
 
