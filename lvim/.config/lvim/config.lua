@@ -72,7 +72,8 @@ lvim.builtin.which_key.mappings["t"] = {
   name = "+Toggle",
   h = { "<cmd>set list!<cr>", "hidden" },
   i = { "<cmd>IlluminateToggle<cr>", "illuminate" },
-  c = { "<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "cmp disable"}
+  c = { "<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "cmp disable"},
+  d = { "<cmd>lua if vim.diagnostic.is_disabled(0) then vim.diagnostic.enable(0) else vim.diagnostic.disable(0) end<cr>", "diagnostics" },
 }
 lvim.builtin.which_key.mappings['T'] = {}
 -- lvim.builtin.which_key.mappings["t"] = {
