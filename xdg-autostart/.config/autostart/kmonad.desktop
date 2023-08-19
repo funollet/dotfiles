@@ -1,0 +1,4 @@
+[Desktop Entry]
+Type=Application
+Name=kmonad
+Exec=kmonad /home/jordif/.config/kmonad/custom_iso_tkl.kbd

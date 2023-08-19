@@ -68,17 +68,6 @@ bindsym $mod+$next      workspace next_on_output
 bindsym $mod+n          exec ~/bin/i3-workspace-new.py
 bindsym $mod+o          focus output left
 
-bindsym $mod+1          workspace $w1
-bindsym $mod+2          workspace $w2
-bindsym $mod+3          workspace $w3
-bindsym $mod+4          workspace $w4
-bindsym $mod+5          workspace $w5
-bindsym $mod+6          workspace $w6
-bindsym $mod+7          workspace $w7
-bindsym $mod+8          workspace $w8
-bindsym $mod+9          workspace $w9
-bindsym $mod+0          workspace $w10
-
 bindsym $mod+x          scratchpad show
 bindsym $mod+z          move scratchpad
 
@@ -128,23 +117,14 @@ mode "$mode_change" {
         bindsym $prev   move container to workspace prev_on_output ; workspace prev_on_output
         bindsym $next   move container to workspace next_on_output ; workspace next_on_output
 
-        bindsym 1       move container to workspace number $w1  ; workspace number $w1  ; mode "default"
-        bindsym 2       move container to workspace number $w2  ; workspace number $w2  ; mode "default"
-        bindsym 3       move container to workspace number $w3  ; workspace number $w3  ; mode "default"
-        bindsym 4       move container to workspace number $w4  ; workspace number $w4  ; mode "default"
-        bindsym 5       move container to workspace number $w5  ; workspace number $w5  ; mode "default"
-        bindsym 6       move container to workspace number $w6  ; workspace number $w6  ; mode "default"
-        bindsym 7       move container to workspace number $w7  ; workspace number $w7  ; mode "default"
-        bindsym 8       move container to workspace number $w8  ; workspace number $w8  ; mode "default"
-        bindsym 9       move container to workspace number $w9  ; workspace number $w9  ; mode "default"
-        bindsym 0       move container to workspace number $w10 ; workspace number $w10 ; mode "default"
-
         # back to normal
         bindsym Escape  mode "default"
         bindsym Return  mode "default"
         bindsym $mod+c  mode "default"
 }
 bindsym $mod+Control+o      move container to output next ; focus output next
+bindsym $mod+Control+$next  exec ~/bin/i3-move-to-ws-or-create.sh next
+bindsym $mod+Control+$prev  exec ~/bin/i3-move-to-ws-or-create.sh prev
 
 
 # two-column layout
@@ -176,56 +156,10 @@ workspace_auto_back_and_forth yes
 focus_wrapping no
 
 
-# https://github.com/jluttine/rofi-power-menu
-bindsym $mod+Escape             exec \
-    rofi -theme powermenu -show power-menu -modi 'power-menu:~/.config/rofi/scripts/rofi-power-menu --confirm ""'
-
 bindsym $mod+Shift+c            reload
 #       restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r            exec --no-startup-id "i3-msg restart"
 
-bindsym $mod+Return             exec konsole
-bindsym Print                   exec flameshot gui
-bindsym $mod+y                  exec dolphin
-bindsym $mod+Control+a          exec autorandr 2
-bindsym $mod+r                  exec ulauncher-toggle
-    # "rofi -theme applications -show-icons -drun-use-desktop-cache \
-    # -sorting-method fzf -matching normal \
-    # -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
-
-bindsym F1                      exec --no-startup-id "~/bin/mute-meet.sh"
-bindsym F6                      [class="KeePassXC"] scratchpad show
-bindsym F7                      [class="Telegram"]  scratchpad show
-bindsym F8                      [class="discord"]     scratchpad show
-bindsym F9                      [class="1Password"] scratchpad show
-bindsym F12                     [class="konsole"]   scratchpad show
-# F16 on ergodox
-bindsym XF86Launch7             exec "~/bin/copypaster copy"
-# F15 on ergodox
-bindsym XF86Launch6             exec "~/bin/copypaster paste"
-
-
-
-# Brightness
-bindsym XF86MonBrightnessDown   exec light -U 15
-bindsym XF86MonBrightnessUp     exec light -A 15
-
-# F17 on ergodox
-bindsym XF86Launch8             exec ~/bin/firefox-detach-window.sh
-
 include window-rules.conf
 include autostart.conf
-include screensaver.conf
-#       Uses keys: Control+Mod1+l
-include volume.conf
-#       Uses keys:
-#           XF86AudioRaiseVolume    $mod+Prior          
-#           XF86AudioLowerVolume    $mod+Next           
-#           XF86AudioMute           $mod+m              
-include mmedia.conf
-#       Uses keys:
-#           XF86AudioPlay           $mod+p 
-#           XF86AudioNext
-#           XF86AudioPrev
-#
 # include plasma.conf

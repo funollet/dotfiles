@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=sxhkd
-Exec=$HOME/code/powermater/powermate.sh
+Name=powermate
+Exec=/home/jordif/code/powermater/powermate.sh

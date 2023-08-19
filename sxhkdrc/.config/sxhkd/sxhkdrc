@@ -1,24 +1,82 @@
 F1
   ~/bin/mute-meet.sh
 
-{F7,F8}
-  ~/bin/toggle-window.sh {telegram,discord,spotify}
-F9
-  i3-msg '[class="Spotify"] scratchpad show'
-# ~/bin/toggle-window.sh spotify
+{F6,F7,F8,F9}
+  i3-msg '[class="{KeePassXC,Telegram,discord,Spotify}"] scratchpad show'
+#   ~/bin/toggle-window.sh {telegram,discord,spotify}
 
 super + p ; {j,k,l}
   playerctl -p spotify {previous,play-pause,next}
-super + p ; {Prior,Next,super + p,space}
+super + p ; {Prior, Next, space, super+p}
   playerctl -p spotify {previous,next,play-pause,play-pause}
 super + p ; p
   i3-msg '[class="Spotify"] scratchpad show'
-# ~/bin/toggle-window.sh spotify
 
 {XF86AudioPlay,XF86AudioNext,XF86AudioPrev}
   playerctl -p spotify {play-pause,next,previous}
 
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+  pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
 super + {Prior,Next}
   pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
-super + m
+{super+m, XF86AudioMute}
   pactl set-sink-mute @DEFAULT_SINK@ toggle
+
+# activate screensaver
+ctrl + alt + l
+  xset s activate
+
+# F17 on ergodox
+XF86Launch8
+  ~/bin/firefox-detach-window.sh
+
+# F16,F15 on ergodox
+{XF86Launch7,XF86Launch6}
+  ~/bin/copypaster {copy,paste}
+
+
+
+# Brightness ; overwritten by another app
+{XF86MonBrightnessDown,XF86MonBrightnessUp}
+  light -{U,A} 15
+# overwritten by another app
+Print
+  flameshot gui
+# overwritten by another app
+super + y
+  dolphin
+
+super + Return
+  konsole
+super + shift + a
+  autorandr 2
+super + r
+  ulauncher-toggle
+# # "rofi -theme applications -show-icons -drun-use-desktop-cache \
+# # -sorting-method fzf -matching normal \
+# # -show drun -modi 'drun,custom-menu:~/.config/rofi/scripts/rofi-custom-menu,run'"
+
+# # https://github.com/jluttine/rofi-power-menu
+super + Escape
+    rofi -theme powermenu -show power-menu \
+      -modi 'power-menu:~/.config/rofi/scripts/rofi-power-menu --confirm ""'
+
+
+
+
+
+# change volume with mouse wheel
+super + shift + {button4,button5}
+  pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
+
+# mouse wheel left/right button switch to prev/next desktop
+{button6,button7}
+  xdotool set_desktop --relative -- {-1,1}
+
+# Mouse 'forward' button.
+button8
+  xdotool key ctrl+r
+
+# Mouse 'back' button.
+button9
+  i3-msg move container to output right

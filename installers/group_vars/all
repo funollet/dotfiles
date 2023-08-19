@@ -145,7 +145,7 @@ rpm: [
   python3-i3ipc, xsecurelock, xss-lock,
   dunst, light, nitrogen, arandr, autorandr, autorandr-bash-completion,
   dex-autostart, rofi, ulauncher,
-  polybar, volumeicon, udiskie,
+  polybar, volumeicon, udiskie, blueman,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   
   ### lxqt:

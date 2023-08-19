@@ -46,10 +46,10 @@ toggle_app () {
     app_in_desktop=$(wmctrl -x -l | awk "/$app/ {print \$2}")
 
     ## Uncomment to debug.
-    # echo "app            : " $app
-    # echo "last_desktop   : " $last_desktop
-    # echo "current_desktop: " $current_desktop
-    # echo "app_in_desktop : " $app_in_desktop
+    # echo "app            : $app"
+    # echo "last_desktop   : $last_desktop"
+    # echo "current_desktop: $current_desktop"
+    # echo "app_in_desktop : $app_in_desktop"
 
     if [[ $app_in_desktop == $current_desktop ]] ; then
       wmctrl -x -r ${app} -t $last_desktop     # move app to last desktop

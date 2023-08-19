@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# i3-workspace-new.p:
+# i3-workspace-new.py
 
 import i3ipc
 import re
@@ -10,7 +10,8 @@ def main():
     parser = ArgumentParser(description='''
     Simple script to go to a new workspace. It will switch to a workspace with the lowest available number.
     ''')
-    parser.parse_args()
+    parser.add_argument('-m', '--move', action='store_true')
+    args = parser.parse_args()
 
     i3 = i3ipc.Connection()
 
@@ -26,7 +27,10 @@ def main():
             new = i
             break
 
-    i3.command("workspace %s" % new)
+    if args.move:
+        i3.command(f'move container to workspace "{new}"; workspace "{new}"')
+    else:
+        i3.command("workspace %s" % new)
 
 
 if __name__ == '__main__':

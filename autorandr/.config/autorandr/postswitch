@@ -38,6 +38,6 @@ i3_setup () {
 
 
 if [[ $(wmctrl -m | grep '^Name: ') = 'Name: i3' ]] ; then
-  i3_setup
   ~/bin/bar.sh
+  i3_setup
 fi
