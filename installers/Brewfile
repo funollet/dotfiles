@@ -1,6 +1,3 @@
-brew "copier"
-brew "icdiff"
-brew "nvm"
 brew "prettier"
 brew "unison"
 brew "vint"

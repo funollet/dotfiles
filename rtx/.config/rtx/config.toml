@@ -1,2 +1,9 @@
 [plugins]
+copier = 'https://github.com/amrox/asdf-pyapp'
 fasd = 'https://github.com/funollet/asdf-fasd'
+icdiff = 'https://github.com/amrox/asdf-pyapp'
+
+[tools]
+helm-diff = "latest"
+copier = "latest"
+icdiff = "latest"

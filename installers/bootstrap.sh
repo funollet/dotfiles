@@ -24,6 +24,8 @@ mkdir -p ~/.config/rtx/
 ln -s ~/.dotfiles/rtx/.tool-versions ~/.tool-versions
 ln -s ~/.dotfiles/rtx/config.toml ~/.config.toml
 
+cd ~ ; rtx install bin ; cd $OLDPWD
+
 sudo dnf install -y ansible
 
 echo
