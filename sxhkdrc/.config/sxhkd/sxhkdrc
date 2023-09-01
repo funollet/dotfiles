@@ -5,9 +5,11 @@ F1
   i3-msg '[class="{KeePassXC,Telegram,discord,Spotify}"] scratchpad show'
 #   ~/bin/toggle-window.sh {telegram,discord,spotify}
 
-super + p ; {j,k,l}
-  playerctl -p spotify {previous,play-pause,next}
-super + p ; {Prior, Next, space, super+p}
+super + p ; {k, space, super+p}
+  playerctl -p spotify play-pause ; notify-send -t 3000 "Spotify: toggle-play"
+super + p ; {j,l}
+  playerctl -p spotify {previous,next}
+super + p ; {Prior, Next}
   playerctl -p spotify {previous,next,play-pause,play-pause}
 super + p ; p
   i3-msg '[class="Spotify"] scratchpad show'
