@@ -65,6 +65,7 @@ export CHEAT_USE_FZF=true
 
 export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
 eval "$(/usr/bin/rtx activate bash)"
+_rtx_hook
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
