@@ -1,6 +1,6 @@
 (defcfg
-  input  (device-file "/dev/input/by-id/usb-04d9_USB_Keyboard-event-kbd")
-  ;;input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
+  ;;input  (device-file "/dev/input/by-id/usb-04d9_USB_Keyboard-event-kbd")
+  input  (device-file "/dev/input/by-path/platform-i8042-serio-0-event-kbd")
   output (uinput-sink "kmonad" "sleep 0.3 &&
             xset r rate 400 50 && 
             setxkbmap -layout us -option '' &&
@@ -10,77 +10,70 @@
 )
 
 (defalias
-  ;;; v/n are shift, too
-  ;;; Caveats: can't repeat 'n' by keeping it pressed; h/j/k/l would be poor choices.
-  vsft      (tap-next-release v lsft)
-  nsft      (tap-hold-next-release 300 n rsft)
-  ;;;
-  ;;; Space is Meta, too
-  ;;; Makes i3 keybindings much more ergonomic: can be generated with your thumb.
-  spc-meta  (tap-hold-next-release  300 spc lmet)
-  ;;;
-  ;;; ctrl are tab/return, too
-  lctl-tab  (tap-hold-next-release  300 tab lctl)
-  rctl-ret  (tap-hold-next-release  300 ret rctl)
-  ;;;
-  ;;; double-tap ; to generate :
-  ;;; double-tap ' to generate "
+  ;;scln-plus (multi-tap 300 scln :)    ;; double-tap ; to generate :
   ;;;   Set a delay way shorter than the key repeat rate to avoid overlapping keypresses.
   ;;;   Personal taste: tapping with the right delay is too tricky, causes more errors.
-  ;;scln-plus (multi-tap 300 scln :)
-  ;;apos-plus (multi-tap 300 apos ")   ;; "
   ;;;
-  ;;; space-cadet
-  ;;;   --fails-- lspccadet (tap-next (multi-tap 200 \( [) lsft)
-  ;;;   --fails-- lspccadet (tap-hold  400 (multi-tap 200 \( [) lsft)
-  ;;;   --fails-- lspccadet (tap-hold-next-release  300 (multi-tap 200 \( [) lsft)
-  ;;;   --works-- lspccadet (tap-hold-next-release  300 \( lsft)
-  ;;;   --works-- lspccadet (multi-tap 200 \( [)
-  ;;;   --works-- lspccadet (tap-next \( lsft)
-  lspccadet (tap-hold-next-release 300 \( lsft)
-  rspccadet (tap-hold-next-release 300 \) rsft)
-  ;;;
-  ;;; Multi-tap for accented characters. 3oesn't work, bug open.
+  ;;; Multi-tap for accented characters. Doesn't work, bug open.
   ;;; https://github.com/david-janssen/kmonad/issues/81
   ;;à         (tap-macro ralt a `)
   ;;amulti    (multi-tap 300 a 300 á 300 @à a)
-)
-(defsrc
-  v n
-  spc
-  lctl cmp rctl
-  lsft rsft
-)
-(deflayer multikeys
-  @vsft @nsft
-  @spc-meta
-  @lctl-tab @rctl-ret @rctl-ret
-  @lspccadet @rspccadet
+  ;;;
+  ;;;
+  spc-meta  (tap-hold-next-release  300 spc lmet)
+  ;;;
+  dsft      (tap-hold-next-release 400 d lsft :timeout-button d)
+  ksft      (tap-hold-next-release 400 k rsft :timeout-button k)
+  ;;;
+  fctl      (tap-hold-next-release 400 f rctl :timeout-button f)
+  jctl      (tap-hold-next-release 400 j rctl :timeout-button j)
+  ;;;
+  ealt      (tap-hold-next-release 400 e lalt :timeout-button e)
+  ialt      (tap-hold-next 400 i lalt :timeout-button i)
+  ;;;
+  dash      (tap-next-release - lalt)    ;; backtick toggles layer symbols, too
+  quot      (tap-next-release ' (layer-toggle symbols))    ;; backtick toggles layer symbols, too
+  ;;;
+  agrv      (tap-macro caps `)
+  aact      (tap-macro caps ')
 )
 
+
+(defsrc
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc  ins  home pgup
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     \     del  end  pgdn
+  cmp   a     s     d     f     g     h     j     k     l     ;     '     ret
+  lsft  z     x     c     v     b     n     m     ,     .     /     rsft                   up       
+  lctl  lmet  lalt              spc                     ralt  rctl  rctl              left down rght
+)
+
+(deflayer qwerty
+  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
+  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc   ins  home pgup
+  tab   q     w     @ealt r     t     y     u     @ialt o     p     [     ]     \      del  end  pgdn
+  caps  a     s     @dsft @fctl  g    h     @jctl @ksft l     ;     '     ret
+  @agrv z     x     c     v     b     n     m     ,     .     /     @aact                   up       
+  lctl  lmet  @dash             @spc-meta               @quot rctl  rctl               left down rght
+)
+
+(deflayer symbols
+  _     _     _     _     _     _     _     _     _     _     _        _     _
+  _     !     @     #     0     %     _     _     _     _     _        _     _     _    _    _    _
+  _     {     }     ^     $     =     _     _     _     _     _        _     _     _    _    _    _
+  _     \(    \)    *     "     |     _     _     _     _     _        _     _
+  _     [     ]     ~     `     &     _     _     _     _     _        _                     -
+  _     _     \_                _                       _     _        _                _    _    _
+)
+
+
+
+
 ;; (deflayer name
-;;   _    _    _    _    _    _    _    _    _    _    _       _    _
-;;   _    _    _    _    _    _    _    _    _    _    _       _    _    _     _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _       _    _    _     _    _    _
-;;   _    _    _    _    _    _    _    _    _    _    _       _    _
-;;   _    _    _    _    _    _    _    _    _    _    _       _                    _
-;;   _    _    _              _                   _    _       _               _    _    _
-;; )
-;;
-;; (defsrc
-;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup
-;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn
-;;   cmp  a    s    d    f    g    h    j    k    l    ;    '    ret
-;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up       
-;;   lctl lmet lalt           spc                 cmp  rctl rctl            left down rght
-;; )
-;; 
-;; (deflayer qwerty
-;;   esc  f1   f2   f3   f4   f5   f6   f7   f8   f9   f10  f11  f12
-;;   grv  1    2    3    4    5    6    7    8    9    0    -    =    bspc  ins  home pgup
-;;   tab  q    w    e    r    t    y    u    i    o    p    [    ]    \     del  end  pgdn
-;;   caps a    s    d    f    g    h    j    k    l    ;    '    ret
-;;   lsft z    x    c    v    b    n    m    ,    .    /    rsft                 up       
-;;   lctl lmet lalt           spc                 cmp  rctl rctl            left down rght
+;;   _     _     _     _     _     _     _     _     _     _     _        _     _
+;;   _     _     _     _     _     _     _     _     _     _     _        _     _     _    _    _    _
+;;   _     _     _     _     _     _     _     _     _     _     _        _     _     _    _    _    _
+;;   _     _     _     _     _     _     _     _     _     _     _        _     _
+;;   _     _     _     _     _     _     _     _     _     _     _        _                     _
+;;   _     _     _                 _                       _     _        _                _    _    _
 ;; )
