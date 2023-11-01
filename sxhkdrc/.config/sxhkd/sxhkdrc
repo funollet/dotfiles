@@ -72,13 +72,15 @@ super + shift + {button4,button5}
   pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
 
 # mouse wheel left/right button switch to prev/next desktop
-{button6,button7}
+# {button6,button7}
+#   xdotool set_desktop --relative -- {-1,1}
+{button8,button9}
   xdotool set_desktop --relative -- {-1,1}
 
-# Mouse 'forward' button.
-button8
-  xdotool key ctrl+r
+# # Mouse 'forward' button.
+# button8
+#   xdotool key ctrl+r
 
-# Mouse 'back' button.
-button9
-  i3-msg move container to output right
+# # Mouse 'back' button.
+# button9
+#   i3-msg move container to output right

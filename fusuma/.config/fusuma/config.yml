@@ -6,7 +6,7 @@
 #   move tab to left / right        swipe-3 + META    left / right
 #   move tab to beginning / end     swipe-3 + META    up / down
 #
-#   close Tab                       pinch-4 out
+#   close Tab                       hold-4
 #
 #   toggle fullscreen               swipe-4           up
 #   toggle floating                 swipe-4           down
@@ -96,14 +96,13 @@ pinch:
     in:
       command:
     out:
-      sendkey: 'LEFTCTRL+W'                       # close tab
+      command:
 
-# Stop using these while fusuma-plugin-tap implements recent changes in libinput.
-# hold:
-#   1:
-#     command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
-#   3:
-#     sendkey: 'LEFTCTRL+w'                       # close tab
+hold:
+  2:
+    command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
+  4:
+    sendkey: 'LEFTCTRL+w'                       # close tab
 
 interval:
   swipe: 0.3
