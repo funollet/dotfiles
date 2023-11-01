@@ -2,7 +2,8 @@
 
 # Default invocations with extra parameters.
 alias top='top -d1'
-alias tree='tree -a -I ".git|__pycache__|.pytest_cache|.mypy_cache|*.swp|*.pyc|.venv"'
+alias exa='exa --git-ignore'
+alias tree='exa --git-ignore --tree'
 alias vim=vimx
 alias nvim=lvim
 alias watch='watch -n1 --no-title --color'

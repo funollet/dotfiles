@@ -69,15 +69,56 @@ clock-sync:
     sudo systemctl restart chronyd.service
 
 
-# all vpn up
-vpnup:
-    -nmcli c up vpn.stashify.nuclia
-    -nmcli c up vpn.prod.nuclia
+# # all vpn up
+# vpnup:
+#     -nmcli c up vpn.stashify.nuclia
+#     -nmcli c up vpn.prod.nuclia
 
-# all vpn down
-vpndown:
-    -nmcli c down vpn.stashify.nuclia
-    -nmcli c down vpn.prod.nuclia
+# # all vpn down
+# vpndown:
+#     -nmcli c down vpn.stashify.nuclia
+#     -nmcli c down vpn.prod.nuclia
 
+# set me up for work
+work-on:
+  twingate status | grep -q online || twingate start
+  ssh-add -l || ssh-add -t 12h
+
+# stop work environment
+work-off:
+  twingate status | grep -q online && twingate stop
+
+
+# pick an xdg-autostart script and run it
+dex $fname='':
+  if [[ -z ${fname} ]] ; then \
+    ls -1 ~/.config/autostart/*.desktop | fzf -1 | xargs dex-autostart ; \
+  else \
+    dex-autostart ~/.config/autostart/${fname}.desktop ; \
+  fi
+
+cluster-get-auth:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+
+  project=`gcloud projects list --filter parent.id:1082665456769 | fzf --header-lines 1 | cut -d\   -f1`
+  gcloud --project=${project} container clusters list | \
+    fzf --header-lines 1 | awk '{print $1, "--region", $2}' | \
+    xargs gcloud container clusters get-credentials --project=${project} 
+
+
+# tweaks after docking the laptop
+dock:
+  sudo systemctl restart chronyd.service
+  ~/code/powermater/powermate-led-off
+  dex-autostart ~/.config/autostart/powermate.desktop
+  autorandr -f 2
+
+# tweaks before undocking the laptop
+undock:
+	autorandr 0
+
+trackpad:
+  bluetoothctl connect A8:91:3D:E5:86:65
 
 # vim: ft=just

@@ -19,3 +19,7 @@ _complete_gcloud_instance () {
 
 complete -F _complete_gcloud_instance gssh
 complete -F _complete_gcloud_instance gscp
+
+gcproject () {
+  gcloud projects list --filter "parent.id:${NUCLIA_GCLOUD_ORG_ID}" | fzf --header-lines 1 | cut -d\   -f1
+}

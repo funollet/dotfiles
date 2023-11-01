@@ -7,9 +7,8 @@
     group: root
     mode: '0644'
   with_items:
-    - rules.d/98-monitor-hotplug.rules
+    - rules.d/98-uinput.rules
     - rules.d/98-applemagic.rules
-    - rules.d/98-ozone-keyboard.rules
     - rules.d/50-wally.rules
   become: yes
   notify: reload udev rules

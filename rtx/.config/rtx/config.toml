@@ -4,6 +4,10 @@ fasd = 'https://github.com/funollet/asdf-fasd'
 icdiff = 'https://github.com/amrox/asdf-pyapp'
 
 [tools]
-helm-diff = "latest"
+act = "latest"
+actionlint = "latest"
 copier = "latest"
+gum = "latest"
+helm-diff = "latest"
 icdiff = "latest"
+terraform = "1.5.4"

@@ -70,7 +70,7 @@ rpm: [
   
   ### unix_essentials:
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff, diff-so-fancy,
-  the_silver_searcher, fd-find, ncdu, bat, exa, gron, jo, lsd,
+  the_silver_searcher, fd-find, ncdu, bat, exa, gron, jo, lsd, trash-cli, sd,
   highlight,
   
   ### workstation:
