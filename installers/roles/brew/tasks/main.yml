@@ -13,7 +13,7 @@
   tags: brew
     
 - name: install Linuxbrew
-  command: /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+  command: /bin/bash -c "$(curl -fsSL -o install.sh https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
   args:
     creates: /home/linuxbrew/.linuxbrew/bin/brew
   tags: brew

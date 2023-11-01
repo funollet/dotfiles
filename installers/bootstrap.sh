@@ -4,7 +4,7 @@
 
 set -eu
 
-sudo dnf install -y git curl just vim dnf-plugins-core
+sudo dnf install -y git curl just vim dnf-plugins-core vim-enhanced stow
 sudo dnf remove -y nano
 
 ### Workaround for failing ansible role.
@@ -20,10 +20,7 @@ export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
 eval "$(/usr/bin/rtx activate bash)"
 
 # make global versions available
-mkdir -p ~/.config/rtx/
-ln -s ~/.dotfiles/rtx/.tool-versions ~/.tool-versions
-ln -s ~/.dotfiles/rtx/config.toml ~/.config.toml
-
+cd .. ; stow rtx ; cd $OLDPWD
 cd ~ ; rtx install bin ; cd $OLDPWD
 
 sudo dnf install -y ansible

@@ -1,13 +1,13 @@
 [plugins]
-copier = 'https://github.com/amrox/asdf-pyapp'
+#copier = 'https://github.com/amrox/asdf-pyapp'
 fasd = 'https://github.com/funollet/asdf-fasd'
-icdiff = 'https://github.com/amrox/asdf-pyapp'
+#icdiff = 'https://github.com/amrox/asdf-pyapp'
 
 [tools]
 act = "latest"
 actionlint = "latest"
-copier = "latest"
+#copier = "latest"
 gum = "latest"
 helm-diff = "latest"
-icdiff = "latest"
+#icdiff = "latest"
 terraform = "1.5.4"

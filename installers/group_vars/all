@@ -54,8 +54,6 @@ rpm: [
   golang,
   # rust devel
   cargo, libbsd-devel,
-  # Nagios plugins development.
-  pynag, pynag-examples,
   #
   #, Ops,
   moby-engine,
@@ -107,7 +105,7 @@ rpm: [
   gimp-data-extras,
   digikam, kf5-kipi-plugins, darktable,
   # Multimedia
-  clementine, audacity, pavucontrol, ffmpeg, cantata, playerctl,
+  clementine, audacity, pavucontrol, cantata, playerctl,
   qjackctl, sooperlooper, beets, beets-doc, beets-plugins,
   vlc,                                              # require: RPMfusion repositories
   # joystick
@@ -126,7 +124,7 @@ rpm: [
   xine-lib-extras, xine-lib-extras-freeworld, gstreamer1-libav,
   gstreamer1-plugins-good, gstreamer1-plugins-ugly, gstreamer1-plugins-bad-free,
   gstreamer-ffmpeg, gstreamer-plugins-ugly,
-  gstreamer-plugins-bad, ffmpeg,
+  gstreamer-plugins-bad,
   #     not found: gstreamer-plugins-good gstreamer-plugins-bad-free
   # require: rpmfusion-non-free
   gstreamer-plugins-bad-nonfree,

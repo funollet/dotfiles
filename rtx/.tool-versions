@@ -1,5 +1,5 @@
 python     3.11.2
-gcloud     419.0.0
+#gcloud     419.0.0
 terraform  1.5.4
 awscli     2.10.3
 github-cli 2.23.0
@@ -23,5 +23,5 @@ watchexec  1.22.3
 fx         24.1.0
 grex       1.4.2
 fasd       1.0.1
-bin        0.17.0
+bin        0.17.2
 peco       0.5.11
