@@ -1,5 +1,0 @@
-# Apple Inc. Magic Trackpad 2
-ACTION=="add", \
-  SUBSYSTEM=="input", \
-  ATTRS{id/vendor}=="05ac", ATTRS{id/product}=="0265", \
-  RUN+="/usr/bin/su jordif -c 'systemctl --user restart fusuma"
