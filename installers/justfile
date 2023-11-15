@@ -25,13 +25,17 @@ install: _amber _lazycomplete _fonts-hack _wally (_wally-cli "2.0.0-linux")
   @just _bin-install https://github.com/ericchiang/pup
   @just _bin-install https://github.com/joehillen/sysz
   @just _bin-install https://github.com/akavel/up
+  @just _bin-install https://github.com/kmonad/kmonad
 
 _amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    which lazycomplete > /dev/null && exit
     wget -q -c -P /tmp https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
     unzip /tmp/amber-{{version}}-x86_64-lnx.zip ambr ambs -d ~/.local/bin
 
 _lazycomplete:
-    sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
+    which lazycomplete > /dev/null || sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
 
 _wally version=`http https://api.github.com/repos/zsa/wally/releases | jq -r .[].tag_name | grep -i linux | head -1`:
     which wally > /dev/null || bin install https://github.com/zsa/wally/releases/tag/{{version}}
@@ -158,11 +162,11 @@ _tweak-kde:
 
 # configure xkb system-wide
 config-x11:
-    sudo install -m 0644 files/usr/share/X11/xkb/rules/base.lst /usr/share/X11/xkb/rules/
-    sudo install -m 0644 files/usr/share/X11/xkb/symbols/us_funollet /usr/share/X11/xkb/symbols/
+    # sudo install -m 0644 files/usr/share/X11/xkb/rules/base.lst /usr/share/X11/xkb/rules/
+    # sudo install -m 0644 files/usr/share/X11/xkb/symbols/us_funollet /usr/share/X11/xkb/symbols/
     # sudo install -m 0644 files/usr/share/X11/xkb/symbols/notanumpad /usr/share/X11/xkb/symbols/
     # sudo install -m 0644 files/usr/share/X11/xkb/symbols/us_numbers_level2 /usr/share/X11/xkb/symbols/
-    sudo localectl set-x11-keymap us_funollet pc105 "" \
+    sudo localectl set-x11-keymap us pc105 "" \
         "compose:caps,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
 
 # reconfigure xkb on a running X session
@@ -172,7 +176,7 @@ xkb-change:
     # Set keyboard layout.
     # compose:caps          caps key is compose key
     # shift:both_capslock   Both Shift together enable Caps Lock
-    setxkbmap -layout us_funollet \
+    setxkbmap -layout us \
         -option 'compose:caps' \
         -option 'terminate:ctrl_alt_bksp' \
         -option 'ctrl:menu_rctrl'

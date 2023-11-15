@@ -95,7 +95,7 @@ rpm: [
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
   keepassxc,
-  calibre, inkscape, firefox,
+  calibre, inkscape, firefox, mozilla-openh264,
   libreoffice, timeline, youtube-dl, Zim,
   zathura, speedcrunch, homebank, flameshot,
   # Graphics
@@ -117,7 +117,7 @@ rpm: [
   # sigil
   #
   gtk3, webkit2gtk3, libusb,          # dependencies for https://github.com/zsa/wally/
-  xinput,
+  xinput, evtest,
   
   ### codecs:
   # require: rpmfusion-free

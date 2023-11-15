@@ -1,7 +1,7 @@
-python     3.11.2
-#gcloud     419.0.0
+python     3.10
+gcloud     453.0.0
 terraform  1.5.4
-awscli     2.10.3
+awscli     latest
 github-cli 2.23.0
 packer     1.8.6
 task       3.21.0
@@ -25,3 +25,4 @@ grex       1.4.2
 fasd       1.0.1
 bin        0.17.2
 peco       0.5.11
+argo       latest
