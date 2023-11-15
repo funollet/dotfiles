@@ -17,7 +17,7 @@ _bin-install repo:
 
 
 # Install non-packaged software.
-install: _amber _lazycomplete _fonts-hack _wally (_wally-cli "2.0.0-linux")
+install: _amber _docker-buildx _lazycomplete _fonts-hack _wally (_wally-cli "2.0.0-linux")
   @just _bin-install https://github.com/funollet/inputplug
   @just _bin-install https://github.com/fiatjaf/jiq
   @just _bin-install https://github.com/kubernetes-sigs/kind
@@ -27,12 +27,20 @@ install: _amber _lazycomplete _fonts-hack _wally (_wally-cli "2.0.0-linux")
   @just _bin-install https://github.com/akavel/up
   @just _bin-install https://github.com/kmonad/kmonad
 
+
 _amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
     #!/usr/bin/env bash
     set -euxo pipefail
     which lazycomplete > /dev/null && exit
     wget -q -c -P /tmp https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
     unzip /tmp/amber-{{version}}-x86_64-lnx.zip ambr ambs -d ~/.local/bin
+
+_docker-buildx:
+    #!/usr/bin/env bash
+    set -euxo pipefail
+    [[ -f ~/.docker/cli-plugins/docker-buildx ]] && exit
+    mkdir -p ~/.docker/cli-plugins/
+    bin install https://github.com/docker/buildx ~/.docker/cli-plugins/docker-buildx
 
 _lazycomplete:
     which lazycomplete > /dev/null || sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
