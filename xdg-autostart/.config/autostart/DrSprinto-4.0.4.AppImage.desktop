@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=DrSprinto-4.0.4.AppImage
+Comment=DrSprinto-4.0.4.AppImagestartup script
+Exec=/home/jordif/.local/bin/DrSprinto-4.0.4.AppImage --hidden
+StartupNotify=false
+Terminal=false
