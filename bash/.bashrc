@@ -12,7 +12,7 @@
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-export TERM=konsole-256color
+export TERM=xterm-256color
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
@@ -51,7 +51,7 @@ fi
 export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:~/.cargo/bin
 shopt -s histappend
 
-export VISUAL='nvim'
+export VISUAL='lvim'
 export EDITOR=$VISUAL
 export GPG=gpg2
 
