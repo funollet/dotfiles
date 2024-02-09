@@ -9,7 +9,7 @@
   allow-cmd false
 )
 
-(defalias
+;; (defalias
   ;;scln-plus (multi-tap 300 scln :)    ;; double-tap ; to generate :
   ;;;   Set a delay way shorter than the key repeat rate to avoid overlapping keypresses.
   ;;;   Personal taste: tapping with the right delay is too tricky, causes more errors.
@@ -20,28 +20,29 @@
   ;;amulti    (multi-tap 300 a 300 á 300 @à a)
   ;;;
   ;;;
-  spc-meta  (tap-hold-next-release  300 spc lmet)
-  ;;;
+;; )
+()*'|'
+(defalias   ;; home-row modifiers
   dsft      (tap-hold-next-release 400 d lsft :timeout-button d)
   ksft      (tap-hold-next-release 400 k rsft :timeout-button k)
-  ;;;
   fctl      (tap-hold-next-release 400 f rctl :timeout-button f)
   jctl      (tap-hold-next-release 400 j rctl :timeout-button j)
-  ;;;
-  ealt      (tap-hold-next-release 400 e lalt :timeout-button e)
-  ialt      (tap-hold-next 400 i lalt :timeout-button i)
-  ;;;
-  dash      (tap-next-release - lalt)    ;; backtick toggles layer symbols, too
-  quot      (tap-next-release ' (layer-toggle symbols))    ;; backtick toggles layer symbols, too
-  ;;;
+  salt      (tap-hold-next-release 400 s lalt :timeout-button s)
+  llt       (tap-hold-next         400 l lalt :timeout-button l)
+)
+(defalias   ;; thumbs
+  spc-meta  (tap-hold-next-release 300 spc lmet)
+  ;; layer toggling
+  dash      (tap-next-release - lalt)                       ;; backtick toggles layer symbols, too
+  quot      (sticky-key 1500 (layer-toggle symbols))
+)
+(defalias   ;; special chars; caps is compose key
   agrv      (tap-macro caps `)
   aact      (tap-macro caps ')
 )
 
 
 (defsrc
-  esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
-  grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc  ins  home pgup
   tab   q     w     e     r     t     y     u     i     o     p     [     ]     \     del  end  pgdn
   cmp   a     s     d     f     g     h     j     k     l     ;     '     ret
   lsft  z     x     c     v     b     n     m     ,     .     /     rsft                   up       
@@ -51,9 +52,9 @@
 (deflayer qwerty
   esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12
   grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc   ins  home pgup
-  tab   q     w     @ealt r     t     y     u     @ialt o     p     [     ]     \      del  end  pgdn
-  caps  a     s     @dsft @fctl  g    h     @jctl @ksft l     ;     '     ret
-  @agrv z     x     c     v     b     n     m     ,     .     /     @aact                   up       
+  tab   q     w     e     r     t     y     u     i     o     p     [     ]     \      del  end  pgdn
+  agrv  a     @salt @dsft @fctl  g    h     @jctl @ksft @llt  ;     '     ret
+  @caps z     x     c     v     b     n     m     ,     .     /     @aact                   up       
   lctl  lmet  @dash             @spc-meta               @quot rctl  rctl               left down rght
 )
 
@@ -61,8 +62,8 @@
   _     _     _     _     _     _     _     _     _     _     _        _     _
   _     !     @     #     0     %     _     _     _     _     _        _     _     _    _    _    _
   _     {     }     ^     $     =     _     _     _     _     _        _     _     _    _    _    _
-  _     \(    \)    *     "     |     _     _     _     _     _        _     _
-  _     [     ]     ~     `     &     _     _     _     _     _        _                     -
+  `     \(    \)    *     '     |     _     _     _     _     _        _     _
+  _     [     ]     ~     "     &     _     _     _     _     _        _                     -
   _     _     \_                _                       _     _        _                _    _    _
 )
 

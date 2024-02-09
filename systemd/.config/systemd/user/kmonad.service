@@ -2,8 +2,7 @@
 Description=kmonad
 
 [Service]
-; ExecStart=kmonad /home/jordif/.config/kmonad/custom_iso_tkl.kbd
-ExecStart=/home/jordif/.local/bin/kmonad /home/jordif/.config/kmonad/custom_iso_tkl.kbd
+ExecStart=/home/jordif/.local/bin/kmonad /home/jordif/.config/kmonad/laptop.kbd
 
 [Install]
 WantedBy=default.target
