@@ -75,3 +75,8 @@ fi
 if which vault > /dev/null 2>&1 ; then
     complete -C $(which vault) vault
 fi
+
+if which gcrane > /dev/null 2>&1 ; then
+    source <(lazycomplete \
+        gcrane 'gcrane completion bash')
+fi

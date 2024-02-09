@@ -26,6 +26,7 @@ install: _amber _docker-buildx _lazycomplete _fonts-hack _wally (_wally-cli "2.0
   @just _bin-install https://github.com/joehillen/sysz
   @just _bin-install https://github.com/akavel/up
   @just _bin-install https://github.com/kmonad/kmonad
+  @just _bin-install https://github.com/google/go-containerregistry
 
 
 _amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:

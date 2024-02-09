@@ -1,0 +1,7 @@
+[Desktop Entry]
+Name=Slack
+StartupWMClass=Slack
+Exec=flatpak run com.slack.Slack
+Icon=slack
+Type=Application
+Categories=Network;InstantMessaging;
