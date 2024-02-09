@@ -54,6 +54,9 @@ lvim.builtin.telescope.defaults.mappings = {
 
 local wk = lvim.builtin.which_key
 
+-- folds
+lvim.builtin.which_key.setup.plugins.presets.z = true
+
 -- Use which-key to add extra bindings with the leader-key prefix
 wk.mappings["sP"] = { "<cmd>Telescope projects<CR>", "Projects" }
 wk.mappings["t"] = {
