@@ -2,7 +2,7 @@
 #
 #
 #   prev/next tab                   swipe-3           left / right
-#   forward/backward                swipe-3           up / down
+#   pageup / pagedown               swipe-3           up / down
 #   move tab to left / right        swipe-3 + META    left / right
 #   move tab to beginning / end     swipe-3 + META    up / down
 #
@@ -33,12 +33,12 @@ swipe:
         LEFTMETA:                           # move tab to right
           sendkey: 'LEFTCTRL+LEFTSHIFT+PAGEDOWN'
     up:
-      sendkey: 'LEFTALT+RIGHT'      # forward
+      sendkey: 'PAGEUP'
       keypress:
         LEFTMETA:                           # move tab to beginning
           command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+Home'
     down:
-      sendkey: 'LEFTALT+LEFT'       # backward
+      sendkey: 'PAGEDOWN'
       keypress:
         LEFTMETA:                           # move tab to end
           command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+End'
