@@ -1,6 +1,5 @@
 #!/bin/bash
 
-export AWS_PROFILE=default
 
 ## ec2-search-id () {
 ##     # Parallel search of an EC2 InstanceID on multiple accounts.

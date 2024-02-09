@@ -2,8 +2,8 @@
 
 # Default invocations with extra parameters.
 alias top='top -d1'
-alias exa='exa --git-ignore'
-alias tree='exa --git-ignore --tree'
+alias exa='eza --git-ignore'
+alias tree='eza --git-ignore --tree --all'
 alias vim=vimx
 alias nvim=lvim
 alias watch='watch -n1 --no-title --color'
@@ -11,6 +11,8 @@ alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
 alias ssh-blindly='TERM=xterm-256color ssh -o StrictHostKeyChecking=no  -o CheckHostIP=no -o UserKnownHostsFile=/dev/null'
 alias lg='lazygit'
+alias kc='kubectx'
+alias kn='kubens'
 
 
 psg () {        # bash-expansion: grep [p]attern

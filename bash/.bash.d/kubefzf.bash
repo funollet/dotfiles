@@ -8,56 +8,12 @@
 #
 # Usage: just press 'Alt k'.
 
-_kubernetes_resources_names () {
-    cat <<.
-pods                        po
-deployments                 deploy
-statefulsets                sts
-daemonsets                  ds
-services                    svc
-persistentvolumeclaims      pvc
-persistentvolumes           pv
-configmaps                  cm
-secrets
-endpoints                   ep
-events                      ev
-ingresses                   ing
-namespaces                  ns
-nodes                       no
-jobs
-cronjobs
-certificatesigningrequests  csr
-clusterrolebindings
-clusterroles
-clusters
-componentstatuses           cs
-controllerrevisions
-customresourcedefinition    crd
-horizontalpodautoscalers    hpa
-limitranges                 limits
-networkpolicies             netpol
-poddisruptionbudgets        pdb
-podpreset
-podsecuritypolicies         psp
-podtemplates
-replicasets                 rs
-replicationcontrollers      rc
-resourcequotas              quota
-rolebindings
-roles
-serviceaccounts             sa
-storageclasses
-all
-.
-
-}
-
 _kube_fzf_resource_selector () {
     local resource namespace context out prefix pre_line post_line
 
     # trim="${READLINE_LINE%% }"    # trim spaces at end of line, just in case
 
-    resource=$(_kubernetes_resources_names \
+    resource=$(kubectl api-resources -o name \
         | fzf --no-sort --height=40% --prompt="${READLINE_LINE}" \
         | awk '{ if (NF==2) print $2 ; else print $1}')
 

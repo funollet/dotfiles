@@ -6,7 +6,7 @@ pipx: [
 flatpak: [
   com.spotify.Client, us.zoom.Zoom, org.telegram.desktop, net.lutris.Lutris,
   md.obsidian.Obsidian, com.rafaelmardojai.Blanket, com.discordapp.Discord,
-  com.ultimaker.cura,
+  com.ultimaker.cura, com.slack.Slack
   ]
 
 gems: [
@@ -68,7 +68,7 @@ rpm: [
   
   ### unix_essentials:
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff, diff-so-fancy,
-  the_silver_searcher, fd-find, ncdu, bat, exa, gron, jo, lsd, trash-cli, sd,
+  the_silver_searcher, fd-find, ncdu, bat, eza, gron, jo, lsd, trash-cli, sd,
   highlight,
   
   ### workstation:
