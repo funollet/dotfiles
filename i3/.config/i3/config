@@ -60,7 +60,7 @@ bindsym $mod+f          fullscreen toggle
 
 #   change focus
 bindsym $mod+$left      focus left
-# bindsym $mod+$down      focus down
+bindsym $mod+$down      focus down
 bindsym $mod+$up        focus up
 bindsym $mod+$right     focus right
 bindsym $mod+$prev      workspace prev_on_output
@@ -131,7 +131,7 @@ bindsym $mod+Control+$prev  exec ~/bin/i3-move-to-ws-or-create.sh prev
 exec_always --no-startup-id ~/bin/i3-automatic-layout.py
 # promote window: switch position with the biggest window
 bindsym $mod+comma          exec ~/bin/i3-promote-window.py
-bindsym $mod+$down          exec --no-startup-id ~/bin/i3_cycle_windows
+# bindsym $mod+$down          exec --no-startup-id ~/bin/i3_cycle_windows
 
 
 #       split in horizontal/vertical orientation
