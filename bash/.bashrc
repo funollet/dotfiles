@@ -63,6 +63,8 @@ export FORGIT_COPY_CMD=xclip
 
 export CHEAT_USE_FZF=true
 
+export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
+
 export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
 eval "$(/usr/bin/rtx activate bash)"
 _rtx_hook
