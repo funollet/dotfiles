@@ -59,6 +59,7 @@ lvim.builtin.which_key.setup.plugins.presets.z = true
 
 -- Use which-key to add extra bindings with the leader-key prefix
 wk.mappings["sP"] = { "<cmd>Telescope projects<CR>", "Projects" }
+wk.mappings["gt"] = { "<cmd>call jobstart('konsole')<CR>", "Spawn new terminal" }
 wk.mappings["t"] = {
   name = "+Toggle",
   h = { "<cmd>set list!<cr>", "hidden" },
