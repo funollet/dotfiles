@@ -1,7 +1,21 @@
+# https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
+
 gui:
   showIcons: true
+  nerdFontsVersion: "3"
 
-# customCommands:
-#   - key: q
-#     context: files
-#     command: 'gh pr create -a "@me" -r ferpizza,daper'
+git:
+  paging:
+    colorArg: always
+    pager: diff-so-fancy
+
+# keybinding:
+#   universal:
+#     edit: <disabled> # disable 'edit file'
+
+customCommands:
+  - key: "<c-g>"
+    context: "localBranches"
+    command: "gh pr create -a @me -r rastut,zepellin -f"
+    # command: "gh pr create -a @me -r rastut,zepellin -f && review-please"
+    loadingText: "Creating pull request on GitHub"

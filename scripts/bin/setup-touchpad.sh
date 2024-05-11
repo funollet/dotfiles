@@ -6,6 +6,7 @@ devs=$(xinput list | grep -Ei 'magic trackpad|touchpad' | sed 's/.*id=//' | awk 
 for dev in ${devs} ; do
   xinput set-prop "${dev}" "libinput Tapping Enabled" 1
   xinput set-prop "${dev}" "libinput Natural Scrolling Enabled" 0
+  xinput set-prop "${dev}" "libinput Horizontal Scroll Enabled" 0
   xinput set-button-map "${dev}" 1 2 3 4 5 6 7
 done
 
