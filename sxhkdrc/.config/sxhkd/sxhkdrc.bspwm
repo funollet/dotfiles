@@ -1,0 +1,125 @@
+
+{F6,F7,F8,F9}
+   ~/bin/toggle-window.sh {telegram,discord,spotify}
+
+# make sxhkd reload its configuration files:
+# super + Escape
+# 	pkill -USR1 -x sxhkd
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm --restart}
+
+# close and kill
+super + {_,shift + }q
+	bspc node --{close,kill}
+
+# alternate between the tiled and monocle layout
+super + a
+	bspc desktop --layout next
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local --to-node newest.!automatic.local
+
+# swap the current node and the biggest node
+super + w
+	bspc node --swap biggest.local --follow
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node --state {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {m,x,y,z}
+	bspc node -g {marked,locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node --{focus,swap} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+	bspc node --focus @{parent,brother,first,second}
+
+# focus the next/previous node in the current desktop
+super + {_,shift + }Tab
+	bspc node --focus {next,prev}.local
+
+# focus the next/previous desktop in the current monitor
+# super + bracket{left,right}
+super + {u,i}
+	bspc desktop --focus focused:{prev,next}.local
+	# bspc desktop --focus {prev,next}.local
+# send to the next/previous desktop in the current monitor
+super + ctrl + {u,i}
+	bspc node --to-desktop {prev,next}.local --follow
+
+# focus the last node/desktop
+# super + {grave,Tab}
+# 	bspc {node,desktop} --focus last
+
+# focus the older or newer node in the focus history
+super + {n,m}
+	bspc wm --record-history off; \
+	bspc node {older,newer} --focus; \
+	bspc wm --record-history on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-8}
+	bspc {desktop --focus,node --to-desktop} 'focused:^{1-8}'
+
+#
+# preselect
+#
+
+# # preselect the direction
+# super + ctrl + {h,j,k,l}
+# 	bspc node --presel-dir {west,south,north,east}
+
+# # preselect the ratio
+# super + ctrl + {1-9}
+# 	bspc node -o 0.{1-9}
+
+# # cancel the preselection for the focused node
+# super + ctrl + space
+# 	bspc node --presel-dir cancel
+
+# # cancel the preselection for the focused desktop
+# super + ctrl + shift + space
+# 	bspc query -N -d | xargs -I id -n 1 bspc node id --presel-dir cancel
+
+#
+# move/resize
+#
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+	bspc node --resize {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+	bspc node --resize {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node --move {-20 0,0 20,0 -20,20 0}
+
+
+super + {button4,button5}
+  bspc node --ratio {-,+}5
+
+
+# vim:ft=sh

@@ -1,0 +1,5 @@
+[Desktop Entry]
+Type=Application
+OnlyShowIn=bspwm
+Name=sxhkd
+Exec=/usr/bin/sxhkd -c /home/jordif/.config/sxhkd/sxhkdrc.common /home/jordif/.config/sxhkd/sxhkdrc.bspwm
