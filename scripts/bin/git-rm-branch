@@ -1,0 +1,15 @@
+#!/bin/bash
+# git rm-branch
+#
+# Deletes current branch.
+
+set -eo pipefail
+
+# Could be main, or master, or an argument.
+ref="$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2)"
+[ -n "$1" ] && ref="$1"
+
+git checkout ${ref}             # Switch to some other branch.
+# shellcheck disable=SC1083
+git branch -D @{-1}             # Delete the branch.
+git pull                        # While we are here, let's update this branch.

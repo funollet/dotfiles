@@ -47,14 +47,6 @@
     blaame = blame -w -C -C -C
     ; don't push if there are changes on the remote
     safe-force-push = push --force-with-lease
-    ; delete current branch
-    rm-branch = "!f() { \
-      local ref='$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2)'; \
-      [ -n \"$1\" ] && ref=\"$1\"; \
-      git checkout ${ref} && \
-      git pull && \
-      git branch -D @{-1} ; \
-    }; f"
     ;
     set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
     ; branch update
