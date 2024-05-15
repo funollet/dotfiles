@@ -1,4 +1,0 @@
-#!/bin/bash
-# rofi-flush-cache
-
-rofi -show drun -modi 'drun' -drun-use-desktop-cache -drun-reload-desktop-cache

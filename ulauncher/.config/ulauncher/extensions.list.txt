@@ -1,0 +1,4 @@
+com.github.abhishekmj303.ulauncher-playerctl
+com.github.lighttigerxiv.ulauncher-session-manager
+com.github.nastuzzisamy.ulauncher-custom-scripts
+com.github.ulauncher.ulauncher-timer
