@@ -131,7 +131,7 @@ bindsym $mod+Control+$prev  exec ~/bin/i3-move-to-ws-or-create.sh prev
 exec_always --no-startup-id ~/bin/i3-automatic-layout.py
 # promote window: switch position with the biggest window
 bindsym $mod+comma          exec ~/bin/i3-promote-window.py
-# bindsym $mod+$down          exec --no-startup-id ~/bin/i3_cycle_windows
+# bindsym $mod+d              exec --no-startup-id ~/bin/i3_cycle_windows
 
 
 #       split in horizontal/vertical orientation

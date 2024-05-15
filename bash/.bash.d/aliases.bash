@@ -22,13 +22,13 @@ alias pe='perl -wln -e'
 alias pep='perl -wlp -e'
 alias trn="tr '\n' ' '"
 alias dnf='sudo dnf'
-# alias puppetlocalrun='sudo puppet apply -v --confdir ~/code/puppet-ws/ ~/code/puppet-ws/manifests/site.pp'
 alias nocomments='egrep -ahv "^[[:space:]]*(#|$)"'
 
 alias fuck='eval $(thefuck $(fc -ln -1))'
 
-alias jless='bat -l json'
-alias yless='bat -l yaml'
+alias lessj='bat -l json'
+alias lessy='bat -l yaml'
+alias xclip='xclip -selection clipboard'
 
 
 alias weight.edit='vim ~/workingon/pim/weight.dat'
@@ -51,7 +51,7 @@ diffssh () {    #diffssh hostA hostB file
 }
 
 copier-chooser () {
-    copier copy "~/code/skeletons/$(ls -1 ~/code/skeletons/  | ag -v cookiecutter | fzf )" .
+    copier copy "$HOME/code/skeletons/$(ls -1 $HOME/code/skeletons/  | ag -v cookiecutter | fzf )" .
 }
 
 i3keys () {

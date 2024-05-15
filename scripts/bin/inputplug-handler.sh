@@ -11,10 +11,10 @@ dev_name="$4"
 case $event in
     XIDeviceEnabled)
         case "$dev_type,$dev_name" in
-            # XISlavePointer,"ELECOM ELECOM TrackBall Mouse")
-            #     pkill sxhkd
-            #     sxhkd -c "$HOME/.config/sxhkd/sxhkdrc" "$HOME/.config/sxhkd/sxhkdrc.elecom"
-            #     ;;
+            XISlavePointer,"ELECOM ELECOM TrackBall Mouse")
+                pkill sxhkd
+                sxhkd -c "$HOME/.config/sxhkd/sxhkdrc" "$HOME/.config/sxhkd/sxhkdrc.elecom"
+                ;;
             XISlavePointer,"Apple Inc. Magic Trackpad 2")
                 "$HOME/bin/setup-touchpad.sh"
                 ;;
