@@ -15,6 +15,7 @@ lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "right"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
+lvim.builtin.nvimtree.setup.view.adaptive_size = true
 
 lvim.builtin.illuminate.active = false
 
@@ -63,6 +64,20 @@ lvim.plugins = {
   { "tpope/vim-repeat" },
   { "yasuhiroki/github-actions-yaml.vim" },
   { "NoahTheDuke/vim-just" },
+  {
+    "ggandor/leap.nvim",
+    -- Troubleshoot: overwrides x
+    name = "leap",
+    config = function()
+      -- require("leap").add_default_mappings()
+      vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
+      vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
+      vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
+      -- vim.keymap.set('n', 's',  '<Plug>(leap-forward)')
+      -- vim.keymap.set('n', 'S',  '<Plug>(leap-backward)')
+      -- vim.keymap.set('n', 'gs', '<Plug>(leap-from-window)')
+    end,
+  },
   -- {
   --   "nvim-telescope/telescope-project.nvim",
   --   event = "BufWinEnter",

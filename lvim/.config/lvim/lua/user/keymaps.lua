@@ -58,8 +58,19 @@ local wk = lvim.builtin.which_key
 lvim.builtin.which_key.setup.plugins.presets.z = true
 
 -- Use which-key to add extra bindings with the leader-key prefix
+vim.cmd [[
+    command! -nargs=0 SpawnTerminal lua SpawnTerminal()
+]]
+
+function SpawnTerminal()
+    -- Spawn a new terminal in the directory of the current file
+    local current_dir = vim.fn.expand('%:p:h')
+    local command = 'call jobstart("konsole", {"cwd": "' .. current_dir .. '"})'
+    vim.api.nvim_command(command)
+end
+
 wk.mappings["sP"] = { "<cmd>Telescope projects<CR>", "Projects" }
-wk.mappings["gt"] = { "<cmd>call jobstart('konsole')<CR>", "Spawn new terminal" }
+wk.mappings["gt"] = { "<cmd>SpawnTerminal<CR>", "Spawn new terminal" }
 wk.mappings["t"] = {
   name = "+Toggle",
   h = { "<cmd>set list!<cr>", "hidden" },
