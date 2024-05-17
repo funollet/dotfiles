@@ -11,7 +11,6 @@ local naughty = require("naughty")
 -- Widget and layout library
 local wibox = require("wibox")
 -- widgets
-local menubar = require("menubar")
 local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Enable hotkeys help widget for VIM and other apps
 -- when client with a matching name is opened:
@@ -22,7 +21,6 @@ local hotkeys_popup = require("awful.hotkeys_popup").widget
 -- Themes define colours, icons, font and wallpapers.
 beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.font          = "sans 11"
-local titlebars_enabled = false
 -- This is used later as the default terminal and editor to run.
 terminal = "konsole"
 editor = os.getenv("EDITOR") or "vim"
@@ -116,31 +114,10 @@ local function client_menu_toggle_fn()
 end
 -- }}}
 
--- {{{ Menu
--- Create a launcher widget and a main menu
-myawesomemenu = {
-   { "hotkeys", function() return false, hotkeys_popup.show_help end},
-   { "manual", terminal .. " -e man awesome" },
-   { "edit config", editor_cmd .. " " .. awesome.conffile },
-   { "restart", awesome.restart },
-   { "quit", function() awesome.quit() end}
-}
-
-mymainmenu = awful.menu({ items = { { "awesome", myawesomemenu, beautiful.awesome_icon },
-                                    { "open terminal", terminal }
-                                  }
-                        })
-
-mylauncher = awful.widget.launcher({ image = beautiful.awesome_icon,
-                                     menu = mymainmenu })
-
--- Menubar configuration
-menubar.utils.terminal = terminal -- Set the terminal for applications that require it
--- }}}
 
 -- {{{ Wibar
 -- Create a textclock widget
---mytextclock = wibox.widget.textclock()
+local mytextclock = wibox.widget.textclock()
 
 -- Create a wibox for each screen and add it
 local taglist_buttons = gears.table.join(
@@ -185,30 +162,11 @@ local tasklist_buttons = gears.table.join(
                                               awful.client.focus.byidx(-1)
                                           end))
 
-local function set_wallpaper(s)
-    -- Wallpaper
-    if beautiful.wallpaper then
-        local wallpaper = beautiful.wallpaper
-        -- If wallpaper is a function, call it with the screen
-        if type(wallpaper) == "function" then
-            wallpaper = wallpaper(s)
-        end
-        gears.wallpaper.maximized(wallpaper, s, true)
-    end
-end
-
--- Re-set wallpaper when a screen's geometry changes (e.g. different resolution)
-screen.connect_signal("property::geometry", set_wallpaper)
-
 awful.screen.connect_for_each_screen(function(s)
-    -- Wallpaper
-    set_wallpaper(s)
 
     -- Each screen has its own tag table.
     awful.tag({ "1", "2", "3", "4", "5" }, s, awful.layout.layouts[1])
 
-    -- Create a promptbox for each screen
-    s.mypromptbox = awful.widget.prompt()
     -- Create an imagebox widget which will contain an icon indicating which layout we're using.
     -- We need one layoutbox per screen.
     s.mylayoutbox = awful.widget.layoutbox(s)
@@ -219,9 +177,6 @@ awful.screen.connect_for_each_screen(function(s)
                            awful.button({ }, 5, function () awful.layout.inc(-1) end)))
     -- Create a taglist widget
     s.mytaglist = awful.widget.taglist(s, awful.widget.taglist.filter.all, taglist_buttons)
-
-    -- Create a tasklist widget
-    s.mytasklist = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, tasklist_buttons)
 
     -- Create the wibox
     local half_screen =  screen.primary.geometry.width / 2
@@ -235,14 +190,11 @@ awful.screen.connect_for_each_screen(function(s)
             layout = wibox.layout.fixed.horizontal,
             s.mylayoutbox,
             s.mytaglist,
-            mylauncher,
-            s.mypromptbox,
         },
-        s.mytasklist, -- Middle widget
         { -- Right widgets
             layout = wibox.layout.fixed.horizontal,
             wibox.widget.systray(),
-            --mytextclock,
+            mytextclock,
         },
     }
 end)
@@ -283,50 +235,6 @@ client.connect_signal("manage", function (c, startup)
             awful.placement.no_overlap(c)
             awful.placement.no_offscreen(c)
         end
-    end
-
-    if titlebars_enabled and (c.type == "normal" or c.type == "dialog") then
-        -- buttons for the titlebar
-        local buttons = awful.util.table.join(
-                awful.button({ }, 1, function()
-                    client.focus = c
-                    c:raise()
-                    awful.mouse.client.move(c)
-                end),
-                awful.button({ }, 3, function()
-                    client.focus = c
-                    c:raise()
-                    awful.mouse.client.resize(c)
-                end)
-                )
-
-        -- Widgets that are aligned to the left
-        local left_layout = wibox.layout.fixed.horizontal()
-        left_layout:add(awful.titlebar.widget.iconwidget(c))
-        left_layout:buttons(buttons)
-
-        -- Widgets that are aligned to the right
-        local right_layout = wibox.layout.fixed.horizontal()
-        right_layout:add(awful.titlebar.widget.floatingbutton(c))
-        right_layout:add(awful.titlebar.widget.maximizedbutton(c))
-        right_layout:add(awful.titlebar.widget.stickybutton(c))
-        right_layout:add(awful.titlebar.widget.ontopbutton(c))
-        right_layout:add(awful.titlebar.widget.closebutton(c))
-
-        -- The title goes in the middle
-        local middle_layout = wibox.layout.flex.horizontal()
-        local title = awful.titlebar.widget.titlewidget(c)
-        title:set_align("center")
-        middle_layout:add(title)
-        middle_layout:buttons(buttons)
-
-        -- Now bring it all together
-        local layout = wibox.layout.align.horizontal()
-        layout:set_left(left_layout)
-        layout:set_right(right_layout)
-        layout:set_middle(middle_layout)
-
-        awful.titlebar(c):set_widget(layout)
     end
 end)
 
@@ -401,54 +309,12 @@ end
 globalkeys = awful.util.table.join(
     awful.key({ modkey,           }, "s",      hotkeys_popup.show_help,
               {description="show help", group="awesome"}),
-    -- Standard program
-    -- original spawn terminal: Ctrl-Alt-n
-    -- original krunner:        Alt-Space
-    awful.key({ modkey,           }, "Return",function () awful.util.spawn(terminal) end,
-              {description="Open a terminal", group="awesome"}),
-    awful.key({ modkey            }, "r",     function () awful.util.spawn("lxqt-runner") end,
-              {description="Run command", group="awesome"}),
-    --awful.key({ modkey },            "r",     function () awful.screen.focused().mypromptbox:run() end,
-    --          {description = "run prompt", group = "launcher"}),
-    awful.key({ modkey            }, "e",     function () awful.util.spawn("pcmanfm-qt") end),
-    --awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("i3lock -c 000000") end),
-    awful.key({ "Control", Alt_L  }, "l", function () awful.util.spawn("xscreensaver-command -lock") end),
     --
     awful.key({                   }, "F7", function () goto_client("Telegram") end),
     awful.key({                   }, "F8", function () goto_client("Slack") end),
     --awful.key({ }, "F9", function () awful.util.spawn("toggle-window.sh pidgin_conversation") end),
     --awful.key({ }, "F12", function () awful.util.spawn("toggle-window.sh pidgin_buddy_list") end),
-    -- volume control
-    awful.key({}, "XF86AudioRaiseVolume",     function()
-        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
-    awful.key({}, "XF86AudioLowerVolume",     function()
-        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
-    awful.key({}, "XF86AudioMute",            function()
-        awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
-    awful.key({ modkey            }, "Prior", function()
-        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ +3%") end),
-    awful.key({ modkey            }, "Next",  function()
-        awful.util.spawn("pactl set-sink-volume @DEFAULT_SINK@ -3%") end),
-    awful.key({ modkey            }, "m",     function()
-        awful.util.spawn("pactl set-sink-mute @DEFAULT_SINK@ toggle") end),
-    -- control spotify
-    awful.key({ modkey            }, "Insert", function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
-    awful.key({ modkey            }, "Home",  function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end),
-    awful.key({ modkey            }, "End",  function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end),
-    --
-    awful.key({}, "XF86AudioPlay",            function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause") end),
-    awful.key({}, "XF86AudioNext",            function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next") end),
-    awful.key({}, "XF86AudioPrev",            function()
-        awful.util.spawn("dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Previous") end),
-    ---- Brightness
-    awful.key({}, "XF86MonBrightnessDown", function () awful.util.spawn("light -U 15") end),
-    awful.key({}, "XF86MonBrightnessUp",   function () awful.util.spawn("light -A 15") end),
-    awful.key({ modkey,           }, "u", awful.client.urgent.jumpto,
+    awful.key({ modkey, "Shift"          }, "u", awful.client.urgent.jumpto,
               {description="Jump to 'urgent' client", group="awesome - tags"}),
     awful.key({ modkey, "Control" }, "r", awesome.restart,
             { description = "restart awesome", group = "awesome"}),
@@ -456,13 +322,24 @@ globalkeys = awful.util.table.join(
             { description = "quit awesome", group = "awesome"}),
 
 
-    awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
-    awful.key({ modkey,           }, "h",      awful.tag.viewprev       ,
+    -- awful.key({ modkey,           }, "Escape", awful.tag.history.restore),
+    awful.key({ modkey,           }, "u",      awful.tag.viewprev       ,
         { description = "(/l) view prev/next tag", group = "awesome - tags"}),
-    awful.key({ modkey,           }, "l",      awful.tag.viewnext       ),
+    awful.key({ modkey,           }, "i",      awful.tag.viewnext       ),
 
     -- Layout manipulation
     -- focus windows
+    awful.key({ modkey,           }, "h",
+        function ()
+            awful.client.focus.byidx( 1)
+            if client.focus then client.focus:raise() end
+        end,
+        { description = "focus next client", group = "awesome - client"}),
+    awful.key({ modkey,           }, "l",
+        function ()
+            awful.client.focus.byidx(-1)
+            if client.focus then client.focus:raise() end
+        end),
     awful.key({ modkey,           }, "j",
         function ()
             awful.client.focus.byidx( 1)
@@ -512,11 +389,11 @@ globalkeys = awful.util.table.join(
     --awful.key({ modkey, "Control" }, "l",     function () awful.tag.incncol(-1)         end),
 
     awful.key({ modkey,           }, "space",
-        function () awful.layout.inc( 1, client.focus.screen, layouts)
+        function () awful.layout.inc( 1, client.focus.screen, layouts) ; echo_layout()
         end,
         { description = "Next layout (Shift reverses)", group = "awesome - layout"}),
     awful.key({ modkey, "Shift"   }, "space",
-        function () awful.layout.inc(-1, client.focus.screen, layouts)
+        function () awful.layout.inc(-1, client.focus.screen, layouts) ; echo_layout()
         end),
 
     --awful.key({ modkey, "Control" }, "n", awful.client.restore),
@@ -728,4 +605,5 @@ awful.rules.rules = {
 
 
 -- autorun programs
-awful.util.spawn_with_shell("/home/jordif/bin/xkb.sh")
+awful.util.spawn_with_shell("xset s 1800 10 && xss-lock -n /usr/libexec/xsecurelock/dimmer -l -- xsecurelock")
+awful.util.spawn_with_shell("dex-autostart -a -eawesome -s ~/.config/autostart/")
