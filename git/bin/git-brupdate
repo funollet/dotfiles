@@ -1,0 +1,16 @@
+#!/bin/bash
+# git brupdate
+#
+# Update branch.
+
+set -eo pipefail
+
+# Could be main, or master, or an argument.
+ref="$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2)"
+[ -n "$1" ] && ref="$1"
+
+
+# FIX: if there are no changes and nothing is stashed but a stash already
+# exists, it will be popped.
+git stash push --include-untracked; git switch ${ref}; git pull --rebase
+git switch -; git rebase ${ref}; git stash pop --index
