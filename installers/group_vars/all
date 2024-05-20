@@ -145,6 +145,9 @@ rpm: [
   dex-autostart, rofi, ulauncher,
   polybar, volumeicon, udiskie, blueman,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
+
+  ### qtile
+  qtile, python3-dbus-next, xorg-x11-server-Xephyr,
   
   ### lxqt:
   "@lxqt",
@@ -158,3 +161,5 @@ rpm: [
   redir,                                # vagrant-lxc requirement
   VirtualBox, kmod-VirtualBox,
   ]
+
+# vim:ft=config

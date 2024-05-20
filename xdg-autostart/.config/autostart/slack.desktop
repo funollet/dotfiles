@@ -5,3 +5,4 @@ Exec=flatpak run com.slack.Slack
 Icon=slack
 Type=Application
 Categories=Network;InstantMessaging;
+NotShowIn=qtile

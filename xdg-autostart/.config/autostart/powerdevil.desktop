@@ -52,7 +52,7 @@ Name[zh_CN]=电源管理
 Name[zh_TW]=電源管理
 Exec=/usr/libexec/org_kde_powerdevil
 NoDisplay=true
-OnlyShowIn=KDE;i3;
+OnlyShowIn=KDE;i3;qtile;
 X-systemd-skip=true
 X-KDE-autostart-phase=0
 

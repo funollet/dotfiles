@@ -4,7 +4,7 @@ Version=1.0
 Name=Power Management
 TryExec=lxqt-powermanagement
 Exec=lxqt-powermanagement
-OnlyShowIn=LXQt;i3;
+OnlyShowIn=LXQt;i3;qtile;
 X-LXQt-Need-Tray=true
 X-LXQt-Module=true
 

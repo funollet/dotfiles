@@ -8,4 +8,4 @@ Exec=env GDK_BACKEND=x11 /usr/bin/ulauncher --hide-window
 Icon=ulauncher
 Terminal=false
 Type=Application
-OnlyShowIn=i3;awesome;
+OnlyShowIn=i3;qtile;awesome;

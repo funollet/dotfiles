@@ -2,3 +2,4 @@
 Type=Application
 Name=telegram
 Exec=flatpak run org.telegram.desktop
+NotShowIn=qtile

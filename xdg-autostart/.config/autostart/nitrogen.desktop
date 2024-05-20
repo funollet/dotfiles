@@ -2,4 +2,4 @@
 Type=Application
 Name=nitrogen
 Exec=nitrogen --restore
-OnlyShowIn=i3;awesomewm;
+OnlyShowIn=i3;qtile;awesomewm;

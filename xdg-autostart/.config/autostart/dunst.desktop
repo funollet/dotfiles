@@ -2,4 +2,4 @@
 Type=Application
 Name=dunst
 Exec=dunst
-OnlyShowIn=i3;
+OnlyShowIn=i3;qtile;

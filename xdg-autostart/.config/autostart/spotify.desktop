@@ -2,3 +2,4 @@
 Type=Application
 Name=spotify
 Exec=flatpak run com.spotify.Client
+NotShowIn=qtile
