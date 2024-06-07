@@ -12,11 +12,11 @@ super + p ; {Prior, Next}
   playerctl -p spotify {play-pause,next,previous}
 
 {XF86AudioRaiseVolume,XF86AudioLowerVolume}
-  pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
+  volume-osd.sh --step 3 {up,down}
 super + {Prior,Next}
-  pactl set-sink-volume @DEFAULT_SINK@ {+,-}3%
+  volume-osd.sh --step 3 {up,down}
 {super+m, XF86AudioMute}
-  pactl set-sink-mute @DEFAULT_SINK@ toggle
+  volume-osd.sh mute
 
 # F17 on ergodox
 XF86Launch8

@@ -27,6 +27,9 @@ install: _amber _docker-buildx _lazycomplete _fonts-hack _kubefwd _wally (_wally
   @just _bin-install https://github.com/kmonad/kmonad
   @just _bin-install https://github.com/google/go-containerregistry
 
+_docopts:
+  wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh
+  bin install https://github.com/docopt/docopts
 
 _amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
     #!/usr/bin/env bash
