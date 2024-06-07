@@ -4,7 +4,7 @@
     "disable-desktop-filters": false,
     "grab-mouse-pointer": false,
     "hotkey-show-app": "<Primary><Shift><Alt>less",
-    "render-on-screen": "default-monitor",
+    "render-on-screen": "mouse-pointer-monitor",
     "show-indicator-icon": true,
     "show-recent-apps": "2",
     "terminal-command": "",

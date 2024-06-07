@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=powermate
-Exec=/home/jordif/code/powermater/powermate.sh
+Exec=bash -c "$HOME/code/powermater/powermate-led-off ; sudo pkill --oldest -u root -f 'evtest.*PowerMate'; sleep 0.2 ; $HOME/code/powermater/powermate.sh"
