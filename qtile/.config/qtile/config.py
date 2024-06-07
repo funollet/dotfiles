@@ -26,13 +26,59 @@
 
 from libqtile import bar, layout, widget, qtile, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen, ScratchPad, DropDown
+# from libqtile.config import EzKey as Key
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
-import os
+from libqtile.log_utils import logger
+from pathlib import Path
 import subprocess
 
 mod = "mod4"
 terminal = guess_terminal()
+
+colors = {
+        'white':    '#ffffff',
+        'red':      'ff0000',
+        'yellow':   'c18f41',
+        'grey':     '404040',
+        }
+
+
+def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
+    i = qtile.screens.index(qtile.current_screen)
+    if i + 1 != len(qtile.screens):
+        dest_idx = i + 1
+    else:
+        dest_idx = 0
+    group = qtile.screens[dest_idx].group.name
+    qtile.current_window.togroup(group, switch_group=switch_group)
+    if switch_screen == True:
+        qtile.to_screen(dest_idx)
+
+
+@lazy.function
+def prev_group_or_stay(qtile):
+    current_index = qtile.groups.index(qtile.current_group)
+    if current_index > 0:
+        qtile.current_screen.prev_group(skip_empty=True)
+
+
+@lazy.function
+def next_group_or_stay(qtile):
+    current_index = qtile.groups.index(qtile.current_group)
+    last_index = len(groups) - 2        # ScratchPad does not count
+    if current_index < last_index:
+        qtile.current_screen.next_group(skip_empty=True)
+
+
+@lazy.function
+def float_to_front(qtile):
+    lazy.window.toggle_floating()
+    # logger.warning("bring floating windows to front")
+    for window in qtile.current_group.windows:
+        if window.floating:
+            window.cmd_bring_to_front()
+
 
 keys = [
     # A list of available commands that can be bound to keys can be found
@@ -61,6 +107,13 @@ keys = [
     Key([mod, "control"], "m", lazy.layout.maximize(), desc="Maximize"),
     Key([mod], "n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
+    Key([mod], "u", prev_group_or_stay, desc="Switch to previous group"),
+    Key([mod], "i", next_group_or_stay, desc="Switch to next group"),
+    Key([mod, "control"], "u", lazy.function(lambda q: move_window_to_group(-1)), desc="Move window to previous group"),
+    Key([mod, "control"], "i", lazy.function(lambda q: move_window_to_group(1)), desc="Move window to next group"),
+
+    Key([mod], "o", lazy.next_screen(), desc='Next monitor'),
+    Key([mod, "control"], "o", lazy.function(window_to_next_screen, switch_screen=True), desc='Move window to next monitor'),
     # # Grow windows. If current window is on the edge of screen and direction
     # # will be to screen edge - window would shrink.
     # Key([mod, "control"], "h", lazy.layout.grow_left(), desc="Grow window to the left"),
@@ -79,25 +132,20 @@ keys = [
     #     lazy.layout.toggle_split(),
     #     desc="Toggle between split and unsplit sides of stack",
     # ),
-    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    
     # Toggle between different layouts as defined below
     Key([mod], "Tab", lazy.next_layout(), desc="Toggle between layouts"),
-    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod], "f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
     Key([mod], "t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
 
+    Key([mod], "q", lazy.window.kill(), desc="Kill focused window"),
     Key([mod, "control"], "r", lazy.reload_config(), desc="Reload the config"),
     Key([mod, "control"], "q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key([mod], "r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
-    Key([mod, "shift"], "a", lazy.spawn("autorandr 2"), desc="Call autorandr"),
     Key([mod, "mod1", "shift", ], "r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 
-    Key([mod], "u", lazy.screen.prev_group(), desc="Switch to previous group "),
-    Key([mod], "i", lazy.screen.next_group(), desc="Switch to next group"),
-    Key([mod, "control"], "u", lazy.function(lambda q: move_window_to_group(-1)), desc="Move window to previous group"),
-    Key([mod, "control"], "i", lazy.function(lambda q: move_window_to_group(1)), desc="Move window to next group"),
-
-    Key([mod], "o", lazy.next_screen(), desc='Next monitor'),
+    Key([mod], "Return", lazy.spawn(terminal), desc="Launch terminal"),
+    Key([mod, "shift"], "a", lazy.spawn("autorandr 1"), desc="Call autorandr"),
+    Key([mod], "r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
 ]
 
 
@@ -109,7 +157,7 @@ for i in groups:
         Key(
             [mod],
             i.name,
-            lazy.group[i.name].toscreen(),
+            lazy.screen.toggle_group(i.name),
             desc="Switch to group {}".format(i.name),
         ),
         # mod1 + shift + letter of group = switch to & move focused window to group
@@ -142,21 +190,19 @@ keys += [
     Key([], "f9", lazy.group['scratchpad'].dropdown_toggle('spotify'), desc="Toggle spotify"),
 ]
 
+layout_defaults = {
+        "border_focus": colors["yellow"],
+        }
+
 layouts = [
-    layout.MonadTall(),
-    layout.Max(),
-    # layout.Columns(border_focus_stack=["#d75f5f", "#8f3d3d"], border_width=4),
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    layout.VerticalTile(),
-    # layout.Zoomy(),
+    layout.MonadTall(**layout_defaults),
+    layout.Max(**layout_defaults),
+    layout.VerticalTile(**layout_defaults),
 ]
 
+layout_defaults = {
+        "border_focus": colors["yellow"],
+        }
 widget_defaults = dict(
     font="sans",
     fontsize=12,
@@ -169,19 +215,27 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
-                widget.GroupBox(),
+                widget.Spacer(length=10),
                 widget.Prompt(),
                 widget.Chord(
                     chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
+                        "launch": (colors["red"], colors["white"]),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
-                widget.Spacer(),
+                widget.Spacer(length=10),
                 widget.Systray(),
                 widget.Spacer(),
-                widget.Clock(format="%a %I:%M"),
-                widget.QuickExit(),
+                widget.GroupBox(
+                    highlight_method='line',
+                    this_current_screen_border=colors["yellow"],
+                    ),
+                widget.Spacer(),
+                widget.Clock(
+                    format="%I:%M",
+                    fontsize=16,
+                    foreground=colors['white'],
+                    ),
             ],
             24,
         ),
@@ -190,15 +244,20 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
-                widget.GroupBox(),
+                widget.Spacer(length=10),
                 widget.Chord(
                     chords_colors={
-                        "launch": ("#ff0000", "#ffffff"),
+                        "launch": (colors["red"], colors["white"]),
                     },
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Spacer(),
-                widget.Clock(format="%a %I:%M"),
+                widget.GroupBox(
+                    highlight_method='line',
+                    this_current_screen_border=colors["yellow"],
+                    ),
+                widget.Spacer(),
+                widget.Clock(format="%I:%M", fontsize=16),
             ],
             24,
         ),
@@ -257,7 +316,7 @@ wmname = "LG3D"
 
 @hook.subscribe.startup_once
 def autostart():
-    home = os.path.expanduser('~/.config/qtile/autostart.sh')
+    home = Path('~/.config/qtile/autostart.sh').expanduser()
     subprocess.Popen([home])
 
 
@@ -270,5 +329,3 @@ def move_window_to_group(direction):
 
     if qtile.current_window:
         qtile.current_window.togroup(target_group, switch_group=True)
-
-
