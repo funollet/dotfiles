@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-OnlyShowIn=i3
-Name=sxhkd
-Exec=/usr/bin/sxhkd -c /home/jordif/.config/sxhkd/sxhkdrc.common /home/jordif/.config/sxhkd/sxhkdrc.i3

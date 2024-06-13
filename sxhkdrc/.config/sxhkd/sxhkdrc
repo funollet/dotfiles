@@ -6,7 +6,7 @@ super + p ; {k, space, super+p}
 super + p ; {j,l}
   playerctl -p spotify {previous,next}
 super + p ; {Prior, Next}
-  playerctl -p spotify {previous,next,play-pause,play-pause}
+  playerctl -p spotify {previous,next}
 
 {XF86AudioPlay,XF86AudioNext,XF86AudioPrev}
   playerctl -p spotify {play-pause,next,previous}
@@ -53,6 +53,14 @@ super + Escape
 ctrl + alt + l
   xset s activate
 
+
+
+# only for i3 window-manager
+{F6,F7,F8,F9}
+  i3-msg '[class="{discord,Telegram,Slack,Spotify}"] scratchpad show'
+
+super + p ; p
+  i3-msg '[class="Spotify"] scratchpad show'
 
 
 ## mouse #######################################################################

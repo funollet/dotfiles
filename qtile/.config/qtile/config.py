@@ -1,5 +1,6 @@
 from libqtile import bar, layout, widget, qtile, hook
 from libqtile.config import EzKey as Key, EzClick as Click, EzDrag as Drag, Group, Match, Screen, ScratchPad, DropDown
+from libqtile.config import EzKeyChord as KeyChord
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 from libqtile.log_utils import logger
@@ -122,10 +123,6 @@ keys = [
     Key("M-C-r", lazy.reload_config(), desc="Reload the config"),
     Key("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key("M-A-S-r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-
-    Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
-    Key("M-S-a", lazy.spawn("autorandr 1"), desc="Call autorandr"),
-    Key("M-r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
 ]
 
 groups = [Group(i) for i in "123456789"]
@@ -139,10 +136,10 @@ for i in groups:
     ]
 
 groups.append(ScratchPad('scratchpad', [
-    DropDown('slack', 'flatpak run com.slack.Slack',
-             match=Match(wm_class=['Slack']),
-             width=0.8, height=0.95, x=0.1, y=0.025,
-             on_focus_lost_hide=False),
+    # DropDown('slack', 'flatpak run com.slack.Slack',
+    #          match=Match(wm_class=['Slack']),
+    #          width=0.8, height=0.95, x=0.1, y=0.025,
+    #          on_focus_lost_hide=False),
     DropDown('telegram', 'flatpak run org.telegram.desktop',
              match=Match(wm_class=["telegram-desktop", "TelegramDesktop"]),
              width=0.8, height=1.0,
@@ -152,12 +149,6 @@ groups.append(ScratchPad('scratchpad', [
              width=1.0, height=1.0, x=0, y=0,
              on_focus_lost_hide=False),
 ]))
-
-keys += [
-    Key("<f7>", lazy.group['scratchpad'].dropdown_toggle('telegram'), desc="Toggle telegram"),
-    Key("<f8>", lazy.group['scratchpad'].dropdown_toggle('slack'), desc="Toggle slack"),
-    Key("<f9>", lazy.group['scratchpad'].dropdown_toggle('spotify'), desc="Toggle spotify"),
-]
 
 layout_defaults = {
     "border_focus": colors["yellow"],
@@ -230,11 +221,15 @@ screens = [
     ),
 ]
 
-# Drag floating layouts.
 mouse = [
+    # Drag floating layouts.
     Drag("M-Mouse-1", lazy.window.set_position_floating(), start=lazy.window.get_position()),
     Drag("M-Mouse-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    # Bring window to front.
     Click("M-Mouse-2", lazy.window.bring_to_front()),
+    # horizontal scroll or wheel mouse left/right click
+    Click("Mouse-6", prev_group_or_stay),
+    Click("Mouse-7", next_group_or_stay),
 ]
 
 dgroups_key_binder = None
@@ -284,3 +279,48 @@ wmname = "LG3D"
 def autostart():
     script = Path('~/.config/qtile/autostart.sh').expanduser()
     subprocess.Popen([script])
+
+
+
+
+keys += [
+    Key("<f7>", lazy.group['scratchpad'].dropdown_toggle('telegram'), desc="Toggle telegram"),
+    Key("<f8>", lazy.group['scratchpad'].dropdown_toggle('slack'), desc="Toggle slack"),
+    Key("<f9>", lazy.group['scratchpad'].dropdown_toggle('spotify'), desc="Toggle spotify"),
+
+    Key("<f1>", lazy.spawn("mute-meet.sh"), desc="Mute/unmute video call"),
+    Key("<XF86Launch8>", lazy.spawn("firefox-detach-window.sh"), desc="Detach tab on firefox"),
+    Key("<XF86Launch7>", lazy.spawn("copypaster copy"), desc="Custom copy"),
+    Key("<XF86Launch6>", lazy.spawn("copypaster paste"), desc="Custom paste"),
+
+    Key("<XF86AudioRaiseVolume>", lazy.spawn("volume-osd.sh --step 3 up"), desc="Raise volume"),
+    Key("<XF86AudioLowerVolume>", lazy.spawn("volume-osd.sh --step 3 down"), desc="Lower volume"),
+    Key("<XF86AudioMute>", lazy.spawn("volume-osd.sh mute"), desc="Mute volume"),
+    Key("M-<Prior>", lazy.spawn("volume-osd.sh --step 3 up"), desc="Raise volume"),
+    Key("M-<Next>", lazy.spawn("volume-osd.sh --step 3 down"), desc="Lower volume"),
+    Key("M-m", lazy.spawn("volume-osd.sh mute"), desc="Mute volume"),
+
+    Key("<XF86AudioPlay>", lazy.spawn('playerctl -p spotify play-pause'), lazy.spawn('notify-send -t 3000 "Spotify: toggle-play"')),
+    Key("<XF86AudioNext>", lazy.spawn('playerctl -p spotify next')),
+    Key("<XF86AudioPrev>", lazy.spawn('playerctl -p spotify previous')),
+    KeyChord("M-p",
+        [
+            Key("k", lazy.spawn('playerctl -p spotify play-pause'), lazy.spawn('notify-send -t 3000 "Spotify: toggle-play"')),
+            Key("<space>", lazy.spawn('playerctl -p spotify play-pause'), lazy.spawn('notify-send -t 3000 "Spotify: toggle-play"')),
+            Key("j", lazy.spawn('playerctl -p spotify previous')),
+            Key("l", lazy.spawn('playerctl -p spotify next')),
+            Key("<Prior>", lazy.spawn('playerctl -p spotify previous')),
+            Key("<Next>", lazy.spawn('playerctl -p spotify next')),
+        ],
+    ),
+    Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
+    Key("M-S-a", lazy.spawn("autorandr 1"), desc="Call autorandr"),
+    Key("M-r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
+    Key("M-<Escape>", lazy.spawn("ulauncher-toggle"), lazy.spawn("xdotool sleep 0.2 type --clearmodifiers 'sm '"),
+        desc="Call ulauncher plugin for logout, reboot, etc."),
+    Key("C-A-l", lazy.spawn("xset s activate"), desc="Activate screensaver"),
+    Key("M-y", lazy.spawn("dolphin"), desc="Call dolphin"),
+    Key("<Print>", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
+    Key("<XF86MonBrightnessDown>", lazy.spawn("light -U 15"), desc="Decrease screen brightness"),
+    Key("<XF86MonBrightnessUp>", lazy.spawn("light -A 15"), desc="Increase screen brightness"),
+]

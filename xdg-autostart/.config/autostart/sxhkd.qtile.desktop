@@ -1,5 +1,0 @@
-[Desktop Entry]
-Type=Application
-OnlyShowIn=qtile
-Name=sxhkd
-Exec=/usr/bin/sxhkd -c /home/jordif/.config/sxhkd/sxhkdrc.common
