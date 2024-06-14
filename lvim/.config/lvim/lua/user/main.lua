@@ -78,6 +78,7 @@ lvim.plugins = {
       -- vim.keymap.set('n', 'gs', '<Plug>(leap-from-window)')
     end,
   },
+  { "freitass/todo.txt-vim" },
   -- {
   --   "nvim-telescope/telescope-project.nvim",
   --   event = "BufWinEnter",
