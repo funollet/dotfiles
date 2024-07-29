@@ -73,18 +73,19 @@ keys = [
 
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
-    Key("M-S-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key("M-S-l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key("M-S-j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key("M-S-k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key("M-C-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key("M-C-l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key("M-C-j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key("M-C-k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key("M-C-<Return>", lazy.layout.swap_main(), desc="Swap window to main partition"),
 
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    # Key([mod, "control"], "h", lazy.layout.shrink_main(), desc="Grow window to the left"),
-    # Key([mod, "control"], "l", lazy.layout.grow_main(), desc="Grow window to the right"),
-    Key("M-C-j", lazy.layout.grow(), desc="Grow window"),
-    Key("M-C-k", lazy.layout.shrink(), desc="Shrink window"),
-    Key("M-C-m", lazy.layout.maximize(), desc="Maximize"),
+    Key("M-C-S-h", lazy.layout.shrink_main(), desc="Shrink main window"),
+    Key("M-C-S-l", lazy.layout.grow_main(), desc="Grow main window"),
+    Key("M-C-S-j", lazy.layout.grow(), desc="Grow window"),
+    Key("M-C-S-k", lazy.layout.shrink(), desc="Shrink window"),
+    # Key("M-C-m", lazy.layout.maximize(), desc="Maximize"),
     Key("M-n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
     # Group navigation
@@ -120,8 +121,8 @@ keys = [
     Key("M-t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
 
     Key("M-q", lazy.window.kill(), desc="Kill focused window"),
-    Key("M-C-r", lazy.reload_config(), desc="Reload the config"),
-    Key("M-C-q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key("M-A-r", lazy.reload_config(), desc="Reload the config"),
+    Key("M-A-q", lazy.shutdown(), desc="Shutdown Qtile"),
     Key("M-A-S-r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
@@ -293,12 +294,12 @@ keys += [
     Key("<XF86Launch7>", lazy.spawn("copypaster copy"), desc="Custom copy"),
     Key("<XF86Launch6>", lazy.spawn("copypaster paste"), desc="Custom paste"),
 
-    Key("<XF86AudioRaiseVolume>", lazy.spawn("volume-osd.sh --step 3 up"), desc="Raise volume"),
-    Key("<XF86AudioLowerVolume>", lazy.spawn("volume-osd.sh --step 3 down"), desc="Lower volume"),
-    Key("<XF86AudioMute>", lazy.spawn("volume-osd.sh mute"), desc="Mute volume"),
-    Key("M-<Prior>", lazy.spawn("volume-osd.sh --step 3 up"), desc="Raise volume"),
-    Key("M-<Next>", lazy.spawn("volume-osd.sh --step 3 down"), desc="Lower volume"),
-    Key("M-m", lazy.spawn("volume-osd.sh mute"), desc="Mute volume"),
+    Key("<XF86AudioRaiseVolume>", lazy.spawn("volume-notify --step 3 up"), desc="Raise volume"),
+    Key("<XF86AudioLowerVolume>", lazy.spawn("volume-notify --step 3 down"), desc="Lower volume"),
+    Key("<XF86AudioMute>", lazy.spawn("volume-notify mute"), desc="Mute volume"),
+    Key("M-<Prior>", lazy.spawn("volume-notify --step 3 up"), desc="Raise volume"),
+    Key("M-<Next>", lazy.spawn("volume-notify --step 3 down"), desc="Lower volume"),
+    Key("M-m", lazy.spawn("volume-notify mute"), desc="Mute volume"),
 
     Key("<XF86AudioPlay>", lazy.spawn('playerctl -p spotify play-pause'), lazy.spawn('notify-send -t 3000 "Spotify: toggle-play"')),
     Key("<XF86AudioNext>", lazy.spawn('playerctl -p spotify next')),
