@@ -1,11 +1,16 @@
-from libqtile import bar, layout, widget, qtile, hook
-from libqtile.config import EzKey as Key, EzClick as Click, EzDrag as Drag, Group, Match, Screen, ScratchPad, DropDown
-from libqtile.config import EzKeyChord as KeyChord
-from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
-from libqtile.log_utils import logger
-from pathlib import Path
 import subprocess
+from pathlib import Path
+
+from libqtile import bar, hook, layout, qtile, widget
+from libqtile.config import DropDown
+from libqtile.config import EzClick as Click
+from libqtile.config import EzDrag as Drag
+from libqtile.config import EzKey as Key
+from libqtile.config import EzKeyChord as KeyChord
+from libqtile.config import Group, Match, ScratchPad, Screen
+from libqtile.lazy import lazy
+from libqtile.log_utils import logger
+from libqtile.utils import guess_terminal
 
 mod = "mod4"
 terminal = guess_terminal()
@@ -85,10 +90,9 @@ keys = [
     Key("M-C-S-l", lazy.layout.grow_main(), desc="Grow main window"),
     Key("M-C-S-j", lazy.layout.grow(), desc="Grow window"),
     Key("M-C-S-k", lazy.layout.shrink(), desc="Shrink window"),
-    # Key("M-C-m", lazy.layout.maximize(), desc="Maximize"),
-    Key("M-n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key("M-C-S-n", lazy.layout.normalize(), desc="Reset all window sizes"),
 
-    # Group navigation
+    # Group management.
     Key("M-u", prev_group_or_stay, desc="Switch to previous group"),
     Key("M-i", next_group_or_stay, desc="Switch to next group"),
     Key("M-C-u", lazy.function(lambda q: move_window_to_group(-1)), desc="Move window to previous group"),
@@ -97,29 +101,12 @@ keys = [
     Key("M-o", lazy.next_screen(), desc='Next monitor'),
     Key("M-C-o", lazy.function(window_to_next_screen, switch_screen=True), desc='Move window to next monitor'),
 
-    # # Grow windows. If current window is on the edge of screen and direction
-    # # will be to screen edge - window would shrink.
-    # Key([mod, "control"], "M-C-h", lazy.layout.grow_left(), desc="Grow window to the left"),
-    # Key([mod, "control"], "M-C-l", lazy.layout.grow_right(), desc="Grow window to the right"),
-    # Key([mod, "control"], "M-C-j", lazy.layout.grow_down(), desc="Grow window down"),
-    # Key([mod, "control"], "M-C-k", lazy.layout.grow_up(), desc="Grow window up"),
-    # Key([mod], "M-C-n", lazy.layout.normalize(), desc="Reset all window sizes"),
- 
-    # Toggle between split and unsplit sides of stack.
-    # Split = all windows displayed
-    # Unsplit = 1 window displayed, like Max layout, but still with
-    # multiple stack panes
-    # Key(
-    #     "M-S-<Return>",
-    #     lazy.layout.toggle_split(),
-    #     desc="Toggle between split and unsplit sides of stack",
-    # ),
-
-    # Layout management
+    # Layout management.
     Key("M-<Tab>", lazy.next_layout(), desc="Toggle between layouts"),
     Key("M-f", lazy.window.toggle_fullscreen(), desc="Toggle fullscreen on the focused window"),
     Key("M-t", lazy.window.toggle_floating(), desc="Toggle floating on the focused window"),
 
+    # Qtile management.
     Key("M-q", lazy.window.kill(), desc="Kill focused window"),
     Key("M-A-r", lazy.reload_config(), desc="Reload the config"),
     Key("M-A-q", lazy.shutdown(), desc="Shutdown Qtile"),
@@ -158,7 +145,7 @@ layout_defaults = {
 layouts = [
     layout.MonadTall(**layout_defaults),
     layout.Max(**layout_defaults),
-    layout.VerticalTile(**layout_defaults),
+    layout.MonadWide(**layout_defaults),
 ]
 
 widget_defaults = dict(
@@ -317,7 +304,8 @@ keys += [
     Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
     Key("M-S-a", lazy.spawn("autorandr 1"), desc="Call autorandr"),
     Key("M-r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
-    Key("M-<Escape>", lazy.spawn("ulauncher-toggle"), lazy.spawn("xdotool sleep 0.2 type --clearmodifiers 'sm '"),
+    Key("M-<Escape>", lazy.spawn("ulauncher-toggle"),
+        lazy.spawn("xdotool sleep 0.2 type --clearmodifiers 'sm '"),
         desc="Call ulauncher plugin for logout, reboot, etc."),
     Key("C-A-l", lazy.spawn("xset s activate"), desc="Activate screensaver"),
     Key("M-y", lazy.spawn("dolphin"), desc="Call dolphin"),
