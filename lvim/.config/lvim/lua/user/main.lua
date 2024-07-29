@@ -1,6 +1,6 @@
 -- general
 lvim.log.level = "warn"
-lvim.format_on_save.enabled = false
+lvim.format_on_save.enabled = true
 
 -- Fold with treesitter.
 vim.opt.foldmethod = "expr"
@@ -70,9 +70,9 @@ lvim.plugins = {
     name = "leap",
     config = function()
       -- require("leap").add_default_mappings()
-      vim.keymap.set({'n', 'x', 'o'}, 's',  '<Plug>(leap-forward)')
-      vim.keymap.set({'n', 'x', 'o'}, 'S',  '<Plug>(leap-backward)')
-      vim.keymap.set({'n', 'x', 'o'}, 'gs', '<Plug>(leap-from-window)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 's', '<Plug>(leap-forward)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'S', '<Plug>(leap-backward)')
+      vim.keymap.set({ 'n', 'x', 'o' }, 'gs', '<Plug>(leap-from-window)')
       -- vim.keymap.set('n', 's',  '<Plug>(leap-forward)')
       -- vim.keymap.set('n', 'S',  '<Plug>(leap-backward)')
       -- vim.keymap.set('n', 'gs', '<Plug>(leap-from-window)')
@@ -89,8 +89,8 @@ lvim.plugins = {
   -- {
   --   "mrjones2014/nvim-ts-rainbow",
   -- },
-    -- {
-    --   "folke/trouble.nvim",
-    --   cmd = "TroubleToggle",
-    -- },
+  -- {
+  --   "folke/trouble.nvim",
+  --   cmd = "TroubleToggle",
+  -- },
 }

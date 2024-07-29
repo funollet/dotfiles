@@ -72,4 +72,3 @@ formatters.setup {
 --     filetypes = { "javascript", "python" },
 --   },
 -- }
-

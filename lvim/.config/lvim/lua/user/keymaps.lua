@@ -63,10 +63,10 @@ vim.cmd [[
 ]]
 
 function SpawnTerminal()
-    -- Spawn a new terminal in the directory of the current file
-    local current_dir = vim.fn.expand('%:p:h')
-    local command = 'call jobstart("konsole", {"cwd": "' .. current_dir .. '"})'
-    vim.api.nvim_command(command)
+  -- Spawn a new terminal in the directory of the current file
+  local current_dir = vim.fn.expand('%:p:h')
+  local command = 'call jobstart("konsole", {"cwd": "' .. current_dir .. '"})'
+  vim.api.nvim_command(command)
 end
 
 wk.mappings["sP"] = { "<cmd>Telescope projects<CR>", "Projects" }
@@ -75,8 +75,9 @@ wk.mappings["t"] = {
   name = "+Toggle",
   h = { "<cmd>set list!<cr>", "hidden" },
   i = { "<cmd>IlluminateToggle<cr>", "illuminate" },
-  c = { "<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "cmp disable"},
-  d = { "<cmd>lua if vim.diagnostic.is_disabled(0) then vim.diagnostic.enable(0) else vim.diagnostic.disable(0) end<cr>", "diagnostics" },
+  c = { "<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "cmp disable" },
+  d = { "<cmd>lua if vim.diagnostic.is_disabled(0) then vim.diagnostic.enable(0) else vim.diagnostic.disable(0) end<cr>",
+    "diagnostics" },
 }
 wk.mappings['T'] = {}
 -- wk.mappings["t"] = {
@@ -88,3 +89,15 @@ wk.mappings['T'] = {}
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 -- }
+
+local ls = require("luasnip")
+
+-- vim.keymap.set({ "i" }, "<C-K>", function() ls.expand() end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-x>", function() ls.jump(1) end, { silent = true })
+vim.keymap.set({ "i", "s" }, "<C-a>", function() ls.jump(-1) end, { silent = true })
+
+vim.keymap.set({ "i", "s" }, "<C-E>", function()
+  if ls.choice_active() then
+    ls.change_choice(1)
+  end
+end, { silent = true })
