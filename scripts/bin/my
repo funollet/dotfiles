@@ -84,7 +84,7 @@ dock:
   sudo systemctl restart chronyd.service
   ~/code/powermater/powermate-led-off
   dex-autostart ~/.config/autostart/powermate.desktop
-  autorandr -f 1
+  autorandr -f 01
 
 # tweaks before undocking the laptop
 undock:
