@@ -119,7 +119,7 @@ for i in groups:
     keys += [
         Key(f"M-{i.name}", lazy.screen.toggle_group(i.name),
             desc=f"Switch to group {i.name}"),
-        Key(f"M-S-{i.name}", lazy.window.togroup(i.name, switch_group=True),
+        Key(f"M-C-{i.name}", lazy.window.togroup(i.name, switch_group=True),
             desc=f"Switch to & move focused window to group {i.name}"),
     ]
 
