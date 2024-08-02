@@ -51,7 +51,7 @@ rpm: [
   rubygem-pry, rubygem-pry-doc, rubygem-rspec, rubygem-rspec-mocks,
   rubygem-rspec-mocks-doc,
   # Golang devel.
-  golang,
+  golang, golang-x-tools-goimports,
   # rust devel
   cargo, libbsd-devel,
   #
@@ -75,7 +75,7 @@ rpm: [
   kernel-modules-extra, kernel-headers, kernel-devel, dkms,
   # Xwindows
   joystick-support, wmctrl, xdotool, qgnomeplatform,
-  xkbset, xbindkeys, xset,
+  xkbset, xbindkeys, xset, xosd,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
   redshift,
