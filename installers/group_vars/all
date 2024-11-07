@@ -69,7 +69,7 @@ rpm: [
   ### unix_essentials:
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff, diff-so-fancy,
   the_silver_searcher, fd-find, ncdu, bat, eza, gron, jo, lsd, trash-cli, sd,
-  highlight,
+  highlight, unison,
   
   ### workstation:
   kernel-modules-extra, kernel-headers, kernel-devel, dkms,

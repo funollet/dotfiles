@@ -6,17 +6,8 @@
   loop:
     - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     - fedora-workstation-repositories
-    # - "http://www.percona.com/downloads/percona-release/redhat/0.1-6/percona-release-0.1-6.noarch.rpm"
+    - "https://download.opensuse.org/repositories/Archiving:/unison/Fedora_40/"
   tags: [rpm, rpm-repo]
-
-# - name: enable copr for interception-tools
-#   community.general.copr:
-#     # host: copr.fedorainfracloud.org
-#     state: enabled
-#     name: fszymanski/interception-tools
-#   become: true
-#   tags: [rpm, rpm-repo]
-
 
 # - replace:
 #     path: /etc/yum.repos.d/percona-release.repo
