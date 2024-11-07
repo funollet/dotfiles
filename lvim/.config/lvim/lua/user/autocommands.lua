@@ -1,5 +1,9 @@
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 --
+vim.api.nvim_create_autocmd("BufEnter", {
+  pattern = { "*.tfstate", "*.tfstate.backup" },
+  command = "set ft=json",
+})
 -- vim.api.nvim_create_autocmd("BufEnter", {
 --   pattern = { "Jenkinsfile", "Jenkinsfile.*" },
 --   command = "set ft=groovy",
@@ -16,4 +20,3 @@
 --     require("nvim-treesitter.highlight").attach(0, "bash")
 --   end,
 -- })
-

@@ -33,6 +33,9 @@ lvim.keys.normal_mode["<c-l>"] = "<c-w>l"
 lvim.keys.normal_mode["<C-a>"] = "<Nop>"
 lvim.keys.normal_mode["<C-x>"] = "<Nop>"
 
+-- move text up/down
+lvim.keys.visual_mode["<A-j>"] = "<Esc>:m .+1<CR>=="
+lvim.keys.visual_mode["<A-k>"] = "<Esc>:m .-2<CR>=="
 
 -- Change Telescope navigation to use j and k for navigation and n and p for history in both input and normal mode.
 -- we use protected-mode (pcall) just in case the plugin wasn't loaded yet.
@@ -69,8 +72,20 @@ function SpawnTerminal()
   vim.api.nvim_command(command)
 end
 
+-- Function to toggle Diffview
+function _G.toggle_diffview()
+  local lib = require('diffview.lib')
+  local view = lib.get_current_view()
+  if view then
+    vim.cmd('DiffviewClose') -- Close Diffview if it's open
+  else
+    vim.cmd('DiffviewOpen')  -- Open Diffview if it's not open
+  end
+end
+
 wk.mappings["sP"] = { "<cmd>Telescope projects<CR>", "Projects" }
 wk.mappings["gt"] = { "<cmd>SpawnTerminal<CR>", "Spawn new terminal" }
+wk.mappings["gv"] = { "<cmd>lua toggle_diffview()<CR>", "Toggle diffview" }
 wk.mappings["t"] = {
   name = "+Toggle",
   h = { "<cmd>set list!<cr>", "hidden" },
@@ -89,6 +104,22 @@ wk.mappings['T'] = {}
 --   l = { "<cmd>Trouble loclist<cr>", "LocationList" },
 --   w = { "<cmd>Trouble workspace_diagnostics<cr>", "Workspace Diagnostics" },
 -- }
+wk.mappings['C'] = {
+  name = "ChatGPT",
+  c = { "<cmd>ChatGPT<CR>", "ChatGPT" },
+  e = { "<cmd>ChatGPTEditWithInstruction<CR>", "Edit with instruction", mode = { "n", "v" } },
+  g = { "<cmd>ChatGPTRun grammar_correction<CR>", "Grammar Correction", mode = { "n", "v" } },
+  t = { "<cmd>ChatGPTRun translate<CR>", "Translate", mode = { "n", "v" } },
+  k = { "<cmd>ChatGPTRun keywords<CR>", "Keywords", mode = { "n", "v" } },
+  d = { "<cmd>ChatGPTRun docstring<CR>", "Docstring", mode = { "n", "v" } },
+  a = { "<cmd>ChatGPTRun add_tests<CR>", "Add Tests", mode = { "n", "v" } },
+  o = { "<cmd>ChatGPTRun optimize_code<CR>", "Optimize Code", mode = { "n", "v" } },
+  s = { "<cmd>ChatGPTRun summarize<CR>", "Summarize", mode = { "n", "v" } },
+  f = { "<cmd>ChatGPTRun fix_bugs<CR>", "Fix Bugs", mode = { "n", "v" } },
+  x = { "<cmd>ChatGPTRun explain_code<CR>", "Explain Code", mode = { "n", "v" } },
+  r = { "<cmd>ChatGPTRun roxygen_edit<CR>", "Roxygen Edit", mode = { "n", "v" } },
+  l = { "<cmd>ChatGPTRun code_readability_analysis<CR>", "Code Readability Analysis", mode = { "n", "v" } },
+}
 
 local ls = require("luasnip")
 
