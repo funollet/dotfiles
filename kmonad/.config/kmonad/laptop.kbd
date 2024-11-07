@@ -23,19 +23,21 @@
 ;; )
 
 (defalias   ;; home-row modifiers
-  dsft      (tap-hold-next-release 400 d lsft :timeout-button d)
-  ksft      (tap-hold-next-release 400 k rsft :timeout-button k)
-  fctl      (tap-hold-next-release 400 f rctl :timeout-button f)
-  jctl      (tap-hold-next-release 400 j rctl :timeout-button j)
-  salt      (tap-hold-next-release 400 s lalt :timeout-button s)
-  llt       (tap-hold-next         400 l lalt :timeout-button l)
+  dsft      (tap-hold-next-release 600 d lsft :timeout-button d)
+  ksft      (tap-hold-next-release 600 k rsft :timeout-button k)
+  fctl      (tap-hold-next-release 600 f rctl :timeout-button f)
+  jctl      (tap-hold-next-release 600 j rctl :timeout-button j)
+  salt      (tap-hold-next-release 600 s lalt :timeout-button s)
+  llt       (tap-hold-next         600 l lalt :timeout-button l)
 )
+
 (defalias   ;; thumbs
   spc-meta  (tap-hold-next-release 300 spc lmet)
   ;; layer toggling
   dash      (tap-next-release - lalt)                       ;; backtick toggles layer symbols, too
   quot      (sticky-key 1500 (layer-toggle symbols))
 )
+
 (defalias   ;; special chars; caps is compose key
   agrv      (tap-macro caps `)
   aact      (tap-macro caps ')
