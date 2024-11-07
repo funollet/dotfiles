@@ -91,7 +91,7 @@ rpm: [
   inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk,
   powertop, cheat, cheat-bash-completion,
-  lolcat,
+  lolcat, diskonaut,
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
   keepassxc,
