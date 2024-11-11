@@ -44,3 +44,6 @@
         name: udev
     - import_role:
         name: fusuma
+    - import_role:
+        name: interception-tools
+        tasks_from: remove.yml
