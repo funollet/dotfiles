@@ -1,3 +1,12 @@
+- name: xorg touchpad config
+  copy:
+    src: xorg.conf.d/30-touchpad.conf
+    dest: /etc/X11/xorg.conf.d/
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  tags: [touchpad]
 
 - name: install fusuma
   gem:
@@ -9,11 +18,11 @@
     - fusuma-plugin-keypress
     - fusuma-plugin-tap
     - fusuma-plugin-sendkey
-  tags: fusuma
+  tags: [touchpad, fusuma]
 
 - name: run fusuma
   systemd:
     name: fusuma
     enabled: yes
     scope: user
-  tags: fusuma
+  tags: [touchpad, fusuma]
