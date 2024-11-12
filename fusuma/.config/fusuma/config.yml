@@ -45,37 +45,37 @@ swipe:
 
   4:
     left:
-      command: "i3-msg 'workspace prev'"
-      keypress:
-        LEFTCTRL:
-          command: "i3-msg 'move container to workspace prev ; workspace prev'"
-        RIGHTCTRL:
-          command: "i3-msg 'move container to workspace prev ; workspace prev'"
-        LEFTMETA:
-          command: "i3-msg 'move left'"
+      command: "xdotool sleep .2 key meta+shift+u"
+      # keypress:
+      #   LEFTCTRL:
+      #     command: "i3-msg 'move container to workspace prev ; workspace prev'"
+      #   RIGHTCTRL:
+      #     command: "i3-msg 'move container to workspace prev ; workspace prev'"
+      #   LEFTMETA:
+      #     command: "i3-msg 'move left'"
     right:
-      command: "i3-msg 'workspace next'"
-      keypress:
-        LEFTCTRL:
-          command: "i3-msg 'move container to workspace next ; workspace next'"
-        RIGHTCTRL:
-          command: "i3-msg 'move container to workspace next ; workspace next'"
-        LEFTMETA:
-          command: "i3-msg 'move right'"
+      command: "xdotool sleep .2 key meta+shift+i"
+      # keypress:
+      #   LEFTCTRL:
+      #     command: "i3-msg 'move container to workspace next ; workspace next'"
+      #   RIGHTCTRL:
+      #     command: "i3-msg 'move container to workspace next ; workspace next'"
+      #   LEFTMETA:
+      #     command: "i3-msg 'move right'"
     up:
-      command: "i3-msg 'fullscreen toggle'"
-      threshold: 1
-      interval: 2
-      keypress:
-        LEFTMETA:
-          command: "i3-msg 'move up'"
+      command: "qtile cmd-obj -o window -f toggle_floating"
+      # threshold: 1
+      # interval: 2
+      # keypress:
+      #   LEFTMETA:
+      #     command: "i3-msg 'move up'"
     down:
-      command: "i3-msg 'floating toggle'"
-      threshold: 1
-      interval: 2
-      keypress:
-        LEFTMETA:
-          command: "i3-msg 'move down'"
+      # command: "i3-msg 'floating toggle'"
+      # threshold: 1
+      # interval: 2
+      # keypress:
+      #   LEFTMETA:
+      #     command: "i3-msg 'move down'"
 
 pinch:
   2:

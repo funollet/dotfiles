@@ -18,9 +18,11 @@ firefox_last_window=$(wmctrl -l | awk '/ — Mozilla Firefox$/ {print $1}' | sor
 wmctrl -i -a "$firefox_last_window"
 
 sleep .2
-i3-msg "move container to output next"
+next=$(qtile cmd-obj -o screen -f info | tr \' \" | jq '(.index+1)%2')
+qtile cmd-obj -o window -f toscreen -a $next
+
 
 # set focus on the newest Firefox window
-sleep .2
-wmctrl -i -a "$firefox_last_window"
+#sleep .2
+#wmctrl -i -a "$firefox_last_window"
 
