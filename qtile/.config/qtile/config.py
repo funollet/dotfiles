@@ -260,16 +260,23 @@ screens = [
 mouse = [
     # Drag floating layouts.
     Drag(
-        "M-Mouse-1",
+        "M-1",
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
-    Drag("M-Mouse-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    Drag("M-3",
+         lazy.window.set_size_floating(),
+         start=lazy.window.get_size()
+    ),
     # Bring window to front.
-    Click("M-Mouse-2", lazy.window.bring_to_front()),
-    # horizontal scroll or wheel mouse left/right click
-    Click("Mouse-6", prev_group_or_stay),
-    Click("Mouse-7", next_group_or_stay),
+    Click("M-2", lazy.window.bring_to_front()),
+    # mouse wheel left/right button switch to prev/next desktop
+    Click("6", prev_group_or_stay),
+    Click("7", next_group_or_stay),
+    Click("M-S-4", lazy.spawn("volume-notify --step 3 up")),
+    Click("M-S-5", lazy.spawn("volume-notify --step 3 down")),
+    # button8: Mouse 'forward' button.
+    # button9: Mouse 'back' button.
 ]
 
 dgroups_key_binder = None

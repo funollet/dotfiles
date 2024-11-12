@@ -134,8 +134,8 @@ rpm: [
   bismuth,
   
   ### light desktop utilities:
-  # scrot, feh, xautolock, i3lock, lxappearance, lxqt-powermanagement,
-  dunst, light, nitrogen, sxhkd,
+  # scrot, feh, xautolock, i3lock, lxappearance, lxqt-powermanagement, sxhkd,
+  dunst, light, nitrogen,
   arandr, autorandr, autorandr-bash-completion,
   dex-autostart, rofi, ulauncher,
   xsecurelock, xss-lock,
