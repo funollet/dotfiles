@@ -79,13 +79,15 @@ dex $fname='':
   fi
 
 
-# tweaks after docking the laptop
+# tweaks docking the laptop
 dock:
+  powerprofilesctl set performance
   sudo systemctl restart chronyd.service
   autorandr -f 01
 
-# tweaks before undocking the laptop
+# tweaks undocking the laptop
 undock:
+  powerprofilesctl set power-saver
 	autorandr 0
 
 trackpad:

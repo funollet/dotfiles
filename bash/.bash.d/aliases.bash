@@ -53,7 +53,3 @@ diffssh () {    #diffssh hostA hostB file
 copier-chooser () {
     copier copy "$HOME/code/skeletons/$(ls -1 $HOME/code/skeletons/  | ag -v cookiecutter | fzf )" .
 }
-
-i3keys () {
-    grep -E -R ^bind ~/.config/i3/ | cut -d ' ' -f 2- | sed 's/ /\t/' | column -ts $'\t' | pr -2 -w 145 -t
-}

@@ -1,6 +1,6 @@
 
 pipx: [
-  pew, pex, i3altlayout, termdown,
+  pew, pex, termdown,
   ]
 
 flatpak: [
@@ -134,17 +134,13 @@ rpm: [
   bismuth,
   
   ### light desktop utilities:
-  # scrot, feh, xautolock, i3lock, lxappearance, lxqt-powermanagement, sxhkd,
-  dunst, light, nitrogen,
+  # scrot, feh, xautolock, lxappearance, lxqt-powermanagement, sxhkd,
+  dunst, light, brightnessctl, nitrogen, azote,
   arandr, autorandr, autorandr-bash-completion,
   dex-autostart, rofi, ulauncher,
   xsecurelock, xss-lock,
   volumeicon, udiskie, blueman,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
-  
-  ### i3:
-  "@i3",
-  python3-i3ipc, polybar,
 
   ### qtile
   qtile, python3-dbus-next, xorg-x11-server-Xephyr,
