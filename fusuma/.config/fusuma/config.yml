@@ -1,115 +1,89 @@
 # https://github.com/iberianpig/fusuma
 #
+# Gestures for Qtile window manager + browser tabs.
+#
 #
 #   prev/next tab                   swipe-3           left / right
 #   pageup / pagedown               swipe-3           up / down
 #   move tab to left / right        swipe-3 + META    left / right
 #   move tab to beginning / end     swipe-3 + META    up / down
 #
+#   open link in another tab        hold-2
 #   close Tab                       hold-4
 #
 #   toggle fullscreen               swipe-4           up
 #   toggle floating                 swipe-4           down
-#   toggle split orientation        tap-3 + META                (configured in i3)
 #
-#   go to workspace prev/next       swipe-4           left / right
-#   move container to workspace ... swipe-4 + CTRL    left / right
-#   move container to ...           swipe-4 + META
+#   go to group prev/next           swipe-4           left / right
+#   move container to group ...     swipe-4 + CTRL    left / right
 #
-#   resize container                scroll + META               (configured in i3)
-# 
-#   zoom in/out                     pinch-2
+#   zoom in/out                     pinch-3
 # 
 swipe:
   3:
     left:
-      sendkey: 'LEFTCTRL+LEFTSHIFT+TAB' # previous tab
+      command: "xdotool key ctrl+shift+Tab"               # previous tab
       keypress:
-        LEFTMETA:                           # move tab to left
-          sendkey: 'LEFTCTRL+LEFTSHIFT+PAGEUP'
+        LEFTMETA:
+          command: "xdotool key ctrl+shift+Page_Up"       # move tab to the left
     right:
-      sendkey: 'LEFTCTRL+TAB'       # next tab
+      command: "xdotool key ctrl+Tab"                     # next tab
       keypress:
-        LEFTMETA:                           # move tab to right
-          sendkey: 'LEFTCTRL+LEFTSHIFT+PAGEDOWN'
+        LEFTMETA:
+          command: "xdotool key ctrl+shift+Page_Down"     # move tab to the right
     up:
-      sendkey: 'PAGEUP'
+      command: "xdotool key Page_Up"
+      threshold: 0.5
       keypress:
-        LEFTMETA:                           # move tab to beginning
+        LEFTMETA:                                         # move tab to beginning
           command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+Home'
     down:
-      sendkey: 'PAGEDOWN'
+      command: "xdotool key Page_Down"
+      threshold: 0.5
       keypress:
-        LEFTMETA:                           # move tab to end
+        LEFTMETA:                                         # move tab to end
           command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+End'
 
   4:
     left:
-      command: "xdotool sleep .2 key meta+shift+u"
-      # keypress:
-      #   LEFTCTRL:
-      #     command: "i3-msg 'move container to workspace prev ; workspace prev'"
-      #   RIGHTCTRL:
-      #     command: "i3-msg 'move container to workspace prev ; workspace prev'"
-      #   LEFTMETA:
-      #     command: "i3-msg 'move left'"
+      command: "xdotool key super+u"                      # go to previous group
+      keypress:
+        LEFTCTRL:
+          command: "xdotool key super+ctrl+u"             # move window to previous group
+        RIGHTCTRL:
+          command: "xdotool key super+ctrl+u"             # move window to previous group
     right:
-      command: "xdotool sleep .2 key meta+shift+i"
-      # keypress:
-      #   LEFTCTRL:
-      #     command: "i3-msg 'move container to workspace next ; workspace next'"
-      #   RIGHTCTRL:
-      #     command: "i3-msg 'move container to workspace next ; workspace next'"
-      #   LEFTMETA:
-      #     command: "i3-msg 'move right'"
+      command: "xdotool key super+i"                      # go to next group
+      keypress:
+        LEFTCTRL:
+          command: "xdotool key super+ctrl+i"             # move window to next group
+        RIGHTCTRL:
+          command: "xdotool key super+ctrl+i"             # move window to next group
     up:
-      command: "qtile cmd-obj -o window -f toggle_floating"
-      # threshold: 1
-      # interval: 2
-      # keypress:
-      #   LEFTMETA:
-      #     command: "i3-msg 'move up'"
+      command: "xdotool key super+t"                      # toggle floating
+      threshold: 0.5
     down:
-      # command: "i3-msg 'floating toggle'"
-      # threshold: 1
-      # interval: 2
-      # keypress:
-      #   LEFTMETA:
-      #     command: "i3-msg 'move down'"
+      command: "xdotool key super+f"                      # toggle fullscreen
+      threshold: 0.5
 
 pinch:
-  2:
-    in:
-      sendkey: 'LEFTCTRL+KPPLUS'
-      threshold: 0.2
-      interval: 0.2
-    out:
-      sendkey: 'LEFTCTRL+KPMINUS'
-      threshold: 0.2
-      interval: 0.2
   3:
     in:
-      command:
+      command: 'xdotool key ctrl+plus'                    # zoom in
     out:
-      command:
-  4:
-    in:
-      command:
-    out:
-      command:
+      command: 'xdotool key ctrl+minus'                   # zoom out
 
 hold:
   2:
-    command: 'xdotool keydown ctrl click 1 keyup ctrl'  # ctrl + left-click
+    command: 'xdotool keydown ctrl click 1 keyup ctrl'    # ctrl + left-click, open in another tab
   4:
-    sendkey: 'LEFTCTRL+w'                       # close tab
+    command: 'xdotool key ctrl+w'                         # close tab
 
 interval:
-  swipe: 0.3
-  pinch: 0.5
+  pinch: 0.2
 
 threshold:
-  pinch: 0.1
+  pinch: 0.2
 
 plugin: 
   inputs:
