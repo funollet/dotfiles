@@ -69,68 +69,7 @@ def move_window_to_group(direction):
         qtile.current_window.togroup(target_group, switch_group=True)
 
 
-keys = [
-    # Switch between windows
-    Key("M-h", lazy.layout.left(), desc="Move focus to left"),
-    Key("M-l", lazy.layout.right(), desc="Move focus to right"),
-    Key("M-j", lazy.layout.down(), desc="Move focus down"),
-    Key("M-k", lazy.layout.up(), desc="Move focus up"),
-    #
-    Key("M-<space>", lazy.layout.next(), desc="Move window focus to other window"),
-    Key(
-        "M-S-<space>", lazy.layout.previous(), desc="Move window focus to other window"
-    ),
-    # Move windows between left/right columns or move up/down in current stack.
-    # Moving out of range in Columns layout will create new column.
-    Key("M-C-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
-    Key("M-C-l", lazy.layout.shuffle_right(), desc="Move window to the right"),
-    Key("M-C-j", lazy.layout.shuffle_down(), desc="Move window down"),
-    Key("M-C-k", lazy.layout.shuffle_up(), desc="Move window up"),
-    Key("M-C-<Return>", lazy.layout.swap_main(), desc="Swap window to main partition"),
-    # Grow windows. If current window is on the edge of screen and direction
-    # will be to screen edge - window would shrink.
-    Key("M-A-h", lazy.layout.shrink_main(), desc="Shrink main window"),
-    Key("M-A-l", lazy.layout.grow_main(), desc="Grow main window"),
-    Key("M-A-j", lazy.layout.grow(), desc="Grow window"),
-    Key("M-A-k", lazy.layout.shrink(), desc="Shrink window"),
-    Key("M-A-n", lazy.layout.normalize(), desc="Reset all window sizes"),
-    # Group management.
-    Key("M-u", prev_group_or_stay, desc="Switch to previous group"),
-    Key("M-i", next_group_or_stay, desc="Switch to next group"),
-    Key(
-        "M-C-u",
-        lazy.function(lambda _: move_window_to_group(-1)),
-        desc="Move window to previous group",
-    ),
-    Key(
-        "M-C-i",
-        lazy.function(lambda _: move_window_to_group(1)),
-        desc="Move window to next group",
-    ),
-    Key("M-o", lazy.next_screen(), desc="Next monitor"),
-    Key(
-        "M-C-o",
-        lazy.function(window_to_next_screen, switch_screen=True),
-        desc="Move window to next monitor",
-    ),
-    # Layout management.
-    Key("M-<Tab>", lazy.next_layout(), desc="Toggle between layouts"),
-    Key(
-        "M-f",
-        lazy.window.toggle_fullscreen(),
-        desc="Toggle fullscreen on the focused window",
-    ),
-    Key(
-        "M-t",
-        lazy.window.toggle_floating(),
-        desc="Toggle floating on the focused window",
-    ),
-    # Qtile management.
-    Key("M-q", lazy.window.kill(), desc="Kill focused window"),
-    Key("M-A-r", lazy.reload_config(), desc="Reload the config"),
-    Key("M-A-q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key("M-A-S-r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
-]
+keys = []
 
 groups = [Group(i) for i in "123456789"]
 
@@ -257,26 +196,6 @@ screens = [
     ),
 ]
 
-mouse = [
-    # Drag floating layouts.
-    Drag(
-        "M-1",
-        lazy.window.set_position_floating(),
-        start=lazy.window.get_position(),
-    ),
-    Drag("M-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
-    # Bring window to front.
-    Click("M-2", lazy.window.bring_to_front()),
-    # mouse wheel left/right button switch to prev/next desktop
-    Click("6", prev_group_or_stay),
-    Click("7", next_group_or_stay),
-    # super + scroll changes window size
-    Click("M-4", lazy.layout.grow()),
-    Click("M-5", lazy.layout.shrink()),
-    # button8: Mouse 'forward' button.
-    # button9: Mouse 'back' button.
-]
-
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
 follow_mouse_focus = True
@@ -337,6 +256,69 @@ def move_to_top_modals(window):
         # window.bring_to_front()
         # raise Exception(window.info())
 
+
+keys = [
+    # Switch between windows
+    Key("M-h", lazy.layout.left(), desc="Move focus to left"),
+    Key("M-l", lazy.layout.right(), desc="Move focus to right"),
+    Key("M-j", lazy.layout.down(), desc="Move focus down"),
+    Key("M-k", lazy.layout.up(), desc="Move focus up"),
+    #
+    Key("M-<space>", lazy.layout.next(), desc="Move window focus to other window"),
+    Key(
+        "M-S-<space>", lazy.layout.previous(), desc="Move window focus to other window"
+    ),
+    # Move windows between left/right columns or move up/down in current stack.
+    # Moving out of range in Columns layout will create new column.
+    Key("M-C-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
+    Key("M-C-l", lazy.layout.shuffle_right(), desc="Move window to the right"),
+    Key("M-C-j", lazy.layout.shuffle_down(), desc="Move window down"),
+    Key("M-C-k", lazy.layout.shuffle_up(), desc="Move window up"),
+    Key("M-C-<Return>", lazy.layout.swap_main(), desc="Swap window to main partition"),
+    # Grow windows. If current window is on the edge of screen and direction
+    # will be to screen edge - window would shrink.
+    Key("M-A-h", lazy.layout.shrink_main(), desc="Shrink main window"),
+    Key("M-A-l", lazy.layout.grow_main(), desc="Grow main window"),
+    Key("M-A-j", lazy.layout.grow(), desc="Grow window"),
+    Key("M-A-k", lazy.layout.shrink(), desc="Shrink window"),
+    Key("M-A-n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    # Group management.
+    Key("M-u", prev_group_or_stay, desc="Switch to previous group"),
+    Key("M-i", next_group_or_stay, desc="Switch to next group"),
+    Key(
+        "M-C-u",
+        lazy.function(lambda _: move_window_to_group(-1)),
+        desc="Move window to previous group",
+    ),
+    Key(
+        "M-C-i",
+        lazy.function(lambda _: move_window_to_group(1)),
+        desc="Move window to next group",
+    ),
+    Key("M-o", lazy.next_screen(), desc="Next monitor"),
+    Key(
+        "M-C-o",
+        lazy.function(window_to_next_screen, switch_screen=True),
+        desc="Move window to next monitor",
+    ),
+    # Layout management.
+    Key("M-<Tab>", lazy.next_layout(), desc="Toggle between layouts"),
+    Key(
+        "M-f",
+        lazy.window.toggle_fullscreen(),
+        desc="Toggle fullscreen on the focused window",
+    ),
+    Key(
+        "M-t",
+        lazy.window.toggle_floating(),
+        desc="Toggle floating on the focused window",
+    ),
+    # Qtile management.
+    Key("M-q", lazy.window.kill(), desc="Kill focused window"),
+    Key("M-A-r", lazy.reload_config(), desc="Reload the config"),
+    Key("M-A-q", lazy.shutdown(), desc="Shutdown Qtile"),
+    Key("M-A-S-r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+]
 
 # mmedia shortcuts
 keys += [
@@ -435,4 +417,24 @@ keys += [
         lazy.spawn("light -A 15"),
         desc="Increase screen brightness",
     ),
+]
+
+mouse = [
+    # Drag floating layouts.
+    Drag(
+        "M-1",
+        lazy.window.set_position_floating(),
+        start=lazy.window.get_position(),
+    ),
+    Drag("M-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
+    # Bring window to front.
+    Click("M-2", lazy.window.bring_to_front()),
+    # mouse wheel left/right button switch to prev/next desktop
+    Click("6", prev_group_or_stay),
+    Click("7", next_group_or_stay),
+    # super + scroll changes window size
+    Click("M-4", lazy.layout.grow()),
+    Click("M-5", lazy.layout.shrink()),
+    # button8: Mouse 'forward' button.
+    # button9: Mouse 'back' button.
 ]
