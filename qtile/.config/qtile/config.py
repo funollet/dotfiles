@@ -89,22 +89,22 @@ keys = [
     Key("M-C-<Return>", lazy.layout.swap_main(), desc="Swap window to main partition"),
     # Grow windows. If current window is on the edge of screen and direction
     # will be to screen edge - window would shrink.
-    Key("M-C-S-h", lazy.layout.shrink_main(), desc="Shrink main window"),
-    Key("M-C-S-l", lazy.layout.grow_main(), desc="Grow main window"),
-    Key("M-C-S-j", lazy.layout.grow(), desc="Grow window"),
-    Key("M-C-S-k", lazy.layout.shrink(), desc="Shrink window"),
-    Key("M-C-S-n", lazy.layout.normalize(), desc="Reset all window sizes"),
+    Key("M-A-h", lazy.layout.shrink_main(), desc="Shrink main window"),
+    Key("M-A-l", lazy.layout.grow_main(), desc="Grow main window"),
+    Key("M-A-j", lazy.layout.grow(), desc="Grow window"),
+    Key("M-A-k", lazy.layout.shrink(), desc="Shrink window"),
+    Key("M-A-n", lazy.layout.normalize(), desc="Reset all window sizes"),
     # Group management.
     Key("M-u", prev_group_or_stay, desc="Switch to previous group"),
     Key("M-i", next_group_or_stay, desc="Switch to next group"),
     Key(
         "M-C-u",
-        lazy.function(lambda q: move_window_to_group(-1)),
+        lazy.function(lambda _: move_window_to_group(-1)),
         desc="Move window to previous group",
     ),
     Key(
         "M-C-i",
-        lazy.function(lambda q: move_window_to_group(1)),
+        lazy.function(lambda _: move_window_to_group(1)),
         desc="Move window to next group",
     ),
     Key("M-o", lazy.next_screen(), desc="Next monitor"),
@@ -264,17 +264,15 @@ mouse = [
         lazy.window.set_position_floating(),
         start=lazy.window.get_position(),
     ),
-    Drag("M-3",
-         lazy.window.set_size_floating(),
-         start=lazy.window.get_size()
-    ),
+    Drag("M-3", lazy.window.set_size_floating(), start=lazy.window.get_size()),
     # Bring window to front.
     Click("M-2", lazy.window.bring_to_front()),
     # mouse wheel left/right button switch to prev/next desktop
     Click("6", prev_group_or_stay),
     Click("7", next_group_or_stay),
-    Click("M-S-4", lazy.spawn("volume-notify --step 3 up")),
-    Click("M-S-5", lazy.spawn("volume-notify --step 3 down")),
+    # super + scroll changes window size
+    Click("M-4", lazy.layout.grow()),
+    Click("M-5", lazy.layout.shrink()),
     # button8: Mouse 'forward' button.
     # button9: Mouse 'back' button.
 ]
@@ -297,6 +295,8 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="telegram-desktop"),
         Match(wm_class="Slack"),
+        # float all windows that are transient windows for a parent window
+        Match(func=lambda c: bool(c.is_transient_for())),
     ]
 )
 auto_fullscreen = True
@@ -338,26 +338,8 @@ def move_to_top_modals(window):
         # raise Exception(window.info())
 
 
+# mmedia shortcuts
 keys += [
-    Key(
-        "<f7>",
-        lazy.group["scratchpad"].dropdown_toggle("telegram"),
-        desc="Toggle telegram",
-    ),
-    Key("<f8>", lazy.group["scratchpad"].dropdown_toggle("slack"), desc="Toggle slack"),
-    Key(
-        "<f9>",
-        lazy.group["scratchpad"].dropdown_toggle("spotify"),
-        desc="Toggle spotify",
-    ),
-    Key("<f1>", lazy.spawn("mute-meet.sh"), desc="Mute/unmute video call"),
-    Key(
-        "<XF86Launch8>",
-        lazy.spawn("firefox-detach-window.sh"),
-        desc="Detach tab on firefox",
-    ),
-    Key("<XF86Launch7>", lazy.spawn("copypaster copy"), desc="Custom copy"),
-    Key("<XF86Launch6>", lazy.spawn("copypaster paste"), desc="Custom paste"),
     Key(
         "<XF86AudioRaiseVolume>",
         lazy.spawn("volume-notify --step 3 up"),
@@ -369,40 +351,68 @@ keys += [
         desc="Lower volume",
     ),
     Key("<XF86AudioMute>", lazy.spawn("volume-notify mute"), desc="Mute volume"),
+    Key(
+        "M-<XF86AudioRaiseVolume>",
+        lazy.spawn("xdotool sleep 0.2 key greater"),
+        desc="Play youtube faster",
+    ),
+    Key(
+        "M-<XF86AudioLowerVolume>",
+        lazy.spawn("xdotool sleep 0.2 key less"),
+        desc="Play youtube slower",
+    ),
     Key("M-<Prior>", lazy.spawn("volume-notify --step 3 up"), desc="Raise volume"),
     Key("M-<Next>", lazy.spawn("volume-notify --step 3 down"), desc="Lower volume"),
     Key("M-m", lazy.spawn("volume-notify mute"), desc="Mute volume"),
     Key(
         "<XF86AudioPlay>",
-        lazy.spawn(
-            "playerctl -l | grep firefox && playerctl -l | grep firefox | xargs playerctl play-pause -p || playerctl -p spotify play-pause",
-            shell=True,
-        ),
-        # lazy.spawn("playerctl -p spotify play-pause"),
+        lazy.spawn("playerctl play-pause"),
         lazy.spawn('notify-send -t 3000 "Toggle play/pause"'),
-        desc="Toggle play/pause on Youtube, if it's open; otherwise play/pause on Spotify",
     ),
-    Key("<XF86AudioNext>", lazy.spawn("playerctl -p spotify next")),
-    Key("<XF86AudioPrev>", lazy.spawn("playerctl -p spotify previous")),
+    Key("<XF86AudioNext>", lazy.spawn("playerctl next")),
+    Key("<XF86AudioPrev>", lazy.spawn("playerctl previous")),
     KeyChord(
         "M-p",
         [
             Key(
                 "k",
-                lazy.spawn("playerctl -p spotify play-pause"),
-                lazy.spawn('notify-send -t 3000 "Spotify: toggle-play"'),
+                lazy.spawn("playerctl play-pause"),
+                lazy.spawn('notify-send -t 3000 "Toggle play/pause"'),
             ),
             Key(
                 "<space>",
-                lazy.spawn("playerctl -p spotify play-pause"),
-                lazy.spawn('notify-send -t 3000 "Spotify: toggle-play"'),
+                lazy.spawn("playerctl play-pause"),
+                lazy.spawn('notify-send -t 3000 "Toggle play/pause"'),
             ),
-            Key("j", lazy.spawn("playerctl -p spotify previous")),
-            Key("l", lazy.spawn("playerctl -p spotify next")),
-            Key("<Prior>", lazy.spawn("playerctl -p spotify previous")),
-            Key("<Next>", lazy.spawn("playerctl -p spotify next")),
+            Key("j", lazy.spawn("playerctl previous")),
+            Key("l", lazy.spawn("playerctl next")),
+            Key("<Prior>", lazy.spawn("playerctl previous")),
+            Key("<Next>", lazy.spawn("playerctl next")),
         ],
     ),
+]
+
+# Misc shortcuts
+keys += [
+    Key("<f1>", lazy.spawn("mute-meet.sh"), desc="Mute/unmute video call"),
+    Key(
+        "<f7>",
+        lazy.group["scratchpad"].dropdown_toggle("telegram"),
+        desc="Toggle telegram",
+    ),
+    Key("<f8>", lazy.group["scratchpad"].dropdown_toggle("slack"), desc="Toggle slack"),
+    Key(
+        "<f9>",
+        lazy.group["scratchpad"].dropdown_toggle("spotify"),
+        desc="Toggle spotify",
+    ),
+    Key(
+        "<XF86Launch8>",
+        lazy.spawn("firefox-detach-window.sh"),
+        desc="Detach tab on firefox",
+    ),
+    Key("<XF86Launch7>", lazy.spawn("copypaster copy"), desc="Custom copy"),
+    Key("<XF86Launch6>", lazy.spawn("copypaster paste"), desc="Custom paste"),
     Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
     Key("M-S-a", lazy.spawn("autorandr 1"), desc="Call autorandr"),
     Key("M-r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
