@@ -1,10 +1,18 @@
+# lfrc
 
-# define a custom 'delete' command
-cmd delete ${{
-  set -f ; rm $fx
+# delete recursively
+cmd rm ${{
+  set -f ; rm -r $fx
 }}
 
-map <delete> delete
+# copy selected filenames to clipboard
+cmd xclip ${{
+  echo -n "$fx" | awk '{printf("'\''%s'\'' ", $0)}' | xclip -selection clipboard
+}}
+
+map x cut
+map <delete> rm
+map <enter> xclip
 
 # set internal field separator (IFS) to "\n" for shell commands
 # This is useful to automatically split file names in $fs and $fx properly
