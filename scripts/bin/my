@@ -88,7 +88,8 @@ dock:
 # tweaks undocking the laptop
 undock:
   powerprofilesctl set power-saver
-	autorandr 0
+  systemctl --user restart fusuma
+  autorandr 0
 
 trackpad:
   bluetoothctl connect A8:91:3D:E5:86:65
