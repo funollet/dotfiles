@@ -257,7 +257,7 @@ def move_to_top_modals(window):
         # raise Exception(window.info())
 
 
-keys = [
+keys += [
     # Switch between windows
     Key("M-h", lazy.layout.left(), desc="Move focus to left"),
     Key("M-l", lazy.layout.right(), desc="Move focus to right"),
