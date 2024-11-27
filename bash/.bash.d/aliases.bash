@@ -53,3 +53,13 @@ diffssh () {    #diffssh hostA hostB file
 copier-chooser () {
     copier copy "$HOME/code/skeletons/$(ls -1 $HOME/code/skeletons/  | ag -v cookiecutter | fzf )" .
 }
+
+edit () {
+    # fuzzy-search and edit files in current dir
+    fd -tf | fzf --multi | xargs --no-run-if-empty lvim
+}
+
+edithidden () {
+    # fuzzy-search and edit files in current dir; hidden files too
+    fd -tf --hidden --exclude .git | fzf --multi | xargs --no-run-if-empty lvim
+}
