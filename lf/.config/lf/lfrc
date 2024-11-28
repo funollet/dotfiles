@@ -1,4 +1,28 @@
 # lfrc
+#
+# Cheatsheet:
+#
+#   y         yank
+#   x         cut
+#   p         paste
+#
+#   <space>   toggle selected
+#   v         invert selected
+#   c         clear selected
+#
+#   .         toggle hidden files
+#   <del>     delete recursively
+#   <enter>   copy selected file names to clipboard
+#
+#   Q         exit and cd to current dir
+#
+
+# set internal field separator (IFS) to "\n" for shell commands
+# This is useful to automatically split file names in $fs and $fx properly
+# since default file separator used in these variables (i.e. 'filesep' option)
+# is newline. You need to consider the values of these options and create your
+# commands accordingly.
+set ifs "\n"
 
 # delete recursively
 cmd rm ${{
@@ -10,13 +34,15 @@ cmd xclip ${{
   echo -n "$fx" | awk '{printf("'\''%s'\'' ", $0)}' | xclip -selection clipboard
 }}
 
+# Store current dir in a file name so we can cd there on exit
+cmd quit-and-cd &{{
+    pwd > "$LF_CD_FILE"
+    lf -remote "send $id quit"
+}}
+
+
 map x cut
 map <delete> rm
 map <enter> xclip
-
-# set internal field separator (IFS) to "\n" for shell commands
-# This is useful to automatically split file names in $fs and $fx properly
-# since default file separator used in these variables (i.e. 'filesep' option)
-# is newline. You need to consider the values of these options and create your
-# commands accordingly.
-set ifs "\n"
+map . set hidden!
+map Q quit-and-cd
