@@ -10,6 +10,12 @@ ansible *args:
 rtx-install:
   cd ~ ; rtx install
 
+# install with uvx
+uvx-install:
+  uv tool install --python 3.13 pex
+  uv tool install --python 3.13 csb43
+  uv tool install --python 3.13 termdown
+  uv tool install --python 3.13 yamlfix
 
 # Install using bin
 _bin-install repo:
@@ -135,13 +141,6 @@ fight-entropy:
     #@echo Broken symlinks
     #sudo symlinks -r /usr | grep dangling
     #@echo
-
-
-# Delete everything installed by pipx.
-pipx-cleanup:
-    rm -r ~/.local/pipx
-    symlinks -d ~/.local/bin | grep -v absolute
-
 
 
 ################################################## 

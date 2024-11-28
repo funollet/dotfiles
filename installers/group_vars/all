@@ -1,8 +1,4 @@
 
-pipx: [
-  pew, pex, termdown,
-  ]
-
 flatpak: [
   com.spotify.Client, us.zoom.Zoom, org.telegram.desktop, net.lutris.Lutris,
   md.obsidian.Obsidian, com.rafaelmardojai.Blanket, com.discordapp.Discord,
@@ -36,7 +32,6 @@ rpm: [
   python-devel, python-crypto,
   python-mock,
   python3-ipython, python3-jedi,
-  pipx,
   python-psutil, pydot, httpie, python-py, python-docopt,
   python-click, python-pip, python-sh,
   python3-requests,
@@ -88,7 +83,7 @@ rpm: [
   hyphen, hyphen-ca, hyphen-en, hyphen-es,
   autocorr-ca, autocorr-en, autocorr-es,
   pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go,
-  inotify-tools, tiptop, ranger, w3m, w3m-img, vpnc, timew, imapfilter,
+  inotify-tools, tiptop, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk,
   powertop, cheat, cheat-bash-completion,
   lolcat, diskonaut,

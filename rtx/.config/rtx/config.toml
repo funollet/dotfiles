@@ -1,6 +1,7 @@
 [plugins]
 copier = 'https://github.com/amrox/asdf-pyapp'
 fasd = 'https://github.com/funollet/asdf-fasd'
+uv = 'https://github.com/b1-luettje/asdf-uv.git'
 #icdiff = 'https://github.com/amrox/asdf-pyapp'
 
 [tools]
@@ -13,3 +14,4 @@ lazygit = "latest"
 pre-commit = "latest"
 istioctl = "1.19.3"
 argocd = "latest"
+uv = "latest"

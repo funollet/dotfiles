@@ -1,6 +1,0 @@
-- name: install with pipx
-  command: pipx install {{ item }}
-  args:
-    creates: ~/.local/pipx/venvs/{{ item }}
-  loop: "{{ pipx }}"
-  tags: pipx

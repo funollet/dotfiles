@@ -37,8 +37,6 @@
     - import_role:
         name: gems
     - import_role:
-        name: pipx
-    - import_role:
         name: flatpak
     - import_role:
         name: udev
