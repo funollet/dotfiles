@@ -1,21 +1,4 @@
 # lfrc
-#
-# Cheatsheet:
-#
-#   y         yank
-#   x         cut
-#   p         paste
-#
-#   <space>   toggle selected
-#   v         invert selected
-#   c         clear selected
-#
-#   .         toggle hidden files
-#   <del>     delete recursively
-#   <enter>   copy selected file names to clipboard
-#
-#   Q         exit and cd to current dir
-#
 
 # set internal field separator (IFS) to "\n" for shell commands
 # This is useful to automatically split file names in $fs and $fx properly
@@ -23,10 +6,22 @@
 # is newline. You need to consider the values of these options and create your
 # commands accordingly.
 set ifs "\n"
+set shell bash
+set shellopts '-eu'
+set icons true
+set drawbox true
+set promptfmt "\033[34;1m%d\033[0m\033[1m%f\033[0m"
 
 # delete recursively
 cmd rm ${{
-  set -f ; rm -r $fx
+  read -p "Delete everything in ${fx}? (y/n)" -n 1 -r choice
+  case "$choice" in 
+    y|Y )
+      set -f
+      [ -d $fx/.git ] && rm -rf $fx/.git
+      rm -r $fx
+      ;;
+  esac
 }}
 
 # copy selected filenames to clipboard
@@ -46,3 +41,6 @@ map <delete> rm
 map <enter> xclip
 map . set hidden!
 map Q quit-and-cd
+map o &mimeopen $f
+map O $mimeopen --ask $f
+map H $$PAGER ~/.config/lf/cheatsheet           # show a cheatsheet

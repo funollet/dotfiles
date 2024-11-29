@@ -1,0 +1,14 @@
+
+    y      yank            <space>   toggle selected
+    x      cut             v         invert selected
+    p      paste           c         clear selected
+    <del>  rm -r
+
+
+    .         toggle hidden files
+    <enter>   copy selected file names to clipboard
+
+
+    Q         exit and cd to current dir
+
+
