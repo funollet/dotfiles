@@ -10,8 +10,8 @@ ansible *args:
 rtx-install:
   cd ~ ; rtx install
 
-# install with uvx
-uvx-install:
+# install with uv
+uv-install:
   uv tool install --python 3.13 pex
   uv tool install --python 3.13 csb43
   uv tool install --python 3.13 termdown

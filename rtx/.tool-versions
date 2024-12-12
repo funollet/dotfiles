@@ -6,7 +6,6 @@ task                 3.21.0
 k3d                  5.4.7
 k9s                  0.27.3
 pre-commit           latest
-poetry               1.4.0
 tflint               0.45.0
 kubectl              1.27.2
 helm                 3.11.1
@@ -24,3 +23,4 @@ sops                 latest
 gcloud               latest
 gum                  latest
 go-containerregistry latest
+ruff                 latest
