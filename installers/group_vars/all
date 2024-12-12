@@ -10,9 +10,14 @@ gems: [
   ]
 
 rpm_absent: [
-  amarok, akonadi, kf5-akonadi-server, banshee, gbrainy, awscli, python2-pytest, python2-invoke,
-  docker-ce, podman, python3-pika, python3-virtualenvwrapper, yum-cron,
-  python3-cookiecutter, snapd, PackageKit-command-not-found,
+  amarok, akonadi, akonadi-server, kf5-akonadi-server, banshee, gbrainy,
+  snapd, PackageKit-command-not-found,
+  lxc, lxc-doc, redir,                                # vagrant-lxc requirement
+  yum-cron,
+  awscli,
+  docker-ce, podman,
+  python3-pika, python3-virtualenvwrapper,
+  python3-cookiecutter,
   ]
 
 rpm: [
@@ -136,6 +141,9 @@ rpm: [
   xsecurelock, xss-lock,
   volumeicon, udiskie, blueman,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
+  NetworkManager-vpnc,
+
+  sddm, sddm-themes, sddm-breeze,
 
   ### qtile
   qtile, python3-dbus-next, xorg-x11-server-Xephyr,
@@ -147,9 +155,6 @@ rpm: [
   vagrant, vagrant-doc, vagrant-libvirt,
   vagrant-libvirt-doc, vagrant-cachier, vagrant-cachier-doc,
   vagrant-hostmanager, vagrant-hostmanager-doc,
-  lxc,                                  # vagrant-lxc requirement
-  lxc-doc,                              # vagrant-lxc requirement
-  redir,                                # vagrant-lxc requirement
   VirtualBox, kmod-VirtualBox,
   ]
 
