@@ -98,6 +98,7 @@ rpm: [
   calibre, inkscape, firefox, mozilla-openh264,
   libreoffice, timeline, youtube-dl, Zim,
   zathura, speedcrunch, homebank, flameshot,
+  ghostty,
   # Graphics
   gimp, ufraw-gimp, gimp-wavelet-denoise-plugin, gimp-separate+,
   gimp-paint-studio, gimp-help,
