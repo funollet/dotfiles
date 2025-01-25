@@ -1,0 +1,5 @@
+attribute-committer: false
+attribute-author: false
+auto-commits: false
+dark-mode: true
+env-file: .aider.env
