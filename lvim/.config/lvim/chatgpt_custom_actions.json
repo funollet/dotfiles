@@ -1,0 +1,15 @@
+{
+  "pytest_add": {
+    "type": "chat",
+    "opts": {
+      "template": "Implement tests for the following code using pytest. Prefer pytest when possible but you can use unittesting for features not covered by pytest, such as mocks.\n\nCode:\n```{{filetype}}\n{{input}}\n```\n\nTests:\n```{{filetype}}",
+      "strategy": "append",
+      "params": {
+        "model": "chatgpt-4o-latest",
+        "stop": [
+          "```"
+        ]
+      }
+    }
+  }
+}

@@ -84,7 +84,16 @@ lvim.plugins = {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     config = function()
-      require("chatgpt").setup()
+      require("chatgpt").setup({
+        openai_params = {
+          model = "chatgpt-4o-latest",
+        },
+        openai_edit_params = {
+          model = "chatgpt-4o-latest",
+        },
+        actions_paths = { "~/.config/lvim/chatgpt_custom_actions.json" },
+        -- predefined_chat_gpt_prompts = "https://raw.githubusercontent.com/f/awesome-chatgpt-prompts/main/prompts.csv",
+      })
     end,
     dependencies = {
       "MunifTanjim/nui.nvim",
