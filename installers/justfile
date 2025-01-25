@@ -16,6 +16,7 @@ uv-install:
   uv tool install --python 3.13 csb43
   uv tool install --python 3.13 termdown
   uv tool install --python 3.13 yamlfix
+  uv tool install --python 3.12 posting
 
 # Install using bin
 _bin-install repo:
