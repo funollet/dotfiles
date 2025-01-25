@@ -23,5 +23,5 @@ function z() {
 function v() {
     [ $# -gt 0 ] && fasd -f -e ${EDITOR} "$*" && return
     local file
-    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && vimx "${file}" || return 1
+    file="$(fasd -Rfl "$1" | fzf -1 -0 --no-sort +m)" && ${EDITOR} "${file}" || return 1
 }

@@ -5,8 +5,8 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put duplicate lines in the history. See bash(1) for more options
-#export HISTCONTROL=ignoredups
+# don't put in history duplicated lines and line starting with space 
+export HISTCONTROL=ignoreboth
 
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
@@ -24,7 +24,7 @@ screen)
     ;;
 *)
     # Save/read history at every command.
-    # PROMPT_COMMAND='history -n ; history -a'
+    PROMPT_COMMAND='history -n ; history -a'
     ;;
 esac
 
