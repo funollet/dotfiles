@@ -1,3 +1,4 @@
+import re
 import subprocess
 from pathlib import Path
 
@@ -7,13 +8,14 @@ from libqtile.config import EzClick as Click
 from libqtile.config import EzDrag as Drag
 from libqtile.config import EzKey as Key
 from libqtile.config import EzKeyChord as KeyChord
-from libqtile.config import Group, Match, ScratchPad, Screen
+from libqtile.config import Group, Match, Rule, ScratchPad, Screen
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
 from libqtile.utils import guess_terminal
 
 mod = "mod4"
-terminal = guess_terminal()
+# terminal = guess_terminal()
+terminal = "ghostty"
 
 colors = {
     "white": "#ffffff",
@@ -98,7 +100,9 @@ groups.append(
             DropDown(
                 "telegram",
                 "flatpak run org.telegram.desktop",
-                match=Match(wm_class=["telegram-desktop", "TelegramDesktop"]),
+                match=Match(
+                    wm_class=re.compile(r"^(telegram\-desktop|TelegramDesktop)$")
+                ),
                 width=0.8,
                 height=1.0,
                 on_focus_lost_hide=False,
@@ -106,7 +110,7 @@ groups.append(
             DropDown(
                 "spotify",
                 "flatpak run com.spotify.Client",
-                match=Match(wm_class=["spotify", "Spotify"]),
+                match=Match(wm_class=re.compile(r"^(spotify|Spotify)$")),
                 width=1.0,
                 height=1.0,
                 x=0,
@@ -218,6 +222,7 @@ floating_layout = layout.Floating(
         Match(func=lambda c: bool(c.is_transient_for())),
     ]
 )
+
 auto_fullscreen = True
 focus_on_window_activation = "smart"
 reconfigure_screens = True
@@ -255,6 +260,21 @@ def move_to_top_modals(window):
         window.focus()
         # window.bring_to_front()
         # raise Exception(window.info())
+
+
+@hook.subscribe.client_new
+def move_to_group_when_started(window):
+    destination = {
+        "FreeCAD": "6",
+        "BambuStudio": "7",
+        "sleek": "8",
+        "obsidian": "9",
+    }
+    wm_class = window.window.get_wm_class()
+    if wm_class:
+        app_name = wm_class[1]
+        if app_name in destination:
+            window.togroup(destination[app_name])
 
 
 keys += [
@@ -393,10 +413,8 @@ keys += [
         lazy.spawn("firefox-detach-window.sh"),
         desc="Detach tab on firefox",
     ),
-    Key("<XF86Launch7>", lazy.spawn("copypaster copy"), desc="Custom copy"),
-    Key("<XF86Launch6>", lazy.spawn("copypaster paste"), desc="Custom paste"),
     Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
-    Key("M-S-a", lazy.spawn("autorandr 1"), desc="Call autorandr"),
+    Key("M-A-a", lazy.spawn("autorandr 01"), desc="Call autorandr"),
     Key("M-r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
     Key(
         "M-<Escape>",
