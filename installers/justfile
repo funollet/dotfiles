@@ -6,10 +6,6 @@ ansible *args:
     ansible-playbook -v -c local -i localhost, install.yml {{args}}
  
 
-# rtx init
-rtx-install:
-  cd ~ ; rtx install
-
 # install with uv
 uv-install:
   uv tool install --python 3.13 pex
@@ -17,6 +13,7 @@ uv-install:
   uv tool install --python 3.13 termdown
   uv tool install --python 3.13 yamlfix
   uv tool install --python 3.12 posting
+  uv tool install --python 3.13 copier
 
 # Install using bin
 _bin-install repo:

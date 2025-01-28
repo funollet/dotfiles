@@ -13,15 +13,14 @@ sudo dnf install \
 sudo dnf install \
   https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# install rtx
-sudo dnf config-manager --add-repo https://rtx.pub/rpm/rtx.repo
-sudo dnf install -y rtx
-export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
-eval "$(/usr/bin/rtx activate bash)"
+# install mise
+sudo dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo
+sudo dnf install -y mise
+eval "$(/usr/bin/mise activate bash)"
 
 # make global versions available
-cd .. ; stow rtx ; cd $OLDPWD
-cd ~ ; rtx install bin ; cd $OLDPWD
+cd .. ; stow mise ; cd $OLDPWD
+cd ~ ; mise install bin ; cd $OLDPWD
 
 sudo dnf install -y ansible
 

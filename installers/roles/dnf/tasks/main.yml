@@ -16,20 +16,6 @@
 #   become: yes
 #   tags: rpm
 #
-- name: enable rtx repo
-  community.general.ini_file:
-    path: /etc/yum.repos.d/rtx.repo
-    section: rtx-repo
-    option: "{{ item.key}}"
-    value: "{{ item.value }}"
-  with_dict:
-    name: RTX Repo
-    baseurl: "https://rtx.pub/rpm"
-    enabled: '1'
-    gpgcheck: '1'
-    gpgkey: "https://rtx.pub/gpg-key.pub"
-  become: yes
-  tags: [rpm, rpm-repo]
 
 - name: enable chrome repo 
   ini_file:

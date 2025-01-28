@@ -65,9 +65,8 @@ export CHEAT_USE_FZF=true
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
-export RTX_FETCH_REMOTE_VERSIONS_TIMEOUT=30s
-eval "$(/usr/bin/rtx activate bash)"
-_rtx_hook
+eval "$(/usr/bin/mise activate bash)"
+_mise_hook
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done

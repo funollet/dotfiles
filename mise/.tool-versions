@@ -16,9 +16,7 @@ kubectx              0.9.4
 watchexec            1.22.3
 fx                   24.1.0
 grex                 1.4.2
-fasd                 1.0.1
 peco                 0.5.11
-copier               latest
 sops                 latest
 gcloud               latest
 gum                  latest

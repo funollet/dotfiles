@@ -1,0 +1,12 @@
+[tools]
+act = "latest"
+"asdf:funollet/asdf-fasd" = "latest"
+uv = "latest"
+actionlint = "latest"
+helm-diff = "latest"
+terraform = "latest"
+sops = "latest"
+lazygit = "latest"
+pre-commit = "latest"
+istioctl = "1.19.3"
+argocd = "latest"

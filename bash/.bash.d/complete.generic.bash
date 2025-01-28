@@ -5,17 +5,12 @@ if which bin > /dev/null 2>&1 ; then
 fi
 
 if which gcloud > /dev/null 2>&1 ; then
-  source $(rtx bin-paths | grep '/installs/gcloud/')/../completion.bash.inc
-  source $(rtx bin-paths | grep '/installs/gcloud/')/../path.bash.inc
+  source $(mise bin-paths | grep '/installs/gcloud/')/../completion.bash.inc
+  source $(mise bin-paths | grep '/installs/gcloud/')/../path.bash.inc
 fi
 
-if which rtx > /dev/null 2>&1 ; then
-    source <(rtx completion bash)
-fi
-
-if which nuclia-cli > /dev/null 2>&1 ; then
-    source <(lazycomplete \
-        nuclia-cli 'nuclia-cli --show-completion bash')
+if which mise > /dev/null 2>&1 ; then
+    source <(mise completion bash)
 fi
 
 if which k3d > /dev/null 2>&1 ; then
