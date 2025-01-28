@@ -81,13 +81,13 @@ dex $fname='':
 
 # tweaks docking the laptop
 dock:
-  powerprofilesctl set performance
+  tuned-adm profile desktop
   sudo systemctl restart chronyd.service
   autorandr -f 01
 
 # tweaks undocking the laptop
 undock:
-  powerprofilesctl set power-saver
+  tuned-adm profile balanced-battery
   systemctl --user restart fusuma
   autorandr 0
 
