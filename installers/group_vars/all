@@ -94,7 +94,7 @@ rpm: [
   lolcat, diskonaut,
   # GUI apps.
   pidgin, pidgin-libnotify, pidgin-guifications,
-  keepassxc,
+  keepassxc, 1password, 1password-cli,
   calibre, inkscape, firefox, mozilla-openh264,
   libreoffice, timeline, youtube-dl, Zim,
   zathura, speedcrunch, homebank, flameshot,

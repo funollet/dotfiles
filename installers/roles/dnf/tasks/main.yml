@@ -1,21 +1,32 @@
+- name: add 1password repo key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://downloads.1password.com/linux/keys/1password.asc
+  tags: [rpm, rpm-repo]
+
 - name: install repos
   dnf:
     name: "{{ item }}"
     state: present
-  become: yes
+  become: true
   loop:
     - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     - fedora-workstation-repositories
-    # - "https://download.opensuse.org/repositories/Archiving:/unison/Fedora_40/"
   tags: [rpm, rpm-repo]
 
-# - replace:
-#     path: /etc/yum.repos.d/percona-release.repo
-#     regexp: '\$releasever'
-#     replace: '6'
-#   become: yes
-#   tags: rpm
-#
+- name: add repos
+  ansible.builtin.yum_repository:
+    name:  "{{ item.name }}"
+    description: "{{ item.description }}"
+    baseurl: "{{ item.baseurl }}"
+    gpgcheck: true
+  loop:
+    - { name: "1password",
+        description: "1Password Stable Channel",
+        baseurl: "https://downloads.1password.com/linux/rpm/stable/$basearch",
+      }
+  become: true
+  tags: [rpm, rpm-repo]
 
 - name: enable chrome repo 
   ini_file:
