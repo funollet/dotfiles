@@ -21,7 +21,7 @@ _bin-install repo:
   which {{file_name(repo)}} > /dev/null || bin install {{repo}}
 
 # Install non-packaged software.
-install: _amber _docker-buildx _lazycomplete _fonts-hack _kubefwd _wally (_wally-cli "2.0.0-linux")
+install: _amber _docker-buildx _lazycomplete _fonts-hack _keymapp _kubefwd _wally (_wally-cli "2.0.0-linux")
   @just _bin-install https://github.com/funollet/inputplug
   @just _bin-install https://github.com/fiatjaf/jiq
   @just _bin-install https://github.com/kubernetes-sigs/kind
@@ -55,6 +55,17 @@ _lazycomplete:
 
 _kubefwd:
   sudo dnf install -y https://github.com/txn2/kubefwd/releases/download/1.22.5/kubefwd_amd64.rpm
+
+_keymapp:
+  #!/usr/bin/env bash
+  set -euxo pipefail
+  name=keymapp
+  latest="https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
+  [[ -f ~/.local/bin/$name ]] && exit
+  mkdir /tmp/$name && cd /tmp/$name
+  wget -nv -c $latest
+  tar -xzf $name*.tar.gz
+  install $name ~/.local/bin
 
 _wally version=`http https://api.github.com/repos/zsa/wally/releases | jq -r .[].tag_name | grep -i linux | head -1`:
     which wally > /dev/null || bin install https://github.com/zsa/wally/releases/tag/{{version}}
