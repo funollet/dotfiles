@@ -85,6 +85,7 @@ lvim.plugins = {
     event = "VeryLazy",
     config = function()
       require("chatgpt").setup({
+        api_key_cmd = "op read op://Private/OpenAI_API_Key/credential --no-newline",
         openai_params = {
           model = "chatgpt-4o-latest",
         },
