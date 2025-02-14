@@ -1,6 +1,7 @@
 import re
 import subprocess
 from pathlib import Path
+import asyncio
 
 from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import DropDown
@@ -11,7 +12,6 @@ from libqtile.config import EzKeyChord as KeyChord
 from libqtile.config import Group, Match, Rule, ScratchPad, Screen
 from libqtile.lazy import lazy
 from libqtile.log_utils import logger
-from libqtile.utils import guess_terminal
 
 mod = "mod4"
 # terminal = guess_terminal()
@@ -218,6 +218,7 @@ floating_layout = layout.Floating(
         Match(title="pinentry"),  # GPG key password entry
         Match(wm_class="telegram-desktop"),
         Match(wm_class="Slack"),
+        Match(wm_class="FreeCAD") & Match(wm_class="FreeCAD"),
         # float all windows that are transient windows for a parent window
         Match(func=lambda c: bool(c.is_transient_for())),
     ]
@@ -252,21 +253,17 @@ def autostart():
 
 
 @hook.subscribe.client_new
-def move_to_top_modals(window):
+async def restack_modal(window):
     state = window.window.get_net_wm_state()
     if state and "_NET_WM_STATE_MODAL" in state:
-        window.move_to_top()
-        window.keep_above()
+        await asyncio.sleep(0.5)
         window.focus()
-        # window.bring_to_front()
-        # raise Exception(window.info())
+        window.bring_to_front()
 
 
 @hook.subscribe.client_new
 def move_to_group_when_started(window):
     destination = {
-        "FreeCAD": "6",
-        "BambuStudio": "7",
         "sleek": "8",
         "obsidian": "9",
     }
