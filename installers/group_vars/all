@@ -1,8 +1,8 @@
 
 flatpak: [
-  com.spotify.Client, us.zoom.Zoom, org.telegram.desktop, net.lutris.Lutris,
+  com.spotify.Client, us.zoom.Zoom, org.telegram.desktop,
   md.obsidian.Obsidian, com.rafaelmardojai.Blanket, com.discordapp.Discord,
-  com.ultimaker.cura, com.slack.Slack
+  com.slack.Slack, org.freecad.FreeCAD
   ]
 
 gems: [

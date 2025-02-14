@@ -14,6 +14,7 @@ uv-install:
   uv tool install --python 3.13 yamlfix
   uv tool install --python 3.12 posting
   uv tool install --python 3.13 copier
+  uv tool install --python 3.13 vint
 
 # Install using bin
 _bin-install repo:
