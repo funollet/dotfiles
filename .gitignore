@@ -1,3 +1,2 @@
 *.secrets
-Brewfile.lock.json
 .ansible
