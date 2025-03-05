@@ -7,7 +7,7 @@ gui:
 git:
   paging:
     colorArg: always
-    pager: diff-so-fancy
+    pager: delta --config ~/.config/lazygit/delta.config
 
 # keybinding:
 #   universal:
