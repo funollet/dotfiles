@@ -261,9 +261,9 @@ nmap Y <Plug>(operator-flashy)$
 " mappings {{{
 
 " ESC in insert mode
-inoremap jk <esc>
+" inoremap jk <esc>
 " ESC in command mode
-cnoremap jk <C-C>
+" cnoremap jk <C-C>
 " Note: In command mode mappings to esc run the command for some odd
 " historical vi compatibility reason. We use the alternate method of
 " existing which is Ctrl-C
