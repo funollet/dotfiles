@@ -13,11 +13,38 @@
   excludesfile = /home/jordif/.git_excludes
   pager = delta
 [push]
-	default = current
-[includeIf "gitdir:~/code/nuclia/"]
-  path = .gitconfig.nuclia
+  default = simple
+  autoSetupRemote = true
+  followTags = true
+[fetch]
+  prune = true
+  pruneTags = true
+  all = true
+; [pull]
+;   rebase = true
+
 [init]
 	defaultBranch = main
+[column]
+  ui = auto
+[tag]
+  sort = version:refname
+[diff]
+  algorithm = histogram
+  colorMoved = plain
+  mnemonicPrefix = true
+  renames = true
+[help]
+  autocorrect = prompt
+[commit]
+  verbose = true
+[rerere]
+  enabled = true
+  autoupdate = true
+[rebase]
+  autoSquash = true
+  autoStash = true
+  updateRefs = true
 
 [interactive]
   diffFilter = delta --color-only
@@ -30,6 +57,9 @@
 
 [merge]
   conflictstyle = zdiff3
+
+[includeIf "gitdir:~/code/nuclia/"]
+  path = .gitconfig.nuclia
 
 [alias]
   default = simple
