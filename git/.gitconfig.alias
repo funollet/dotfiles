@@ -1,0 +1,40 @@
+[alias]
+  default = simple
+
+  ; short names
+  st = status
+  ci = commit
+  co = checkout
+  br = branch
+
+  ; colorful log
+  lg = log --color --graph \
+    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+    --abbrev-commit
+  
+  ; my log
+  me = log --color --graph \
+    --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' \
+    --abbrev-commit --author unollet --author jordi.fu
+  
+  ; list files staged
+  ls-staged = diff --name-only --cached
+  ; list files non-staged or untracked
+  ls-changed = ls-files --others --exclude-standard --modified
+  ls-ignored = ls-files --others --ignored --exclude-standard	
+
+  staash = stash --all
+  ; blame, ignore whitespace and detect lines moved on any commit
+  blaame = blame -w -C -C -C
+  ; don't push if there are changes on the remote
+  safe-force-push = push --force-with-lease
+  
+  set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
+ 
+  rebaseme = "!f() { \
+    local ref=\"$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f1)\"; \
+    [ -n \"$1\" ] && ref=\"$1\"; \
+    git rebase --autosquash -i $(git merge-base \"${ref}\" HEAD); \
+  }; f"
+
+# vim: ft=gitconfig
