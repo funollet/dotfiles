@@ -28,7 +28,8 @@ rpm: [
   ### devopstools
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
-  mercurial, git, hub, git-svn, gitk, sqlite, jq, ShellCheck,
+  git, hub, git-svn, gitk, git-delta,
+  sqlite, jq, ShellCheck,
   direnv, stow, gron, just, jc,
   # linting
   rubygem-puppet-lint, yamllint, hadolint,

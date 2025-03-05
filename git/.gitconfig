@@ -11,15 +11,25 @@
   ui = auto
 [core]
   excludesfile = /home/jordif/.git_excludes
-  pager = less -RFX
-[pager]
-  diff = diff-so-fancy | less --tabs=4 -RFX --pattern '^(Date|added|deleted|modified): '
+  pager = delta
 [push]
 	default = current
 [includeIf "gitdir:~/code/nuclia/"]
   path = .gitconfig.nuclia
 [init]
 	defaultBranch = main
+
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  # dark = true      # delta detects terminal colors automatically
+  hyperlinks = true
+  side-by-side = true
+  theme = "Monokai Extended"
+
+[merge]
+  conflictstyle = zdiff3
 
 [alias]
   default = simple
