@@ -13,6 +13,16 @@ argocd = "latest"
 kind = "latest"
 "ubi:ahmetb/kubectx" = {version="latest", matching="kubectx"}
 kubens = {version="latest", matching="kubens", exe="kubens"}
+"ubi:fiatjaf/jiq" = "latest"
+"ubi:gokcehan/lf" = "latest"
+"ubi:ericchiang/pup" = "latest"
+"ubi:joehillen/sysz" = "latest"
+"ubi:kmonad/kmonad" = "latest"
+"ubi:houseabsolute/ubi" = "latest"
+"ubi:sqshq/sampler" = "latest"
+"ubi:docker/buildx" = { version = "latest", postinstall = "mkdir -p ~/.docker/cli-plugins/ && ln -s ~/.local/share/mise/installs/ubi-docker-buildx/latest/buildx ~/.docker/cli-plugins/docker-buildx" }
+"cargo:andrewshadura/inputplug" = "latest"
+"ubi:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
 
 [alias]
 kubens = "ubi:ahmetb/kubectx"

@@ -21,34 +21,14 @@ _bin-install repo:
   which {{file_name(repo)}} > /dev/null || bin install {{repo}}
 
 # Install non-packaged software.
-install: _amber _docker-buildx _lazycomplete _fonts-hack _keymapp _kubefwd _wally (_wally-cli "2.0.0-linux")
-  @just _bin-install https://github.com/funollet/inputplug
-  @just _bin-install https://github.com/fiatjaf/jiq
-  @just _bin-install https://github.com/kubernetes-sigs/kind
-  @just _bin-install https://github.com/gokcehan/lf
-  @just _bin-install https://github.com/ericchiang/pup
-  @just _bin-install https://github.com/joehillen/sysz
-  @just _bin-install https://github.com/akavel/up
-  @just _bin-install https://github.com/kmonad/kmonad
-  @just _bin-install https://github.com/google/go-containerregistry
-
-_docopts:
-  wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh
-  bin install https://github.com/docopt/docopts
+install: _amber _lazycomplete _fonts-hack _keymapp _kubefwd _up (_wally-cli "2.0.0-linux")
 
 _amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
     #!/usr/bin/env bash
     set -euxo pipefail
-    which lazycomplete > /dev/null && exit
+    which ambr > /dev/null && exit
     wget -q -c -P /tmp https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
     unzip /tmp/amber-{{version}}-x86_64-lnx.zip ambr ambs -d ~/.local/bin
-
-_docker-buildx:
-    #!/usr/bin/env bash
-    set -euxo pipefail
-    [[ -f ~/.docker/cli-plugins/docker-buildx ]] && exit
-    mkdir -p ~/.docker/cli-plugins/
-    bin install https://github.com/docker/buildx ~/.docker/cli-plugins/docker-buildx
 
 _lazycomplete:
     which lazycomplete > /dev/null || sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
@@ -67,8 +47,8 @@ _keymapp:
   tar -xzf $name*.tar.gz
   install $name ~/.local/bin
 
-_wally version=`http https://api.github.com/repos/zsa/wally/releases | jq -r .[].tag_name | grep -i linux | head -1`:
-    which wally > /dev/null || bin install https://github.com/zsa/wally/releases/tag/{{version}}
+_up:
+  which up > /dev/null || bin install https://github.com/akavel/up
 
 _wally-cli version=`http https://api.github.com/repos/zsa/wally-cli/releases | jq -r .[].tag_name | grep -i linux | head -1`:
     which wally-cli > /dev/null || bin install https://github.com/zsa/wally-cli/releases/tag/{{version}}
