@@ -4,7 +4,12 @@ export KUBECONFIG=~/.kube/config
 
 which kubectl > /dev/null 2>&1 || return
 
-source <(kubectl completion bash)
+if command -v fzf >/dev/null 2>&1 ; then
+	source <(kubectl completion bash | sed 's#"${requestComp}" 2>/dev/null#"${requestComp}" 2>/dev/null | head -n -1 | fzf  --multi=0 #g')
+else
+  source <(kubectl completion bash)
+fi
+
 # Replaced this alias by a symlink on ~/bin
 # alias k=kubectl
 complete -F __start_kubectl k
