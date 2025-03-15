@@ -12,7 +12,6 @@ helm                 3.11.1
 yq                   4.33.3
 kustomize            5.0.1
 vault                1.13.1
-kubectx              0.9.4
 watchexec            1.22.3
 fx                   24.1.0
 grex                 1.4.2

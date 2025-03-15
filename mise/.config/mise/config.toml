@@ -11,3 +11,8 @@ pre-commit = "latest"
 istioctl = "1.19.3"
 argocd = "latest"
 kind = "latest"
+"ubi:ahmetb/kubectx" = {version="latest", matching="kubectx"}
+kubens = {version="latest", matching="kubens", exe="kubens"}
+
+[alias]
+kubens = "ubi:ahmetb/kubectx"
