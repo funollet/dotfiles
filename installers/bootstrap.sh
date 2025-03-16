@@ -20,7 +20,6 @@ eval "$(/usr/bin/mise activate bash)"
 
 # make global versions available
 cd .. ; stow mise ; cd $OLDPWD
-cd ~ ; mise install bin ; cd $OLDPWD
 
 sudo dnf install -y ansible
 

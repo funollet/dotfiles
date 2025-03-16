@@ -16,42 +16,34 @@ uv-install:
   uv tool install --python 3.13 copier
   uv tool install --python 3.13 vint
 
-# Install using bin
-_bin-install repo:
-  which {{file_name(repo)}} > /dev/null || bin install {{repo}}
-
 # Install non-packaged software.
-install: _amber _lazycomplete _fonts-hack _keymapp _kubefwd _up (_wally-cli "2.0.0-linux")
+install: _ambr _ambs _lazycomplete _fonts-hack _keymapp _kubefwd _up _wally-cli
 
-_amber version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
-    #!/usr/bin/env bash
-    set -euxo pipefail
-    which ambr > /dev/null && exit
-    wget -q -c -P /tmp https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
-    unzip /tmp/amber-{{version}}-x86_64-lnx.zip ambr ambs -d ~/.local/bin
+_ambr version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
+  which ambr &> /dev/null || \
+  ubi --exe ambr --in ~/.local/bin/ --url https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
+
+_ambs version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
+  which ambs &> /dev/null || \
+  ubi --exe ambs --in ~/.local/bin/ --url https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
 
 _lazycomplete:
-    which lazycomplete > /dev/null || sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
+  which lazycomplete &> /dev/null || sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
 
 _kubefwd:
   sudo dnf install -y https://github.com/txn2/kubefwd/releases/download/1.22.5/kubefwd_amd64.rpm
 
 _keymapp:
-  #!/usr/bin/env bash
-  set -euxo pipefail
-  name=keymapp
-  latest="https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
-  [[ -f ~/.local/bin/$name ]] && exit
-  mkdir /tmp/$name && cd /tmp/$name
-  wget -nv -c $latest
-  tar -xzf $name*.tar.gz
-  install $name ~/.local/bin
+  which keymapp &> /dev/null || \
+  ubi --exe keymapp --in ~/.local/bin/ --url https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz
 
-_up:
-  which up > /dev/null || bin install https://github.com/akavel/up
+_up version=`http https://api.github.com/repos/akavel/up/releases | jq -r .[].tag_name | head -1`:
+  which up &> /dev/null || \
+  ubi --exe up --in ~/.local/bin/ --url https://github.com/akavel/up/releases/download/{{version}}/up
 
-_wally-cli version=`http https://api.github.com/repos/zsa/wally-cli/releases | jq -r .[].tag_name | grep -i linux | head -1`:
-    which wally-cli > /dev/null || bin install https://github.com/zsa/wally-cli/releases/tag/{{version}}
+_wally-cli:
+  which wally-cli &> /dev/null || \
+  ubi --exe wally-cli --in ~/.local/bin/ --url https://github.com/zsa/wally-cli/releases/download/2.0.0-linux/wally-cli
 
 # Install font Hack from https://github.com/ryanoasis/nerd-fonts
 _fonts-hack version="2.1.0":
