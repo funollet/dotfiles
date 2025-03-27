@@ -3,15 +3,16 @@ import subprocess
 from pathlib import Path
 import asyncio
 
+
 from libqtile import bar, hook, layout, qtile, widget
 from libqtile.config import DropDown
 from libqtile.config import EzClick as Click
 from libqtile.config import EzDrag as Drag
 from libqtile.config import EzKey as Key
 from libqtile.config import EzKeyChord as KeyChord
-from libqtile.config import Group, Match, Rule, ScratchPad, Screen
+from libqtile.config import Group, Match, ScratchPad, Screen
 from libqtile.lazy import lazy
-from libqtile.log_utils import logger
+# from libqtile.log_utils import logger
 
 mod = "mod4"
 # terminal = guess_terminal()
@@ -69,6 +70,44 @@ def move_window_to_group(direction):
 
     if qtile.current_window:
         qtile.current_window.togroup(target_group, switch_group=True)
+
+
+def _is_first_window(grp):
+    """
+    Check if the current window is the first window in the group.
+
+    Args:
+        grp: An object representing a group of windows.
+    """
+    return grp.current_window == grp.windows[0]
+
+
+def _is_last_window(grp) -> bool:
+    """
+    Check if the current window is the last window in the group.
+
+    Args:
+        grp: An object representing a group of windows.
+    """
+    return (len(grp.windows) <= 1) or (grp.current_window == grp.windows[-1])
+
+
+@lazy.function
+def next_window_all_screens(qtile):
+    """Focus the next window across all screens."""
+    if _is_last_window(qtile.current_screen.group):
+        qtile.next_screen()
+
+    qtile.current_screen.group.layout.next()
+
+
+@lazy.function
+def prev_window_all_screens(qtile):
+    """Focus the previous window across all screens."""
+    if _is_first_window(qtile.current_screen.group):
+        qtile.prev_screen()
+
+    qtile.current_screen.group.layout.previous()
 
 
 keys = []
@@ -161,12 +200,15 @@ screens = [
                 ),
                 widget.Spacer(length=10),
                 widget.Systray(),
+                # widget.TunedManager(),   # needs 0.31
                 widget.Spacer(),
                 widget.GroupBox(
                     highlight_method="line",
                     this_current_screen_border=colors["yellow"],
                 ),
                 widget.Spacer(),
+                widget.Pomodoro(length_pomodori=4),
+                widget.Volume(emoji=True),
                 widget.Clock(
                     format="%I:%M",
                     fontsize=16,
@@ -276,15 +318,15 @@ def move_to_group_when_started(window):
 
 keys += [
     # Switch between windows
-    Key("M-h", lazy.layout.left(), desc="Move focus to left"),
-    Key("M-l", lazy.layout.right(), desc="Move focus to right"),
-    Key("M-j", lazy.layout.down(), desc="Move focus down"),
-    Key("M-k", lazy.layout.up(), desc="Move focus up"),
-    #
-    Key("M-<space>", lazy.layout.next(), desc="Move window focus to other window"),
+    Key("M-<Tab>", next_window_all_screens, desc="Cycle windows"),
+    Key("M-S-<Tab>", prev_window_all_screens, desc="Cycle windows in reverse"),
+    Key("M-j", lazy.group.next_window(), desc="Focus next window in group"),
     Key(
-        "M-S-<space>", lazy.layout.previous(), desc="Move window focus to other window"
+        "M-k",
+        lazy.group.prev_window(),
+        desc="Focus previous window in group",
     ),
+    #
     # Move windows between left/right columns or move up/down in current stack.
     # Moving out of range in Columns layout will create new column.
     Key("M-C-h", lazy.layout.shuffle_left(), desc="Move window to the left"),
@@ -319,7 +361,8 @@ keys += [
         desc="Move window to next monitor",
     ),
     # Layout management.
-    Key("M-<Tab>", lazy.next_layout(), desc="Toggle between layouts"),
+    # Key("M-<Tab>", lazy.next_layout(), desc="Toggle between layouts"),
+    Key("M-<space>", lazy.next_layout(), desc="Toggle between layouts"),
     Key(
         "M-f",
         lazy.window.toggle_fullscreen(),
