@@ -80,12 +80,13 @@ lvim.plugins = {
   },
   { "freitass/todo.txt-vim" },
   { "sindrets/diffview.nvim" },
+  { "famiu/bufdelete.nvim" },
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",
     config = function()
       require("chatgpt").setup({
-        api_key_cmd = "op read op://Private/OpenAI_API_Key/credential --no-newline",
+        api_key_cmd = "op read --no-newline op://non-interactive/OpenAI_token/credential",
         openai_params = {
           model = "chatgpt-4o-latest",
         },
