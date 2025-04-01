@@ -65,8 +65,10 @@ export CHEAT_USE_FZF=true
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
-eval "$(/usr/bin/mise activate bash)"
-_mise_hook
+if which mise > /dev/null 2>&1 ; then
+  eval "$(/usr/bin/mise activate bash)"
+  _mise_hook
+fi
 
 for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done

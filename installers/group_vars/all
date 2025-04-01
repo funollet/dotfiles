@@ -32,7 +32,7 @@ rpm: [
   sqlite, jq, yq, ShellCheck,
   direnv, stow, gron, just, jc,
   # linting
-  rubygem-puppet-lint, yamllint, hadolint,
+  yamllint, hadolint,
   python3-black, python3-pytest, python3-flake8, python3-isort,
   # Python development.
   python-devel, python-crypto,
@@ -59,9 +59,7 @@ rpm: [
   #, Ops,
   moby-engine,
   par, pssh, pdsh, pdsh-mod-dshgroup,
-  mysql, gnuplot, httpd-tools,
-  #rubygem-rails            # puppet storedconfigs requirement
-  puppet, rubygem-puppet-lint, rubygem-puppet-lint-doc, pass,
+  mysql, gnuplot, httpd-tools, pass,
   #
   # libvirt-bin service must not be run: installs and launches dnsmasq configures virt0 interface.
   #libvirt-bin,
@@ -70,12 +68,12 @@ rpm: [
   ### unix_essentials:
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff, diff-so-fancy,
   the_silver_searcher, fd-find, ncdu, bat, eza, gron, jo, lsd, trash-cli, sd,
-  highlight, unison, ripgrep, zoxide,
+  highlight, unison, ripgrep, zoxide, mise,
   
   ### workstation:
   kernel-modules-extra, kernel-headers, kernel-devel, dkms,
   # Xwindows
-  joystick-support, wmctrl, xdotool, qgnomeplatform,
+  joystick-support, wmctrl, xdotool, qgnomeplatform-qt6,
   xkbset, xbindkeys, xset, xosd,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
@@ -101,9 +99,9 @@ rpm: [
   zathura, speedcrunch, homebank, flameshot,
   ghostty,
   # Graphics
-  gimp, ufraw-gimp, gimp-wavelet-denoise-plugin, gimp-separate+,
+  gimp, ufraw,
   gimp-paint-studio, gimp-help,
-  gimp-resynthesizer, gimp-lqr-plugin, gimp-high-pass-filter, gimp-elsamuko,
+  gimp-high-pass-filter, gimp-elsamuko,
   gimp-data-extras,
   digikam, kf5-kipi-plugins, darktable,
   # Multimedia
@@ -153,7 +151,7 @@ rpm: [
   qtile, python3-dbus-next, xorg-x11-server-Xephyr,
   
   ### lxqt:
-  "@lxqt",
+  "@lxqt-desktop",
   
   ### vagrant:
   vagrant, vagrant-doc, vagrant-libvirt,

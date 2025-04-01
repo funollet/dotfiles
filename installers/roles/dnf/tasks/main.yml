@@ -11,6 +11,7 @@
   become: true
   loop:
     - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+    - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
     - fedora-workstation-repositories
   tags: [rpm, rpm-repo]
 
@@ -24,6 +25,11 @@
     - { name: "1password",
         description: "1Password Stable Channel",
         baseurl: "https://downloads.1password.com/linux/rpm/stable/$basearch",
+      }
+    - { name: "mise",
+        description: "mise repo",
+        baseurl: "https://mise.jdx.dev/rpm",
+        gpgkey: "https://mise.jdx.dev/gpg-key.pub"
       }
   become: true
   tags: [rpm, rpm-repo]
@@ -50,14 +56,14 @@
     name: "{{ rpm_absent }}"
     state: absent
   become: yes
-  tags: rpm
+  tags: [rpm, rpm-absent]
 
 - name: install with dnf
   dnf:
     name: "{{ rpm }}"
     state: present
   become: yes
-  tags: rpm
+  tags: [rpm, rpm-present]
 
 - name: enable services
   ansible.builtin.systemd:

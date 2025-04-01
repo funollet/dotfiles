@@ -7,7 +7,7 @@ help:
 # Run ansible on the local workstation.
 ansible *args:
     ansible-playbook -v -c local -i localhost, install.yml {{args}}
- 
+
 
 # Install non-packaged software.
 install-extras: _install-with-uv _ambr _ambs _lazycomplete _fonts-hack _keymapp _kubefwd _up _wally-cli
