@@ -29,7 +29,7 @@ rpm: [
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
   git, hub, git-svn, gitk, git-delta,
-  sqlite, jq, ShellCheck,
+  sqlite, jq, yq, ShellCheck,
   direnv, stow, gron, just, jc,
   # linting
   rubygem-puppet-lint, yamllint, hadolint,

@@ -22,6 +22,25 @@ kubens = {version="latest", matching="kubens", exe="kubens"}
 "ubi:docker/buildx" = { version = "latest", postinstall = "mkdir -p ~/.docker/cli-plugins/ && ln -s ~/.local/share/mise/installs/ubi-docker-buildx/latest/buildx ~/.docker/cli-plugins/docker-buildx" }
 "cargo:andrewshadura/inputplug" = "latest"
 "ubi:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
+usage = "latest"
+github-cli = "latest"
+packer = "latest"
+task = "latest"
+k3d = "latest"
+k9s = "latest"
+tflint = "latest"
+helm = "latest"
+kustomize = "latest"
+watchexec = "latest"
+fx = "latest"
+grex = "latest"
+peco = "latest"
+gum = "latest"
+ruff = "latest"
+python = "3.10"
+awscli = "latest"
+kubectl = "latest"
+gcloud = "latest"
 
 [alias]
 kubens = "ubi:ahmetb/kubectx"
