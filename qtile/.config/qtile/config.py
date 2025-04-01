@@ -26,20 +26,43 @@ colors = {
 }
 
 
+def _get_next_screen(qtile):
+    """Get the next screen in the list of screens. Wraps around.
+
+    Args:
+        qtile: The qtile object.
+
+    Returns:
+        The next screen in the list of screens.
+    """
+    current_screen_idx = qtile.screens.index(qtile.current_screen)
+    if current_screen_idx + 1 != len(qtile.screens):
+        return qtile.screens[current_screen_idx + 1]
+    else:  # wrap around if it's the last screen
+        return qtile.screens[0]
+
+
 def window_to_next_screen(qtile, switch_group=False, switch_screen=False):
-    i = qtile.screens.index(qtile.current_screen)
-    if i + 1 != len(qtile.screens):
-        dest_idx = i + 1
-    else:
-        dest_idx = 0
-    group = qtile.screens[dest_idx].group.name
-    qtile.current_window.togroup(group, switch_group=switch_group)
+    """Move the current window to the next screen. Wraps around.
+
+    Args:
+        qtile: The qtile object.
+        switch_group: If True, switch to the group of the destination screen.
+        switch_screen: If True, switch to the destination screen.
+    """
+    next_screen = _get_next_screen(qtile)
+
+    # Move the current window to the destination screen's group
+    qtile.current_window.togroup(next_screen.group.name, switch_group=switch_group)
+
+    # If switch_screen is True, switch focus to the destination screen
     if switch_screen:
-        qtile.to_screen(dest_idx)
+        qtile.to_screen(next_screen.index)
 
 
 @lazy.function
 def prev_group_or_stay(qtile):
+    """Switch to the previous group. Not wrap around."""
     current_index = qtile.groups.index(qtile.current_group)
     if current_index > 0:
         qtile.current_screen.prev_group(skip_empty=True)
@@ -47,6 +70,7 @@ def prev_group_or_stay(qtile):
 
 @lazy.function
 def next_group_or_stay(qtile):
+    """Switch to the next group. Not wrap around."""
     current_index = qtile.groups.index(qtile.current_group)
     last_index = len(groups) - 2  # ScratchPad does not count
     if current_index < last_index:
