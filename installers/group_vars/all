@@ -144,6 +144,8 @@ rpm: [
   volumeicon, udiskie, blueman,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   NetworkManager-vpnc,
+  # filemanager
+  Thunar, thunar-volman, tumbler, tumbler-extras,
 
   sddm, sddm-themes, sddm-breeze,
 
