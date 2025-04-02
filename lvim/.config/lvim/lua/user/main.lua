@@ -57,6 +57,7 @@ lvim.builtin.treesitter.ignore_install = { "haskell", "tsx" }
 lvim.builtin.treesitter.highlight.enable = true
 lvim.builtin.treesitter.rainbow.enable = true
 
+
 -- Additional Plugins
 
 lvim.plugins = {
@@ -104,18 +105,38 @@ lvim.plugins = {
       "nvim-telescope/telescope.nvim"
     }
   },
-  -- {
-  --   "nvim-telescope/telescope-project.nvim",
-  --   event = "BufWinEnter",
-  --   setup = function()
-  --     vim.cmd [[packadd telescope.nvim]]
-  --   end,
-  -- },
-  -- {
-  --   "mrjones2014/nvim-ts-rainbow",
-  -- },
-  -- {
-  --   "folke/trouble.nvim",
-  --   cmd = "TroubleToggle",
-  -- },
+  {
+    "zbirenbaum/copilot.lua",
+    config = function()
+      require("copilot").setup({
+        filetypes = {
+          markdown = false,
+          todo = false,
+          todotxt = false,
+          text = false,
+          txt = false,
+          csv = false,
+          gitrebase = false,
+          sh = function()
+            if string.match(vim.fs.basename(vim.api.nvim_buf_get_name(0)), '^%.env.*') then
+              return false -- disable for .env files
+            end
+            return true
+          end,
+        },
+        copilot_model = "gpt-4o-copilot",
+      }) -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
+    end
+  },
+  {
+    "zbirenbaum/copilot-cmp",
+    event = "InsertEnter",
+    dependencies = { "zbirenbaum/copilot.lua" },
+    config = function()
+      vim.defer_fn(function()
+        require("copilot").setup()     -- https://github.com/zbirenbaum/copilot.lua/blob/master/README.md#setup-and-configuration
+        require("copilot_cmp").setup() -- https://github.com/zbirenbaum/copilot-cmp/blob/master/README.md#configuration
+      end, 100)
+    end,
+  }
 }
