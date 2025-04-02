@@ -10,8 +10,8 @@ vim.opt.foldenable = false
 
 -- TODO: User Config for predefined plugins
 -- After changing plugin config exit and reopen LunarVim, Run :PackerInstall :PackerCompile
-lvim.builtin.alpha.active = true
-lvim.builtin.alpha.mode = "dashboard"
+lvim.builtin.alpha.active = false
+-- lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "right"
 lvim.builtin.nvimtree.setup.renderer.icons.show.git = true
@@ -82,6 +82,15 @@ lvim.plugins = {
   { "freitass/todo.txt-vim" },
   { "sindrets/diffview.nvim" },
   { "famiu/bufdelete.nvim" },
+  {
+    "rmagatti/auto-session",
+    config = function()
+      require("auto-session").setup {
+        -- suppressed_dirs = { "~/", "~/Projects", "~/Downloads", "/"},
+        -- log_level = "debug",
+      }
+    end
+  },
   {
     "jackMort/ChatGPT.nvim",
     event = "VeryLazy",

@@ -84,6 +84,7 @@ function _G.toggle_diffview()
 end
 
 wk.mappings["sP"] = { "<cmd>Telescope projects<CR>", "Projects" }
+wk.mappings["ss"] = { "<cmd>SessionSearch<CR>", "Sessions" }
 wk.mappings["gt"] = { "<cmd>SpawnTerminal<CR>", "Spawn new terminal" }
 wk.mappings["gv"] = { "<cmd>lua toggle_diffview()<CR>", "Toggle diffview" }
 wk.mappings["t"] = {
@@ -93,6 +94,7 @@ wk.mappings["t"] = {
   c = { "<cmd>lua require('cmp').setup.buffer { enabled = false }<cr>", "cmp disable" },
   d = { "<cmd>lua if vim.diagnostic.is_disabled(0) then vim.diagnostic.enable(0) else vim.diagnostic.disable(0) end<cr>",
     "diagnostics" },
+  s = { "<cmd>SessionToggleAutosave<cr>", "session autosave" },
 }
 wk.mappings['T'] = {}
 -- wk.mappings["t"] = {
