@@ -12,7 +12,8 @@ from libqtile.config import EzKey as Key
 from libqtile.config import EzKeyChord as KeyChord
 from libqtile.config import Group, Match, ScratchPad, Screen
 from libqtile.lazy import lazy
-# from libqtile.log_utils import logger
+from libqtile.log_utils import logger
+from time import sleep
 
 mod = "mod4"
 # terminal = guess_terminal()
@@ -214,6 +215,7 @@ screens = [
         bottom=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
+                widget.Chord(),
                 widget.Spacer(length=10),
                 widget.Prompt(),
                 widget.Chord(
@@ -223,6 +225,8 @@ screens = [
                     name_transform=lambda name: name.upper(),
                 ),
                 widget.Spacer(length=10),
+                widget.StatusNotifier(),
+                widget.Spacer(length=10),
                 widget.Systray(),
                 # widget.TunedManager(),   # needs 0.31
                 widget.Spacer(),
@@ -231,8 +235,9 @@ screens = [
                     this_current_screen_border=colors["yellow"],
                 ),
                 widget.Spacer(),
-                widget.Pomodoro(length_pomodori=4),
                 widget.Volume(emoji=True),
+                # widget.TunedManager(),
+                widget.DoNotDisturb(),
                 widget.Clock(
                     format="%I:%M",
                     fontsize=16,
@@ -259,6 +264,7 @@ screens = [
                     this_current_screen_border=colors["yellow"],
                 ),
                 widget.Spacer(),
+                widget.DoNotDisturb(),
                 widget.Clock(format="%I:%M", fontsize=16),
             ],
             24,
@@ -287,7 +293,11 @@ floating_layout = layout.Floating(
         Match(wm_class="FreeCAD") & Match(wm_class="FreeCAD"),
         # float all windows that are transient windows for a parent window
         Match(func=lambda c: bool(c.is_transient_for())),
-    ]
+    ],
+    no_reposition_rules=[
+        Match(wm_class="ghostty")
+        & Match(func=lambda c: c.window.get_name() == "ghostty-termdown"),
+    ],
 )
 
 auto_fullscreen = True
@@ -338,6 +348,25 @@ def move_to_group_when_started(window):
         app_name = wm_class[1]
         if app_name in destination:
             window.togroup(destination[app_name])
+
+
+@hook.subscribe.client_new
+def termdown_style(window):
+    """Set custom style for window with WM_NAME=ghostty-termdown."""
+    # If class is ghostty, wait 0.5 seconds to let the window manager
+    # set the window name.
+    if "ghostty" not in window.window.get_wm_class():
+        return
+    sleep(0.5)
+
+    wm_name = window.window.get_name()
+    if wm_name == "ghostty-termdown":
+        width, height = 600, 400
+        x_right = qtile.current_screen.x + qtile.current_screen.width
+        window.floating = True
+        window.set_size_floating(width, height)
+        # Position near to the top-right corner
+        window.set_position_floating(x_right - width - 10, 10)
 
 
 keys += [
@@ -487,7 +516,7 @@ keys += [
         desc="Call ulauncher plugin for logout, reboot, etc.",
     ),
     Key("C-A-l", lazy.spawn("xset s activate"), desc="Activate screensaver"),
-    Key("M-y", lazy.spawn("dolphin"), desc="Call dolphin"),
+    Key("M-y", lazy.spawn("thunar"), desc="Open file browser"),
     Key("<Print>", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
     Key(
         "<XF86MonBrightnessDown>",
