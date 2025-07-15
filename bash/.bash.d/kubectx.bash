@@ -1,3 +1,5 @@
+alias kctx='kubectx'
+
 _kube_contexts()
 {
   local curr_arg;

@@ -1,3 +1,5 @@
+alias kns='kubens'
+
 _kube_namespaces()
 {
   local curr_arg;
