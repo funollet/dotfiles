@@ -11,7 +11,7 @@ alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
 alias ssh-blindly='TERM=xterm-256color ssh -o StrictHostKeyChecking=no  -o CheckHostIP=no -o UserKnownHostsFile=/dev/null'
 alias lg='lazygit'
-
+alias bring-back-window='wmctrl -l | fzf | cut -d\  -f1 | xargs wmctrl -iR'
 
 psg () {        # bash-expansion: grep [p]attern
     ps auxw | grep \[${1:0:1}\]${1:1}
