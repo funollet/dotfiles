@@ -94,4 +94,10 @@ undock:
 trackpad:
   bluetoothctl connect A8:91:3D:E5:86:65
 
+@countdown period summary="Countdown":
+  nohup ghostty --title=ghostty-termdown -e \
+    "termdown --no-window-title {{period}} && \
+     notify-send --urgency critical '{{summary}}' '{{period}} finished.'" \
+  > /dev/null 2>&1 &
+
 # vim: ft=just
