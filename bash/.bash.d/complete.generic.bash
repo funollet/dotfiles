@@ -9,11 +9,6 @@ if which mise > /dev/null 2>&1 ; then
     source <(mise completion bash)
 fi
 
-if which k3d > /dev/null 2>&1 ; then
-    source <(lazycomplete \
-        k3d 'k3d completion bash')
-fi
-
 if which kind > /dev/null 2>&1 ; then
     source <(lazycomplete \
         kind 'kind completion bash')
