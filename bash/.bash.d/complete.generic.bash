@@ -1,9 +1,5 @@
 #!/bin/bash
 
-if which bin > /dev/null 2>&1 ; then
-    source <(bin completion bash)
-fi
-
 if which gcloud > /dev/null 2>&1 ; then
   source $(mise bin-paths | grep '/installs/gcloud/')/../completion.bash.inc
   source $(mise bin-paths | grep '/installs/gcloud/')/../path.bash.inc
@@ -74,4 +70,9 @@ fi
 if which gcrane > /dev/null 2>&1 ; then
     source <(lazycomplete \
         gcrane 'gcrane completion bash')
+fi
+
+if which vagrant > /dev/null 2>&1 ; then
+  version=$(vagrant -v | awk '{print $2}')
+  source /opt/vagrant/embedded/gems/gems/vagrant-${version}/contrib/bash/completion.sh
 fi
