@@ -10,43 +10,11 @@ ansible *args:
 
 
 # Install non-packaged software.
-install-extras: _install-with-uv _ambr _ambs _lazycomplete _fonts-hack _keymapp _kubefwd _up _wally-cli
-
-# install with uv
-_install-with-uv:
-  uv tool install --python 3.13 pex
-  uv tool install --python 3.13 csb43
-  uv tool install --python 3.13 termdown
-  uv tool install --python 3.13 yamlfix
-  uv tool install --python 3.12 posting
-  uv tool install --python 3.13 copier
-  uv tool install --python 3.13 vint
-
-_ambr version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
-  which ambr &> /dev/null || \
-  ubi --exe ambr --in ~/.local/bin/ --url https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
-
-_ambs version=`http https://api.github.com/repos/dalance/amber/releases | jq -r .[].tag_name | head -1`:
-  which ambs &> /dev/null || \
-  ubi --exe ambs --in ~/.local/bin/ --url https://github.com/dalance/amber/releases/download/{{version}}/amber-{{version}}-x86_64-lnx.zip
-
-_lazycomplete:
-  which lazycomplete &> /dev/null || sudo dnf install -y https://github.com/rsteube/lazycomplete/releases/download/v0.0.19/lazycomplete_0.0.19_linux_amd64.rpm
-
-_kubefwd:
-  sudo dnf install -y https://github.com/txn2/kubefwd/releases/download/1.22.5/kubefwd_amd64.rpm
+install-extras: _fonts-hack _keymapp
 
 _keymapp:
   which keymapp &> /dev/null || \
   ubi --exe keymapp --in ~/.local/bin/ --url https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz
-
-_up version=`http https://api.github.com/repos/akavel/up/releases | jq -r .[].tag_name | head -1`:
-  which up &> /dev/null || \
-  ubi --exe up --in ~/.local/bin/ --url https://github.com/akavel/up/releases/download/{{version}}/up
-
-_wally-cli:
-  which wally-cli &> /dev/null || \
-  ubi --exe wally-cli --in ~/.local/bin/ --url https://github.com/zsa/wally-cli/releases/download/2.0.0-linux/wally-cli
 
 # Install font Hack from https://github.com/ryanoasis/nerd-fonts
 _fonts-hack version="2.1.0":
