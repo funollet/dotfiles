@@ -3,7 +3,8 @@
 # Default invocations with extra parameters.
 alias top='top -d1'
 alias exa='eza --git-ignore'
-alias tree='eza --git-ignore -I ".terraform|.*_cache|__pycache__" --tree --all'
+alias tree='eza --tree --git-ignore -I ".terraform|.*_cache|__pycache__"'
+alias tree-all='eza --tree --all -I ".git|.terraform|.*_cache|__pycache__"'
 alias vim=vimx
 alias nvim=lvim
 alias watch='watch -n1 --no-title --color'
