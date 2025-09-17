@@ -210,23 +210,16 @@ widget_defaults = dict(
 )
 extension_defaults = widget_defaults.copy()
 
-screens = [
-    Screen(
+
+def make_screen_primary():
+    return Screen(
         bottom=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
-                widget.Chord(),
                 widget.Spacer(length=10),
                 widget.Prompt(),
-                widget.Chord(
-                    chords_colors={
-                        "launch": (colors["red"], colors["white"]),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
                 widget.Spacer(length=10),
                 widget.StatusNotifier(),
-                widget.Spacer(length=10),
                 widget.Systray(),
                 # widget.TunedManager(),   # needs 0.31
                 widget.Spacer(),
@@ -235,6 +228,7 @@ screens = [
                     this_current_screen_border=colors["yellow"],
                 ),
                 widget.Spacer(),
+                widget.Chord(),
                 widget.Volume(emoji=True),
                 # widget.TunedManager(),
                 widget.DoNotDisturb(),
@@ -246,31 +240,57 @@ screens = [
             ],
             24,
         ),
-    ),
-    Screen(
+    )
+
+
+def make_screen_secondary():
+    return Screen(
         bottom=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
                 widget.Spacer(length=10),
-                widget.Chord(
-                    chords_colors={
-                        "launch": (colors["red"], colors["white"]),
-                    },
-                    name_transform=lambda name: name.upper(),
-                ),
                 widget.Spacer(),
                 widget.GroupBox(
                     highlight_method="line",
                     this_current_screen_border=colors["yellow"],
                 ),
                 widget.Spacer(),
+                widget.Chord(),
                 widget.DoNotDisturb(),
                 widget.Clock(format="%I:%M", fontsize=16),
             ],
             24,
         ),
-    ),
-]
+    )
+
+
+def count_monitors():
+    """
+    Count the number of screens based on the output of `xrandr --listmonitors`.
+    """
+    result = subprocess.run(
+        ["xrandr", "--listmonitors"], capture_output=True, text=True
+    )
+    return len(result.stdout.strip().splitlines()) - 1  # skip header
+
+
+screens = [make_screen_primary()]
+if count_monitors() > 1:
+    # If there are multiple monitors, prepend a secondary screen.
+    screens.insert(0, make_screen_secondary())
+
+# @hook.subscribe.screen_change
+# def rebuild_screens(qtile):
+#     """
+#     Rebuild the screens when the screen configuration changes.
+#     This is useful for dynamic screen setups.
+#     """
+#     from libqtile import qtile
+
+#     logger.info("Rebuilding screens due to screen change")
+#     qtile.screens[:] = [make_screen(primary) for primary in build_primary_flags()]
+#     qtile.cmd_reconfigure_screens()
+
 
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: list
@@ -484,6 +504,7 @@ keys += [
             Key("<Prior>", lazy.spawn("playerctl previous")),
             Key("<Next>", lazy.spawn("playerctl next")),
         ],
+        name="[k] play/pause | [j] previous | [l] next",
     ),
 ]
 
