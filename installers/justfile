@@ -30,6 +30,9 @@ _fonts-hack version="2.1.0":
 
 
 
+[confirm,private]
+reboot:
+  sudo systemctl reboot
 
 # Fedora update.
 update:
@@ -37,11 +40,14 @@ update:
     sudo dnf update -y
     flatpak update -y
 
+update-kernel: && reboot
+    sudo dnf update kernel kernel-modules-extra kernel-devel-matched VirtualBox virtualbox-guest-additions vagrant
+
+
 # Fedora upgrade, step 0.
-upgrade0:
+upgrade0: && reboot
     sudo dnf install dnf-plugin-system-upgrade
     sudo dnf upgrade --refresh
-    @echo Reboot your computer
 
 # Fedora upgrade, step 1.
 upgrade1 version="`expr $(lsb_release -r | cut -f2) + 1`":
