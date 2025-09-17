@@ -158,7 +158,7 @@ rpm: [
   vagrant, vagrant-doc, vagrant-libvirt,
   vagrant-libvirt-doc, vagrant-cachier, vagrant-cachier-doc,
   vagrant-hostmanager, vagrant-hostmanager-doc,
-  VirtualBox, kmod-VirtualBox,
+  VirtualBox-7.1,
   ]
 
 # vim:ft=config
