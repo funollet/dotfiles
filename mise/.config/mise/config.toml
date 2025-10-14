@@ -65,3 +65,7 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "ubi:zsa/wally-cli" = "2.0.0-linux"
 helm-diff = "latest"
 kubectl-convert = "latest"
+"ubi:jesseduffield/lazydocker" = "latest"
+
+[settings]
+idiomatic_version_file_enable_tools = ["python"]
