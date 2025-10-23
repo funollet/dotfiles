@@ -229,6 +229,7 @@ def make_screen_primary():
                 ),
                 widget.Spacer(),
                 widget.Chord(),
+                widget.BatteryIcon(),
                 widget.Volume(emoji=True),
                 # widget.TunedManager(),
                 widget.DoNotDisturb(),

@@ -14,6 +14,9 @@ audio_setup () {
 }
 
 
-if [[ $(wmctrl -m | grep '^Name: ') = 'Name: qtileeeee' ]] ; then
+if [[ $(wmctrl -m | grep '^Name: ') = 'Name: i3' ]] ; then
   audio_setup
 fi
+
+# restart qtile or bars won't know about new main screen
+qtile cmd-obj -o cmd -f restart
