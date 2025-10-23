@@ -11,4 +11,5 @@ keybind = ctrl+shift+v=text:\x16
 # Default action is toggle fullscreen. Not needed, as this is provided by the window manager.
 keybind = ctrl+enter=ignore
 
+keybind = shift+enter=text:\x1b\r
 # vi: ft=config
