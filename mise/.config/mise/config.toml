@@ -51,6 +51,7 @@ ambr = { version = "latest", exe = "ambr", matching_regex = "x86_64-lnx" }
 kubectx = { version = "latest", matching = "kubectx" }
 kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "ubi:docker/buildx" = { version = "latest", postinstall = "mkdir -p ~/.docker/cli-plugins/ && ln -s ~/.local/share/mise/installs/ubi-docker-buildx/latest/buildx ~/.docker/cli-plugins/docker-buildx" }
+"ubi:kubernetes-sigs/cloud-provider-kind" = "latest"
 "ubi:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
 "ubi:fiatjaf/jiq" = "latest"
 "ubi:kmonad/kmonad" = "latest"
