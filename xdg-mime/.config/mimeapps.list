@@ -1,0 +1,14 @@
+[Added Associations]
+application/x-zip-compressed=org.kde.ark.desktop;
+image/png=org.kde.gwenview.desktop;
+application/pdf=okularApplication_pdf.desktop;
+image/jpeg=gimp.desktop;org.kde.gwenview.desktop;
+application/vnd.efi.iso=gnome-disk-image-writer.desktop;
+
+[Default Applications]
+image/png=org.kde.gwenview.desktop
+application/pdf=okularApplication_pdf.desktop
+image/jpeg=org.kde.gwenview.desktop
+x-scheme-handler/http=firefox.desktop
+x-scheme-handler/https=firefox.desktop
+inode/directory=thunar.desktop
