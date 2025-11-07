@@ -1,0 +1,4 @@
+# at which column should we word wrap?
+width: 99
+# show all files, including hidden and ignored.
+all: true
