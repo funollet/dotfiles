@@ -1,3 +1,29 @@
 config:
   default: true
+
+  # MD013/line-length : Line length : https://github.com/DavidAnson/markdownlint/blob/v0.39.0/doc/md013.md
+  MD013:
+    # Number of characters
+    line_length: 99
+    # Number of characters for headings
+    heading_line_length: 99
+    # # Number of characters for code blocks
+    # code_block_line_length: 80
+    # Include code blocks
+    code_blocks: false
+    # Include tables
+    tables: false
+    # # Include headings
+    # headings: true
+    # # Strict length checking
+    # strict: false
+    # # Stern length checking
+    # stern: false
+
+  # MD040/fenced-code-language : Fenced code blocks should have a language specified : https://github.com/DavidAnson/markdownlint/blob/v0.39.0/doc/md040.md
   MD040: false
+  # MD040:
+  #   # List of languages
+  #   allowed_languages: []
+  #   # Require language only
+  #   language_only: false
