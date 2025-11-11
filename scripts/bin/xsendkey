@@ -1,0 +1,6 @@
+#!/bin/bash
+# xsendkey
+
+current=$(xdotool getactivewindow)
+xdotool search --name "$1" windowfocus key --clearmodifiers "$2"
+xdotool windowfocus $current

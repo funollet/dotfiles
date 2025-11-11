@@ -551,14 +551,40 @@ keys += [
     Key("M-y", lazy.spawn("thunar"), desc="Open file browser"),
     Key("<Print>", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
     Key(
-        "<XF86MonBrightnessDown>",
-        lazy.spawn("light -U 15"),
-        desc="Decrease screen brightness",
-    ),
-    Key(
         "<XF86MonBrightnessUp>",
         lazy.spawn("light -A 15"),
         desc="Increase screen brightness",
+    ),
+    Key(
+        "<XF86MonBrightnessDown>",
+        lazy.spawn("light -U 15"),
+        desc="Increase screen brightness",
+    ),
+    # MY usb knob is configured to send XF86AudioLowerVolume and
+    # XF86AudioRaiseVolume for left/right turns respectively.
+    #
+    # Press Shift while turning to control speed in Youtube.
+    Key(
+        "S-<XF86AudioLowerVolume>",
+        lazy.spawn("xsendkey youtube less"),
+        desc="(Youtube) Decrease playback speed",
+    ),
+    Key(
+        "S-<XF86AudioRaiseVolume>",
+        lazy.spawn("xsendkey youtube greater"),
+        desc="(Youtube) Increase playback speed",
+    ),
+    # Press Control while turning to control forward/backward seek
+    # in Youtube.
+    Key(
+        "C-<XF86AudioLowerVolume>",
+        lazy.spawn("xsendkey youtube Left"),
+        desc="(Youtube) Backward 10 seconds",
+    ),
+    Key(
+        "C-<XF86AudioRaiseVolume>",
+        lazy.spawn("xsendkey youtube Right"),
+        desc="(Youtube) Forward 10 seconds",
     ),
 ]
 
