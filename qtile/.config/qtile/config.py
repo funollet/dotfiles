@@ -211,6 +211,20 @@ widget_defaults = dict(
 extension_defaults = widget_defaults.copy()
 
 
+def clock_with_cal():
+    return widget.Clock(
+        format="%I:%M",
+        fontsize=16,
+        foreground=colors["white"],
+        mouse_callbacks={
+            "Button1": lazy.spawn(
+                '''notify-send "$(date '+%A %F')" "$(cal)"''',
+                shell=True,
+            ),
+        },
+    )
+
+
 def make_screen_primary():
     return Screen(
         bottom=bar.Bar(
@@ -233,11 +247,7 @@ def make_screen_primary():
                 widget.Volume(emoji=True),
                 # widget.TunedManager(),
                 widget.DoNotDisturb(),
-                widget.Clock(
-                    format="%I:%M",
-                    fontsize=16,
-                    foreground=colors["white"],
-                ),
+                clock_with_cal(),
             ],
             24,
         ),
@@ -258,7 +268,7 @@ def make_screen_secondary():
                 widget.Spacer(),
                 widget.Chord(),
                 widget.DoNotDisturb(),
-                widget.Clock(format="%I:%M", fontsize=16),
+                clock_with_cal(),
             ],
             24,
         ),
