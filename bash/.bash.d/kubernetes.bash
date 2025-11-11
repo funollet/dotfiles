@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export KUBECONFIG=~/.kube/config
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 which kubectl >/dev/null 2>&1 || return
 

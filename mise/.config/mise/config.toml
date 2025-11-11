@@ -69,6 +69,7 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 helm-diff = "latest"
 kubectl-convert = "latest"
 "ubi:jesseduffield/lazydocker" = "latest"
+krew = "0.4.5"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
