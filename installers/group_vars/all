@@ -87,7 +87,7 @@ rpm: [
   mythes, mythes-ca, mythes-en, mythes-es,
   hyphen, hyphen-ca, hyphen-en, hyphen-es,
   autocorr-ca, autocorr-en, autocorr-es,
-  pandoc, moreutils, xclip, tmux, lastpass-cli, powerline-go,
+  pandoc, moreutils, xclip, tmux, abduco, lastpass-cli, powerline-go,
   inotify-tools, tiptop, w3m, w3m-img, vpnc, timew, imapfilter,
   java-1.8.0-openjdk,
   powertop, cheat, cheat-bash-completion,
