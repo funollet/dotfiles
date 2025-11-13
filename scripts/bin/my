@@ -3,6 +3,9 @@
 #
 # https://github.com/casey/just
 
+choose:
+  @just --choose --justfile {{justfile()}}
+
 # show this message
 help:
   @just -l --unsorted --justfile {{justfile()}}
@@ -99,6 +102,9 @@ trackpad:
     "termdown --no-window-title {{period}} && \
      notify-send --urgency critical '{{summary}}' '{{period}} finished.'" \
   > /dev/null 2>&1 &
+
+sleep:
+  sudo systemctl hibernate
 
 # flash config into macropad
 macropad:
