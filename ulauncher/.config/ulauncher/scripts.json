@@ -1,11 +1,29 @@
 [
-    {
-        "name": "i3 move workspace to next output",
-        "description": "",
-        "icon": null,
-        "script": "i3-msg 'move workspace to output next'",
-        "default_arguments": [
-            ""
-        ]
-    }
+  {
+    "name": "sleep",
+    "description": "Get ready for the night",
+    "icon": null,
+    "script": "~/bin/my sleep",
+    "default_arguments": [
+      ""
+    ]
+  },
+  {
+    "name": "dock",
+    "description": "",
+    "icon": null,
+    "script": "~/bin/my dock",
+    "default_arguments": [
+      ""
+    ]
+  },
+  {
+    "name": "undock",
+    "description": "",
+    "icon": null,
+    "script": "~/bin/my undock",
+    "default_arguments": [
+      ""
+    ]
+  }
 ]
