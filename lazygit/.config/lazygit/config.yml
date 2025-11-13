@@ -3,16 +3,13 @@
 gui:
   showIcons: true
   nerdFontsVersion: "3"
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --config ~/.config/lazygit/delta.config
-
+  pagers:
+    - colorArg: always
+      pager: delta --config ~/.config/lazygit/delta.config
 # keybinding:
 #   universal:
 #     edit: <disabled> # disable 'edit file'
-
 customCommands:
   - key: "<c-g>"
     context: "localBranches"
