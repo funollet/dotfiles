@@ -100,4 +100,15 @@ trackpad:
      notify-send --urgency critical '{{summary}}' '{{period}} finished.'" \
   > /dev/null 2>&1 &
 
+# flash config into macropad
+macropad:
+  # TODO: configure udev and stop relying on sudo
+  ch57x-keyboard-tool validate < ~/.config/ch57x-keyboard-tool/mapping.yaml
+  sudo `which ch57x-keyboard-tool` upload < ~/.config/ch57x-keyboard-tool/mapping.yaml
+  sudo `which ch57x-keyboard-tool` led 0
+  sleep 0.5
+  sudo `which ch57x-keyboard-tool` led 1
+  sleep 0.5
+  sudo `which ch57x-keyboard-tool` led 0
+
 # vim: ft=just

@@ -1,0 +1,29 @@
+# https://github.com/kriomant/ch57x-keyboard-tool
+#
+# For reference, run `ch57x-keyboard-tool show-keys` or visit
+# https://github.com/kriomant/ch57x-keyboard-tool/blob/master/example-mapping.yaml
+
+orientation: normal
+
+rows: 1
+columns: 3
+knobs: 1
+
+layers:
+  - buttons:
+      # Array of buttons. In horizontal orienations it's `rows` rows
+      # `columns` buttons each. In vertical: `columns` rows
+      # `rows` buttons each.
+      # Each entry is either a sequence of 'chords' or a mouse event.
+      # A chord is a combination of one key with optional modifiers,
+      # like 'b', 'ctrl-alt-a' or 'win-rctrl-backspace'. It can also
+      # be just modifiers without a key: 'ctrl-alt'.
+      # You may combine up to 5 chords into a sequence using commas: 'ctrl-v,ctrl-c'.
+      # Arbitrary scan codes (decimal) may be given like this: '<101>'.
+      - ["f1", "space", "space"]
+    knobs:
+      # Knobs can be rotated counter-clockwise (ccw) or clockwise (cw)
+      # and pressed down.
+      - ccw: "volumedown"
+        press: "play"
+        cw: "volumeup"

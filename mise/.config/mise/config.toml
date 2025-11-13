@@ -66,6 +66,7 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "ubi:houseabsolute/ubi" = "latest"
 "ubi:akavel/up"= { version = "latest", matching_regex = "^up$" }
 "ubi:zsa/wally-cli" = "2.0.0-linux"
+"ubi:kriomant/ch57x-keyboard-tool" = "latest"
 helm-diff = "latest"
 kubectl-convert = "latest"
 "ubi:jesseduffield/lazydocker" = "latest"
