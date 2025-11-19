@@ -1,12 +1,23 @@
 # https://github.com/casey/just
 
+
+ANSIBLE := "ansible-playbook -v --connection local --inventory localhost, install.yml"
+
 # Show this message.
 help:
   @just --list --unsorted
 
 # Run ansible on the local workstation.
 ansible *args:
-    ansible-playbook -v -c local -i localhost, install.yml {{args}}
+    {{ANSIBLE}} {{args}}
+
+ansible-tags *args:
+    (ls -1 install.yml ; fd '(yml|yaml)'  roles/ ) | \
+      xargs yq '.[] | select(has("tags")) | .tags' -P --no-doc | \
+      sed 's/^- //' | \
+      sort |uniq | fzf --no-multi | \
+      xargs -r {{ANSIBLE}} {{args}} -t
+
 
 
 # Install non-packaged software.
