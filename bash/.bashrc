@@ -51,7 +51,7 @@ fi
 export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:~/.cargo/bin
 shopt -s histappend
 
-export VISUAL='lvim'
+export VISUAL='nvim'
 export EDITOR=$VISUAL
 export GPG=gpg2
 
