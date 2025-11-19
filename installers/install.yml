@@ -42,3 +42,5 @@
         name: udev
     - import_role:
         name: touchpad
+    - import_role:
+        name: mscorefonts

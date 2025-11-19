@@ -1,0 +1,18 @@
+- name: install mscorefonts dependencies
+  ansible.builtin.dnf:
+    name:
+      - curl
+      - cabextract
+      - xorg-x11-font-utils
+      - fontconfig
+    state: present
+  become: true
+  tags: [mscorefonts2, mscorefonts, fonts]
+
+- name: install mscorefonts
+  ansible.builtin.dnf:
+    name: https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm
+    state: present
+    disable_gpg_check: true
+  become: true
+  tags: [mscorefonts2, mscorefonts, fonts]
