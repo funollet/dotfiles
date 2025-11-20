@@ -12,6 +12,7 @@ alias ssh-blindly='TERM=xterm-256color ssh -o StrictHostKeyChecking=no  -o Check
 alias lg='lazygit'
 alias lzd='lazydocker'
 alias bring-back-window='wmctrl -l | fzf | cut -d\  -f1 | xargs wmctrl -iR'
+alias serie='serie --protocol kitty'
 
 psg() { # bash-expansion: grep [p]attern
   ps auxw | grep \[${1:0:1}\]${1:1}
