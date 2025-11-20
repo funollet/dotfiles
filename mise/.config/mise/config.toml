@@ -74,6 +74,7 @@ krew = "0.4.5"
 "github:sectore/timr-tui" = "latest"
 "github:lusingander/serie" = "latest"
 "pipx:pter" = "latest"
+"ubi:Epistates/treemd" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
