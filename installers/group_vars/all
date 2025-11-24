@@ -132,7 +132,6 @@ rpm: [
   
   ### kde:
   xdg-desktop-portal-kde, plasma-browser-integration,
-  bismuth,
   
   ### light desktop utilities:
   # scrot, feh, xautolock, lxappearance, lxqt-powermanagement, sxhkd,
@@ -143,10 +142,12 @@ rpm: [
   volumeicon, udiskie, blueman,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   NetworkManager-vpnc,
+  sddm, sddm-themes, sddm-breeze,
   # filemanager
   Thunar, thunar-volman, tumbler, tumbler-extras,
+  # keyring
+  gnome-keyring, gnome-keyring-pam, libsecret, seahorse,
 
-  sddm, sddm-themes, sddm-breeze,
 
   ### qtile
   qtile, python3-dbus-next, xorg-x11-server-Xephyr,

@@ -65,10 +65,12 @@ export CHEAT_USE_FZF=true
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
+MISE_GITHUB_TOKEN="$(secret-tool lookup application mise type token)"
+export MISE_GITHUB_TOKEN
+
 if which mise > /dev/null 2>&1 ; then
   eval "$(/usr/bin/mise activate bash)"
   _mise_hook
 fi
 
-for rc in ~/.bash.d/*.secrets ; do source ${rc} ; done
 for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
