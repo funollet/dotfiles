@@ -76,6 +76,8 @@ krew = "0.4.5"
 "pipx:pter" = "latest"
 "ubi:Epistates/treemd" = "latest"
 bun = "latest"
+aqua = "latest"
+docuum = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
