@@ -78,6 +78,7 @@ krew = "0.4.5"
 bun = "latest"
 aqua = "latest"
 docuum = "latest"
+"aqua:openai/codex" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
