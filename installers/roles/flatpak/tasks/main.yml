@@ -1,13 +1,23 @@
-- name: install flatpak remotes
-  flatpak_remote:
-    name: flathub
+- name: install flatpak essential remotes
+  ansible.builtin.flatpak_remote:
+    name: "{{ item.name }}"
+    flatpakrepo_url: "{{ item.url }}"
     state: present
-    flatpakrepo_url: "https://flathub.org/repo/flathub.flatpakrepo"
-  tags: flatpak
+  loop: "{{ flatpak_essential_remotes }}"
+  tags: ["flatpak", "flatpak-remote"]
+
+- name: install flatpak remotes
+  ansible.builtin.flatpak_remote:
+    name: "{{ item.name }}"
+    flatpakrepo_url: "{{ item.url }}"
+    state: present
+  loop: '{{ flatpak_remotes }}'
+  when: flatpak_remotes is defined
+  become: true
+  tags: ["flatpak", "flatpak-remote"]
 
 - name: install with flatpak
-  flatpak:
-    name: "{{ item }}"
+  ansible.builtin.flatpak:
+    name: "{{ flatpak | default('') }}"
     state: present
-  loop: "{{ flatpak }}"
   tags: flatpak
