@@ -40,7 +40,7 @@ rpm: [
   python3-ipython, python3-jedi,
   python-psutil, pydot, httpie, python-py, python-docopt,
   python-click, python-pip, python-sh,
-  python3-requests,
+  python3-requests, python3-httpx+cli,
   # python build dependencies
   make, gcc, zlib-devel, bzip2, bzip2-devel, readline-devel, sqlite, sqlite-devel,
   openssl-devel, tk-devel, libffi-devel, xz-devel,
