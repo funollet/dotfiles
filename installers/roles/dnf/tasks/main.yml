@@ -1,51 +1,56 @@
-- name: add 1password repo key
+- name: add repo keys
   ansible.builtin.rpm_key:
     state: present
-    key: https://downloads.1password.com/linux/keys/1password.asc
+    key: "{{ item }}"
+  loop:
+    - https://downloads.1password.com/linux/keys/1password.asc
+    - https://mise.jdx.dev/gpg-key.pub
+    - https://www.virtualbox.org/download/oracle_vbox_2016.asc
   tags: [rpm, rpm-repo]
 
 - name: install repos
-  dnf:
-    name: "{{ item }}"
+  ansible.builtin.dnf:
+    name:
+      - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
+      - fedora-workstation-repositories
     state: present
   become: true
-  loop:
-    - "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-    - "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-{{ ansible_distribution_major_version }}.noarch.rpm"
-    - fedora-workstation-repositories
   tags: [rpm, rpm-repo]
 
 - name: add repos
   ansible.builtin.yum_repository:
-    name:  "{{ item.name }}"
+    name: "{{ item.name }}"
     description: "{{ item.description }}"
     baseurl: "{{ item.baseurl }}"
-    gpgcheck: true
+    gpgkey: "{{ item.gpgkey }}"
   loop:
     - { name: "1password",
         description: "1Password Stable Channel",
         baseurl: "https://downloads.1password.com/linux/rpm/stable/$basearch",
-      }
+        gpgkey: "https://downloads.1password.com/linux/keys/1password.asc",
+    }
     - { name: "mise",
         description: "mise repo",
         baseurl: "https://mise.jdx.dev/rpm",
-        gpgkey: "https://mise.jdx.dev/gpg-key.pub"
-      }
+        gpgkey: "https://mise.jdx.dev/gpg-key.pub",
+    }
     - { name: "virtualbox",
         description: "Fedora $releasever - $basearch - VirtualBox",
         baseurl: "http://download.virtualbox.org/virtualbox/rpm/fedora/$releasever/$basearch",
         gpgkey: "https://www.virtualbox.org/download/oracle_vbox_2016.asc"
-      }
+    }
   become: true
   tags: [rpm, rpm-repo]
 
-- name: enable chrome repo 
+- name: enable chrome repo
   ini_file:
     path: /etc/yum.repos.d/google-chrome.repo
     section: google-chrome
     option: enabled
     value: '1'
-  become: yes
+    mode: '644'
+  become: true
   tags: [rpm, rpm-repo]
 
 - name: enable ghostty copr
@@ -57,23 +62,23 @@
   tags: [rpm, rpm-repo]
 
 - name: remove unwanted packages with dnf
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ rpm_absent }}"
     state: absent
-  become: yes
+  become: true
   tags: [rpm, rpm-absent]
 
 - name: install with dnf
-  dnf:
+  ansible.builtin.dnf:
     name: "{{ rpm }}"
     state: present
-  become: yes
+  become: true
   tags: [rpm, rpm-present]
 
 - name: enable services
   ansible.builtin.systemd:
     name: "{{ item }}"
-    enabled: yes
+    enabled: true
     state: started
   become: true
   with_items:
