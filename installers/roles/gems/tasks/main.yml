@@ -1,21 +1,19 @@
-
 - name: install required packages
   dnf:
-    name: "{{ item }}"
+    name:
+      - rubygem-ffi
+      - rubygem-childprocess
+      - rubygem-backports
+      - ruby-devel
+      - rpm-build
     state: present
-  become: yes
-  loop:
-    - rubygem-ffi 
-    - rubygem-childprocess
-    - rubygem-backports
-    - ruby-devel
-    - rpm-build
+  become: true
   tags: gems
 
 - name: install gems
   gem:
     name: "{{ item }}"
     state: present
-    user_install: yes
-  loop: "{{ gems }}"
+    user_install: true
+  loop: "{{ gems | default([]) }}"
   tags: gems
