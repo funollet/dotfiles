@@ -1,15 +1,11 @@
-
 - name: install udev files
-  copy: 
+  copy:
     src: "{{item}}"
     dest: /etc/udev/rules.d/
     owner: root
     group: root
     mode: '0644'
-  with_items:
-    - rules.d/98-uinput.rules
-    - rules.d/50-wally.rules
-  become: yes
+  with_fileglob: "rules.d/*.rules"
+  become: true
   notify: reload udev rules
   tags: udev
-
