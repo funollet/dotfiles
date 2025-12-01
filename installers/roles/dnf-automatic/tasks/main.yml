@@ -1,0 +1,47 @@
+- name: install dnf-automatic
+  ansible.builtin.dnf:
+    name: dnf-automatic
+    state: present
+  become: true
+  tags: [dnf-automatic, rpm]
+
+- name: configure dnf-automatic
+  ansible.builtin.copy:
+    src: automatic.conf
+    dest: /etc/dnf/automatic.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  tags: [dnf-automatic]
+
+- name: create directory for systemd override
+  file:
+    owner: root
+    group: root
+    mode: '0755'
+    path: /etc/systemd/system/timers.target.wants/dnf5-automatic.timer.d/
+    state: directory
+  become: true
+  when: dnf_automatic_service_enabled
+  tags: [dnf-automatic]
+
+- name: configure dnf-automatic timer
+  ansible.builtin.copy:
+    src: override.dnf5-automatic.timer.conf
+    dest: /etc/systemd/system/timers.target.wants/dnf5-automatic.timer.d/override.conf
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  notify: [systemd reread config]
+  when: dnf_automatic_service_enabled
+  tags: [dnf-automatic]
+
+- name: start/stop dnf-automatic timer
+  ansible.builtin.systemd_service:
+    name: dnf-automatic.timer
+    enabled: "{{ dnf_automatic_service_enabled }}"
+    state: "{{ 'started' if dnf_automatic_service_enabled else 'stopped' }}"
+  become: true
+  tags: [dnf-automatic, systemd]

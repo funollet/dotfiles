@@ -1,0 +1,5 @@
+---
+# dnf-automatic role defaults
+
+# Enable the dnf-automatic.timer systemd service
+dnf_automatic_service_enabled: true

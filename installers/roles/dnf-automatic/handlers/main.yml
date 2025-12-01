@@ -1,0 +1,4 @@
+- name: systemd reread config
+  ansible.builtin.systemd:
+    daemon_reload: true
+  become: true
