@@ -23,7 +23,7 @@ rpm_absent: [
 rpm: [
   ### base_distro
   python-paramiko, python3-pyyaml, python-jinja2, python-simplejson, python-pip,
-  python3-firewall, createrepo, redhat-lsb-core,
+  python3-firewall, createrepo, redhat-lsb,
   
   ### devopstools
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
@@ -89,7 +89,7 @@ rpm: [
   autocorr-ca, autocorr-en, autocorr-es,
   pandoc, moreutils, xclip, tmux, abduco, lastpass-cli, powerline-go,
   inotify-tools, tiptop, w3m, w3m-img, vpnc, timew, imapfilter,
-  java-1.8.0-openjdk,
+  java-latest-openjdk-headless,
   powertop, cheat, cheat-bash-completion,
   lolcat, diskonaut, glow, gum,
   # GUI apps.
