@@ -32,8 +32,8 @@ if which aws >/dev/null 2>&1; then
 fi
 
 if which ag >/dev/null 2>&1; then
-  [ -f /usr/share/bash-completion/completions/ag ] &&
-    source /usr/share/bash-completion/completions/ag
+  [ -f /usr/share/bash-completion/completions/ag ] \
+    && source /usr/share/bash-completion/completions/ag
 fi
 
 if which argocd >/dev/null 2>&1; then
@@ -46,8 +46,8 @@ if which poetry >/dev/null 2>&1; then
 fi
 
 if which cheat >/dev/null 2>&1; then
-  [ -f /usr/share/bash-completion/completions/cheat ] &&
-    source /usr/share/bash-completion/completions/cheat
+  [ -f /usr/share/bash-completion/completions/cheat ] \
+    && source /usr/share/bash-completion/completions/cheat
 fi
 
 if which gh >/dev/null 2>&1; then
@@ -65,11 +65,6 @@ fi
 if which gcrane >/dev/null 2>&1; then
   source <(lazycomplete \
     gcrane 'gcrane completion bash')
-fi
-
-if which vagrant >/dev/null 2>&1; then
-  version=$(vagrant -v | awk '{print $2}')
-  source /opt/vagrant/embedded/gems/gems/vagrant-${version}/contrib/bash/completion.sh
 fi
 
 if which eksctl >/dev/null 2>&1; then
