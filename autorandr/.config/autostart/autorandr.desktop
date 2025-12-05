@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Autorandr
+Comment=Automatically select a display configuration based on connected devices
+Type=Application
+Exec=/usr/bin/autorandr --change
+X-Desktop-File-Install-Version=0.27
+OnlyShowIn=qtile;
+NoDisplay=true

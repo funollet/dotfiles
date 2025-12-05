@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
 Name=firefox
-Exec=firefox
+Exec=firefox -P default-release

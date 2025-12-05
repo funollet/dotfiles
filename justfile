@@ -7,5 +7,10 @@ update:
     STOW_PKGS=`ls -I justfile -I Taskfile.yml -I Makefile -I installers` && \
     for pkg in ${STOW_PKGS} ; do \
         stow -R $pkg 2>&1 \
-    done
+    ; done
     stow --target ~/bin --dir ~/code/user-land/ packaged
+
+systemctl:
+  systemctl --user daemon-reload
+  systemctl --user enable fusuma.service
+  systemctl --user enable ulauncher.service

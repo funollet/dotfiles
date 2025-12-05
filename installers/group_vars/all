@@ -134,12 +134,12 @@ rpm: [
   xdg-desktop-portal-kde, plasma-browser-integration,
   
   ### light desktop utilities:
-  # scrot, feh, xautolock, lxappearance, lxqt-powermanagement, sxhkd,
+  # scrot, feh, xautolock, lxappearance, lxqt-powermanagement, sxhkd, volumeicon,
   dunst, light, brightnessctl, nitrogen, azote,
   arandr, autorandr, autorandr-bash-completion,
   dex-autostart, rofi, ulauncher,
   xsecurelock, xss-lock,
-  volumeicon, udiskie, blueman,
+  udiskie, blueman, battray,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   NetworkManager-vpnc,
   sddm, sddm-themes, sddm-breeze,

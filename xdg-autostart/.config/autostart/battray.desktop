@@ -1,0 +1,8 @@
+[Desktop Entry]
+Name=Battery Tray
+Icon=/usr/share/battray/icon.png
+Exec=battray
+Terminal=false
+Type=Application
+NoDisplay=true
+OnlyShowIn=qtile;

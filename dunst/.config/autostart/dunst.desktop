@@ -3,3 +3,4 @@ Type=Application
 Name=dunst
 Exec=dunst
 OnlyShowIn=i3;qtile;
+NoDisplay=true

@@ -3,3 +3,4 @@ Type=Application
 Name=udiskie
 Exec=udiskie --tray
 OnlyShowIn=i3;qtile;
+NoDisplay=true

@@ -3,6 +3,7 @@ Type=Application
 TryExec=/usr/libexec/lxqt-policykit-agent
 Exec=/usr/libexec/lxqt-policykit-agent
 OnlyShowIn=LXQt;i3;qtile;
+NoDisplay=true
 X-LXQt-Module=true
 
 Name=PolicyKit Handler
