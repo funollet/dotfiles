@@ -213,12 +213,13 @@ extension_defaults = widget_defaults.copy()
 
 def clock_with_cal():
     return widget.Clock(
+        fmt="   {}",
         format="%I:%M",
         fontsize=16,
         foreground=colors["white"],
         mouse_callbacks={
             "Button1": lazy.spawn(
-                '''notify-send "$(date '+%A %F')" "$(cal)"''',
+                '''notify-send "$(date '+%A %F')" "$(cal --monday)"''',
                 shell=True,
             ),
         },
@@ -235,7 +236,6 @@ def make_screen_primary():
                 widget.Spacer(length=10),
                 widget.StatusNotifier(),
                 widget.Systray(),
-                # widget.TunedManager(),   # needs 0.31
                 widget.Spacer(),
                 widget.GroupBox(
                     highlight_method="line",
@@ -243,9 +243,26 @@ def make_screen_primary():
                 ),
                 widget.Spacer(),
                 widget.Chord(),
-                widget.BatteryIcon(),
-                widget.Volume(emoji=True),
-                # widget.TunedManager(),
+                widget.BatteryIcon(
+                    mouse_callbacks={
+                        "Button1": lazy.spawn(
+                            'notify-send "Battery Status" "$(battery-status.sh)"',
+                            shell=True,
+                        ),
+                        "Button2": lazy.spawn(
+                            "systemsettings kcm_powerdevilprofilesconfig"
+                        ),
+                    }
+                ),
+                widget.Volume(
+                    emoji=True,
+                    volume_up_command="volume-notify --step 3 up",
+                    volume_down_command="volume-notify --step 3 down",
+                    mute_command="volume-notify mute",
+                    mouse_callbacks={
+                        "Button2": lazy.spawn("pavucontrol"),
+                    },
+                ),
                 widget.DoNotDisturb(),
                 clock_with_cal(),
             ],
@@ -515,7 +532,7 @@ keys += [
             Key("<Prior>", lazy.spawn("playerctl previous")),
             Key("<Next>", lazy.spawn("playerctl next")),
         ],
-        name="[k] play/pause | [j] previous | [l] next",
+        name="||| PLAYER |||        J - previous  ||  K - play  ||  L - next        ",
     ),
 ]
 

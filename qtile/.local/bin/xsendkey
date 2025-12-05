@@ -1,0 +1,11 @@
+#!/bin/bash
+# xsendkey
+#
+# Sends key to another windown keeping focus on the current window.
+
+regex="$1"
+key="$2"
+
+current=$(xdotool getactivewindow)
+xdotool search --name "${regex}" windowfocus key --clearmodifiers "${key}"
+xdotool windowfocus $current
