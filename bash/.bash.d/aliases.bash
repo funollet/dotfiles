@@ -62,3 +62,6 @@ edithidden() {
   # fuzzy-search and edit files in current dir; hidden files too
   fd -tf --hidden --exclude .git | fzf --multi | xargs --no-run-if-empty $EDITOR
 }
+
+alias t='todo.sh'
+alias tn='todo.sh ls @next'
