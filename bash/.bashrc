@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 [ -z "$PS1" ] && return
 
-# don't put in history duplicated lines and line starting with space 
+# don't put in history duplicated lines and line starting with space
 export HISTCONTROL=ignoreboth
 
 # check the window size after each command and, if necessary,
@@ -16,16 +16,16 @@ export TERM=xterm-256color
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
-    ;;
-screen)
-    PROMPT_COMMAND='echo -ne "\033k`echo $HOSTNAME |cut -f 1 -d .` `pwd`\033\\"'
-    ;;
-*)
-    # Save/read history at every command.
-    PROMPT_COMMAND='history -n ; history -a'
-    ;;
+    xterm* | rxvt*)
+        PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME}: ${PWD/$HOME/~}\007"'
+        ;;
+    screen)
+        PROMPT_COMMAND='echo -ne "\033k`echo $HOSTNAME |cut -f 1 -d .` `pwd`\033\\"'
+        ;;
+    *)
+        # Save/read history at every command.
+        PROMPT_COMMAND='history -n ; history -a'
+        ;;
 esac
 
 function _update_ps1() {
@@ -42,23 +42,21 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
 fi
 
 # Just for Fedora.
-if [ -f /etc/redhat-release ] ; then
+if [ -f /etc/redhat-release ]; then
     [ -f /etc/bashrc ] && . /etc/bashrc
 fi
 
 ############################################################
 
-export PATH=$PATH:/sbin:~/bin:~/.local/bin:~/code/user-land:~/code/git-aliases:~/.cargo/bin
+export PATH=$PATH:/sbin:~/bin:~/.local/bin
 shopt -s histappend
 
 export VISUAL='nvim'
 export EDITOR=$VISUAL
 export GPG=gpg2
 
-# PATH=$PATH:$HOME/.rvm/bin         # Add RVM to PATH for scripting
 unset SSH_ASKPASS
 
-export ONI_NEOVIM_PATH=/usr/bin/nvim
 export FORGIT_COPY_CMD=xclip
 
 export CHEAT_USE_FZF=true
@@ -68,12 +66,14 @@ export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 OPENAI_API_KEY="$(secret-tool lookup application openai type token)"
 export OPENAI_API_KEY
 
-
-if which mise > /dev/null 2>&1 ; then
+if which mise >/dev/null 2>&1; then
     MISE_GITHUB_TOKEN="$(secret-tool lookup application mise type token)"
     export MISE_GITHUB_TOKEN
     eval "$(/usr/bin/mise activate bash)"
     _mise_hook
 fi
 
-for rc in ~/.bash.d/*.bash ; do source ${rc} ; done
+for rc in ~/.bash_completion.d/!(*.disabled); do source ${rc}; done
+for rc in ~/.bash.d/!(*.disabled); do source ${rc}; done
+
+# vim: set ts=4 sw=4:

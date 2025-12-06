@@ -1,6 +1,0 @@
-# ~/.bash_completion
-  for completion_file in ~/.bash_completion.d/*; do
-      if [[ -f "$completion_file" ]]; then
-          source "$completion_file"
-      fi
-  done
