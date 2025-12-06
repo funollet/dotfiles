@@ -1,0 +1,32 @@
+### Bash-completion for dsh.
+### Copyright 2011  Jordi Funollet <jordi.f@ati.es>
+### Distributed under the terms and conditions of GPL version 2
+
+_dsh() {
+    _get_comp_words_by_ref cur prev
+    COMPREPLY=()
+
+    case "${prev}" in
+        -m|--machine)
+            _known_hosts_real "${cur}"
+            return 0
+            ;;
+        -f|--file)
+            _filedir
+            return 0
+            ;;
+        -g|--group)
+            local groups=$(cd ~/.dsh/group/ && find *)
+            COMPREPLY=( $(compgen -W "${groups}" -- "${cur}") )
+            return 0
+            ;;
+        *)
+            ;;
+    esac
+
+    opts="$(dsh --help | awk '/^-/ {print $1,$2}')"
+    COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+    return 0
+}
+
+complete -F _dsh dsh
