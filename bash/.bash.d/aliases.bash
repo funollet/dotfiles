@@ -64,4 +64,6 @@ edithidden() {
 }
 
 alias t='todo.sh'
+alias ta='todo.sh add +inbox'
+alias te='todo.sh edit'
 alias tn='todo.sh ls @next'
