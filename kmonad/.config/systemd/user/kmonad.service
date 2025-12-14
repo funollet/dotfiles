@@ -2,7 +2,7 @@
 Description=kmonad
 
 [Service]
-ExecStart=/home/jordif/.local/bin/kmonad /home/jordif/.config/kmonad/laptop.kbd
+ExecStart=/home/jordif/.local/share/mise/shims/kmonad /home/jordif/.config/kmonad/laptop.kbd
 
 [Install]
 WantedBy=default.target
