@@ -117,4 +117,17 @@ macropad:
   sleep 0.5
   sudo `which ch57x-keyboard-tool` led 0
 
+flatpak-ls:
+  flatpak list --app --columns=name
+
+flatpak-update:
+  flatpak remote-ls --updates --columns=application,version | \
+    fzf --prompt="Pick a flatpak to update> " | cut -d'	' -f1 | \
+    xargs -r flatpak update -y
+
+# Show flatpak updates with target versions.
+flatpak-ls-updates:
+  flatpak remote-ls --updates
+
+
 # vim: ft=just
