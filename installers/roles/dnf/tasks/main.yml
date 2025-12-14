@@ -24,11 +24,14 @@
     description: "{{ item.description }}"
     baseurl: "{{ item.baseurl }}"
     gpgkey: "{{ item.gpgkey }}"
+    gpgcheck: true
+    repo_gpgcheck: "{{ item.repo_gpgkey | default(false) }}"
   loop:
     - { name: "1password",
         description: "1Password Stable Channel",
         baseurl: "https://downloads.1password.com/linux/rpm/stable/$basearch",
         gpgkey: "https://downloads.1password.com/linux/keys/1password.asc",
+        repo_gpgcheck: true,
     }
     - { name: "mise",
         description: "mise repo",
@@ -75,13 +78,13 @@
   become: true
   tags: [rpm, rpm-present]
 
-- name: enable services
-  ansible.builtin.systemd:
-    name: "{{ item }}"
-    enabled: true
-    state: started
-  become: true
-  with_items:
-    - libvirtd
-    - virtnetworkd
-  tags: [rpm]
+# - name: enable services
+#   ansible.builtin.systemd:
+#     name: "{{ item }}"
+#     enabled: true
+#     state: started
+#   become: true
+#   with_items:
+#     - libvirtd
+#     - virtnetworkd
+#   tags: [rpm]
