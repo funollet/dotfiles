@@ -1,4 +1,4 @@
-[alias]
+[tool_alias]
 kubectx = "ubi:ahmetb/kubectx"
 kubens = "ubi:ahmetb/kubectx"
 ambr = "ubi:dalance/amber"
@@ -64,7 +64,7 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "ubi:sqshq/sampler" = "latest"
 "ubi:joehillen/sysz" = "latest"
 "ubi:houseabsolute/ubi" = "latest"
-"ubi:akavel/up"= { version = "latest", matching_regex = "^up$" }
+"ubi:akavel/up" = { version = "latest", matching_regex = "^up$" }
 "ubi:zsa/wally-cli" = "2.0.0-linux"
 "ubi:kriomant/ch57x-keyboard-tool" = "latest"
 helm-diff = "latest"
@@ -79,6 +79,7 @@ bun = "latest"
 aqua = "latest"
 docuum = "latest"
 "aqua:openai/codex" = "latest"
+"github:kantord/headson" = { version = "0.11.4", version_prefix = "headson-v" }
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
