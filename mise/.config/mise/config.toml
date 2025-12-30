@@ -1,9 +1,8 @@
 [tool_alias]
-kubectx = "ubi:ahmetb/kubectx"
-kubens = "ubi:ahmetb/kubectx"
-ambr = "ubi:dalance/amber"
-ambs = "ubi:dalance/amber"
-keymapp = "ubi:custom/keymapp"
+kubectx = "github:ahmetb/kubectx"
+kubens = "github:ahmetb/kubectx"
+ambr = "github:dalance/amber"
+ambs = "github:dalance/amber"
 
 [tools]
 act = "latest"
@@ -46,35 +45,35 @@ eksctl = "latest"
 "pipx:vint" = "latest"
 "pipx:hostsed" = "latest"
 
-ambs = { version = "latest", exe = "ambs", matching_regex = "x86_64-lnx" }
-ambr = { version = "latest", exe = "ambr", matching_regex = "x86_64-lnx" }
+ambs = { version = "latest", exe = "ambs", asset_pattern = "*x86_64-lnx*" }
+ambr = { version = "latest", exe = "ambr", asset_pattern = "*x86_64-lnx*" }
 
 kubectx = { version = "latest", matching = "kubectx" }
 kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "ubi:docker/buildx" = { version = "latest", postinstall = "mkdir -p ~/.docker/cli-plugins/ && ln -s ~/.local/share/mise/installs/ubi-docker-buildx/latest/buildx ~/.docker/cli-plugins/docker-buildx" }
-"ubi:kubernetes-sigs/cloud-provider-kind" = "latest"
-"ubi:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
-"ubi:awslabs/eksdemo" = "latest"
-"ubi:fiatjaf/jiq" = "latest"
-"ubi:kmonad/kmonad" = "latest"
-"ubi:txn2/kubefwd" = "latest"
-"ubi:rsteube/lazycomplete" = "latest"
-"ubi:gokcehan/lf" = "latest"
-"ubi:ericchiang/pup" = "latest"
-"ubi:sqshq/sampler" = "latest"
-"ubi:joehillen/sysz" = "latest"
-"ubi:houseabsolute/ubi" = "latest"
-"ubi:akavel/up" = { version = "latest", matching_regex = "^up$" }
-"ubi:zsa/wally-cli" = "2.0.0-linux"
-"ubi:kriomant/ch57x-keyboard-tool" = "latest"
+"github:kubernetes-sigs/cloud-provider-kind" = "latest"
+"github:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
+"github:awslabs/eksdemo" = "latest"
+"github:fiatjaf/jiq" = "latest"
+"github:kmonad/kmonad" = { version = "latest", asset_pattern = "kmonad" }
+"github:txn2/kubefwd" = "latest"
+"github:rsteube/lazycomplete" = "latest"
+"github:gokcehan/lf" = "latest"
+"github:ericchiang/pup" = "latest"
+"github:sqshq/sampler" = "latest"
+"github:joehillen/sysz" = { asset_pattern = "sysz", version = "latest" }
+"github:houseabsolute/ubi" = "latest"
+"github:akavel/up" = { version = "latest", asset_pattern = "^up$" }
+"github:zsa/wally-cli" = { version = "2.0.0-linux", asset_pattern = "wally-cli" }
+"github:kriomant/ch57x-keyboard-tool" = "latest"
 helm-diff = "latest"
 kubectl-convert = "latest"
-"ubi:jesseduffield/lazydocker" = "latest"
+"github:jesseduffield/lazydocker" = "latest"
 krew = "0.4.5"
 "github:sectore/timr-tui" = "latest"
 "github:lusingander/serie" = "latest"
 "pipx:pter" = "latest"
-"ubi:Epistates/treemd" = "latest"
+"github:Epistates/treemd" = "latest"
 bun = "latest"
 aqua = "latest"
 docuum = "latest"
