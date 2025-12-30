@@ -1,0 +1,12 @@
+[Unit]
+Description=Fusuma gesture daemon
+After=graphical-session.target
+
+[Service]
+Type=simple
+ExecStart=/home/jordif/bin/fusuma
+Restart=on-failure
+RestartSec=2
+
+[Install]
+WantedBy=default.target

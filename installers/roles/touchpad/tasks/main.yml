@@ -12,7 +12,7 @@
   gem:
     name: "{{ item }}"
     state: present
-    user_install: yes
+    user_install: true
   loop:
     - fusuma
     - fusuma-plugin-keypress
@@ -20,9 +20,22 @@
     - fusuma-plugin-sendkey
   tags: [touchpad, fusuma]
 
-- name: run fusuma
+- name: install fusuma systemd user service
+  copy:
+    src: fusuma.service
+    dest: ~/.config/systemd/user/fusuma.service
+  tags: [touchpad, fusuma]
+
+- name: reload systemd user daemon
   systemd:
     name: fusuma
-    enabled: yes
+    daemon_reload: true
+    scope: user
+  tags: [touchpad, fusuma]
+
+- name: enable fusuma user service
+  systemd:
+    name: fusuma
+    enabled: false
     scope: user
   tags: [touchpad, fusuma]

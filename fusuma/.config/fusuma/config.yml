@@ -3,81 +3,81 @@
 # Gestures for Qtile window manager + browser tabs.
 #
 #
-#   prev/next tab                   swipe-3           left / right
-#   pageup / pagedown               swipe-3           up / down
-#   move tab to left / right        swipe-3 + META    left / right
-#   move tab to beginning / end     swipe-3 + META    up / down
+#   prev/next tab                   swipe-4           left / right
+#   pageup / pagedown               swipe-4           up / down
+#   move tab to left / right        swipe-4 + META    left / right
+#   move tab to beginning / end     swipe-4 + META    up / down
 #
 #   open link in another tab        hold-2
 #   close Tab                       hold-4
 #
-#   toggle fullscreen               swipe-4           up
-#   toggle floating                 swipe-4           down
+#   toggle fullscreen               swipe-3           up
+#   toggle floating                 swipe-3           down
 #
-#   go to group prev/next           swipe-4           left / right
-#   move container to group ...     swipe-4 + CTRL    left / right
+#   go to group prev/next           swipe-3           left / right
+#   move container to group ...     swipe-3 + CTRL    left / right
 #
 #   zoom in/out                     pinch-3
-# 
+#
 swipe:
-  3:
+  4:
     left:
-      command: "xdotool key ctrl+shift+Tab"               # previous tab
+      command: "xdotool key ctrl+shift+Tab" # previous tab
       keypress:
         LEFTMETA:
-          command: "xdotool key ctrl+shift+Page_Up"       # move tab to the left
+          command: "xdotool key ctrl+shift+Page_Up" # move tab to the left
     right:
-      command: "xdotool key ctrl+Tab"                     # next tab
+      command: "xdotool key ctrl+Tab" # next tab
       keypress:
         LEFTMETA:
-          command: "xdotool key ctrl+shift+Page_Down"     # move tab to the right
+          command: "xdotool key ctrl+shift+Page_Down" # move tab to the right
     up:
       command: "xdotool key Page_Up"
       threshold: 0.5
       keypress:
-        LEFTMETA:                                         # move tab to beginning
-          command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+Home'
+        LEFTMETA: # move tab to beginning
+          command: "xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+Home"
     down:
       command: "xdotool key Page_Down"
       threshold: 0.5
       keypress:
-        LEFTMETA:                                         # move tab to end
-          command: 'xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+End'
+        LEFTMETA: # move tab to end
+          command: "xdotool sleep .7 key alt+d sleep .1 key shift+Tab sleep .1 key shift+Tab shift+Tab sleep .1 key ctrl+shift+End"
 
-  4:
+  3:
     left:
-      command: "xdotool key super+u"                      # go to previous group
+      command: "xdotool key super+u" # go to previous group
       keypress:
         LEFTCTRL:
-          command: "xdotool key super+ctrl+u"             # move window to previous group
+          command: "xdotool key super+ctrl+u" # move window to previous group
         RIGHTCTRL:
-          command: "xdotool key super+ctrl+u"             # move window to previous group
+          command: "xdotool key super+ctrl+u" # move window to previous group
     right:
-      command: "xdotool key super+i"                      # go to next group
+      command: "xdotool key super+i" # go to next group
       keypress:
         LEFTCTRL:
-          command: "xdotool key super+ctrl+i"             # move window to next group
+          command: "xdotool key super+ctrl+i" # move window to next group
         RIGHTCTRL:
-          command: "xdotool key super+ctrl+i"             # move window to next group
+          command: "xdotool key super+ctrl+i" # move window to next group
     up:
-      command: "xdotool key super+t"                      # toggle floating
+      command: "xdotool key super+t" # toggle floating
       threshold: 0.5
     down:
-      command: "xdotool key super+f"                      # toggle fullscreen
+      command: "xdotool key super+f" # toggle fullscreen
       threshold: 0.5
 
 pinch:
   3:
     in:
-      command: 'xdotool key ctrl+plus'                    # zoom in
+      command: "xdotool key ctrl+plus" # zoom in
     out:
-      command: 'xdotool key ctrl+minus'                   # zoom out
+      command: "xdotool key ctrl+minus" # zoom out
 
 hold:
   2:
-    command: 'xdotool keydown ctrl click 1 keyup ctrl'    # ctrl + left-click, open in another tab
+    command: "xdotool keydown ctrl click 1 keyup ctrl" # ctrl + left-click, open in another tab
   4:
-    command: 'xdotool key ctrl+w'                         # close tab
+    command: "xdotool key ctrl+w" # close tab
 
 interval:
   pinch: 0.2
@@ -85,7 +85,7 @@ interval:
 threshold:
   pinch: 0.2
 
-plugin: 
+plugin:
   inputs:
     libinput_command_input:
       enable-tap: true
