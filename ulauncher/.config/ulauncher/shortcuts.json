@@ -28,5 +28,45 @@
         "is_default_search": true,
         "run_without_argument": false,
         "added": 1677621939.1366854
+    },
+    "d92fbbd6-4050-43f1-84d1-a0dde9c99d53": {
+        "id": "d92fbbd6-4050-43f1-84d1-a0dde9c99d53",
+        "name": "Firefox profiles",
+        "keyword": "ffp",
+        "cmd": "#!/bin/bash\nfirefox -P",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1766917843.7158046
+    },
+    "0e2e1e60-bc3e-4da1-9316-6d8212e794b3": {
+        "id": "0e2e1e60-bc3e-4da1-9316-6d8212e794b3",
+        "name": "dock",
+        "keyword": "dock",
+        "cmd": "#!/bin/bash\n~/bin/my dock",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1767107756.0205703
+    },
+    "4779adca-3da8-41bb-bd48-1d30aa6fd1e3": {
+        "id": "4779adca-3da8-41bb-bd48-1d30aa6fd1e3",
+        "name": "undock",
+        "keyword": "undock",
+        "cmd": "#!/bin/bash\n~/bin/my undock",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1767107792.6719863
+    },
+    "8152eb50-9dee-4c15-89d0-9837ca093948": {
+        "id": "8152eb50-9dee-4c15-89d0-9837ca093948",
+        "name": "sleep",
+        "keyword": "sleep",
+        "cmd": "#!/bin/bash\n~/bin/my sleep",
+        "icon": null,
+        "is_default_search": false,
+        "run_without_argument": true,
+        "added": 1767107865.574068
     }
 }
