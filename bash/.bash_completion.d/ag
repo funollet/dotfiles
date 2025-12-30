@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if which ag >/dev/null 2>&1; then
+  [ -f /usr/share/bash-completion/completions/ag ] \
+    && source /usr/share/bash-completion/completions/ag
+fi

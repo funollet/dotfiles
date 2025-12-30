@@ -1,0 +1,6 @@
+#!/bin/bash
+
+if which gcloud >/dev/null 2>&1; then
+  source $(mise bin-paths | grep '/installs/gcloud/')/../completion.bash.inc
+  source $(mise bin-paths | grep '/installs/gcloud/')/../path.bash.inc
+fi

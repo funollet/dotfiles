@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if which aws >/dev/null 2>&1; then
+  complete -C aws_completer aws
+fi
