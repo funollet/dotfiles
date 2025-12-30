@@ -18,6 +18,7 @@ rpm_absent: [
   docker-ce, podman,
   python3-pika, python3-virtualenvwrapper,
   python3-cookiecutter,
+  gnome-abrt,
   ]
 
 rpm: [
@@ -79,8 +80,10 @@ rpm: [
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
   redshift,
+  input-remapper, solaar,
   # input-remapper dependencies
-  python3-evdev, gtksourceview4, python3-devel, python3-pydantic, python3-pydbus,
+  #python3-evdev, gtksourceview4, python3-devel, python3-pydantic, python3-pydbus,
+  #
   # Command-line.
   aspell, aspell-ca, aspell-en, aspell-es,
   hunspell, hunspell-ca, hunspell-en-US, hunspell-es-ES,
