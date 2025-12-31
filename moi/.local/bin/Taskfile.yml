@@ -1,0 +1,156 @@
+# yaml-language-server: $schema=https://taskfile.dev/schema.json
+
+version: "3"
+
+tasks:
+  default:
+    deps: [choose]
+
+  choose:
+    desc: Interactive task chooser
+    cmds:
+      - task --list --sort=none | fzf | xargs -r task
+    silent: true
+
+  help:
+    desc: Show this message
+    cmds:
+      - task --list --sort=none
+    silent: true
+
+  sync:
+    desc: Sync files with ssh tunnel + tmux
+    vars:
+      QUICK: '{{.QUICK | default "n"}}'
+    cmds:
+      - tmux has -t tunnel || tmux new -s tunnel \; detach
+      - tmux at -t tunnel \; new-window ssh tunnel \; detach
+      - sleep 2
+      - |
+        unison -ui text \
+          {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos'{{end}} \
+          /home/jordif \
+          ssh://localhost:2222
+
+  sync-local:
+    desc: (Local network) Sync files with ssh tunnel + tmux
+    vars:
+      QUICK: '{{.QUICK | default "n"}}'
+      REMOTE:
+        sh: |
+          remote="ssh://localhost:2222"
+          if ip route | grep default | grep -q 192.168.1. ; then
+            if [ $(hostname) = "alai.lan" ] ; then
+              remote="ssh://yak.lan"
+            else
+              remote="ssh://alai.lan"
+            fi
+          fi
+          echo "$remote"
+    cmds:
+      - |
+        unison -ui text \
+          {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}} \
+          /home/jordif \
+          {{.REMOTE}}
+
+  cookie:
+    desc: Pick a local cookiecutter
+    cmds:
+      - ls -1 ~/code/skeletons/ | fzf | xargs -rI% cookiecutter ~/code/skeletons/%
+
+  ergodox-update:
+    desc: Update ergodox firmware
+    vars:
+      URL: "{{.URL}}"
+    cmds:
+      - wget -O /tmp/ergodox.hex {{.URL}}
+      - wally-cli /tmp/ergodox.hex
+      # key repeat: <delay>ms <rate>Hz
+      - xset r rate 400 50
+      # disable bell
+      - xset b off
+
+  wifi-reset:
+    desc: PCI reset of the wifi device
+    cmds:
+      - sudo /bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000\:00\:14.3/remove ; sleep 1 ; echo 1 > /sys/bus/pci/rescan'
+
+  hub-reset:
+    desc: PCI reset of the usb hub device
+    cmds:
+      - sudo /bin/sh -c 'echo 1 > /sys/bus/pci/devices/0000\:00\:02.0/remove ; sleep 1 ; echo 1 > /sys/bus/pci/rescan'
+
+  clock-sync:
+    desc: Resync clock
+    cmds:
+      - sudo systemctl restart chronyd.service
+
+  dex:
+    desc: Pick an xdg-autostart script and run it
+    cmds:
+      - basename -a ~/.config/autostart/*.desktop | fzf -1 | xargs -I{} dex-autostart ~/.config/autostart/{}
+
+  dex:*:
+    cmds:
+      - dex-autostart ~/.config/autostart/{{index .MATCH 0}}.desktop
+
+  dock:
+    desc: Tweaks docking the laptop
+    cmds:
+      - tuned-adm profile desktop
+      - sudo systemctl restart chronyd.service
+      - autorandr -f 01
+
+  undock:
+    desc: Tweaks undocking the laptop
+    cmds:
+      - tuned-adm profile balanced-battery
+      - systemctl --user restart fusuma
+      - autorandr 0
+
+  trackpad:
+    desc: Connect bluetooth trackpad
+    cmds:
+      - bluetoothctl connect A8:91:3D:E5:86:65
+
+  countdown:
+    desc: Start a countdown timer
+    vars:
+      PERIOD: "{{.PERIOD}}"
+      SUMMARY: '{{.SUMMARY | default "Countdown"}}'
+    cmds:
+      - nohup ghostty --title=ghostty-termdown -e "termdown --no-window-title {{.PERIOD}} && notify-send --urgency critical '{{.SUMMARY}}' '{{.PERIOD}} finished.'" > /dev/null 2>&1 &
+    silent: true
+
+  sleep:
+    desc: Hibernate the system
+    cmds:
+      - sudo systemctl hibernate
+
+  macropad:
+    desc: Flash config into macropad
+    cmds:
+      # TODO: configure udev and stop relying on sudo
+      - ch57x-keyboard-tool validate < ~/.config/ch57x-keyboard-tool/mapping.yaml
+      - sudo $(which ch57x-keyboard-tool) upload < ~/.config/ch57x-keyboard-tool/mapping.yaml
+      - sudo $(which ch57x-keyboard-tool) led 0
+      - sleep 0.5
+      - sudo $(which ch57x-keyboard-tool) led 1
+      - sleep 0.5
+      - sudo $(which ch57x-keyboard-tool) led 0
+
+  flatpak-ls:
+    desc: List installed flatpak applications
+    cmds:
+      - flatpak list --app --columns=name
+
+  flatpak-update:
+    desc: Interactively pick and update a flatpak
+    cmds:
+      - flatpak remote-ls --updates --columns=application,version | fzf --prompt="Pick a flatpak to update> " | cut -d'	' -f1 | xargs -r flatpak update -y
+
+  flatpak-ls-updates:
+    desc: Show flatpak updates with target versions
+    cmds:
+      - flatpak remote-ls --updates

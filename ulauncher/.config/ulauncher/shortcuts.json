@@ -9,26 +9,6 @@
         "run_without_argument": false,
         "added": 1677621939.1366155
     },
-    "e34ba1a0-c45b-4de5-9037-2012326dfbc9": {
-        "id": "e34ba1a0-c45b-4de5-9037-2012326dfbc9",
-        "name": "Stack Overflow",
-        "keyword": "so",
-        "cmd": "https://stackoverflow.com/search?q=%s",
-        "icon": "/usr/share/ulauncher/media/stackoverflow-icon.svg",
-        "is_default_search": true,
-        "run_without_argument": false,
-        "added": 1677621939.1366558
-    },
-    "ea05f402-8528-4aec-888e-92acef72a286": {
-        "id": "ea05f402-8528-4aec-888e-92acef72a286",
-        "name": "Wikipedia",
-        "keyword": "wiki",
-        "cmd": "https://en.wikipedia.org/wiki/%s",
-        "icon": "/usr/share/ulauncher/media/wikipedia-icon.png",
-        "is_default_search": true,
-        "run_without_argument": false,
-        "added": 1677621939.1366854
-    },
     "d92fbbd6-4050-43f1-84d1-a0dde9c99d53": {
         "id": "d92fbbd6-4050-43f1-84d1-a0dde9c99d53",
         "name": "Firefox profiles",
@@ -43,7 +23,7 @@
         "id": "0e2e1e60-bc3e-4da1-9316-6d8212e794b3",
         "name": "dock",
         "keyword": "dock",
-        "cmd": "#!/bin/bash\n~/bin/my dock",
+        "cmd": "#!/bin/bash\neval \"$(/usr/bin/mise activate bash)\"\n~/.local/bin/moi dock",
         "icon": null,
         "is_default_search": false,
         "run_without_argument": true,
@@ -53,7 +33,7 @@
         "id": "4779adca-3da8-41bb-bd48-1d30aa6fd1e3",
         "name": "undock",
         "keyword": "undock",
-        "cmd": "#!/bin/bash\n~/bin/my undock",
+        "cmd": "#!/bin/bash\neval \"$(/usr/bin/mise activate bash)\"\n~/.local/bin/moi undock",
         "icon": null,
         "is_default_search": false,
         "run_without_argument": true,
@@ -63,7 +43,7 @@
         "id": "8152eb50-9dee-4c15-89d0-9837ca093948",
         "name": "sleep",
         "keyword": "sleep",
-        "cmd": "#!/bin/bash\n~/bin/my sleep",
+        "cmd": "#!/bin/bash\neval \"$(/usr/bin/mise activate bash)\"\n~/.local/bin/moi sleep",
         "icon": null,
         "is_default_search": false,
         "run_without_argument": true,
