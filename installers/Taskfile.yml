@@ -1,0 +1,184 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  ANSIBLE: "ansible-playbook -v --diff --connection local --inventory localhost, install.yml"
+
+tasks:
+  default:
+    cmds:
+      - task --list --sort=none
+    silent: true
+
+  ansible:
+    desc: Run ansible on the local workstation.
+    cmds:
+      - "{{.ANSIBLE}} {{.CLI_ARGS}}"
+
+  ansible-tags:
+    desc: pick an ansible tag and run with it
+    cmds:
+      - "{{.ANSIBLE}} {{.CLI_ARGS}} -t {{.TAG}}"
+    vars:
+      TAG:
+        sh: |
+          (ls -1 install.yml ; fd '(yml|yaml)'  roles/ ) |
+          xargs yq '.[] | select(has("tags")) | .tags' -P --no-doc |
+          sed 's/^- //' |
+          sort | uniq | fzf --no-multi
+
+  keymapp:
+    cmds:
+      - ubi --exe keymapp --in ~/.local/bin/ --url https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz
+    status:
+      - which keymapp
+
+  # Install font Hack from https://github.com/ryanoasis/nerd-fonts
+  fonts-hack:
+    vars:
+      VERSION: '{{.VERSION | default "2.1.0"}}'
+    cmds:
+      - wget -nv -c "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{.VERSION}}/Hack.zip" -P /tmp
+      - rm -rf ~/.fonts/Hack
+      - mkdir -p ~/.local/share/fonts/Hack
+      - unzip -o -d ~/.local/share/fonts/Hack /tmp/Hack.zip
+      - fc-cache -fv
+    status:
+      - test -d ~/.local/share/fonts/Hack
+
+  install-extras:
+    desc: Install non-packaged software.
+    deps:
+      - fonts-hack
+      - keymapp
+
+  reboot:
+    prompt: Are you sure you want to reboot?
+    cmds:
+      - sudo systemctl reboot
+
+  update:
+    desc: Fedora update.
+    cmds:
+      - sudo dnf update --downloadonly -y
+      - sudo dnf update -y
+      - flatpak update -y
+
+  update-kernel:
+    cmds:
+      - sudo dnf update kernel kernel-modules-extra kernel-devel-matched VirtualBox virtualbox-guest-additions vagrant
+      - task: reboot
+
+  upgrade0:
+    desc: Fedora upgrade, step 0.
+    cmds:
+      - sudo dnf install dnf-plugin-system-upgrade
+      - sudo dnf upgrade --refresh
+      - task: reboot
+
+  # https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
+  upgrade1:
+    desc: Fedora upgrade, step 1.
+    vars:
+      NEXT_VERSION:
+        sh: "lsb_release -r | cut -f2 | xargs -I{} expr {} + 1"
+    cmds:
+      - sudo dnf system-upgrade download -y --releasever={{.VERSION | default .NEXT_VERSION}}
+
+  upgrade2:
+    desc: Fedora upgrade, step 2.
+    cmds:
+      - sudo dnf system-upgrade reboot
+
+  reclaim:
+    desc: Reclaim unused space.
+    cmds:
+      - sudo dnf clean packages
+      - sudo dnf system-upgrade clean
+      - flatpak uninstall --unused
+      - flatpak uninstall --delete-data
+      - sudo journalctl --vacuum-time=10d
+
+  kernel-cleanup:
+    desc: Remove old kernels.
+    vars:
+      OLD_KERNELS:
+        sh: dnf repoquery --installonly --latest-limit=-1 -q | grep -v "$(uname -r)" | tr '\n' ' ' || true
+    cmds:
+      - sudo dnf remove {{.OLD_KERNELS}}
+    preconditions:
+      - sh: test -n "{{.OLD_KERNELS}}"
+        msg: No old kernels to remove
+
+  fight-entropy:
+    desc: Tidy-up system-wide.
+    vars:
+      CURRENT_RELEASE:
+        sh: lsb_release -sr
+    cmds:
+      - cmd: echo "Modules from older releases"
+        silent: true
+      - cmd: ls -1d /lib/modules/* | grep -v ".fc{{.CURRENT_RELEASE}}."
+        ignore_error: true
+      - cmd: echo
+        silent: true
+      - cmd: echo "Packages with broken dependencies"
+        silent: true
+      - sudo dnf repoquery --unsatisfied
+      - cmd: echo
+        silent: true
+      - cmd: echo "Packages with multiple versions installed"
+        silent: true
+      - sudo dnf repoquery --duplicates
+      - cmd: echo
+        silent: true
+      - cmd: echo "Possibly unused packages"
+        silent: true
+      - sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\*,dkms | grep -v ".fc{{.CURRENT_RELEASE}}."
+      - cmd: echo
+        silent: true
+
+  tweak:
+    desc: Post-install config tasks.
+    deps:
+      - tweak-vbox
+      - tweak-firefox
+      - tweak-kde
+
+  # Set folder to store Virtualbox machines
+  tweak-vbox:
+    cmds:
+      - VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
+
+  # Minor Firefox tweaks.
+  tweak-firefox:
+    cmds:
+      - test -f ~/.gtkrc-2.0 || touch ~/.gtkrc-2.0
+      - sed -i 's/# *gtk-key-theme-name =/gtk-key-theme-name =/' ~/.gtkrc-2.0
+      - grep -q 'gtk-key-theme-name =' ~/.gtkrc-2.0 || echo 'gtk-key-theme-name = "Emacs"' >> ~/.gtkrc-2.0
+      # Firefox uses kde file manager: requires xdg-desktop-portal-kde
+      # Set the app launcher command to: GTK_USE_PORTAL=1 firefox %u
+
+  # KDE tweaks.
+  # https://userbase.kde.org/Plasma/Tips
+  # 'Meta' does nothing by itself
+  tweak-kde:
+    cmds:
+      - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
+      - qdbus org.kde.KWin /KWin reconfigure
+
+  config-x11:
+    desc: Configure xkb system-wide.
+    cmds:
+      - sudo localectl set-x11-keymap us pc105 "" "compose:caps,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
+
+  xkb-change:
+    desc: Reconfigure xkb on a running X session.
+    cmds:
+      # Delete previous options.
+      - setxkbmap -layout us -option ''
+      # Set keyboard layout.
+      # compose:caps          caps key is compose key
+      # shift:both_capslock   Both Shift together enable Caps Lock
+      - setxkbmap -layout us -option 'compose:caps' -option 'terminate:ctrl_alt_bksp' -option 'ctrl:menu_rctrl'
