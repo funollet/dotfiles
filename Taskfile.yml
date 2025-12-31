@@ -1,0 +1,27 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  default:
+    cmds:
+      - task --list --sort=none
+    silent: true
+
+  update:
+    desc: Update dotfiles.
+    vars:
+      STOW_PKGS:
+        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers
+    cmds:
+      # Delete all symlinks. This deals with deleted config files.
+      # Symlink files managed in this repo.
+      - for: { var: STOW_PKGS }
+        cmd: stow -R {{.ITEM}}
+      - stow --target ~/bin --dir ~/code/user-land/ packaged
+
+  systemctl:
+    cmds:
+      - systemctl --user daemon-reload
+      - systemctl --user enable fusuma.service
+      - systemctl --user enable ulauncher.service
