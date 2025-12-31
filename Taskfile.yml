@@ -4,9 +4,7 @@ version: "3"
 
 tasks:
   default:
-    cmds:
-      - task --list --sort=none
-    silent: true
+    deps: [update]
 
   update:
     desc: Update dotfiles.
@@ -16,11 +14,11 @@ tasks:
     cmds:
       # Delete all symlinks. This deals with deleted config files.
       # Symlink files managed in this repo.
-      - for: { var: STOW_PKGS }
-        cmd: stow -R {{.ITEM}}
+      - for pkg in ${STOW_PKGS} ; do stow -R {pkg} ; done
       - stow --target ~/bin --dir ~/code/user-land/ packaged
 
   systemctl:
+    desc: Update systemctl user services.
     cmds:
       - systemctl --user daemon-reload
       - systemctl --user enable fusuma.service
