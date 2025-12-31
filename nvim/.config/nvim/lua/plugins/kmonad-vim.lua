@@ -1,0 +1,5 @@
+return {
+  {
+    "kmonad/kmonad-vim",
+  },
+}
