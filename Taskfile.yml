@@ -10,11 +10,11 @@ tasks:
     desc: Update dotfiles.
     vars:
       STOW_PKGS:
-        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers
+        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers | tr '\n' ' '
     cmds:
       # Delete all symlinks. This deals with deleted config files.
       # Symlink files managed in this repo.
-      - for pkg in ${STOW_PKGS} ; do stow -R {pkg} ; done
+      - for pkg in {{.STOW_PKGS}} ; do stow -R ${pkg} ; done
       - stow --target ~/bin --dir ~/code/user-land/ packaged
 
   systemctl:
