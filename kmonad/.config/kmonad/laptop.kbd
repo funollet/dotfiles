@@ -22,6 +22,23 @@
   ;;;
 ;; )
 
+;; Pseudo-chord combos workaround (https://github.com/kmonad/kmonad/issues/157#issuecomment-1145277537)
+;; How it works:
+;;   - Each combo key uses tap-hold-next with a very short timeout (12ms)
+;;   - Tapping the key quickly produces the normal letter
+;;   - Holding the key (even briefly) toggles to a special layer
+;;   - On that special layer, the adjacent combo key produces the combo output
+;;   - This creates a pseudo-chord: pressing both keys within ~12ms triggers the combo
+;;   - Example: w+e → Tab (either w then e, or e then w)
+;;   - Supports rollover typing: quick individual key presses still work normally
+
+(defalias   ;; combos (pseudo-chord using tap-hold-next workaround)
+  wb        (tap-hold-next 12 w (layer-toggle wk) :timeout-button w)  ;; w+e → Tab
+  eb        (tap-hold-next 12 e (layer-toggle ek) :timeout-button e)  ;; e+w → Tab
+  ib        (tap-hold-next 12 i (layer-toggle ik) :timeout-button i)  ;; i+o → Esc
+  ob        (tap-hold-next 12 o (layer-toggle ok) :timeout-button o)  ;; o+i → Esc
+)
+
 (defalias   ;; home-row modifiers
   dsft      (tap-hold-next-release 600 d lsft :timeout-button d)
   ksft      (tap-hold-next-release 600 k rsft :timeout-button k)
@@ -59,7 +76,7 @@
   esc   f1    f2    f3    f4    f5    f6    f7    f8    f9    f10   f11   f12         ins   home  del
 
   grv   1     2     3     4     5     6     7     8     9     0     -     =     bspc
-  tab   q     w     e     r     t     y     u     i     o     p     [     ]
+  tab   q     @wb   @eb   r     t     y     u     @ib   @ob   p     [     ]
   @agrv a     @salt @dsft @fctl  g    h     @jctl @ksft @llt  ;     '     @aact ret
   caps  z     x     c     v     b     n     m     ,     .     /                 \
   lctl  lmet  @dash             @spc-meta               @symb sysrq rctl
@@ -78,6 +95,58 @@
                                                                           _     _     _
                                                                           _     _     _
 )
+
+;; Combo layers: when one combo key is held, the other produces the combo output
+;; These layers are toggled by the tap-hold-next aliases above
+
+(deflayer wk  ;; w+e → Tab combo (w held, e pressed)
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _    _
+
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     w     tab   _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _                 _
+  _     _     _                 _                       _     _     _
+                                                                          _     _     _
+                                                                          _     _     _
+)
+
+(deflayer ek  ;; e+w → Tab combo (e held, w pressed)
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _    _
+
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     tab   e     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _                 _
+  _     _     _                 _                       _     _     _
+                                                                          _     _     _
+                                                                          _     _     _
+)
+
+(deflayer ik  ;; i+o → Esc combo (i held, o pressed)
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _    _
+
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     i     esc   _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _                 _
+  _     _     _                 _                       _     _     _
+                                                                          _     _     _
+                                                                          _     _     _
+)
+
+(deflayer ok  ;; o+i → Esc combo (o held, i pressed)
+  _     _     _     _     _     _     _     _     _     _     _     _     _           _     _    _
+
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     esc   o     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _     _     _     _
+  _     _     _     _     _     _     _     _     _     _     _                 _
+  _     _     _                 _                       _     _     _
+                                                                          _     _     _
+                                                                          _     _     _
+)
+
 ;; (deflayer name
 ;;   _     _     _     _     _     _     _     _     _     _     _     _     _           _     _    _
 ;;
