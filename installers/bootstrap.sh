@@ -17,7 +17,7 @@ cd .. ; stow mise ; cd $OLDPWD
 
 echo
 echo "#################"
-echo You may want to enable running some commands passwordless (visudo).
+echo You may want to enable running some commands passwordless \(visudo\).
 
 # asdf plugin add pipx https://github.com/amrox/asdf-pyapp.git
 # asdf install pipx

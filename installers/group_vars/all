@@ -10,7 +10,7 @@ gems: [
   ]
 
 rpm_absent: [
-  amarok, akonadi, akonadi-server, kf5-akonadi-server, banshee, gbrainy,
+  amarok, akonadi, kf5-akonadi-server, banshee, gbrainy,
   snapd, PackageKit-command-not-found,
   lxc, lxc-doc, redir,                                # vagrant-lxc requirement
   yum-cron,
@@ -18,20 +18,20 @@ rpm_absent: [
   docker-ce, podman,
   python3-pika, python3-virtualenvwrapper,
   python3-cookiecutter,
-  gnome-abrt,
+  gnome-abrt, toolbox,
   ]
 
 rpm: [
   ### base_distro
   python-paramiko, python3-pyyaml, python-jinja2, python-simplejson, python-pip,
-  python3-firewall, createrepo, redhat-lsb,
+  python3-firewall, createrepo, lsb_release,
   
   ### devopstools
   vim-X11, vim-enhanced, automake, gcc, gcc-c++, rpm-build, subversion,
   # development tools
-  git, hub, git-svn, gitk, git-delta,
+  git, git-svn, gitk, git-delta,
   sqlite, jq, yq, ShellCheck,
-  direnv, stow, gron, just, jc,
+  direnv, stow, just, jc,
   # linting
   yamllint, hadolint,
   python3-black, python3-pytest, python3-flake8, python3-isort,
@@ -60,7 +60,7 @@ rpm: [
   #, Ops,
   moby-engine,
   par, pssh, pdsh, pdsh-mod-dshgroup,
-  mysql, gnuplot, httpd-tools, pass,
+  gnuplot, httpd-tools, pass,
   #
   # libvirt-bin service must not be run: installs and launches dnsmasq configures virt0 interface.
   #libvirt-bin,
@@ -68,7 +68,7 @@ rpm: [
   
   ### unix_essentials:
   ack, fzf, htop, dstat, tree, rsync, wget, curl, screen, units, vim, pv, lsof, strace, colordiff, diff-so-fancy,
-  the_silver_searcher, fd-find, ncdu, bat, eza, gron, jo, lsd, trash-cli, sd,
+  the_silver_searcher, fd-find, ncdu, bat, jo, lsd, trash-cli,
   highlight, unison, ripgrep, zoxide, mise,
   libtree-ldd,
   
@@ -96,14 +96,15 @@ rpm: [
   powertop, cheat, cheat-bash-completion,
   lolcat, diskonaut, glow, gum,
   # GUI apps.
-  pidgin, pidgin-libnotify, pidgin-guifications,
+  pidgin, pidgin-libnotify,
+  # pidgin-guifications,
   keepassxc, 1password, 1password-cli,
   calibre, inkscape, firefox, mozilla-openh264,
   libreoffice, timeline, youtube-dl, Zim,
   zathura, speedcrunch, homebank, flameshot,
   ghostty,
   # Graphics
-  gimp, ufraw,
+  gimp,
   gimp-paint-studio, gimp-help,
   gimp-high-pass-filter, gimp-elsamuko,
   gimp-data-extras,
@@ -120,7 +121,6 @@ rpm: [
   # 
   # sigil
   #
-  gtk3, webkit2gtk3, libusb,          # dependencies for https://github.com/zsa/wally/
   xinput, evtest,
   
   ### codecs:
@@ -134,8 +134,8 @@ rpm: [
   gstreamer-plugins-bad-nonfree,
   
   ### kde:
-  xdg-desktop-portal-kde, plasma-browser-integration,
-  
+  xdg-desktop-portal-kde, plasma-browser-integration, plasma-workspace-x11,
+
   ### light desktop utilities:
   # scrot, feh, xautolock, lxappearance, lxqt-powermanagement, sxhkd, volumeicon,
   dunst, light, brightnessctl, nitrogen, azote,
@@ -145,19 +145,16 @@ rpm: [
   udiskie, blueman, battray,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   NetworkManager-vpnc,
-  sddm, sddm-themes, sddm-breeze,
+  sddm-x11, sddm-themes, sddm-breeze,
   # filemanager
   Thunar, thunar-volman, tumbler, tumbler-extras,
   # keyring
   gnome-keyring, gnome-keyring-pam, libsecret, seahorse,
-
+  lxqt-policykit,
 
   ### qtile
   qtile, python3-dbus-next, xorg-x11-server-Xephyr,
-  
-  ### lxqt:
-  "@lxqt-desktop",
-  
+
   ### vagrant:
   vagrant, vagrant-doc, vagrant-libvirt,
   vagrant-libvirt-doc, vagrant-cachier, vagrant-cachier-doc,

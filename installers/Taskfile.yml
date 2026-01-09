@@ -89,7 +89,7 @@ tasks:
   upgrade2:
     desc: Fedora upgrade, step 2.
     cmds:
-      - sudo dnf system-upgrade reboot
+      - sudo dnf5 offline reboot
 
   reclaim:
     desc: Reclaim unused space.

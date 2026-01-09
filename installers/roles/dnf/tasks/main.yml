@@ -6,6 +6,7 @@
     - https://downloads.1password.com/linux/keys/1password.asc
     - https://mise.jdx.dev/gpg-key.pub
     - https://www.virtualbox.org/download/oracle_vbox_2016.asc
+  become: true
   tags: [rpm, rpm-repo]
 
 - name: install repos

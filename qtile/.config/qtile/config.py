@@ -230,7 +230,7 @@ def make_screen_primary():
     return Screen(
         bottom=bar.Bar(
             [
-                widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(mode="both", icon_first=True),
                 widget.Spacer(length=10),
                 widget.Prompt(),
                 widget.Spacer(length=10),
@@ -275,7 +275,7 @@ def make_screen_secondary():
     return Screen(
         bottom=bar.Bar(
             [
-                widget.CurrentLayoutIcon(),
+                widget.CurrentLayout(mode="both", icon_first=True),
                 widget.Spacer(length=10),
                 widget.Spacer(),
                 widget.GroupBox(
@@ -506,7 +506,11 @@ keys += [
     ),
     Key("M-<Prior>", lazy.spawn("volume-notify --step 3 up"), desc="Raise volume"),
     Key("M-<Next>", lazy.spawn("volume-notify --step 3 down"), desc="Lower volume"),
-    Key("M-m", lazy.spawn("volume-notify mute"), desc="Mute volume"),
+    Key(
+        "M-m",
+        lazy.spawn("volume-notify mute'"),
+        desc="Mute volume",
+    ),
     Key(
         "<XF86AudioPlay>",
         lazy.spawn("playerctl play-pause"),

@@ -64,7 +64,6 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "github:joehillen/sysz" = { asset_pattern = "sysz", version = "latest" }
 "github:houseabsolute/ubi" = "latest"
 "github:akavel/up" = { version = "latest", asset_pattern = "^up$" }
-"github:zsa/wally-cli" = { version = "2.0.0-linux", asset_pattern = "wally-cli" }
 "github:kriomant/ch57x-keyboard-tool" = "latest"
 helm-diff = "latest"
 kubectl-convert = "latest"
@@ -80,6 +79,9 @@ docuum = "latest"
 "aqua:openai/codex" = "latest"
 "github:kantord/headson" = { version = "0.11.4", version_prefix = "headson-v" }
 task = "latest"
+gron = "latest"
+eza = "latest"
+sd = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
