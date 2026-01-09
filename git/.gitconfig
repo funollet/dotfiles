@@ -58,8 +58,13 @@
 [merge]
   conflictstyle = zdiff3
 
-[includeIf "gitdir:~/code/nuclia/"]
-  path = .gitconfig.nuclia
+[includeIf "gitdir:~/code/sateliot/"]
+  path = .gitconfig.sateliot
 
 [include]
   path = .gitconfig.alias
+
+[credential "https://github.com"]
+	helper = !gh auth git-credential
+[credential "https://gist.github.com"]
+	helper = !gh auth git-credential
