@@ -21,7 +21,8 @@ tasks:
   sync:
     desc: Sync files with ssh tunnel + tmux
     vars:
-      QUICK: '{{.QUICK | default "n"}}'
+      QUICK:
+        sh: gum confirm 'Skip big folders? (./fotos, ./mmedia)' --default="No" || echo n
     cmds:
       - tmux has -t tunnel || tmux new -s tunnel \; detach
       - tmux at -t tunnel \; new-window ssh tunnel \; detach
@@ -35,7 +36,8 @@ tasks:
   sync-local:
     desc: (Local network) Sync files with ssh tunnel + tmux
     vars:
-      QUICK: '{{.QUICK | default "n"}}'
+      QUICK:
+        sh: gum confirm 'Skip big folders? (./fotos, ./mmedia)' --default="No" || echo n
       REMOTE:
         sh: |
           remote="ssh://localhost:2222"
@@ -48,28 +50,17 @@ tasks:
           fi
           echo "$remote"
     cmds:
-      - |
-        unison -ui text \
-          {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}} \
-          /home/jordif \
-          {{.REMOTE}}
+      - >
+        unison -ui text 
+        {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
+        /home/jordif
+        {{.REMOTE}}
+        -prefer {{.REMOTE}}
 
   cookie:
     desc: Pick a local cookiecutter
     cmds:
       - ls -1 ~/code/skeletons/ | fzf | xargs -rI% cookiecutter ~/code/skeletons/%
-
-  ergodox-update:
-    desc: Update ergodox firmware
-    vars:
-      URL: "{{.URL}}"
-    cmds:
-      - wget -O /tmp/ergodox.hex {{.URL}}
-      - wally-cli /tmp/ergodox.hex
-      # key repeat: <delay>ms <rate>Hz
-      - xset r rate 400 50
-      # disable bell
-      - xset b off
 
   wifi-reset:
     desc: PCI reset of the wifi device
