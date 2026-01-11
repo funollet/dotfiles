@@ -68,7 +68,7 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 helm-diff = "latest"
 kubectl-convert = "latest"
 "github:jesseduffield/lazydocker" = "latest"
-krew = "0.4.5"
+krew = "latest"
 "github:sectore/timr-tui" = "latest"
 "github:lusingander/serie" = "latest"
 "pipx:pter" = "latest"
@@ -77,11 +77,12 @@ bun = "latest"
 aqua = "latest"
 docuum = "latest"
 "aqua:openai/codex" = "latest"
-"github:kantord/headson" = { version = "0.11.4", version_prefix = "headson-v" }
+"github:kantord/headson" = { version = "latest", version_prefix = "headson-v" }
 task = "latest"
 gron = "latest"
 eza = "latest"
 sd = "latest"
+"pipx:cruft" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
