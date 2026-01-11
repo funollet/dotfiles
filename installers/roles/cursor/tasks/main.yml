@@ -1,0 +1,25 @@
+- name: add cursor repo key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://downloads.cursor.com/keys/anysphere.asc
+  become: true
+  tags: [cursor, cursor-repo, rpm, rpm-repo]
+
+- name: add cursor repo
+  ansible.builtin.yum_repository:
+    name: cursor
+    description: Cursor
+    baseurl: https://downloads.cursor.com/yumrepo
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    gpgkey: https://downloads.cursor.com/keys/anysphere.asc
+  become: true
+  tags: [cursor, cursor-repo, rpm, rpm-repo]
+
+- name: install cursor
+  ansible.builtin.dnf:
+    name: cursor
+    state: present
+  become: true
+  tags: [cursor]
