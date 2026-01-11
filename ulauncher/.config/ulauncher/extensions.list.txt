@@ -1,5 +1,5 @@
-com.github.abhishekmj303.ulauncher-playerctl
-com.github.lighttigerxiv.ulauncher-session-manager
-com.github.ulauncher.ulauncher-timer
-com.github.ulauncher.ulauncher-emoji
-com.github.ural89.batterystatus
+https://github.com/abhishekmj303/ulauncher-playerctl
+https://github.com/lighttigerXIV/ulauncher-session-manager
+https://github.com/ulauncher/ulauncher-timer
+https://github.com/Ulauncher/ulauncher-emoji
+https://github.com/ural89/BatteryStatus
