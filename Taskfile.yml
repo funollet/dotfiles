@@ -16,6 +16,7 @@ tasks:
       # Symlink files managed in this repo.
       - for pkg in {{.STOW_PKGS}} ; do stow -R ${pkg} ; done
       - stow --target ~/bin --dir ~/code/user-land/ packaged
+      - stow --target ~/.local/bin --dir ~/code/volume-notify/ bin
 
   systemctl:
     desc: Update systemctl user services.

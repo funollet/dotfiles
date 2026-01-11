@@ -2,6 +2,7 @@ import re
 import subprocess
 from pathlib import Path
 import asyncio
+import os
 
 
 from libqtile import bar, hook, layout, qtile, widget
@@ -18,6 +19,7 @@ from time import sleep
 mod = "mod4"
 # terminal = guess_terminal()
 terminal = "ghostty"
+localbin = os.path.expanduser(os.path.expandvars("~/.local/bin"))
 
 colors = {
     "white": "#ffffff",
@@ -157,10 +159,16 @@ groups.append(
     ScratchPad(
         "scratchpad",
         [
-            # DropDown('slack', 'flatpak run com.slack.Slack',
-            #          match=Match(wm_class=['Slack']),
-            #          width=0.8, height=0.95, x=0.1, y=0.025,
-            #          on_focus_lost_hide=False),
+            DropDown(
+                "slack",
+                "flatpak run com.slack.Slack",
+                match=Match(wm_class=["Slack"]),
+                width=0.8,
+                height=0.95,
+                x=0.1,
+                y=0.025,
+                on_focus_lost_hide=False,
+            ),
             DropDown(
                 "telegram",
                 "flatpak run org.telegram.desktop",
@@ -192,16 +200,15 @@ layout_defaults = {
 layouts = [
     layout.MonadTall(**layout_defaults),
     layout.Max(**layout_defaults),
-    layout.MonadWide(**layout_defaults),
 ]
 
-Group(
-    "2",
-    layouts=[
-        layout.Max(**layout_defaults),
-        layout.MonadWide(**layout_defaults),
-    ],
-)
+# Group(
+#     "2",
+#     layouts=[
+#         layout.Max(**layout_defaults),
+#         layout.MonadWide(**layout_defaults),
+#     ],
+# )
 
 widget_defaults = dict(
     font="sans",
@@ -230,7 +237,7 @@ def make_screen_primary():
     return Screen(
         bottom=bar.Bar(
             [
-                widget.CurrentLayout(mode="both", icon_first=True),
+                widget.CurrentLayout(mode="icon"),
                 widget.Spacer(length=10),
                 widget.Prompt(),
                 widget.Spacer(length=10),
@@ -246,7 +253,7 @@ def make_screen_primary():
                 widget.BatteryIcon(
                     mouse_callbacks={
                         "Button1": lazy.spawn(
-                            'notify-send "Battery Status" "$(battery-status.sh)"',
+                            f'notify-send "Battery Status" "$({localbin}/battery-status.sh)"',
                             shell=True,
                         ),
                         "Button2": lazy.spawn(
@@ -256,9 +263,9 @@ def make_screen_primary():
                 ),
                 widget.Volume(
                     emoji=True,
-                    volume_up_command="volume-notify --step 3 up",
-                    volume_down_command="volume-notify --step 3 down",
-                    mute_command="volume-notify mute",
+                    volume_up_command=f"{localbin}/volume-notify --step 3 up",
+                    volume_down_command=f"{localbin}/volume-notify --step 3 down",
+                    mute_command=f"{localbin}/volume-notify mute",
                     mouse_callbacks={
                         "Button2": lazy.spawn("pavucontrol"),
                     },
@@ -275,7 +282,7 @@ def make_screen_secondary():
     return Screen(
         bottom=bar.Bar(
             [
-                widget.CurrentLayout(mode="both", icon_first=True),
+                widget.CurrentLayout(mode="icon"),
                 widget.Spacer(length=10),
                 widget.Spacer(),
                 widget.GroupBox(
@@ -478,22 +485,26 @@ keys += [
     Key("M-q", lazy.window.kill(), desc="Kill focused window"),
     Key("M-A-r", lazy.reload_config(), desc="Reload the config"),
     Key("M-A-q", lazy.shutdown(), desc="Shutdown Qtile"),
-    Key("M-A-S-r", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
+    Key("M-A-s", lazy.spawncmd(), desc="Spawn a command using a prompt widget"),
 ]
 
 # mmedia shortcuts
 keys += [
     Key(
         "<XF86AudioRaiseVolume>",
-        lazy.spawn("volume-notify --step 3 up"),
+        lazy.spawn(f"{localbin}/volume-notify --step 3 up"),
         desc="Raise volume",
     ),
     Key(
         "<XF86AudioLowerVolume>",
-        lazy.spawn("volume-notify --step 3 down"),
+        lazy.spawn(f"{localbin}/volume-notify --step 3 down"),
         desc="Lower volume",
     ),
-    Key("<XF86AudioMute>", lazy.spawn("volume-notify mute"), desc="Mute volume"),
+    Key(
+        "<XF86AudioMute>",
+        lazy.spawn(f"{localbin}/volume-notify mute"),
+        desc="Mute volume",
+    ),
     Key(
         "M-<XF86AudioRaiseVolume>",
         lazy.spawn("xdotool sleep 0.2 key greater"),
@@ -504,11 +515,19 @@ keys += [
         lazy.spawn("xdotool sleep 0.2 key less"),
         desc="Play youtube slower",
     ),
-    Key("M-<Prior>", lazy.spawn("volume-notify --step 3 up"), desc="Raise volume"),
-    Key("M-<Next>", lazy.spawn("volume-notify --step 3 down"), desc="Lower volume"),
+    Key(
+        "M-<Prior>",
+        lazy.spawn(f"{localbin}/volume-notify --step 3 up"),
+        desc="Raise volume",
+    ),
+    Key(
+        "M-<Next>",
+        lazy.spawn(f"{localbin}/volume-notify --step 3 down"),
+        desc="Lower volume",
+    ),
     Key(
         "M-m",
-        lazy.spawn("volume-notify mute'"),
+        lazy.spawn(f"{localbin}/volume-notify mute"),
         desc="Mute volume",
     ),
     Key(
@@ -542,7 +561,7 @@ keys += [
 
 # Misc shortcuts
 keys += [
-    Key("<f1>", lazy.spawn("mute-meet.sh"), desc="Mute/unmute video call"),
+    Key("<f1>", lazy.spawn(f"{localbin}/mute-meet.sh"), desc="Mute/unmute video call"),
     Key(
         "<f7>",
         lazy.group["scratchpad"].dropdown_toggle("telegram"),
@@ -553,11 +572,6 @@ keys += [
         "<f9>",
         lazy.group["scratchpad"].dropdown_toggle("spotify"),
         desc="Toggle spotify",
-    ),
-    Key(
-        "<XF86Launch8>",
-        lazy.spawn("firefox-detach-window.sh"),
-        desc="Detach tab on firefox",
     ),
     Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
     Key("M-A-a", lazy.spawn("autorandr 01"), desc="Call autorandr"),
@@ -587,24 +601,24 @@ keys += [
     # Press Shift while turning to control speed in Youtube.
     Key(
         "S-<XF86AudioLowerVolume>",
-        lazy.spawn("xsendkey youtube less"),
+        lazy.spawn(f"{localbin}/xsendkey youtube less"),
         desc="(Youtube) Decrease playback speed",
     ),
     Key(
         "S-<XF86AudioRaiseVolume>",
-        lazy.spawn("xsendkey youtube greater"),
+        lazy.spawn(f"{localbin}/xsendkey youtube greater"),
         desc="(Youtube) Increase playback speed",
     ),
     # Press Control while turning to control forward/backward seek
     # in Youtube.
     Key(
         "C-<XF86AudioLowerVolume>",
-        lazy.spawn("xsendkey youtube Left"),
+        lazy.spawn(f"{localbin}/xsendkey youtube Left"),
         desc="(Youtube) Backward 10 seconds",
     ),
     Key(
         "C-<XF86AudioRaiseVolume>",
-        lazy.spawn("xsendkey youtube Right"),
+        lazy.spawn(f"{localbin}/xsendkey youtube Right"),
         desc="(Youtube) Forward 10 seconds",
     ),
 ]
