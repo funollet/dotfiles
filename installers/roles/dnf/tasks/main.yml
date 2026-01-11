@@ -79,6 +79,17 @@
   become: true
   tags: [rpm, rpm-present]
 
+- name: dnf prompts default to yes
+  community.general.ini_file:
+    path: /etc/dnf/dnf.conf
+    section: main
+    option: defaultyes
+    value: 'True'
+    mode: '0644'
+    backup: false
+  become: true
+  tags: [rpm, rpm-config]
+
 # - name: enable services
 #   ansible.builtin.systemd:
 #     name: "{{ item }}"

@@ -18,7 +18,7 @@ rpm_absent: [
   docker-ce, podman,
   python3-pika, python3-virtualenvwrapper,
   python3-cookiecutter,
-  gnome-abrt, toolbox,
+  gnome-abrt, toolbox, redhat-lsb,
   ]
 
 rpm: [
