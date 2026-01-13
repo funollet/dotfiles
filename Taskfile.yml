@@ -24,3 +24,4 @@ tasks:
       - systemctl --user daemon-reload
       - systemctl --user enable fusuma.service
       - systemctl --user enable ulauncher.service
+      - systemctl --user enable gnome-keyring-daemon

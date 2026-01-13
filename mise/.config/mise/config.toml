@@ -83,6 +83,8 @@ gron = "latest"
 eza = "latest"
 sd = "latest"
 "pipx:cruft" = "latest"
+"github:Sateliot/sateliot-aws-auth" = "latest"
+terragrunt = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if which terragrunt >/dev/null 2>&1; then
+  complete -C terragrunt terragrunt
+fi

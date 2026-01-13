@@ -67,7 +67,8 @@ OPENAI_API_KEY="$(secret-tool lookup application openai type token)"
 export OPENAI_API_KEY
 
 if which mise >/dev/null 2>&1; then
-    MISE_GITHUB_TOKEN="$(secret-tool lookup application mise type token)"
+    # MISE_GITHUB_TOKEN="$(secret-tool lookup application mise type token)"
+    MISE_GITHUB_TOKEN="$(~/.local/share/mise/shims/gh auth token --user siot-jordi-funollet)"
     export MISE_GITHUB_TOKEN
     eval "$(/usr/bin/mise activate bash)"
     _mise_hook

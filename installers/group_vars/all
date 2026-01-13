@@ -2,7 +2,7 @@
 flatpak: [
   com.spotify.Client, us.zoom.Zoom, org.telegram.desktop,
   md.obsidian.Obsidian, com.rafaelmardojai.Blanket, com.discordapp.Discord,
-  com.slack.Slack, org.freecad.FreeCAD
+  com.slack.Slack, org.freecad.FreeCAD, com.bitwarden.desktop,
   ]
 
 gems: [
