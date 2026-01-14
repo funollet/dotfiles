@@ -59,6 +59,7 @@ rpm: [
   #
   #, Ops,
   moby-engine,
+  docker-compose,
   par, pssh, pdsh, pdsh-mod-dshgroup,
   gnuplot, httpd-tools, pass,
   #

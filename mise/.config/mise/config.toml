@@ -50,7 +50,6 @@ ambr = { version = "latest", exe = "ambr", asset_pattern = "*x86_64-lnx*" }
 
 kubectx = { version = "latest", matching = "kubectx" }
 kubens = { version = "latest", matching = "kubens", exe = "kubens" }
-"ubi:docker/buildx" = { version = "latest", postinstall = "mkdir -p ~/.docker/cli-plugins/ && ln -sf ~/.local/share/mise/installs/ubi-docker-buildx/latest/buildx ~/.docker/cli-plugins/docker-buildx" }
 "github:kubernetes-sigs/cloud-provider-kind" = "latest"
 "github:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
 "github:awslabs/eksdemo" = "latest"

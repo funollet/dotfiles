@@ -55,7 +55,6 @@ tasks:
         {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
         /home/jordif
         {{.REMOTE}}
-        -prefer {{.REMOTE}}
 
   cookie:
     desc: Pick a local cookiecutter
