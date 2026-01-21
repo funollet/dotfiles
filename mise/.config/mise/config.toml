@@ -1,6 +1,4 @@
 [tool_alias]
-kubectx = "github:ahmetb/kubectx"
-kubens = "github:ahmetb/kubectx"
 ambr = "github:dalance/amber"
 ambs = "github:dalance/amber"
 
@@ -48,8 +46,6 @@ eksctl = "latest"
 ambs = { version = "latest", exe = "ambs", asset_pattern = "*x86_64-lnx*" }
 ambr = { version = "latest", exe = "ambr", asset_pattern = "*x86_64-lnx*" }
 
-kubectx = { version = "latest", matching = "kubectx" }
-kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "github:kubernetes-sigs/cloud-provider-kind" = "latest"
 "github:docopt/docopts" = { version = "latest", postinstall = "wget https://raw.githubusercontent.com/docopt/docopts/master/docopts.sh -O ~/.local/bin/docopts.sh" }
 "github:awslabs/eksdemo" = "latest"
@@ -61,12 +57,10 @@ kubens = { version = "latest", matching = "kubens", exe = "kubens" }
 "github:ericchiang/pup" = "latest"
 "github:sqshq/sampler" = "latest"
 "github:joehillen/sysz" = { asset_pattern = "sysz", version = "latest" }
-"github:houseabsolute/ubi" = "latest"
 "github:akavel/up" = { version = "latest", asset_pattern = "^up$" }
 "github:kriomant/ch57x-keyboard-tool" = "latest"
 helm-diff = "latest"
 kubectl-convert = "latest"
-"github:jesseduffield/lazydocker" = "latest"
 krew = "latest"
 "github:sectore/timr-tui" = "latest"
 "github:lusingander/serie" = "latest"
@@ -75,7 +69,6 @@ krew = "latest"
 bun = "latest"
 aqua = "latest"
 docuum = "latest"
-"aqua:openai/codex" = "latest"
 "github:kantord/headson" = { version = "latest", version_prefix = "headson-v" }
 task = "latest"
 gron = "latest"
@@ -84,6 +77,13 @@ sd = "latest"
 "pipx:cruft" = "latest"
 "github:Sateliot/sateliot-aws-auth" = "latest"
 terragrunt = "latest"
+"pipx:commitizen" = "latest"
+kubectx = "latest"
+kubens = "latest"
+jiq = "latest"
+ubi = "latest"
+lazydocker = "latest"
+codex = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
