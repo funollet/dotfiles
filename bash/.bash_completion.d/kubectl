@@ -1,6 +1,6 @@
 #!/bin/bash
 
 if which kubectl >/dev/null 2>&1; then
-  source <(lazycomplete \
-    kubectl 'kubectl completion bash')
+  source <(kubectl completion bash)
+  complete -F __start_kubectl k
 fi

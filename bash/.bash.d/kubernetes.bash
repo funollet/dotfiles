@@ -5,11 +5,7 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 which kubectl >/dev/null 2>&1 || return
 
-source <(kubectl completion bash)
-
-# Replaced this alias by a symlink on ~/bin
-# alias k=kubectl
-complete -F __start_kubectl k
+alias k=kubectl
 # source ~/code/kubefzf/kubectl.fzf.completion.bash
 
 # Run k8set on Alt-k.
