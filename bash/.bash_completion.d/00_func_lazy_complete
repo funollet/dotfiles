@@ -1,0 +1,13 @@
+#!/bin/bash
+
+# Lazy-load completions that don't work with lazycomplete
+_lazy_complete() {
+  local cmd=$1
+  local setup_cmd=$2
+
+  eval "_lazy_${cmd}() {
+    $setup_cmd
+    return 124  # Tell bash to retry completion with new settings
+  }"
+  complete -F _lazy_${cmd} ${cmd}
+}

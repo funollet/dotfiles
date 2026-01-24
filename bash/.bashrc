@@ -74,7 +74,7 @@ if which mise >/dev/null 2>&1; then
     _mise_hook
 fi
 
-for rc in ~/.bash_completion.d/!(*.disabled); do source ${rc}; done
 for rc in ~/.bash.d/!(*.disabled); do source ${rc}; done
+for rc in ~/.bash_completion.d/!(*.disabled); do source ${rc}; done
 
 # vim: set ts=4 sw=4:

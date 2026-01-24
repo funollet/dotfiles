@@ -1,5 +1,0 @@
-#!/bin/bash
-
-if which argocd >/dev/null 2>&1; then
-  source <(argocd completion bash)
-fi

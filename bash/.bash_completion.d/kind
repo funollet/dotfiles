@@ -1,6 +1,0 @@
-#!/bin/bash
-
-if which kind >/dev/null 2>&1; then
-  source <(lazycomplete \
-    kind 'kind completion bash')
-fi

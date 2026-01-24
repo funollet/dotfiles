@@ -1,0 +1,33 @@
+#!/bin/bash
+
+# shellcheck disable=SC1090,SC2016
+
+source <(lazycomplete ag 'cat /usr/share/bash-completion/completions/ag')
+source <(lazycomplete argocd 'argocd completion bash')
+_lazy_complete aws 'complete -C aws_completer aws'
+source <(lazycomplete cheat 'cat /usr/share/bash-completion/completions/cheat')
+source <(lazycomplete eksctl 'eksctl completion bash')
+source <(lazycomplete eksdemo 'eksdemo completion bash')
+
+source <(
+  lazycomplete gcloud \
+    'DIR=$(mise which gcloud | xargs dirname)/.. ;
+    cat $DIR/completion.bash.inc $DIR/path.bash.inc'
+)
+
+_lazy_complete k 'complete -F __start_kubectl k' # depends on kubectl
+
+source <(lazycomplete kind 'kind completion bash')
+source <(kubectl completion bash)
+source <(lazycomplete helm 'helm completion bash')
+source <(lazycomplete gh 'gh completion -s bash')
+source <(lazycomplete mise 'mise completion bash')
+
+_lazy_complete moi 'complete -F _task "moi"' # depends on task
+
+_lazy_complete pipx 'eval "$(register-python-argcomplete pipx)"'
+source <(lazycomplete poetry 'poetry completions bash')
+source <(task --completion bash)
+_lazy_complete terraform 'complete -C terraform terraform'
+_lazy_complete terragrunt 'complete -C terragrunt terragrunt'
+_lazy_complete vault 'complete -C $(which vault) vault'

@@ -1,6 +1,0 @@
-#!/bin/bash
-
-if which eksctl >/dev/null 2>&1; then
-  source <(lazycomplete \
-    eksctl 'eksctl completion bash')
-fi

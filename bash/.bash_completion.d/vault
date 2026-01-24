@@ -1,5 +1,0 @@
-#!/bin/bash
-
-if which vault >/dev/null 2>&1; then
-  complete -C $(which vault) vault
-fi

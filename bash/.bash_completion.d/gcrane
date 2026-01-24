@@ -1,6 +1,0 @@
-#!/bin/bash
-
-if which gcrane >/dev/null 2>&1; then
-  source <(lazycomplete \
-    gcrane 'gcrane completion bash')
-fi
