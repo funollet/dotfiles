@@ -1,0 +1,4 @@
+download_dir = "~/spool/s3"
+
+[ui.object_list]
+default_sort = "date_desc"

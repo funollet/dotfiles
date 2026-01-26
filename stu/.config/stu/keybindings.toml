@@ -1,0 +1,25 @@
+[common]
+quit = ["q"]
+
+[bucket_list]
+select = ["l", "enter"]
+
+[object_list]
+select = ["l", "enter"]
+back = ["esc"]
+reset_filter = ["shift-x"]
+
+[object_detail]
+back = ["esc"]
+
+[object_preview]
+back = ["esc"]
+
+download = ["s"]
+download_as = ["shift-s"]
+encoding = ["e"]
+toggle_wrap = ["w"]
+toggle_number = ["n"]
+
+[help]
+close = ["?", "esc", "q"]

@@ -86,6 +86,7 @@ lazydocker = "latest"
 codex = "latest"
 "github:nnnkkk7/lazyactions" = "latest"
 "github:orangekame3/stree" = "latest"
+"github:lusingander/stu" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
