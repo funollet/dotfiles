@@ -27,14 +27,15 @@ tasks:
       - tmux has -t tunnel || tmux new -s tunnel \; detach
       - tmux at -t tunnel \; new-window ssh tunnel \; detach
       - sleep 2
-      - |
-        unison -ui text \
-          {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos'{{end}} \
-          /home/jordif \
+      - >
+          unison -ui text -auto
+          {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
+          /home/jordif
           ssh://localhost:2222
 
   sync-local:
     desc: (Local network) Sync files with ssh tunnel + tmux
+    aliases: [local-sync]
     vars:
       QUICK:
         sh: gum confirm 'Skip big folders? (./fotos, ./mmedia)' --default="No" || echo n
@@ -51,7 +52,7 @@ tasks:
           echo "$remote"
     cmds:
       - >
-        unison -ui text 
+        unison -ui text -auto
         {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
         /home/jordif
         {{.REMOTE}}
