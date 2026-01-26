@@ -29,7 +29,7 @@ case "$TERM" in
 esac
 
 function _update_ps1() {
-    PS1="$(powerline-go -error $? -modules 'aws,kube,git,host,ssh,root,cwd' -hostname-only-if-ssh -newline -cwd-mode fancy -shorten-eks-names -shorten-gke-names -path-aliases \~/code/sateliot=@N)"
+    PS1="$(powerline-go -error $? -modules 'host,ssh,aws,kube,git,root,cwd' -hostname-only-if-ssh -newline -cwd-mode fancy -shorten-eks-names -shorten-gke-names -path-aliases \~/code/sateliot=@s)"
 }
 
 if [ "$TERM" != "linux" ]; then
