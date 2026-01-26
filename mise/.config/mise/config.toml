@@ -84,6 +84,8 @@ jiq = "latest"
 ubi = "latest"
 lazydocker = "latest"
 codex = "latest"
+"github:nnnkkk7/lazyactions" = "latest"
+"github:orangekame3/stree" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
