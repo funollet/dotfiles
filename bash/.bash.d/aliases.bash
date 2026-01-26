@@ -13,6 +13,8 @@ alias lg='lazygit'
 alias lzd='lazydocker'
 alias bring-back-window='wmctrl -l | fzf | cut -d\  -f1 | xargs wmctrl -iR'
 alias serie='serie --protocol kitty'
+# go to git root folder 'zr' stands for z-root because zoxide doesn't do it
+alias zr='cd $(git rev-parse --show-toplevel)'
 
 psg() { # bash-expansion: grep [p]attern
   ps auxw | grep \[${1:0:1}\]${1:1}
