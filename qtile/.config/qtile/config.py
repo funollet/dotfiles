@@ -584,7 +584,7 @@ keys += [
     ),
     Key("C-A-l", lazy.spawn("xset s activate"), desc="Activate screensaver"),
     Key("M-y", lazy.spawn("thunar"), desc="Open file browser"),
-    Key("<Print>", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
+    Key("<Print>", lazy.spawn("spectacle"), desc="Take a screenshot"),
     Key(
         "<XF86MonBrightnessUp>",
         lazy.spawn("light -A 15"),
