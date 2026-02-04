@@ -66,6 +66,9 @@ export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 OPENAI_API_KEY="$(secret-tool lookup application openai type token)"
 export OPENAI_API_KEY
 
+CLAUDE_CODE_OAUTH_TOKEN="$(secret-tool lookup application claude type token account sateliot)"
+export CLAUDE_CODE_OAUTH_TOKEN
+
 if which mise >/dev/null 2>&1; then
     # MISE_GITHUB_TOKEN="$(secret-tool lookup application mise type token)"
     MISE_GITHUB_TOKEN="$(~/.local/share/mise/shims/gh auth token --user siot-jordi-funollet)"
