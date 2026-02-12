@@ -63,3 +63,19 @@ aaws-ecr-login() {
     --username AWS \
     --password-stdin "745640521341.dkr.ecr.eu-west-1.amazonaws.com"
 }
+
+aaws-running-instances() {
+  # list names of running instances
+  aws ec2 describe-instances \
+    --filter Name=instance-state-name,Values=running \
+    --output json \
+    | jq -r '.Reservations[].Instances[].Tags[] | select(.Key=="Name") | .Value'
+}
+
+aaws-running-instances-show() {
+  # show running instances in a table
+  aws ec2 describe-instances \
+    --filter Name=instance-state-name,Values=running \
+    --output table \
+    --query 'Reservations[].Instances[].{ID: InstanceId,Hostname: PublicDnsName,Name: Tags[?Key==`Name`].Value | [0],Type: InstanceType}'
+}
