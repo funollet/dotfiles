@@ -90,6 +90,7 @@ codex = "latest"
 prek = "latest"
 goss = "latest"
 go = "latest"
+"github:dlvhdr/diffnav" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
