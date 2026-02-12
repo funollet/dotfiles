@@ -10,9 +10,9 @@ git:
 # keybinding:
 #   universal:
 #     edit: <disabled> # disable 'edit file'
-customCommands:
-  - key: "<c-g>"
-    context: "localBranches"
-    command: "gh pr create -a @me -r rastut,zepellin -f"
-    # command: "gh pr create -a @me -r rastut,zepellin -f && review-please"
-    loadingText: "Creating pull request on GitHub"
+# customCommands:
+#   - key: "<c-g>"
+#     context: "localBranches"
+#     command: "gh pr create -a @me -r rastut,zepellin -f"
+#     # command: "gh pr create -a @me -r rastut,zepellin -f && review-please"
+#     loadingText: "Creating pull request on GitHub"
