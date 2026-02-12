@@ -16,6 +16,7 @@
   default = simple
   autoSetupRemote = true
   followTags = true
+  useForceIfIncludes = true
 [fetch]
   prune = true
   pruneTags = true
