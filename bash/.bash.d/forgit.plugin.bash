@@ -1,6 +1,8 @@
 # MIT (c) Wenxuan Zhang
 # https://github.com/wfxr/forgit/
 
+FORGIT_NO_ALIASES="please"
+
 forgit::warn() { printf "%b[Warn]%b %s\n" '\e[0;33m' '\e[0m' "$@" >&2; }
 forgit::info() { printf "%b[Info]%b %s\n" '\e[0;32m' '\e[0m' "$@" >&2; }
 forgit::inside_work_tree() { git rev-parse --is-inside-work-tree >/dev/null; }
