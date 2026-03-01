@@ -14,7 +14,8 @@ istioctl = "1.19.3"
 argocd = "latest"
 kind = "latest"
 usage = "latest"
-github-cli = "latest"
+github-cli = { version = "latest" }
+# github-cli = { version = "latest", postinstall = "gh extension install dlvhdr/gh-dash ; gh extension install dlvhdr/gh-enhance" }
 packer = "latest"
 k9s = "latest"
 tflint = "latest"
@@ -91,6 +92,9 @@ prek = "latest"
 goss = "latest"
 go = "latest"
 "github:dlvhdr/diffnav" = "latest"
+"github:Calinou/lagraph" = "latest"
+"github:guptarohit/asciigraph" = "latest"
+"github:medialab/xan" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
