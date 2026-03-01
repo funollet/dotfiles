@@ -57,6 +57,27 @@ tasks:
         /home/jordif
         {{.REMOTE}}
 
+  sync-tailscale:
+    desc: Sync files with tailscale
+    aliases: [tailscale-sync]
+    vars:
+      QUICK:
+        sh: gum confirm 'Skip big folders? (./fotos, ./mmedia)' --default="No" || echo n
+      REMOTE:
+        sh: |
+          if [ $(hostname) = "alai.lan" ] ; then
+            remote="ssh://yak.tailf4448.ts.net"
+          else
+            remote="ssh://alai.tailf4448.ts.net"
+          fi
+          echo "$remote"
+    cmds:
+      - >
+        unison -ui text -auto
+        {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
+        /home/jordif
+        {{.REMOTE}}
+
   cookie:
     desc: Pick a local cookiecutter
     cmds:
