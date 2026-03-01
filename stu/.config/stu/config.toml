@@ -1,4 +1,4 @@
-download_dir = "~/spool/s3"
+download_dir = "$STU_ROOT_DIR/../../spool/downloads/s3"
 
 [ui.object_list]
 default_sort = "date_desc"
