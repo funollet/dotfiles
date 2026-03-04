@@ -13,6 +13,9 @@ git:
 # customCommands:
 #   - key: "<c-g>"
 #     context: "localBranches"
-#     command: "gh pr create -a @me -r rastut,zepellin -f"
-#     # command: "gh pr create -a @me -r rastut,zepellin -f && review-please"
+#     command: "( git status && git diff --cached && echo /commit-message-skill ) | claude"
+#     loadingText: "Commit with Claude"
+#   - key: "<c-g>"
+#     context: "localBranches"
+#     command: "gh pr create -a @me -r rastut,zepellin -f && review-please"
 #     loadingText: "Creating pull request on GitHub"
