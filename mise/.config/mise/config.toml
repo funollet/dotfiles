@@ -95,6 +95,7 @@ go = "latest"
 "github:Calinou/lagraph" = "latest"
 "github:guptarohit/asciigraph" = "latest"
 "github:medialab/xan" = "latest"
+"github:Ooooze/batctl" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
