@@ -112,6 +112,7 @@ tasks:
     cmds:
       - tuned-adm profile desktop
       - sudo systemctl restart chronyd.service
+      - systemctl --user stop kmonad.service
       - autorandr -f 01
 
   undock:
@@ -119,6 +120,7 @@ tasks:
     cmds:
       - tuned-adm profile balanced-battery
       - systemctl --user restart fusuma
+      - systemctl --user start kmonad.service
       - autorandr 0
 
   trackpad:
