@@ -28,10 +28,10 @@ tasks:
       - tmux at -t tunnel \; new-window ssh tunnel \; detach
       - sleep 2
       - >
-          unison -ui text -auto
-          {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
-          /home/jordif
-          ssh://localhost:2222
+        unison -ui text -auto
+        {{if eq .QUICK "n"}}{{else}}-ignore 'Path fotos' -ignore 'Path mmedia'{{end}}
+        /home/jordif
+        ssh://localhost:2222
 
   sync-local:
     desc: (Local network) Sync files with ssh tunnel + tmux
@@ -113,7 +113,7 @@ tasks:
       - tuned-adm profile desktop
       - sudo systemctl restart chronyd.service
       - systemctl --user stop kmonad.service
-      - autorandr -f 01
+      - autorandr -c 12
 
   undock:
     desc: Tweaks undocking the laptop
@@ -121,7 +121,7 @@ tasks:
       - tuned-adm profile balanced-battery
       - systemctl --user restart fusuma
       - systemctl --user start kmonad.service
-      - autorandr 0
+      - autorandr -f -c 0
 
   trackpad:
     desc: Connect bluetooth trackpad
