@@ -10,12 +10,19 @@ git:
 # keybinding:
 #   universal:
 #     edit: <disabled> # disable 'edit file'
-# customCommands:
-#   - key: "<c-g>"
-#     context: "localBranches"
-#     command: "( git status && git diff --cached && echo /commit-message-skill ) | claude"
-#     loadingText: "Commit with Claude"
-#   - key: "<c-g>"
-#     context: "localBranches"
-#     command: "gh pr create -a @me -r rastut,zepellin -f && review-please"
-#     loadingText: "Creating pull request on GitHub"
+customCommands:
+  - key: "l"
+    context: "files"
+    command: "( git status && git diff --cached && echo /commit-message-skill ) | claude"
+    description: "Commit with Claude"
+    output: terminal
+  - key: "<c-d>"
+    context: "localBranches"
+    command: "gh dash"
+    description: "gh dash"
+    output: terminal
+  - key: "<c-g>"
+    context: "localBranches"
+    command: "task pr"
+    description: "task pr"
+    output: terminal
