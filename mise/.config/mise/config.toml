@@ -96,6 +96,7 @@ go = "latest"
 "github:guptarohit/asciigraph" = "latest"
 "github:medialab/xan" = "latest"
 "github:Ooooze/batctl" = "latest"
+"pipx:okigan/awscurl" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
