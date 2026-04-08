@@ -99,6 +99,7 @@ go = "latest"
 "pipx:okigan/awscurl" = "latest"
 s5cmd = "latest"
 television = { version = "latest", postinstall = "tv update-channels" }
+"github:max-sixty/worktrunk" = "0.35.0"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
