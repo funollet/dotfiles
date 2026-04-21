@@ -199,16 +199,18 @@ layout_defaults = {
 
 layouts = [
     layout.MonadTall(**layout_defaults),
+    layout.MonadWide(**layout_defaults),
     layout.Max(**layout_defaults),
 ]
 
-# Group(
-#     "2",
-#     layouts=[
-#         layout.Max(**layout_defaults),
-#         layout.MonadWide(**layout_defaults),
-#     ],
-# )
+Group(
+    "1",
+    layouts=[
+        layout.MonadWide(**layout_defaults),
+        layout.MonadTall(**layout_defaults),
+        layout.Max(**layout_defaults),
+    ],
+)
 
 widget_defaults = dict(
     font="sans",
@@ -311,8 +313,8 @@ def count_monitors():
 
 screens = [make_screen_primary()]
 if count_monitors() > 1:
-    # If there are multiple monitors, prepend a secondary screen.
-    screens.insert(0, make_screen_secondary())
+    # If there are multiple monitors, add a secondary screen.
+    screens.insert(1, make_screen_secondary())
 
 # @hook.subscribe.screen_change
 # def rebuild_screens(qtile):
@@ -584,7 +586,7 @@ keys += [
     ),
     Key("C-A-l", lazy.spawn("xset s activate"), desc="Activate screensaver"),
     Key("M-y", lazy.spawn("thunar"), desc="Open file browser"),
-    Key("<Print>", lazy.spawn("spectacle"), desc="Take a screenshot"),
+    Key("<Print>", lazy.spawn("flameshot gui"), desc="Take a screenshot"),
     Key(
         "<XF86MonBrightnessUp>",
         lazy.spawn("light -A 15"),
