@@ -100,6 +100,7 @@ go = "latest"
 s5cmd = "latest"
 television = { version = "latest", postinstall = "tv update-channels" }
 "github:max-sixty/worktrunk" = "0.35.0"
+"github:janosmiko/lfk" = "0.9.18"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
