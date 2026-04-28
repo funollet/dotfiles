@@ -147,6 +147,7 @@ rpm: [
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,
   NetworkManager-vpnc,
   sddm-x11, sddm-themes, sddm-breeze,
+  xkill,
   # filemanager
   Thunar, thunar-volman, tumbler, tumbler-extras,
   # keyring
