@@ -8,15 +8,29 @@ tasks:
 
   update:
     desc: Update dotfiles.
-    vars:
-      STOW_PKGS:
-        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers | tr '\n' ' '
     cmds:
+      - git pull --ff-only
       # Delete all symlinks. This deals with deleted config files.
       # Symlink files managed in this repo.
-      - for pkg in {{.STOW_PKGS}} ; do stow -R ${pkg} ; done
+      - task: stow-all
       - stow --target ~/bin --dir ~/code/user-land/ packaged
       - stow --target ~/.local/bin --dir ~/code/volume-notify/ bin
+      - cd ~ && mise install
+
+  stow-all:
+    internal: true
+    vars:
+      STOW_PKGS:
+        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers
+    deps:
+      - for: { var: STOW_PKGS, split: "\n", as: PKG }
+        task: stow-dir
+        vars: { PKG: "{{.PKG}}" }
+
+  stow-dir:
+    internal: true
+    cmds:
+      - stow -R {{.PKG}}
 
   systemctl:
     desc: Update systemctl user services.
