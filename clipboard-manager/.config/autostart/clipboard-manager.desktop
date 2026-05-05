@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=clipboard-manager
+Exec=/usr/bin/python3 /home/jordif/.local/bin/clipboard-manager.py
+OnlyShowIn=i3;qtile;
+NoDisplay=true

@@ -139,6 +139,7 @@ rpm: [
   ### light desktop utilities:
   # scrot, feh, xautolock, lxappearance, lxqt-powermanagement, sxhkd, volumeicon,
   dunst, light, brightnessctl, nitrogen, azote,
+  python3-xlib,                                       # for ~/.local/bin/clipboard-manager.py (X11 ICCCM clipboard manager daemon)
   arandr, autorandr, autorandr-bash-completion,
   dex-autostart, rofi, ulauncher,
   xsecurelock, xss-lock,
