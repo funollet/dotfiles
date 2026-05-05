@@ -58,8 +58,7 @@ rpm: [
   cargo, libbsd-devel,
   #
   #, Ops,
-  moby-engine,
-  docker-compose,
+  moby-engine, docker-compose, docker-buildx,
   par, pssh, pdsh, pdsh-mod-dshgroup, pdsh-rcmd-ssh,
   gnuplot, httpd-tools, pass,
   #
