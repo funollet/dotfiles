@@ -101,6 +101,7 @@ television = { version = "latest", postinstall = "tv update-channels" }
 "github:max-sixty/worktrunk" = "0.35.0"
 "github:janosmiko/lfk" = "0.9.18"
 "github:zsa/zapp" = "latest"
+"aqua:pranshuparmar/witr" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

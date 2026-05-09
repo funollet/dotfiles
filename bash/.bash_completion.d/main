@@ -22,6 +22,7 @@ source <(kubectl completion bash)
 source <(lazycomplete helm 'helm completion bash')
 source <(lazycomplete gh 'gh completion -s bash')
 source <(lazycomplete mise 'mise completion bash')
+source <(lazycomplete witr 'witr completion bash')
 
 _lazy_complete moi 'complete -F _task "moi"' # depends on task
 
