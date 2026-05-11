@@ -102,6 +102,7 @@ television = { version = "latest", postinstall = "tv update-channels" }
 "github:janosmiko/lfk" = "0.9.18"
 "github:zsa/zapp" = "latest"
 "aqua:pranshuparmar/witr" = "latest"
+"github:RivoLink/leaf" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
