@@ -6,6 +6,7 @@ source <(lazycomplete ag 'cat /usr/share/bash-completion/completions/ag')
 source <(lazycomplete argocd 'argocd completion bash')
 _lazy_complete aws 'complete -C aws_completer aws'
 source <(lazycomplete cheat 'cat /usr/share/bash-completion/completions/cheat')
+source <(lazycomplete doggo 'doggo completion bash')
 source <(lazycomplete eksctl 'eksctl completion bash')
 source <(lazycomplete eksdemo 'eksdemo completion bash')
 
