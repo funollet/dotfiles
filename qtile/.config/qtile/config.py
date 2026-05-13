@@ -533,6 +533,11 @@ keys += [
         desc="Mute volume",
     ),
     Key(
+        "M-v",
+        lazy.spawn("pavucontrol -t 3"),
+        desc="Launch volume control app",
+    ),
+    Key(
         "<XF86AudioPlay>",
         lazy.spawn("playerctl play-pause"),
         lazy.spawn('notify-send -t 3000 "Toggle play/pause"'),
