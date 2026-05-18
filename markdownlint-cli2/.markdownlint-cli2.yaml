@@ -20,6 +20,12 @@ config:
     # # Stern length checking
     # stern: false
 
+  # MD034/no-bare-urls - Bare URL used
+  MD034: false
+
+  # MD036/no-emphasis-as-heading/no-emphasis-as-header - Emphasis used instead of a heading
+  MD036: false
+
   # MD040/fenced-code-language : Fenced code blocks should have a language specified : https://github.com/DavidAnson/markdownlint/blob/v0.39.0/doc/md040.md
   MD040: false
   # MD040:

@@ -104,6 +104,7 @@ television = { version = "latest", postinstall = "tv update-channels" }
 "aqua:pranshuparmar/witr" = "latest"
 "github:RivoLink/leaf" = "latest"
 doggo = "latest"
+markdownlint-cli2 = "0.22.1"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
