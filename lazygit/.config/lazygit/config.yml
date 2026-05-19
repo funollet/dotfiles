@@ -13,7 +13,7 @@ git:
 customCommands:
   - key: "l"
     context: "files"
-    command: "( git status && git diff --cached && echo /commit-message-skill ) | claude"
+    command: "claude --name commit-message --effort low --model sonnet /commit-message"
     description: "Commit with Claude"
     output: terminal
   - key: "<c-d>"
