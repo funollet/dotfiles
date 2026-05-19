@@ -5,7 +5,12 @@ export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
 
 which kubectl >/dev/null 2>&1 || return
 
-alias k=kubectl
+if command -v kubecolor >/dev/null 2>&1; then
+  alias kubectl=kubecolor
+  alias k=kubecolor
+else
+  alias k=kubectl
+fi
 # source ~/code/kubefzf/kubectl.fzf.completion.bash
 
 # Run k8set on Alt-k.

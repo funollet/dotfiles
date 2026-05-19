@@ -17,9 +17,10 @@ source <(
 )
 
 _lazy_complete k 'complete -F __start_kubectl k' # depends on kubectl
+_lazy_complete kubecolor 'complete -F __start_kubectl kubecolor' # depends on kubectl
 
 source <(lazycomplete kind 'kind completion bash')
-source <(kubectl completion bash)
+source <(command kubectl completion bash)
 source <(lazycomplete helm 'helm completion bash')
 source <(lazycomplete gh 'gh completion -s bash')
 source <(lazycomplete mise 'mise completion bash')
