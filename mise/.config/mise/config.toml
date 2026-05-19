@@ -106,6 +106,7 @@ television = { version = "latest", postinstall = "tv update-channels" }
 doggo = "latest"
 markdownlint-cli2 = "0.22.1"
 viddy = "latest"
+stern = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]

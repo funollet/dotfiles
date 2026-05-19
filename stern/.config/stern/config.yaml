@@ -1,0 +1,8 @@
+# stern config file
+# https://github.com/stern/stern#config-file
+#
+# Set default values for stern options. Format: <flag name>: <value>
+
+# tail: 10
+# max-log-requests: 999
+# timestamps: short
