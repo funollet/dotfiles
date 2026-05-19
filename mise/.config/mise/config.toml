@@ -105,6 +105,7 @@ television = { version = "latest", postinstall = "tv update-channels" }
 "github:RivoLink/leaf" = "latest"
 doggo = "latest"
 markdownlint-cli2 = "0.22.1"
+viddy = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
