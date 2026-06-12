@@ -1,0 +1,6 @@
+#!/bin/bash
+# git-set-upstream
+#
+# Set the upstream branch for the current branch.
+
+git branch --set-upstream-to="origin/$(git symbolic-ref --short HEAD)"

@@ -29,12 +29,11 @@
   ; don't push if there are changes on the remote
   safe-force-push = push --force-with-lease
   
-  set-upstream = !git branch --set-upstream-to=origin/`git symbolic-ref --short HEAD`
- 
-  rebaseme = "!f() { \
-    local ref=\"$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f1)\"; \
-    [ -n \"$1\" ] && ref=\"$1\"; \
-    git rebase --autosquash -i $(git merge-base \"${ref}\" HEAD); \
-  }; f"
+  ; clean up the commits I've added since branching" (squash, reorder, edit).
+  ; rebasemine = "!f() { \
+  ;   local ref=\"$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f1)\"; \
+  ;   [ -n \"$1\" ] && ref=\"$1\"; \
+  ;   git rebase --autosquash -i $(git merge-base \"${ref}\" HEAD); \
+  ; }; f"
 
 # vim: ft=gitconfig

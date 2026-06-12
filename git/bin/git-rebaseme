@@ -1,0 +1,8 @@
+#!/bin/bash
+# git-rebaseme
+#     Move my work on top of the newest main
+#     Accepts a branch if it's not main:    `git rebase devel`
+
+br="${1:-$(git rev-parse --abbrev-ref origin/HEAD | cut -d/ -f2-)}"
+git fetch origin "$br" &&
+  git rebase "origin/$br"
