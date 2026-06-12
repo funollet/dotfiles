@@ -47,6 +47,53 @@ tasks:
     status:
       - test -d ~/.local/share/fonts/Hack
 
+  zed:
+    desc: Install latest Zed editor system-wide. Multiple versions coexist under /opt.
+    vars:
+      URL: "https://cloud.zed.dev/releases/stable/latest/download?asset=zed&arch=x86_64&os=linux&source=docs"
+      TARBALL: /tmp/zed.tar.gz
+      STAGING: /tmp/zed-extract
+      VERSION_FILE: /tmp/zed-version
+    cmds:
+      - test -f {{.TARBALL}} || wget -nv -O {{.TARBALL}} "{{.URL}}"
+      - rm -rf {{.STAGING}}
+      - mkdir -p {{.STAGING}}
+      - tar -xzf {{.TARBALL}} -C {{.STAGING}}
+      - |
+        set -eu
+        VERSION=$({{.STAGING}}/zed.app/bin/zed --version | grep -oE '[0-9]+\.[0-9]+\.[0-9]+' | head -1)
+        DEST=/opt/zed-${VERSION}.app
+        sudo rm -rf "${DEST}"
+        sudo mv {{.STAGING}}/zed.app "${DEST}"
+        echo "$VERSION" > {{.VERSION_FILE}}
+      - task: zed-switch
+        vars:
+          VERSION:
+            sh: cat /tmp/zed-version
+      - rm -rf {{.STAGING}} {{.VERSION_FILE}}
+
+  zed-switch:
+    desc: Switch the active Zed version (fzf picker if VERSION not given).
+    vars:
+      VERSION: '{{.VERSION | default ""}}'
+      STOW_FLAGS: "-d /opt -t /usr/local --ignore='^lib$' --ignore='^libexec$' --ignore='^licenses\\.md$'"
+    cmds:
+      - |
+        set -eu
+        VERSION="{{.VERSION}}"
+        if [ -z "$VERSION" ]; then
+          VERSION=$(ls -1d /opt/zed-*.app 2>/dev/null | sed 's|.*/zed-||;s|\.app$||' | fzf --no-multi)
+        fi
+        [ -n "$VERSION" ] || { echo "no version selected" >&2; exit 1; }
+        [ -d "/opt/zed-${VERSION}.app" ] || { echo "no install at /opt/zed-${VERSION}.app" >&2; exit 1; }
+        for old in /opt/zed-*.app; do
+          [ -d "$old" ] || continue
+          name=$(basename "$old")
+          [ "$name" = "zed-${VERSION}.app" ] && continue
+          sudo stow {{.STOW_FLAGS}} -D "$name" 2>/dev/null || true
+        done
+        sudo stow {{.STOW_FLAGS}} -R "zed-${VERSION}.app"
+
   install-extras:
     desc: Install non-packaged software.
     deps:

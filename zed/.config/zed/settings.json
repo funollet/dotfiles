@@ -1,0 +1,60 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing your
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "which_key": {
+    "enabled": true
+  },
+  "auto_update": false,
+  "git": {
+    "inline_blame": {
+      "enabled": false,
+    },
+  },
+  "session": {
+    "trust_all_worktrees": true,
+  },
+  "vim_mode": true,
+  "agent_servers": {
+    "claude-acp": {
+      "type": "registry",
+    },
+  },
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark",
+  },
+  "auto_install_extensions": {
+    "ansible": true,
+    "caddyfile": true,
+    "codeowners": true,
+    "dockerfile": true,
+    "ghostty": true,
+    "github-actions": true,
+    "gotmpl": true,
+    "grafana-alloy": true,
+    "helm": true,
+    "html-jinja": true,
+    "ini": true,
+    "jq": true,
+    "jsonl": true,
+    "just": true,
+    "make": true,
+    "markdownlint": true,
+    "nginx": true,
+    "opentofu": true,
+    "ruby": true,
+    "taskfile": true,
+    "terraform": true,
+    "todotxt": true,
+    "toml": true,
+  },
+}
