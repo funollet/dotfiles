@@ -162,7 +162,7 @@ groups.append(
             DropDown(
                 "slack",
                 "flatpak run com.slack.Slack",
-                match=Match(wm_class=["Slack"]),
+                match=Match(wm_class=["com.slack.Slack"]),
                 width=0.8,
                 height=0.95,
                 x=0.1,
