@@ -3,8 +3,33 @@
 # export AWS_PROFILE="default"
 
 awsprofile() {
-  # Interactive AWS profile picker.
-  profile=$(aws configure list-profiles | fzf --no-multi --prompt "Choose active AWS profile: " --header "[Current: $AWS_PROFILE]")
+  # Interactive AWS profile picker. Shows the SSO account id in a second column.
+  local rows selection profile
+  # Parse ~/.aws/config in a single pass instead of one `aws` call per profile
+  # (each call boots the whole CLI, which is what made this slow).
+  rows=$(
+    awk '
+      /^\[/ {
+        # Only [default] and [profile NAME] are profiles; skip [sso-session ...].
+        if ($0 !~ /^\[(default\]|profile )/) { profile = ""; next }
+        gsub(/^\[(profile )?|\]$/, "")
+        profile = $0
+        acct[profile] = "-"
+        order[++n] = profile
+      }
+      profile != "" && /^[[:space:]]*sso_account_id[[:space:]]*=/ {
+        split($0, kv, "=")
+        gsub(/[[:space:]]/, "", kv[2])
+        acct[profile] = kv[2]
+      }
+      END { for (i = 1; i <= n; i++) printf "%s\t%s\n", order[i], acct[order[i]] }
+    ' "${AWS_CONFIG_FILE:-$HOME/.aws/config}" | sort | column -t -s $'\t'
+  )
+  selection=$(
+    printf '%s\n' "$rows" \
+      | fzf --no-multi --prompt "Choose active AWS profile: " --header "[Current: $AWS_PROFILE]"
+  )
+  profile=${selection%% *}
   [ -n "$profile" ] && export AWS_PROFILE="$profile"
 }
 
