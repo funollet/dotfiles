@@ -63,8 +63,8 @@ export CHEAT_USE_FZF=true
 
 export RIPGREP_CONFIG_PATH=~/.config/ripgrep/ripgreprc
 
-OPENAI_API_KEY="$(secret-tool lookup application openai type token)"
-export OPENAI_API_KEY
+# OPENAI_API_KEY="$(secret-tool lookup application openai type token)"
+# export OPENAI_API_KEY
 
 # CLAUDE_CODE_OAUTH_TOKEN="$(secret-tool lookup application claude type token account sateliot)"
 # export CLAUDE_CODE_OAUTH_TOKEN
