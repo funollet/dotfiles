@@ -27,7 +27,7 @@ alias nocomments='egrep -ahv "^[[:space:]]*(#|$)"'
 
 alias fuck='eval $(thefuck $(fc -ln -1))'
 
-alias lessj='bat -l json'
+alias lessj='jq -C . | less'
 alias lessy='bat -l yaml'
 alias xclip='xclip -selection clipboard'
 
