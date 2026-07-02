@@ -257,6 +257,8 @@
 #
 # Pipeline — list of maps, run in order (each map concurrent):
 #
-[[post-start]]
+[[pre-start]]
 mise = "mise trust"
+
+[[post-start]]
 copy = "wt step copy-ignored"
