@@ -195,6 +195,7 @@ groups.append(
 
 layout_defaults = {
     "border_focus": colors["yellow"],
+    "border_width": 4,
 }
 
 layouts = [
