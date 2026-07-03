@@ -1,0 +1,25 @@
+- name: add claude-desktop repo key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://pkg.claude-desktop-debian.dev/KEY.gpg
+  become: true
+  tags: [claude-desktop, claude-desktop-repo, rpm, rpm-repo]
+
+- name: add claude-desktop repo
+  ansible.builtin.yum_repository:
+    name: claude-desktop
+    description: Claude Desktop for Fedora/RHEL
+    baseurl: https://pkg.claude-desktop-debian.dev/rpm/$basearch
+    enabled: true
+    gpgcheck: true
+    repo_gpgcheck: true
+    gpgkey: https://pkg.claude-desktop-debian.dev/KEY.gpg
+  become: true
+  tags: [claude-desktop, claude-desktop-repo, rpm, rpm-repo]
+
+- name: install claude-desktop
+  ansible.builtin.dnf:
+    name: claude-desktop
+    state: present
+  become: true
+  tags: [claude-desktop]
