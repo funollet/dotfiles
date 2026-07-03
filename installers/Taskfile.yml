@@ -3,7 +3,7 @@
 version: "3"
 
 vars:
-  ANSIBLE: "ansible-playbook -v --diff --connection local --inventory localhost, install.yml"
+  ANSIBLE: "ansible-playbook -v install.yml"
 
 tasks:
   default:
