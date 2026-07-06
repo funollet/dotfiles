@@ -2,14 +2,32 @@ cursor-style-blink = false
 window-decoration = false
 gtk-single-instance = true
 
+quit-after-last-window-closed = false
+
 keybind = ctrl+c=copy_to_clipboard
 keybind = ctrl+v=paste_from_clipboard
 # good old ^C ^V
 keybind = ctrl+shift+c=text:\x03
 keybind = ctrl+shift+v=text:\x16
 
-# Default action is toggle fullscreen. Not needed, as this is provided by the window manager.
+# not using toggle fullscreen, avoid triggering it by error
 keybind = ctrl+enter=ignore
 
+# not using splits, avoid triggering it by error
+keybind = ctrl+shift+e=ignore
+keybind = ctrl+shift+o=ignore
+# keybind = ctrl+shift+e=new_split:down
+# keybind = ctrl+shift+o=new_split:right
+
+# not using tabs, avoid triggering it by error
+keybind = ctrl+shift+t=ignore
+# keybind = ctrl+shift+t=new_tab
+
+# The default keybinding is too easy to mistype.
+keybind = ctrl+shift+alt+a=select_all
+# keybind = ctrl+shift+a=select_all
+
+# Send ESC+enter; useful on TUIs that fail to read Shift+enter properly (e.g. Claude)
 keybind = shift+enter=text:\x1b\r
+
 # vi: ft=config
