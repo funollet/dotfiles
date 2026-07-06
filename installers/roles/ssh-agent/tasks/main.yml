@@ -1,0 +1,9 @@
+- name: point the X session at the socket-activated ssh-agent
+  ansible.builtin.copy:
+    src: 40-ssh-agent-socket.sh
+    dest: /etc/X11/xinit/xinitrc.d/40-ssh-agent-socket.sh
+    owner: root
+    group: root
+    mode: '0644'
+  become: true
+  tags: [ssh-agent]

@@ -39,4 +39,5 @@ tasks:
       - systemctl --user enable fusuma.service
       - systemctl --user enable ulauncher.service
       - systemctl --user enable gnome-keyring-daemon
+      - systemctl --user enable ssh-agent.socket
       - systemctl --user enable app-com.mitchellh.ghostty.service
