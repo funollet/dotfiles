@@ -18,7 +18,7 @@ from time import sleep
 
 mod = "mod4"
 # terminal = guess_terminal()
-terminal = "ghostty"
+terminal = "ghostty +new-window"
 localbin = os.path.expanduser(os.path.expandvars("~/.local/bin"))
 
 colors = {
