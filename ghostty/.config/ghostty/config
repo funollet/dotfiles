@@ -30,4 +30,5 @@ keybind = ctrl+shift+alt+a=select_all
 # Send ESC+enter; useful on TUIs that fail to read Shift+enter properly (e.g. Claude)
 keybind = shift+enter=text:\x1b\r
 
+config-file = ?config.local
 # vi: ft=config
