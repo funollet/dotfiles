@@ -61,7 +61,7 @@
   community.general.copr:
     # host: copr.fedorainfracloud.org
     state: enabled
-    name: pgdev/ghostty
+    name: scottames/ghostty
   become: true
   tags: [rpm, rpm-repo]
 
