@@ -72,3 +72,4 @@ alias tn='todo.sh ls @next'
 
 alias cl='claude'
 alias clr='claude --resume'
+alias sonnet='claude --model=sonnet --effort=medium'
