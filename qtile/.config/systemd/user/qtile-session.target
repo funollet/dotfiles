@@ -1,0 +1,7 @@
+[Unit]
+Description=qtile session
+# Pulls in graphical-session.target (which refuses manual start) so that
+# xdg-desktop-portal.service can satisfy its "Requisite=graphical-session.target"
+# and start. Without this, flatpaks (e.g. Slack) can't open links via the portal.
+BindsTo=graphical-session.target
+Before=graphical-session.target
