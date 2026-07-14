@@ -33,3 +33,7 @@ config:
   #   allowed_languages: []
   #   # Require language only
   #   language_only: false
+
+  # MD041/first-line-heading
+  MD041: false
+
