@@ -108,6 +108,7 @@ markdownlint-cli2 = "0.22.1"
 viddy = "latest"
 kubecolor = "latest"
 stern = "latest"
+"github:immanuwell/dockerfile-roast" = "latest"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
