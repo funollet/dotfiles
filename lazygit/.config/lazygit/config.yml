@@ -20,24 +20,47 @@ customCommands:
       format. If multiple changes, add a blank line then bullet points with details.
       No questions. **Never** add 'Co-Authored-By:' text referencing Claude."
     description: "Commit with AI"
-    output: terminal
+    output: log
     # Uses the fast mini model with low reasoning effort and an empty system
     # prompt for faster output. Requires jq for JSON parsing
     # command: >
     #   codex exec -m gpt-5.4-mini -c model_reasoning_effort='low' -c system_prompt=''
     #   --sandbox=read-only
     #   "Commit **only** files already staged. Commit message must follow conventional-commits format."
+
   - key: "<alt+shift+c>"
     context: "files"
     command: >
       claude --name commit-message --model sonnet --effort low /commit-message
     description: "Commit with AI providing multiple choices"
     output: terminal
+
+  - key: "<alt-b>"
+    context: "localBranches"
+    description: "Pick a name, create a branch"
+    prompts:
+      - type: "input"
+        title: "Which Jira ticket ID should I use?"
+        key: "JiraTicketId"
+        initialValue: "FAKE-666"
+    command: >
+      MAX_THINKING_TOKENS=0
+      claude -p --no-session-persistence --model=sonnet --effort=low /git-branch-sateliot {{.Form.JiraTicketId}}
+    loadingText: "Creating branch"
+    output: log
+
+  - key: "<alt-w>"
+    context: localBranches
+    command: "gh pr checks --watch"
+    description: "Watch PR workflows"
+    output: terminal
+
   - key: "<c-d>"
     context: "localBranches"
     command: "gh dash"
     description: "gh dash"
     output: terminal
+
   - key: "<c-g>"
     context: "localBranches"
     command: "task pr"
