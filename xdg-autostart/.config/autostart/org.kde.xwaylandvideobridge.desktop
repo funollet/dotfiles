@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Xwayland Video Bridge
+# Masks /etc/xdg/autostart/org.kde.xwaylandvideobridge.desktop. Bridges X11
+# apps into Wayland screen sharing, pointless in an X11 session.
+Hidden=true

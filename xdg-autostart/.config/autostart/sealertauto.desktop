@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=SELinux Troubleshooter
+# Masks /etc/xdg/autostart/sealertauto.desktop. Tray alerter, denials are
+# easier to read with "journalctl -t setroubleshoot".
+Hidden=true

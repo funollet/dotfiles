@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=KDE Connect
+# Masks /etc/xdg/autostart/org.kde.kdeconnect.daemon.desktop. Pulled in as a
+# Plasma dependency, not used from qtile.
+Hidden=true

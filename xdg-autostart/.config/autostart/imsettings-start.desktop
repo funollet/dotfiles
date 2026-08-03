@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=IMSettings
+# Masks /etc/xdg/autostart/imsettings-start.desktop. Input method framework
+# is not used, keyboard layouts come from xkb and kmonad.
+Hidden=true

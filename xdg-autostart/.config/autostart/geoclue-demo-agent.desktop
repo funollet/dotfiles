@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Geoclue Demo Agent
+# Masks /etc/xdg/autostart/geoclue-demo-agent.desktop. Nothing here asks for
+# location authorisation.
+Hidden=true

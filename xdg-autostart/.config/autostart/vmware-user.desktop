@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=VMware User Agent
+# Masks /etc/xdg/autostart/vmware-user.desktop. This host is not a VMware
+# guest, so it would only ever fail.
+Hidden=true

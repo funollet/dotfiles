@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=VirtualBox Guest Additions
+# Masks /etc/xdg/autostart/vboxclient.desktop. This host is not a VirtualBox
+# guest, so it would only ever fail.
+Hidden=true

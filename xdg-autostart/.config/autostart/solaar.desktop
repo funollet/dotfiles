@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Solaar
+# Masks /etc/xdg/autostart/solaar.desktop. Logitech receiver tray, started by
+# hand on the rare occasion it is needed.
+Hidden=true

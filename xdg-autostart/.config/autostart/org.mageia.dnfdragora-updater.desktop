@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=dnfdragora Updater
+# Masks /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop. Updates are
+# handled by dnf-automatic, see installers/roles/dnf-automatic.
+Hidden=true

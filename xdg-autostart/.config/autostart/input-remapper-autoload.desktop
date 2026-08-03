@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=input-remapper
+# Masks /etc/xdg/autostart/input-remapper-autoload.desktop. Key remapping is
+# kmonad's job, two remappers on the same device fight each other.
+Hidden=true

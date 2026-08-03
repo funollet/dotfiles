@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Live Install Setup
+# Masks /etc/xdg/autostart/liveinst-setup.desktop. Only meaningful on a live
+# image.
+Hidden=true
