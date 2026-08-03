@@ -1,4 +1,4 @@
 [Desktop Entry]
 Type=Application
-Name=Slack
+Name=Obsidian
 Exec=flatpak run md.obsidian.Obsidian
