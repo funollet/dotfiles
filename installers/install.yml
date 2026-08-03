@@ -54,3 +54,5 @@
         name: claude-desktop
     - import_role:
         name: ssh-agent
+    - import_role:
+        name: xsession
