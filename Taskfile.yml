@@ -49,6 +49,7 @@ tasks:
         gnome-keyring-daemon.service
         ssh-agent.socket
         ulauncher.service
+        xdg-user-dirs.service
     cmds:
       - systemctl --user daemon-reload
       - for: { var: OWN_UNITS, split: "\n", as: UNIT }

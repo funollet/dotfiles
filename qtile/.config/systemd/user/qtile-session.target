@@ -5,3 +5,8 @@ Description=qtile session
 # and start. Without this, flatpaks (e.g. Slack) can't open links via the portal.
 BindsTo=graphical-session.target
 Before=graphical-session.target
+# Nothing else pulls in graphical-session-pre.target under qtile (it refuses
+# manual start, so it has to arrive as a dependency). Units that hook there,
+# such as xdg-user-dirs.service, never run otherwise.
+Wants=graphical-session-pre.target
+After=graphical-session-pre.target
