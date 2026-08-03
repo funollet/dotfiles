@@ -16,6 +16,8 @@ tasks:
       - stow --target ~/bin --dir ~/code/user-land/ packaged
       - stow --target ~/.local/bin --dir ~/code/volume-notify/ bin
       - cd ~ && mise install
+      # Symlinking a unit does not enable it, so this has to run every time.
+      - task: systemctl
 
   stow-all:
     internal: true
@@ -33,11 +35,23 @@ tasks:
       - stow -R {{.PKG}}
 
   systemctl:
-    desc: Update systemctl user services.
+    desc: Enable the systemd user units this session needs.
+    vars:
+      # Units shipped by this repo, discovered from the stow packages so that
+      # dropping in a unit file is enough to get it enabled. Units with no
+      # [Install] section (qtile-session.target) are pulled in as dependencies
+      # rather than enabled, so they are skipped.
+      OWN_UNITS:
+        sh: grep -rl '^\[Install\]' */.config/systemd/user/ | xargs -n1 basename | sort
+      # Units shipped by the distro that this session relies on.
+      DISTRO_UNITS: >-
+        app-com.mitchellh.ghostty.service
+        gnome-keyring-daemon.service
+        ssh-agent.socket
+        ulauncher.service
     cmds:
       - systemctl --user daemon-reload
-      - systemctl --user enable fusuma.service
-      - systemctl --user enable ulauncher.service
-      - systemctl --user enable gnome-keyring-daemon
-      - systemctl --user enable ssh-agent.socket
-      - systemctl --user enable app-com.mitchellh.ghostty.service
+      - for: { var: OWN_UNITS, split: "\n", as: UNIT }
+        cmd: systemctl --user enable {{.UNIT}}
+      - for: { var: DISTRO_UNITS, split: " ", as: UNIT }
+        cmd: systemctl --user enable {{.UNIT}}
