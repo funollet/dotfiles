@@ -34,6 +34,18 @@ tasks:
     cmds:
       - stow -R {{.PKG}}
 
+  check:
+    desc: Validate the stowed desktop entries and systemd user units.
+    cmds:
+      # "qtile" and "i3" are not registered desktop names, so every ShowIn key
+      # here trips desktop-file-validate. That is exactly how
+      # XDG_CURRENT_DESKTOP is set, so drop those and fail on anything else.
+      - |
+        errors=$(desktop-file-validate */.config/autostart/*.desktop \
+          | grep -v 'contains an unregistered value' || true)
+        test -z "$errors" || { printf '%s\n' "$errors"; exit 1; }
+      - systemd-analyze --user verify */.config/systemd/user/*
+
   systemctl:
     desc: Enable the systemd user units this session needs.
     vars:
