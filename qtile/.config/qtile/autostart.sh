@@ -8,16 +8,16 @@ set -x
 # "Requisite=graphical-session.target"; without this, flatpaks (e.g. Slack) fail
 # to open links because the portal never starts.
 dbus-update-activation-environment --systemd --all
-systemctl --user start qtile-session.target
 
-# Run the XDG autostart entries. systemd-xdg-autostart-generator turns
-# ~/.config/autostart and /etc/xdg/autostart into app-*@autostart.service units,
-# so every entry gets "systemctl --user status" and its own journal instead of
-# disappearing into this script's stdout. Replaces dex-autostart, which only
-# read ~/.config/autostart and ignored X-systemd-skip.
-# The reload picks up entries stowed since the user manager started.
+# Pick up any unit or autostart entry stowed since the user manager started,
+# so the generator sees it before qtile-session.target pulls it in.
 systemctl --user daemon-reload
-systemctl --user start xdg-desktop-autostart.target
+
+# Starts the whole session: graphical-session-pre, graphical-session, and the
+# XDG autostart entries, which systemd-xdg-autostart-generator has turned into
+# app-*@autostart.service units. Each of those targets refuses a manual start,
+# so they are all wanted by qtile-session.target rather than started here.
+systemctl --user start qtile-session.target
 
 # lock screen after [TIMEOUT] seconds, dim during [CYCLE] seconds
 xset s 1800 15 \

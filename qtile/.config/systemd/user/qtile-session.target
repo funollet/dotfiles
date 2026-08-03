@@ -10,3 +10,9 @@ Before=graphical-session.target
 # such as xdg-user-dirs.service, never run otherwise.
 Wants=graphical-session-pre.target
 After=graphical-session-pre.target
+# Same story for the XDG autostart entries: xdg-desktop-autostart.target also
+# refuses manual start, so "systemctl start" on it is rejected and nothing
+# autostarts. It has to be pulled in from here, the way a desktop environment's
+# own session target does it. No ordering needed, every generated
+# app-*@autostart.service already carries After=graphical-session.target.
+Wants=xdg-desktop-autostart.target
