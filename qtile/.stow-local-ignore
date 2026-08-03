@@ -1,0 +1,11 @@
+# Running qtile or uv against the repo copy of config.py leaves a
+# __pycache__ behind, which then collides with the one in ~/.config/qtile
+# and aborts "stow -R qtile" for the whole package.
+__pycache__
+
+# Providing this file replaces stow's built-in ignore list, so the defaults
+# worth keeping are repeated here.
+\.git
+\.gitignore
+.+~
+\#.*\#
