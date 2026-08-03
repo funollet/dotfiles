@@ -6,5 +6,7 @@ Comment=Battery, Display and CPU power management and notification
 Exec=/usr/libexec/org_kde_powerdevil
 NoDisplay=true
 OnlyShowIn=KDE;i3;qtile;
-X-systemd-skip=true
+# Upstream sets X-systemd-skip because Plasma starts plasma-powerdevil.service
+# itself. That unit is "static", so under qtile the desktop entry is what
+# starts powerdevil and the key has to go.
 X-KDE-autostart-phase=0
