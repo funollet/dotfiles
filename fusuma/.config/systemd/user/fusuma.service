@@ -4,7 +4,7 @@ After=graphical-session.target
 
 [Service]
 Type=simple
-ExecStart=/home/jordif/bin/fusuma
+ExecStart=%h/bin/fusuma
 Restart=on-failure
 RestartSec=2
 

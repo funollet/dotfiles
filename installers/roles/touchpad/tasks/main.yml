@@ -20,22 +20,6 @@
     - fusuma-plugin-sendkey
   tags: [touchpad, fusuma]
 
-- name: install fusuma systemd user service
-  copy:
-    src: fusuma.service
-    dest: ~/.config/systemd/user/fusuma.service
-  tags: [touchpad, fusuma]
-
-- name: reload systemd user daemon
-  systemd:
-    name: fusuma
-    daemon_reload: true
-    scope: user
-  tags: [touchpad, fusuma]
-
-- name: enable fusuma user service
-  systemd:
-    name: fusuma
-    enabled: false
-    scope: user
-  tags: [touchpad, fusuma]
+# fusuma.service is stowed from the fusuma package and enabled by
+# "task systemctl", like every other user unit in this repo. This role only
+# owns the system-level pieces.
