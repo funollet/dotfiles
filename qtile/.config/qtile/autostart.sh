@@ -9,6 +9,15 @@ set -x
 # to open links because the portal never starts.
 dbus-update-activation-environment --systemd --all
 
+# Tear down whatever a previous X session left behind. The user manager
+# outlives the X session whenever a second login keeps it alive (a tty, ssh),
+# and then every target below is still active from last time: "start" becomes a
+# no-op, nothing is re-pulled, and the session comes up empty even though the
+# processes died with the old X server. Stopping graphical-session.target takes
+# the app-*@autostart.service units (PartOf=) and qtile-session.target
+# (BindsTo=) down with it. A no-op on a freshly started user manager.
+systemctl --user stop graphical-session.target
+
 # Pick up any unit or autostart entry stowed since the user manager started,
 # so the generator sees it before qtile-session.target pulls it in.
 systemctl --user daemon-reload

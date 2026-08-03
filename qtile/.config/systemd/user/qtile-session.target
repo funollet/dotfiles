@@ -13,6 +13,12 @@ After=graphical-session-pre.target
 # Same story for the XDG autostart entries: xdg-desktop-autostart.target also
 # refuses manual start, so "systemctl start" on it is rejected and nothing
 # autostarts. It has to be pulled in from here, the way a desktop environment's
-# own session target does it. No ordering needed, every generated
-# app-*@autostart.service already carries After=graphical-session.target.
+# own session target does it.
+#
+# The Before= is not optional. A target implicitly gains After= on everything
+# it Wants=, and every app-*@autostart.service is After=graphical-session.target,
+# which is After= this target: that closes an ordering cycle and systemd breaks
+# it by deleting every autostart job, so nothing comes up. Stating the ordering
+# explicitly overrides the implicit one. plasma-workspace.target does the same.
 Wants=xdg-desktop-autostart.target
+Before=xdg-desktop-autostart.target
