@@ -2,7 +2,7 @@
 Name=Dropbox
 GenericName=File Synchronizer
 Comment=Sync your files across computers and to the web
-Exec=dropbox start -i
+Exec=env XDG_CURRENT_DESKTOP=Unity dropbox start -i
 Terminal=false
 Type=Application
 Icon=dropbox

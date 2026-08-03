@@ -5,7 +5,8 @@ import asyncio
 import os
 
 
-from libqtile import bar, hook, layout, qtile, widget
+from libqtile import bar, hook, layout, qtile
+from qtile_extras import widget
 from libqtile.config import DropDown
 from libqtile.config import EzClick as Click
 from libqtile.config import EzDrag as Drag
@@ -245,7 +246,6 @@ def make_screen_primary():
                 widget.Prompt(),
                 widget.Spacer(length=10),
                 widget.StatusNotifier(),
-                widget.Systray(),
                 widget.Spacer(),
                 widget.GroupBox(
                     highlight_method="line",

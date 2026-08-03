@@ -155,7 +155,7 @@ rpm: [
   lxqt-policykit,
 
   ### qtile
-  qtile, python3-dbus-next, xorg-x11-server-Xephyr,
+  qtile, qtile-extras, python3-dbus-next, xorg-x11-server-Xephyr,
 
   ### vagrant:
   vagrant, vagrant-doc, vagrant-libvirt,
