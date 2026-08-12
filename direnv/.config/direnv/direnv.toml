@@ -1,0 +1,25 @@
+# direnv configuration
+#
+# Upstream ships no default config file; the options below are taken from the
+# direnv.toml man page:
+#   https://github.com/direnv/direnv/blob/master/man/direnv.toml.1.md
+#
+# Everything is commented out, so this file is a no-op until you uncomment a
+# line.
+
+# [global]
+# bash_path = "/usr/bin/bash"
+# disable_stdin = false
+# load_dotenv = false
+# strict_env = false
+# warn_timeout = "5s"
+# hide_env_diff = false
+# log_format = "direnv: %s"
+# log_filter = "^PATH$"
+
+# Marks directory hierarchies as trusted, so their .envrc files are evaluated
+# without `direnv allow`. Use with care: anyone who can write to those
+# directories can then execute arbitrary code on this machine.
+# [whitelist]
+# prefix = ["~/code/sateliot"]
+# exact = ["~/code/sateliot/apps/pass-manager/.envrc"]
