@@ -186,6 +186,79 @@ tasks:
       - cmd: echo
         silent: true
 
+  cleanup-home:
+    desc: Safely free disk space under ~
+    cmds:
+      - cmd: df -h /home
+        silent: true
+      - task: cleanup-terraform
+      - task: cleanup-cache
+      - task: cleanup-mise
+      - cmd: df -h /home
+        silent: true
+
+  cleanup-terraform:
+    desc: Delete .terraform and .terragrunt-cache dirs. Restored on next run.
+    vars:
+      ROOT: '{{.ROOT | default "$HOME/code"}}'
+      # --hidden and --no-ignore are both required: the dirs are dotted and
+      # gitignored, and fd skips either kind by default.
+      # --prune stops the descent at the first match, so a .terraform nested
+      # inside a .terragrunt-cache is never listed on its own. Without it the
+      # batched rm would delete the parent and then fail on the stale child.
+      FD_FLAGS: --type directory --hidden --no-ignore --prune
+      PATTERN: '^\.(terraform|terragrunt-cache)$'
+    cmds:
+      - fd {{.FD_FLAGS}} '{{.PATTERN}}' {{.ROOT}}
+      - fd {{.FD_FLAGS}} '{{.PATTERN}}' {{.ROOT}} --exec-batch rm -r --interactive=never
+
+  cleanup-mise:
+    desc: Delete mise tool versions no longer referenced by any tracked config.
+    cmds:
+      - mise ls --prunable
+      # --yes is required, not just convenient: mise prompts before
+      # uninstalling, and with stdin not a tty it answers no and prunes
+      # only the config links, reporting success either way.
+      - mise prune --yes
+
+  cleanup-cache:
+    desc: Purge regenerable caches under ~/.cache.
+    cmds:
+      # Tool-native prunes: they know what is still referenced.
+      - cmd: uv cache clean
+        ignore_error: true
+      - cmd: pip cache purge
+        ignore_error: true
+      - cmd: pre-commit clean
+        ignore_error: true
+      - cmd: go clean -cache
+        ignore_error: true
+      # No prune command of their own, rebuilt on next use. Note that
+      # ~/.cache/aws holds the jsii package cache, not credentials.
+      # No `rm -f`: the -d guard handles a missing dir, so an unexpected
+      # path stays an error instead of a silent success.
+      - |
+        set -eu
+        for name in pex pypoetry puppeteer act libdnf5 apt aws; do
+          dir="$HOME/.cache/$name"
+          test -d "$dir" || continue
+          echo "removing $dir"
+          rm -r --interactive=never "$dir"
+        done
+      # Browser caches: a running browser would just write them back.
+      - |
+        set -eu
+        clean_browser_cache() {
+          if pgrep -x "$1" >/dev/null; then
+            echo "skipping ~/.cache/$2: $1 is still running"
+          elif test -d "$HOME/.cache/$2"; then
+            echo "removing $HOME/.cache/$2"
+            rm -r --interactive=never "$HOME/.cache/$2"
+          fi
+        }
+        clean_browser_cache chrome google-chrome
+        clean_browser_cache firefox mozilla
+
   tweak:
     desc: Post-install config tasks.
     deps:
