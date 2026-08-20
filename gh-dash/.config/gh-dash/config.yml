@@ -80,6 +80,11 @@ keybindings:
   prs:
     - key: T
       command: gh enhance -R {{.RepoName}} {{.PrNumber}}
+    - key: M
+      name: merge (admin)
+      command: >
+        gum confirm "Admin-merge {{.RepoName}}#{{.PrNumber}}?"
+        && gh pr merge --admin -R {{.RepoName}} {{.PrNumber}}
 repoPaths: {}
 theme:
   ui:
