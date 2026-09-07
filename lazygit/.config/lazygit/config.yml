@@ -51,9 +51,13 @@ customCommands:
 
   - key: "<alt-w>"
     context: localBranches
-    command: "gh pr checks --watch"
+    command: |
+      gh pr checks --watch ; \
+      summary=$(gh pr view --json headRepository,headRefName,number | jq -r '"[\(.headRepository.name)#\(.number)] \(.headRefName)"')
+      notify-send --expire-time 0 "$summary" \
+        "$(gh pr checks --json state,name | jq -r '.[] | [.state, .name] | @tsv')"
     description: "Watch PR workflows"
-    output: terminal
+    output: log
 
   - key: "<c-d>"
     context: "localBranches"
@@ -61,7 +65,7 @@ customCommands:
     description: "gh dash"
     output: terminal
 
-  - key: "<c-g>"
+  - key: "<alt-o>"
     context: "localBranches"
     command: "task pr"
     description: "task pr"
