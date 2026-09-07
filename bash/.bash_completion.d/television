@@ -1,0 +1,459 @@
+_tv() {
+    local i cur prev opts cmd
+    COMPREPLY=()
+    if [[ "${BASH_VERSINFO[0]}" -ge 4 ]]; then
+        cur="$2"
+    else
+        cur="${COMP_WORDS[COMP_CWORD]}"
+    fi
+    prev="$3"
+    cmd=""
+    opts=""
+
+    for i in "${COMP_WORDS[@]:0:COMP_CWORD}"
+    do
+        case "${cmd},${i}" in
+            ",$1")
+                cmd="tv"
+                ;;
+            tv,help)
+                cmd="tv__help"
+                ;;
+            tv,init)
+                cmd="tv__init"
+                ;;
+            tv,list-channels)
+                cmd="tv__list__channels"
+                ;;
+            tv,update-channels)
+                cmd="tv__update__channels"
+                ;;
+            tv__help,help)
+                cmd="tv__help__help"
+                ;;
+            tv__help,init)
+                cmd="tv__help__init"
+                ;;
+            tv__help,list-channels)
+                cmd="tv__help__list__channels"
+                ;;
+            tv__help,update-channels)
+                cmd="tv__help__update__channels"
+                ;;
+            *)
+                ;;
+        esac
+    done
+
+    case "${cmd}" in
+        tv)
+            opts="-s -p -i -t -k -h -V --source-command --ansi --no-sort --source-display --source-output --source-entry-delimiter --preview-command --preview-header --preview-footer --cache-preview --preview-offset --no-preview --hide-preview --show-preview --preview-border --preview-padding --preview-word-wrap --hide-preview-scrollbar --preview-size --input --input-header --input-prompt --input-position --input-border --input-padding --no-status-bar --hide-status-bar --show-status-bar --results-border --results-padding --layout --no-remote --hide-remote --show-remote --no-help-panel --hide-help-panel --show-help-panel --ui-scale --height --width --inline --tick-rate --watch --autocomplete-prompt --exact --select-1 --take-1 --take-1-fast --keybindings --expect --config-file --cable-dir --global-history --help --version [CHANNEL] [PATH] list-channels init update-channels help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 1 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                --source-command)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                -s)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --source-display)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --source-output)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --source-entry-delimiter)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --preview-command)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                -p)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --preview-header)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --preview-footer)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --preview-offset)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --preview-border)
+                    COMPREPLY=($(compgen -W "none plain rounded thick" -- "${cur}"))
+                    return 0
+                    ;;
+                --preview-padding)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --preview-size)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --input)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                -i)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --input-header)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --input-prompt)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --input-position)
+                    COMPREPLY=($(compgen -W "top bottom" -- "${cur}"))
+                    return 0
+                    ;;
+                --input-border)
+                    COMPREPLY=($(compgen -W "none plain rounded thick" -- "${cur}"))
+                    return 0
+                    ;;
+                --input-padding)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --results-border)
+                    COMPREPLY=($(compgen -W "none plain rounded thick" -- "${cur}"))
+                    return 0
+                    ;;
+                --results-padding)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --layout)
+                    COMPREPLY=($(compgen -W "landscape portrait" -- "${cur}"))
+                    return 0
+                    ;;
+                --ui-scale)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --height)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --width)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --tick-rate)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                -t)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --watch)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --autocomplete-prompt)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --keybindings)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                -k)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --expect)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --config-file)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                --cable-dir)
+                    COMPREPLY=($(compgen -f "${cur}"))
+                    return 0
+                    ;;
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__help)
+            opts="list-channels init update-channels help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__help__help)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__help__init)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__help__list__channels)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__help__update__channels)
+            opts=""
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 3 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__init)
+            opts="-h --help bash zsh fish power-shell cmd nu"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__list__channels)
+            opts="-h --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+        tv__update__channels)
+            opts="-h --force --help"
+            if [[ ${cur} == -* || ${COMP_CWORD} -eq 2 ]] ; then
+                COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+                return 0
+            fi
+            case "${prev}" in
+                *)
+                    COMPREPLY=()
+                    ;;
+            esac
+            COMPREPLY=( $(compgen -W "${opts}" -- "${cur}") )
+            return 0
+            ;;
+    esac
+}
+
+if [[ "${BASH_VERSINFO[0]}" -eq 4 && "${BASH_VERSINFO[1]}" -ge 4 || "${BASH_VERSINFO[0]}" -gt 4 ]]; then
+    complete -F _tv -o nosort -o bashdefault -o default tv
+else
+    complete -F _tv -o bashdefault -o default tv
+fi
+_disable_bracketed_paste() {
+    # Disable bracketed paste mode to prevent unwanted escape sequences
+    printf '\e[?2004l' > /dev/tty
+}
+
+_enable_bracketed_paste() {
+    # Re-enable bracketed paste mode
+    printf '\e[?2004h' > /dev/tty
+}
+
+__tv_path_completion() {
+    local base="$1"
+    local lbuf="$2"
+    local suffix=""
+    local tail=" "
+    local dir leftover matches
+
+    # Evaluate the base path (handle ~, variables, etc.)
+    eval "base=\"$base\"" 2>/dev/null || return
+
+    # Extract directory part if base contains a slash
+    [[ "$base" == *"/"* ]] && dir="$base"
+    
+    while true; do
+        if [[ -z "$dir" || -d "$dir" ]]; then
+            # Calculate leftover part (what comes after the directory)
+            leftover="${base#"$dir"}"
+            leftover="${leftover#/}"
+            
+            # Set default directory if empty
+            [[ -z "$dir" ]] && dir='.'
+            
+            # Remove trailing slash unless it's root
+            [[ "$dir" != "/" ]] && dir="${dir%/}"
+
+            # move to the next line so that the prompt is not overwritten
+            printf "\n"
+            
+            # Call tv with proper arguments and process output
+            matches=$(
+                tv "$dir" --autocomplete-prompt "$lbuf" --no-status-bar --inline --input "$leftover" < /dev/tty | while IFS= read -r item; do
+                    item="${item%$suffix}$suffix"
+                    dirP="$dir/"
+                    [[ "$dirP" == "./" ]] && dirP=""
+                    # Quote the item to handle special characters
+                    printf '%s ' "$dirP$(printf '%q' "$item")"
+                done
+            )
+            
+            # Remove trailing space
+            matches="${matches% }"
+            
+            if [[ -n "$matches" ]]; then
+                # Update readline buffer
+                local new_line="$lbuf$matches$tail"
+                local rhs="${READLINE_LINE:$READLINE_POINT}"
+                READLINE_LINE="$new_line$rhs"
+                READLINE_POINT=${#new_line}
+            fi
+            # move the cursor back to the previous line
+            printf "\033[A"
+
+            break
+        fi
+        
+        # Move up one directory level
+        dir=$(dirname "$dir")
+        dir="${dir%/}/"
+    done
+}
+
+tv_smart_autocomplete() {
+    _disable_bracketed_paste
+
+    local tokens prefix lbuf
+    local current_prompt="${READLINE_LINE:0:$READLINE_POINT}"
+    
+    # Split the current prompt into tokens
+    # This is a simplified version of zsh's word splitting
+    read -ra tokens <<< "$current_prompt"
+    
+    if [[ ${#tokens[@]} -lt 1 ]]; then
+        # Fall back to default completion if no tokens
+        _enable_bracketed_paste
+        return
+    fi
+
+    # Handle trailing space
+    [[ "${READLINE_LINE:$((READLINE_POINT-1)):1}" == " " ]] && tokens+=("")
+
+    # Get the last token as prefix
+    prefix="${tokens[-1]}"
+    
+    # Calculate lbuf (everything except the last token)
+    if [[ -n "$prefix" ]]; then
+        lbuf="${current_prompt:0:$((${#current_prompt} - ${#prefix}))}"
+    else
+        lbuf="$current_prompt"
+    fi
+
+    __tv_path_completion "$prefix" "$lbuf"
+
+    _enable_bracketed_paste
+}
+
+tv_shell_history() {
+    _disable_bracketed_paste
+
+    local current_prompt="${READLINE_LINE:0:$READLINE_POINT}"
+    local output
+
+    # move to the next line so that the prompt is not overwritten
+    printf "\n"
+
+    # Get history using tv with the same arguments as zsh version
+    output=$(tv bash-history --no-status-bar --input "$current_prompt" --inline)
+
+    if [[ -n "$output" ]]; then
+        # Clear the right side of cursor and set new line
+        READLINE_LINE="$output"
+        READLINE_POINT=${#READLINE_LINE}
+
+        # Uncomment this to automatically accept the line
+        # (i.e. run the command without having to press enter twice)
+        # accept-line() { echo; }; accept-line
+    fi
+
+    # move the cursor back to the previous line
+    printf "\033[A"
+
+    _enable_bracketed_paste
+}
+
+# Bind the functions to key combinations
+bind -x '"\C-T": tv_smart_autocomplete'
+bind -x '"\C-R": tv_shell_history'
+
