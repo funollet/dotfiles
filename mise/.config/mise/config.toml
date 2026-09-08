@@ -109,6 +109,7 @@ viddy = "latest"
 kubecolor = "latest"
 stern = "latest"
 "github:immanuwell/dockerfile-roast" = "latest"
+"npm:dclint" = "3.1.0"
 
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
