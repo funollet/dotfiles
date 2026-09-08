@@ -454,6 +454,5 @@ tv_shell_history() {
 }
 
 # Bind the functions to key combinations
-bind -x '"\C-T": tv_smart_autocomplete'
-bind -x '"\C-R": tv_shell_history'
-
+#bind -x '"\C-T": tv_smart_autocomplete'
+#bind -x '"\C-R": tv_shell_history'
