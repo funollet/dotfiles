@@ -43,8 +43,6 @@
     - import_role:
         name: dnf-automatic
     - import_role:
-        name: cursor
-    - import_role:
         name: ssh-agent
     - import_role:
         name: xsession

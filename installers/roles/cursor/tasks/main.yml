@@ -1,8 +1,0 @@
-# The cursor repo is declared in mise/.config/mise/conf.d/bootstrap.toml.
-
-- name: install cursor
-  ansible.builtin.dnf:
-    name: cursor
-    state: present
-  become: true
-  tags: [cursor]
