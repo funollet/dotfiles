@@ -234,6 +234,11 @@ tasks:
         clean_browser_cache chrome google-chrome
         clean_browser_cache firefox mozilla
 
+  cleanup-images:
+    cmds:
+      - cmd: docker image prune -a
+        ignore_error: true
+
   tweak:
     desc: Post-install config tasks.
     deps:
