@@ -3,8 +3,12 @@
 version: "3"
 
 includes:
+  cleanup: .taskfiles/cleanup.yml
   dotfiles: .taskfiles/dotfiles.yml
+  experiments: .taskfiles/experiments.yml
+  fedora: .taskfiles/fedora.yml
   system: .taskfiles/system.yml
+  zed: .taskfiles/zed.yml
 
 tasks:
   default:

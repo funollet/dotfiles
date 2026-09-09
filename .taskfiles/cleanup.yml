@@ -1,0 +1,133 @@
+# https://taskfile.dev
+#
+# Reclaiming disk space and tidying up, system-wide and under ~.
+
+version: "3"
+
+tasks:
+  reclaim:
+    desc: Reclaim unused space.
+    cmds:
+      - sudo dnf clean packages
+      - sudo dnf system-upgrade clean
+      - flatpak uninstall --unused
+      - flatpak uninstall --delete-data
+      - sudo journalctl --vacuum-time=10d
+
+  kernel:
+    desc: Remove old kernels.
+    vars:
+      OLD_KERNELS:
+        sh: dnf repoquery --installonly --latest-limit=-1 -q | grep -v "$(uname -r)" | tr '\n' ' ' || true
+    cmds:
+      - sudo dnf remove {{.OLD_KERNELS}}
+    preconditions:
+      - sh: test -n "{{.OLD_KERNELS}}"
+        msg: No old kernels to remove
+
+  fight-entropy:
+    desc: Tidy-up system-wide.
+    vars:
+      CURRENT_RELEASE:
+        sh: lsb_release -sr
+    cmds:
+      - cmd: echo "Modules from older releases"
+        silent: true
+      - cmd: ls -1d /lib/modules/* | grep -v ".fc{{.CURRENT_RELEASE}}."
+        ignore_error: true
+      - cmd: echo
+        silent: true
+      - cmd: echo "Packages with broken dependencies"
+        silent: true
+      - sudo dnf repoquery --unsatisfied
+      - cmd: echo
+        silent: true
+      - cmd: echo "Packages with multiple versions installed"
+        silent: true
+      - sudo dnf repoquery --duplicates
+      - cmd: echo
+        silent: true
+      - cmd: echo "Possibly unused packages"
+        silent: true
+      - sudo dnf repoquery --extras --exclude=kernel,kernel-\*,kmod-\*,dkms | grep -v ".fc{{.CURRENT_RELEASE}}."
+      - cmd: echo
+        silent: true
+
+  home:
+    desc: Safely free disk space under ~
+    cmds:
+      - cmd: df -h /home
+        silent: true
+      - task: terraform
+      - task: cache
+      - task: mise
+      - cmd: df -h /home
+        silent: true
+
+  terraform:
+    desc: Delete .terraform and .terragrunt-cache dirs. Restored on next run.
+    vars:
+      ROOT: '{{.ROOT | default "$HOME/code"}}'
+      # --hidden and --no-ignore are both required: the dirs are dotted and
+      # gitignored, and fd skips either kind by default.
+      # --prune stops the descent at the first match, so a .terraform nested
+      # inside a .terragrunt-cache is never listed on its own. Without it the
+      # batched rm would delete the parent and then fail on the stale child.
+      FD_FLAGS: --type directory --hidden --no-ignore --prune
+      PATTERN: '^\.(terraform|terragrunt-cache)$'
+    cmds:
+      - fd {{.FD_FLAGS}} '{{.PATTERN}}' {{.ROOT}}
+      - fd {{.FD_FLAGS}} '{{.PATTERN}}' {{.ROOT}} --exec-batch rm -r --interactive=never
+
+  mise:
+    desc: Delete mise tool versions no longer referenced by any tracked config.
+    cmds:
+      - mise ls --prunable
+      # --yes is required, not just convenient: mise prompts before
+      # uninstalling, and with stdin not a tty it answers no and prunes
+      # only the config links, reporting success either way.
+      - mise prune --yes
+
+  cache:
+    desc: Purge regenerable caches under ~/.cache.
+    cmds:
+      # Tool-native prunes: they know what is still referenced.
+      - cmd: uv cache clean
+        ignore_error: true
+      - cmd: pip cache purge
+        ignore_error: true
+      - cmd: pre-commit clean
+        ignore_error: true
+      - cmd: go clean -cache
+        ignore_error: true
+      # No prune command of their own, rebuilt on next use. Note that
+      # ~/.cache/aws holds the jsii package cache, not credentials.
+      # No `rm -f`: the -d guard handles a missing dir, so an unexpected
+      # path stays an error instead of a silent success.
+      - |
+        set -eu
+        for name in pex pypoetry puppeteer act libdnf5 apt aws; do
+          dir="$HOME/.cache/$name"
+          test -d "$dir" || continue
+          echo "removing $dir"
+          rm -r --interactive=never "$dir"
+        done
+      # Browser caches: a running browser would just write them back.
+      - |
+        set -eu
+        clean_browser_cache() {
+          if pgrep -x "$1" >/dev/null; then
+            echo "skipping ~/.cache/$2: $1 is still running"
+          elif test -d "$HOME/.cache/$2"; then
+            echo "removing $HOME/.cache/$2"
+            rm -r --interactive=never "$HOME/.cache/$2"
+          fi
+        }
+        clean_browser_cache chrome google-chrome
+        clean_browser_cache firefox mozilla
+
+  images:
+    desc: Prune every docker image, including ones in use by no container.
+    cmds:
+      - cmd: docker image prune -a
+        ignore_error: true

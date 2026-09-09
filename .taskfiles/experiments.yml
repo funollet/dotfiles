@@ -1,0 +1,50 @@
+# https://taskfile.dev
+#
+# One-off tweaks that never graduated to a stow package or mise bootstrap.
+
+version: "3"
+
+tasks:
+  tweak:
+    desc: Post-install config tasks.
+    deps:
+      - tweak-vbox
+      - tweak-firefox
+      - tweak-kde
+
+  # Set folder to store Virtualbox machines
+  tweak-vbox:
+    cmds:
+      - VBoxManage setproperty machinefolder /home/jordif/spool/VirtualBox_VMs
+
+  # Minor Firefox tweaks.
+  tweak-firefox:
+    cmds:
+      - test -f ~/.gtkrc-2.0 || touch ~/.gtkrc-2.0
+      - sed -i 's/# *gtk-key-theme-name =/gtk-key-theme-name =/' ~/.gtkrc-2.0
+      - grep -q 'gtk-key-theme-name =' ~/.gtkrc-2.0 || echo 'gtk-key-theme-name = "Emacs"' >> ~/.gtkrc-2.0
+      # Firefox uses kde file manager: requires xdg-desktop-portal-kde
+      # Set the app launcher command to: GTK_USE_PORTAL=1 firefox %u
+
+  # KDE tweaks.
+  # https://userbase.kde.org/Plasma/Tips
+  # 'Meta' does nothing by itself
+  tweak-kde:
+    cmds:
+      - kwriteconfig5 --file ~/.config/kwinrc --group ModifierOnlyShortcuts --key Meta ""
+      - qdbus org.kde.KWin /KWin reconfigure
+
+  config-x11:
+    desc: Configure xkb system-wide.
+    cmds:
+      - sudo localectl set-x11-keymap us pc105 "" "compose:caps,ctrl:menu_rctrl,terminate:ctrl_alt_bksp"
+
+  xkb-change:
+    desc: Reconfigure xkb on a running X session.
+    cmds:
+      # Delete previous options.
+      - setxkbmap -layout us -option ''
+      # Set keyboard layout.
+      # compose:caps          caps key is compose key
+      # shift:both_capslock   Both Shift together enable Caps Lock
+      - setxkbmap -layout us -option 'compose:caps' -option 'terminate:ctrl_alt_bksp' -option 'ctrl:menu_rctrl'

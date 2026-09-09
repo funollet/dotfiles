@@ -1,0 +1,44 @@
+# https://taskfile.dev
+#
+# Fedora updates and release upgrades.
+
+version: "3"
+
+tasks:
+  reboot:
+    prompt: Are you sure you want to reboot?
+    cmds:
+      - sudo systemctl reboot
+
+  update:
+    desc: Fedora update.
+    cmds:
+      - sudo dnf update --downloadonly -y
+      - sudo dnf update -y
+      - mise bootstrap packages upgrade --manager flatpak --yes
+
+  update-kernel:
+    cmds:
+      - sudo dnf update kernel kernel-modules-extra kernel-devel-matched VirtualBox virtualbox-guest-additions vagrant
+      - task: reboot
+
+  upgrade0:
+    desc: Fedora upgrade, step 0.
+    cmds:
+      - sudo dnf install dnf-plugin-system-upgrade
+      - sudo dnf upgrade --refresh
+      - task: reboot
+
+  # https://docs.fedoraproject.org/en-US/quick-docs/dnf-system-upgrade/
+  upgrade1:
+    desc: Fedora upgrade, step 1.
+    vars:
+      NEXT_VERSION:
+        sh: "lsb_release -r | cut -f2 | xargs -I{} expr {} + 1"
+    cmds:
+      - sudo dnf system-upgrade download -y --releasever={{.VERSION | default .NEXT_VERSION}}
+
+  upgrade2:
+    desc: Fedora upgrade, step 2.
+    cmds:
+      - sudo dnf5 offline reboot

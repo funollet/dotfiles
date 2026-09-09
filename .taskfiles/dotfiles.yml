@@ -23,7 +23,7 @@ tasks:
     internal: true
     vars:
       STOW_PKGS:
-        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers -I bootstrap.sh
+        sh: ls -I justfile -I Taskfile.yml -I Makefile -I bootstrap.sh
     deps:
       - for: { var: STOW_PKGS, split: "\n", as: PKG }
         task: stow-dir

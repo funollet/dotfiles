@@ -2,5 +2,5 @@
 Type=Application
 Name=dnfdragora Updater
 # Masks /etc/xdg/autostart/org.mageia.dnfdragora-updater.desktop. Updates are
-# handled by dnf-automatic, see installers/roles/dnf-automatic.
+# handled by dnf-automatic, see .config/mise/conf.d/bootstrap-dnf-automatic.toml.
 Hidden=true
