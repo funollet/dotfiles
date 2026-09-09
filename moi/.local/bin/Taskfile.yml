@@ -154,16 +154,6 @@ tasks:
       - sleep 0.5
       - sudo $(which ch57x-keyboard-tool) led 0
 
-  flatpak-ls:
-    desc: List installed flatpak applications
-    cmds:
-      - flatpak list --app --columns=name
-
-  flatpak-update:
-    desc: Interactively pick and update a flatpak
-    cmds:
-      - flatpak remote-ls --updates --columns=application,version | fzf --prompt="Pick a flatpak to update> " | cut -d'	' -f1 | xargs -r flatpak update -y
-
   flatpak-ls-updates:
     desc: Show flatpak updates with target versions
     cmds:
