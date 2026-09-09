@@ -111,6 +111,14 @@ stern = "latest"
 "github:immanuwell/dockerfile-roast" = "latest"
 "npm:dclint" = "3.1.0"
 
+
+[tools."http:keymapp"]
+# The http backend can't resolve "latest" (no version list). Upstream only
+# publishes a versionless tarball, so this is its Last-Modified date.
+# Bump it to force a re-download.
+version = "2025.05.19"
+url = "https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz"
+
 [settings]
 idiomatic_version_file_enable_tools = ["python"]
 experimental = true

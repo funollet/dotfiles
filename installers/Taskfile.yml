@@ -28,12 +28,6 @@ tasks:
           sed 's/^- //' |
           sort | uniq | fzf --no-multi
 
-  keymapp:
-    cmds:
-      - ubi --exe keymapp --in ~/.local/bin/ --url https://oryx.nyc3.cdn.digitaloceanspaces.com/keymapp/keymapp-latest.tar.gz
-    status:
-      - which keymapp
-
   # Install font Hack from https://github.com/ryanoasis/nerd-fonts
   fonts-hack:
     vars:
@@ -98,7 +92,6 @@ tasks:
     desc: Install non-packaged software.
     deps:
       - fonts-hack
-      - keymapp
 
   reboot:
     prompt: Are you sure you want to reboot?
