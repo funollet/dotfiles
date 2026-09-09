@@ -1,6 +1,7 @@
 [tool_alias]
 ambr = "github:dalance/amber"
 ambs = "github:dalance/amber"
+fonts-hack = "github:ryanoasis/nerd-fonts"
 
 [tools]
 act = "latest"
@@ -110,6 +111,19 @@ kubecolor = "latest"
 stern = "latest"
 "github:immanuwell/dockerfile-roast" = "latest"
 "npm:dclint" = "3.1.0"
+
+# Font Hack from https://github.com/ryanoasis/nerd-fonts. The zip holds the
+# ttf files at its root, so the install dir doubles as the font dir and only
+# needs to be linked where fontconfig looks. rm first: an older non-mise
+# install left a real dir there, and ln -n would link inside it.
+# Pinned: 3.x renames the files and drops the "Hack NF" family.
+fonts-hack = { version = "2.1.0", asset_pattern = "Hack.zip", postinstall = """
+set -eu
+mkdir -p ~/.local/share/fonts
+rm -rf ~/.local/share/fonts/Hack
+ln -sfn "$MISE_TOOL_INSTALL_PATH" ~/.local/share/fonts/Hack
+fc-cache -f
+""" }
 
 
 [tools."http:keymapp"]

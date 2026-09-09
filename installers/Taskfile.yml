@@ -28,19 +28,6 @@ tasks:
           sed 's/^- //' |
           sort | uniq | fzf --no-multi
 
-  # Install font Hack from https://github.com/ryanoasis/nerd-fonts
-  fonts-hack:
-    vars:
-      VERSION: '{{.VERSION | default "2.1.0"}}'
-    cmds:
-      - wget -nv -c "https://github.com/ryanoasis/nerd-fonts/releases/download/v{{.VERSION}}/Hack.zip" -P /tmp
-      - rm -rf ~/.fonts/Hack
-      - mkdir -p ~/.local/share/fonts/Hack
-      - unzip -o -d ~/.local/share/fonts/Hack /tmp/Hack.zip
-      - fc-cache -fv
-    status:
-      - test -d ~/.local/share/fonts/Hack
-
   zed:
     desc: Install latest Zed editor system-wide. Multiple versions coexist under /opt.
     vars:
@@ -87,11 +74,6 @@ tasks:
           sudo stow {{.STOW_FLAGS}} -D "$name" 2>/dev/null || true
         done
         sudo stow {{.STOW_FLAGS}} -R "zed-${VERSION}.app"
-
-  install-extras:
-    desc: Install non-packaged software.
-    deps:
-      - fonts-hack
 
   reboot:
     prompt: Are you sure you want to reboot?
