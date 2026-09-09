@@ -24,3 +24,6 @@ run = [
 "flatpak:org.freecad.FreeCAD" = "latest"
 "flatpak:org.telegram.desktop" = "latest"
 "flatpak:us.zoom.Zoom" = "latest"
+
+[bootstrap.files]
+"/etc/X11/xorg.conf.d/30-touchpad.conf" = { source = "../files/etc/X11/xorg.conf.d/30-touchpad.conf" }

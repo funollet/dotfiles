@@ -1,12 +1,5 @@
-- name: xorg touchpad config
-  copy:
-    src: xorg.conf.d/30-touchpad.conf
-    dest: /etc/X11/xorg.conf.d/
-    owner: root
-    group: root
-    mode: '0644'
-  become: true
-  tags: [touchpad]
+# The xorg touchpad config is declared in
+# mise/.config/mise/conf.d/bootstrap.toml.
 
 - name: install fusuma
   gem:
@@ -21,5 +14,4 @@
   tags: [touchpad, fusuma]
 
 # fusuma.service is stowed from the fusuma package and enabled by
-# "task systemctl", like every other user unit in this repo. This role only
-# owns the system-level pieces.
+# "task systemctl", like every other user unit in this repo.
