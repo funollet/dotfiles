@@ -26,6 +26,8 @@ run = [
 "flatpak:us.zoom.Zoom" = "latest"
 
 [bootstrap.files]
+# Fedora's stock dnf.conf plus defaultyes, so dnf prompts default to yes.
+"/etc/dnf/dnf.conf" = { source = "../files/etc/dnf/dnf.conf" }
 "/etc/X11/xorg.conf.d/30-touchpad.conf" = { source = "../files/etc/X11/xorg.conf.d/30-touchpad.conf" }
 "/etc/X11/xinit/xinitrc.d/40-ssh-agent-socket.sh" = { source = "../files/etc/X11/xinit/xinitrc.d/40-ssh-agent-socket.sh" }
 # Executable, unlike its 40-ssh-agent-socket.sh sibling: Fedora's default

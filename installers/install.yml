@@ -2,8 +2,6 @@
   hosts: localhost
 
   tasks:
-    - import_role:
-        name: dnf
 
     - group:
         name: "{{ item }}"

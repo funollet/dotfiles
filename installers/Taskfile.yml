@@ -4,12 +4,37 @@ version: "3"
 
 vars:
   ANSIBLE: "ansible-playbook -v install.yml"
+  # rpm package lists, kept with the rest of the machine setup under mise.
+  PACKAGES: "{{.TASKFILE_DIR}}/../mise/.config/mise/dnf-packages.yml"
 
 tasks:
   default:
     cmds:
       - task --list --sort=none
     silent: true
+
+  dnf:
+    desc: Converge rpm packages from dnf-packages.yml.
+    cmds:
+      - task: dnf-remove
+      - task: dnf-install
+
+  dnf-install:
+    desc: Install the dnf_install list from dnf-packages.yml.
+    vars:
+      PKGS:
+        sh: yq -r '.dnf_install | join(" ")' {{.PACKAGES}}
+    cmds:
+      - sudo dnf install -y {{.PKGS}}
+
+  dnf-remove:
+    desc: Remove the dnf_remove list from dnf-packages.yml.
+    vars:
+      PKGS:
+        sh: yq -r '.dnf_remove | join(" ")' {{.PACKAGES}}
+    cmds:
+      # Packages already gone are "Nothing to do" for dnf5, not an error.
+      - sudo dnf remove -y {{.PKGS}}
 
   ansible:
     desc: Run ansible on the local workstation.

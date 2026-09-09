@@ -1,4 +1,5 @@
-rpm_absent: [
+# rpm package lists for `task dnf` (installers/Taskfile.yml), read with yq.
+dnf_remove: [
   amarok, akonadi, kf5-akonadi-server, banshee, gbrainy,
   snapd, PackageKit-command-not-found,
   lxc, lxc-doc, redir,                                # vagrant-lxc requirement
@@ -10,7 +11,7 @@ rpm_absent: [
   gnome-abrt, toolbox, redhat-lsb,
   ]
 
-rpm: [
+dnf_install: [
   ### base_distro
   python-paramiko, python3-pyyaml, python-jinja2, python-simplejson, python-pip,
   python3-firewall, createrepo, lsb_release,
