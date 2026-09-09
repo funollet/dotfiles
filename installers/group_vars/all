@@ -68,6 +68,12 @@ rpm: [
   xkbset, xbindkeys, xset, xosd,
   xdpyinfo, xev, xprop, xvinfo, xwininfo, xlsatoms, xlsclients, xlsfonts,
   gucharmap, powerline-fonts, levien-inconsolata-fonts, fontawesome-fonts, unifont-fonts,
+  # Microsoft core fonts. The installer is an unsigned rpm fetched by URL, so
+  # it lives here rather than in mise bootstrap, which only installs packages
+  # by name. Its dependencies are listed with it because the rpm downloads
+  # and unpacks the fonts in %post.
+  cabextract, xorg-x11-font-utils, fontconfig,
+  "https://downloads.sourceforge.net/project/mscorefonts2/rpms/msttcore-fonts-installer-2.6-1.noarch.rpm",
   redshift,
   input-remapper, solaar,
   # input-remapper dependencies
