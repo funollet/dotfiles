@@ -27,3 +27,7 @@ run = [
 
 [bootstrap.files]
 "/etc/X11/xorg.conf.d/30-touchpad.conf" = { source = "../files/etc/X11/xorg.conf.d/30-touchpad.conf" }
+# Executable, unlike its 40-ssh-agent-socket.sh sibling: Fedora's default
+# SessionCommand runs the xinitrc-common loop, which sources every file
+# regardless of mode, but sddm's own Xsession script tests for -x first.
+"/etc/X11/xinit/xinitrc.d/50-qtile-desktop.sh" = { source = "../files/etc/X11/xinit/xinitrc.d/50-qtile-desktop.sh", mode = "0755" }

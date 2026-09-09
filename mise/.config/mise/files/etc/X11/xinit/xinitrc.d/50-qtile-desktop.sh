@@ -1,6 +1,6 @@
 # Give the qtile session a desktop identity.
 #
-# Managed by ansible (dotfiles: installers/roles/xsession). Do not edit here.
+# Managed by mise bootstrap (.config/mise/files). Do not edit here.
 #
 # Why this exists:
 #   /usr/share/xsessions/qtile.desktop carries no DesktopNames= key (compare
@@ -25,6 +25,6 @@
 # ExecCondition that systemd-xdg-autostart-generator emits for each of them.
 
 if [ "$DESKTOP_SESSION" = "qtile" ]; then
-    export XDG_CURRENT_DESKTOP=qtile
-    export XDG_SESSION_DESKTOP=qtile
+  export XDG_CURRENT_DESKTOP=qtile
+  export XDG_SESSION_DESKTOP=qtile
 fi
