@@ -1,3 +1,2 @@
 *.secrets
-.ansible
 .claude/settings.local.json

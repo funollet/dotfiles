@@ -6,6 +6,18 @@ run = [
   "flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo",
 ]
 
+# Groups for the udev rules above: uinput for kmonad and the like, plugdev
+# for ZSA keyboard flashing. /dev/uinput itself is not declared here; the
+# 98-uinput.rules entry owns its group and mode at every boot.
+[bootstrap.groups.uinput]
+[bootstrap.groups.plugdev]
+
+# Only supplementary memberships are managed; everything else about the
+# account stays as it is.
+[bootstrap.users.jordif]
+group = "jordif"
+groups = ["wheel", "dialout", "input", "uinput", "docker", "plugdev"]
+
 [bootstrap.packages]
 # System-wide flatpaks from flathub. Deliberately unpinned: a version pin
 # makes mise run `flatpak install id@version`, which flatpak rejects

@@ -3,7 +3,7 @@
 
 set -eu
 
-sudo dnf install -y git curl just vim dnf-plugins-core vim-enhanced stow ansible
+sudo dnf install -y git curl just vim dnf-plugins-core vim-enhanced stow
 sudo dnf remove -y nano
 
 # install mise

@@ -3,7 +3,6 @@
 version: "3"
 
 vars:
-  ANSIBLE: "ansible-playbook -v install.yml"
   # rpm package lists, kept with the rest of the machine setup under mise.
   PACKAGES: "{{.TASKFILE_DIR}}/../mise/.config/mise/dnf-packages.yml"
 
@@ -46,23 +45,6 @@ tasks:
       # fusuma.service is stowed from the fusuma package and enabled by
       # "task systemctl" at the repo root, like every other user unit.
       - gem install --user-install --conservative --no-document {{.GEMS}}
-
-  ansible:
-    desc: Run ansible on the local workstation.
-    cmds:
-      - "{{.ANSIBLE}} {{.CLI_ARGS}}"
-
-  ansible-tags:
-    desc: pick an ansible tag and run with it
-    cmds:
-      - "{{.ANSIBLE}} {{.CLI_ARGS}} -t {{.TAG}}"
-    vars:
-      TAG:
-        sh: |
-          (ls -1 install.yml ; fd '(yml|yaml)'  roles/ ) |
-          xargs yq '.[] | select(has("tags")) | .tags' -P --no-doc |
-          sed 's/^- //' |
-          sort | uniq | fzf --no-multi
 
   zed:
     desc: Install latest Zed editor system-wide. Multiple versions coexist under /opt.
