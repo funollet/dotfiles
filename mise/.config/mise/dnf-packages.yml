@@ -1,4 +1,4 @@
-# rpm package lists for `task dnf` (installers/Taskfile.yml), read with yq.
+# rpm package lists for `task system:dnf` (.taskfiles/system.yml), read with yq.
 dnf_remove: [
   amarok, akonadi, kf5-akonadi-server, banshee, gbrainy,
   snapd, PackageKit-command-not-found,

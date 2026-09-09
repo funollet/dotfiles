@@ -2,49 +2,11 @@
 
 version: "3"
 
-vars:
-  # rpm package lists, kept with the rest of the machine setup under mise.
-  PACKAGES: "{{.TASKFILE_DIR}}/../mise/.config/mise/dnf-packages.yml"
-
 tasks:
   default:
     cmds:
       - task --list --sort=none
     silent: true
-
-  dnf:
-    desc: Converge rpm packages from dnf-packages.yml.
-    cmds:
-      - task: dnf-remove
-      - task: dnf-install
-
-  dnf-install:
-    desc: Install the dnf_install list from dnf-packages.yml.
-    vars:
-      PKGS:
-        sh: yq -r '.dnf_install | join(" ")' {{.PACKAGES}}
-    cmds:
-      - sudo dnf install -y {{.PKGS}}
-
-  dnf-remove:
-    desc: Remove the dnf_remove list from dnf-packages.yml.
-    vars:
-      PKGS:
-        sh: yq -r '.dnf_remove | join(" ")' {{.PACKAGES}}
-    cmds:
-      # Packages already gone are "Nothing to do" for dnf5, not an error.
-      - sudo dnf remove -y {{.PKGS}}
-
-  fusuma:
-    desc: Install fusuma and its plugins as user gems.
-    vars:
-      GEMS: fusuma fusuma-plugin-keypress fusuma-plugin-tap fusuma-plugin-sendkey
-    cmds:
-      # --conservative keeps whatever already satisfies the requirement, so
-      # rerunning is a no-op instead of an upgrade.
-      # fusuma.service is stowed from the fusuma package and enabled by
-      # "task systemctl" at the repo root, like every other user unit.
-      - gem install --user-install --conservative --no-document {{.GEMS}}
 
   zed:
     desc: Install latest Zed editor system-wide. Multiple versions coexist under /opt.

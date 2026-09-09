@@ -1,0 +1,70 @@
+# https://taskfile.dev
+#
+# The dotfiles themselves: stow packages and the user units they ship.
+# Commands run from the repo root, like every included taskfile.
+
+version: "3"
+
+tasks:
+  update:
+    desc: Update dotfiles.
+    cmds:
+      - git pull --ff-only
+      # Delete all symlinks. This deals with deleted config files.
+      # Symlink files managed in this repo.
+      - task: stow-all
+      - stow --target ~/bin --dir ~/code/user-land/ packaged
+      - stow --target ~/.local/bin --dir ~/code/volume-notify/ bin
+      - cd ~ && mise install
+      # Symlinking a unit does not enable it, so this has to run every time.
+      - task: systemctl
+
+  stow-all:
+    internal: true
+    vars:
+      STOW_PKGS:
+        sh: ls -I justfile -I Taskfile.yml -I Makefile -I installers -I bootstrap.sh
+    deps:
+      - for: { var: STOW_PKGS, split: "\n", as: PKG }
+        task: stow-dir
+        vars: { PKG: "{{.PKG}}" }
+
+  stow-dir:
+    internal: true
+    cmds:
+      - stow -R {{.PKG}}
+
+  check:
+    desc: Validate the stowed desktop entries and systemd user units.
+    cmds:
+      # "qtile" and "i3" are not registered desktop names, so every ShowIn key
+      # here trips desktop-file-validate. That is exactly how
+      # XDG_CURRENT_DESKTOP is set, so drop those and fail on anything else.
+      - |
+        errors=$(desktop-file-validate */.config/autostart/*.desktop \
+          | grep -v 'contains an unregistered value' || true)
+        test -z "$errors" || { printf '%s\n' "$errors"; exit 1; }
+      - systemd-analyze --user verify */.config/systemd/user/*
+
+  systemctl:
+    desc: Enable the systemd user units this session needs.
+    vars:
+      # Units shipped by this repo, discovered from the stow packages so that
+      # dropping in a unit file is enough to get it enabled. Units with no
+      # [Install] section (qtile-session.target) are pulled in as dependencies
+      # rather than enabled, so they are skipped.
+      OWN_UNITS:
+        sh: grep -rl '^\[Install\]' */.config/systemd/user/ | xargs -n1 basename | sort
+      # Units shipped by the distro that this session relies on.
+      DISTRO_UNITS: >-
+        app-com.mitchellh.ghostty.service
+        gnome-keyring-daemon.service
+        ssh-agent.socket
+        ulauncher.service
+        xdg-user-dirs.service
+    cmds:
+      - systemctl --user daemon-reload
+      - for: { var: OWN_UNITS, split: "\n", as: UNIT }
+        cmd: systemctl --user enable {{.UNIT}}
+      - for: { var: DISTRO_UNITS, split: " ", as: UNIT }
+        cmd: systemctl --user enable {{.UNIT}}

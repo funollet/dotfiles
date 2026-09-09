@@ -20,7 +20,7 @@ run = [
 "/etc/yum.repos.d/claude-desktop.repo" = { source = "../files/etc/yum.repos.d/claude-desktop.repo" }
 "/etc/yum.repos.d/cursor.repo" = { source = "../files/etc/yum.repos.d/cursor.repo" }
 "/etc/yum.repos.d/google-chrome.repo" = { source = "../files/etc/yum.repos.d/google-chrome.repo" }
-# mise.repo is first written by bootstrap.sh from upstream and converged here.
+# mise.repo is first written by ./bootstrap.sh from upstream and converged here.
 "/etc/yum.repos.d/mise.repo" = { source = "../files/etc/yum.repos.d/mise.repo" }
 "/etc/yum.repos.d/tailscale.repo" = { source = "../files/etc/yum.repos.d/tailscale.repo" }
 "/etc/yum.repos.d/virtualbox.repo" = { source = "../files/etc/yum.repos.d/virtualbox.repo" }

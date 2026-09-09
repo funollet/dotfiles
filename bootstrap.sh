@@ -1,7 +1,9 @@
 #!/bin/bash
-# bootstrap.sh
+# bootstrap.sh: set up a fresh Fedora workstation from this repo.
 
 set -eu
+
+cd "$(dirname "$0")"
 
 # Passwordless sudo for wheel first: mise bootstrap and task dnf run many sudo
 # commands and must not stop for a password on each one. The only prompt of
@@ -23,7 +25,6 @@ sudo dnf install -y mise
 eval "$(/usr/bin/mise activate bash)"
 
 # make global versions available
-cd ..
 stow mise
 
 mise install
@@ -32,5 +33,6 @@ mise install
 # Running the files step early keeps that order right.
 mise bootstrap files apply --yes
 mise bootstrap --yes
-task dnf
-cd $OLDPWD
+task system:dnf
+# After system:dnf: ruby and rubygems come from the dnf_install list.
+task system:fusuma
