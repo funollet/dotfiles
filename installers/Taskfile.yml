@@ -36,6 +36,17 @@ tasks:
       # Packages already gone are "Nothing to do" for dnf5, not an error.
       - sudo dnf remove -y {{.PKGS}}
 
+  fusuma:
+    desc: Install fusuma and its plugins as user gems.
+    vars:
+      GEMS: fusuma fusuma-plugin-keypress fusuma-plugin-tap fusuma-plugin-sendkey
+    cmds:
+      # --conservative keeps whatever already satisfies the requirement, so
+      # rerunning is a no-op instead of an upgrade.
+      # fusuma.service is stowed from the fusuma package and enabled by
+      # "task systemctl" at the repo root, like every other user unit.
+      - gem install --user-install --conservative --no-document {{.GEMS}}
+
   ansible:
     desc: Run ansible on the local workstation.
     cmds:

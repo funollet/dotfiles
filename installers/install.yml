@@ -31,6 +31,3 @@
           - plugdev
       become: true
       tags: users
-
-    - import_role:
-        name: touchpad
