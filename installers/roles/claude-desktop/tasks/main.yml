@@ -1,8 +1,0 @@
-# The claude-desktop repo is declared in mise/.config/mise/conf.d/bootstrap.toml.
-
-- name: install claude-desktop
-  ansible.builtin.dnf:
-    name: claude-desktop
-    state: present
-  become: true
-  tags: [claude-desktop]

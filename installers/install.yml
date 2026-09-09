@@ -45,8 +45,6 @@
     - import_role:
         name: cursor
     - import_role:
-        name: claude-desktop
-    - import_role:
         name: ssh-agent
     - import_role:
         name: xsession

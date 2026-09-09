@@ -91,7 +91,7 @@ rpm: [
   calibre, inkscape, firefox, mozilla-openh264,
   libreoffice, timeline, youtube-dl, Zim,
   zathura, speedcrunch, homebank, flameshot,
-  ghostty,
+  ghostty, claude-desktop,
   # Graphics
   gimp,
   gimp-paint-studio, gimp-help,
