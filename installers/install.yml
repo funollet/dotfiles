@@ -43,8 +43,6 @@
     - import_role:
         name: dnf-automatic
     - import_role:
-        name: tailscale
-    - import_role:
         name: cursor
     - import_role:
         name: claude-desktop
