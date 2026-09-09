@@ -85,7 +85,7 @@ tasks:
     cmds:
       - sudo dnf update --downloadonly -y
       - sudo dnf update -y
-      - flatpak update -y
+      - mise bootstrap packages upgrade --manager flatpak --yes
 
   update-kernel:
     cmds:

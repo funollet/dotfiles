@@ -1,0 +1,24 @@
+[bootstrap.hooks]
+# mise has no flatpak remote management and Fedora ships without flathub.
+# --if-not-exists keeps the hook idempotent; system remotes go through
+# polkit, like the installs below.
+pre-packages = "flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo"
+
+# System-wide flatpaks from flathub. Deliberately unpinned: a version pin
+# makes mise run `flatpak install id@version`, which flatpak rejects
+# ("Name can't contain @"). Flatpak tracks branches, not versions.
+[bootstrap.packages]
+"flatpak:com.bambulab.BambuStudio" = "latest"
+"flatpak:com.bitwarden.desktop" = "latest"
+"flatpak:com.discordapp.Discord" = "latest"
+"flatpak:com.github.ransome1.sleek" = "latest"
+"flatpak:com.rafaelmardojai.Blanket" = "latest"
+"flatpak:com.slack.Slack" = "latest"
+"flatpak:com.spotify.Client" = "latest"
+"flatpak:com.usebottles.bottles" = "latest"
+"flatpak:com.valvesoftware.Steam" = "latest"
+"flatpak:md.obsidian.Obsidian" = "latest"
+"flatpak:net.ankiweb.Anki" = "latest"
+"flatpak:org.freecad.FreeCAD" = "latest"
+"flatpak:org.telegram.desktop" = "latest"
+"flatpak:us.zoom.Zoom" = "latest"
