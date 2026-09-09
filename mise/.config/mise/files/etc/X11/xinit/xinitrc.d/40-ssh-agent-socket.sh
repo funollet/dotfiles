@@ -1,6 +1,6 @@
 # Point SSH_AUTH_SOCK at the socket-activated ssh-agent.socket user unit.
 #
-# Managed by ansible (dotfiles: installers/roles/ssh-agent). Do not edit here.
+# Managed by mise bootstrap (.config/mise/files). Do not edit here.
 #
 # Why this exists:
 #   xinitrc-common (pkg xorg-x11-xinit) prefixes the whole X session with a

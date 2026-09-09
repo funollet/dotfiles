@@ -27,6 +27,7 @@ run = [
 
 [bootstrap.files]
 "/etc/X11/xorg.conf.d/30-touchpad.conf" = { source = "../files/etc/X11/xorg.conf.d/30-touchpad.conf" }
+"/etc/X11/xinit/xinitrc.d/40-ssh-agent-socket.sh" = { source = "../files/etc/X11/xinit/xinitrc.d/40-ssh-agent-socket.sh" }
 # Executable, unlike its 40-ssh-agent-socket.sh sibling: Fedora's default
 # SessionCommand runs the xinitrc-common loop, which sources every file
 # regardless of mode, but sddm's own Xsession script tests for -x first.
