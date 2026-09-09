@@ -35,8 +35,6 @@
       tags: users
 
     - import_role:
-        name: gems
-    - import_role:
         name: udev
     - import_role:
         name: touchpad

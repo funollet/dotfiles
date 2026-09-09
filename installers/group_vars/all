@@ -1,7 +1,3 @@
-gems: [
-  fpm,
-  ]
-
 rpm_absent: [
   amarok, akonadi, kf5-akonadi-server, banshee, gbrainy,
   snapd, PackageKit-command-not-found,

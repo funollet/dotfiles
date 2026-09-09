@@ -35,6 +35,7 @@ gcloud = "latest"
 eksctl = "latest"
 
 "cargo:andrewshadura/inputplug" = "latest"
+"gem:fpm" = "1.18.0"
 
 "pipx:pex" = "latest"
 "pipx:csb43" = "latest"
