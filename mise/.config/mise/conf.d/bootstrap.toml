@@ -1,13 +1,22 @@
-[bootstrap.hooks]
-# mise has no flatpak remote management and Fedora ships without flathub.
-# --if-not-exists keeps the hook idempotent; system remotes go through
-# polkit, like the installs below.
-pre-packages = "flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo"
+[bootstrap.hooks.pre-packages]
+run = [
+  # RPM Fusion ships its repo files as release rpms installed by URL, which
+  # [bootstrap.packages] can't express. rpm -q makes this a no-op once done.
+  'rpm -q rpmfusion-free-release >/dev/null || sudo dnf install -y "https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm"',
+  'rpm -q rpmfusion-nonfree-release >/dev/null || sudo dnf install -y "https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm"',
+  # mise has no flatpak remote management and Fedora ships without flathub.
+  # --if-not-exists keeps the hook idempotent; system remotes go through
+  # polkit, like the installs below.
+  "flatpak remote-add --if-not-exists --system flathub https://flathub.org/repo/flathub.flatpakrepo",
+]
+
+[bootstrap.packages]
+# Ships the disabled google-chrome repo that the file entry below enables.
+"dnf:fedora-workstation-repositories" = "latest"
 
 # System-wide flatpaks from flathub. Deliberately unpinned: a version pin
 # makes mise run `flatpak install id@version`, which flatpak rejects
 # ("Name can't contain @"). Flatpak tracks branches, not versions.
-[bootstrap.packages]
 "flatpak:com.bambulab.BambuStudio" = "latest"
 "flatpak:com.bitwarden.desktop" = "latest"
 "flatpak:com.discordapp.Discord" = "latest"
@@ -22,3 +31,20 @@ pre-packages = "flatpak remote-add --if-not-exists --system flathub https://flat
 "flatpak:org.freecad.FreeCAD" = "latest"
 "flatpak:org.telegram.desktop" = "latest"
 "flatpak:us.zoom.Zoom" = "latest"
+
+# Third-party dnf repos, one entry per file. Signing keys are not pre-imported: every repo
+# carries gpgkey= and `dnf install -y` imports them on first use.
+#
+# google-chrome.repo is owned by fedora-workstation-repositories, which ships
+# it disabled; declaring the whole file keeps it enabled across upgrades.
+[bootstrap.files]
+"/etc/yum.repos.d/1password.repo" = { source = "../files/etc/yum.repos.d/1password.repo" }
+"/etc/yum.repos.d/claude-desktop.repo" = { source = "../files/etc/yum.repos.d/claude-desktop.repo" }
+"/etc/yum.repos.d/cursor.repo" = { source = "../files/etc/yum.repos.d/cursor.repo" }
+"/etc/yum.repos.d/google-chrome.repo" = { source = "../files/etc/yum.repos.d/google-chrome.repo" }
+# mise.repo is first written by bootstrap.sh from upstream and converged here.
+"/etc/yum.repos.d/mise.repo" = { source = "../files/etc/yum.repos.d/mise.repo" }
+"/etc/yum.repos.d/tailscale.repo" = { source = "../files/etc/yum.repos.d/tailscale.repo" }
+"/etc/yum.repos.d/virtualbox.repo" = { source = "../files/etc/yum.repos.d/virtualbox.repo" }
+# The copr entry is the file `dnf copr enable scottames/ghostty` would write.
+"/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo" = { source = "../files/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo" }

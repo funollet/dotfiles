@@ -14,6 +14,11 @@ eval "$(/usr/bin/mise activate bash)"
 # make global versions available
 cd ..
 stow mise
+
+# mise applies [bootstrap.files] after [bootstrap.packages], but the dnf
+# repo files below must exist before any dnf: package that lives in them.
+# Running the files step early keeps that order right.
+mise bootstrap files apply --yes
 mise install
 cd $OLDPWD
 
