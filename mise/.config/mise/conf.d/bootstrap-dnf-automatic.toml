@@ -1,0 +1,18 @@
+[bootstrap.packages]
+"dnf:dnf5-plugin-automatic" = "latest"
+
+[bootstrap.files]
+"/etc/dnf/automatic.conf" = { source = "../files/etc/dnf/automatic.conf" }
+"/etc/systemd/system/dnf5-automatic.timer.d/override.conf" = { source = "../files/etc/systemd/system/dnf5-automatic.timer.d/override.conf", notify = [
+  "dnf5-automatic.timer",
+] }
+# The ansible role wrote the override under timers.target.wants, where systemd
+# never reads drop-ins. Clean it up.
+"/etc/systemd/system/timers.target.wants/dnf5-automatic.timer.d/override.conf" = { state = "absent" }
+
+[bootstrap.directories]
+"/etc/systemd/system/timers.target.wants/dnf5-automatic.timer.d" = { state = "absent" }
+
+[bootstrap.services."dnf5-automatic.timer"]
+state = "running"
+enabled = true

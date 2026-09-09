@@ -41,8 +41,6 @@
     - import_role:
         name: mscorefonts
     - import_role:
-        name: dnf-automatic
-    - import_role:
         name: ssh-agent
     - import_role:
         name: xsession
