@@ -125,6 +125,7 @@ rm -rf ~/.local/share/fonts/Hack
 ln -sfn "$MISE_TOOL_INSTALL_PATH" ~/.local/share/fonts/Hack
 fc-cache -f
 """ }
+yazi = "latest"
 
 
 [tools."http:keymapp"]
