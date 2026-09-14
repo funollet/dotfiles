@@ -126,6 +126,7 @@ ln -sfn "$MISE_TOOL_INSTALL_PATH" ~/.local/share/fonts/Hack
 fc-cache -f
 """ }
 yazi = "latest"
+"github:bjarneo/ku" = "latest"
 
 
 [tools."http:keymapp"]

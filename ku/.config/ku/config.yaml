@@ -1,0 +1,61 @@
+sidebar:
+  - section: Workloads
+    items:
+      - label: Pods
+        resource: pods
+      - label: Deployments
+        resource: deployments
+      - label: StatefulSets
+        resource: statefulsets
+      - label: DaemonSets
+        resource: daemonsets
+      - label: ReplicaSets
+        resource: replicasets
+      - label: Jobs
+        resource: jobs
+      - label: CronJobs
+        resource: cronjobs
+  - section: Network
+    items:
+      - label: Services
+        resource: services
+      - label: Ingresses
+        resource: ingresses
+      - label: Endpoints
+        resource: endpoints
+  - section: Config
+    items:
+      - label: ConfigMaps
+        resource: configmaps
+      - label: Secrets
+        resource: secrets
+      - label: secrets-store classes
+        resource: secretproviderclasses.secrets-store.csi.x-k8s.io
+      - label: secrets-store providerclasspodstatuses
+        resource: secretproviderclasspodstatuses.secrets-store.csi.x-k8s.io
+      - label: ServiceAccounts
+        resource: serviceaccounts
+  - section: Storage
+    items:
+      - label: PVCs
+        resource: persistentvolumeclaims
+      - label: PVs
+        resource: persistentvolumes
+      - label: StorageClasses
+        resource: storageclasses
+  - section: Cluster
+    items:
+      - label: Nodes
+        resource: nodes
+      - label: Namespaces
+        resource: namespaces
+      - label: Events
+        resource: events
+  - section: ArgoCD
+    items:
+      - label: applications
+        resource: applications.argoproj.io
+      - label: applicationsets
+        resource: applicationsets.argoproj.io
+      - label: appprojects
+        resource: appprojects.argoproj.io
