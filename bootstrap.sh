@@ -11,7 +11,7 @@ cd "$(dirname "$0")"
 # /etc/sudoers, so this one wins whatever Fedora ships there. visudo validates
 # the rule before it lands.
 sudoers_tmp="$(mktemp)"
-printf '%%wheel ALL=(ALL) NOPASSWD: ALL\n' > "$sudoers_tmp"
+printf '%%wheel ALL=(ALL) NOPASSWD: ALL\n' >"$sudoers_tmp"
 sudo visudo -cf "$sudoers_tmp"
 sudo install -m 0440 -o root -g root "$sudoers_tmp" /etc/sudoers.d/wheel
 rm "$sudoers_tmp"
@@ -20,7 +20,7 @@ sudo dnf install -y git curl dnf-plugins-core neovim vim vim-enhanced stow
 sudo dnf remove -y nano
 
 # install mise
-sudo dnf config-manager addrepo --from-repofile=https://mise.jdx.dev/rpm/mise.repo
+sudo dnf copr enable jdxcode/mise fedora-44-x86_64
 sudo dnf install -y mise
 eval "$(/usr/bin/mise activate bash)"
 
