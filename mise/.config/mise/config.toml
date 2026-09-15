@@ -15,7 +15,6 @@ istioctl = "1.19.3"
 argocd = "latest"
 kind = "latest"
 usage = "latest"
-github-cli = { version = "latest" }
 # github-cli = { version = "latest", postinstall = "gh extension install dlvhdr/gh-dash ; gh extension install dlvhdr/gh-enhance" }
 packer = "latest"
 k9s = "latest"
@@ -127,6 +126,7 @@ fc-cache -f
 """ }
 yazi = "latest"
 "github:bjarneo/ku" = "latest"
+gh = "latest"
 
 
 [tools."http:keymapp"]
