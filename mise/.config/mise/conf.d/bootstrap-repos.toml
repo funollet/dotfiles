@@ -24,5 +24,8 @@ run = [
 "/etc/yum.repos.d/mise.repo" = { source = "../files/etc/yum.repos.d/mise.repo" }
 "/etc/yum.repos.d/tailscale.repo" = { source = "../files/etc/yum.repos.d/tailscale.repo" }
 "/etc/yum.repos.d/virtualbox.repo" = { source = "../files/etc/yum.repos.d/virtualbox.repo" }
-# The copr entry is the file `dnf copr enable scottames/ghostty` would write.
+# The copr entries are the files `dnf copr enable <owner>/<project>` would write.
 "/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo" = { source = "../files/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:scottames:ghostty.repo" }
+# quadratech188/vicinae is the COPR the upstream docs point at:
+# https://docs.vicinae.com/install/linux#fedora-and-derivatives
+"/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:quadratech188:vicinae.repo" = { source = "../files/etc/yum.repos.d/_copr:copr.fedorainfracloud.org:quadratech188:vicinae.repo" }

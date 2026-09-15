@@ -1,0 +1,12 @@
+// Hand-maintained overrides, imported from settings.json. Vicinae rewrites
+// settings.json from the GUI and drops comments, so custom keys live here.
+// https://docs.vicinae.com/config
+{
+  // Shortcuts that work system-wide, even when the vicinae window is closed.
+  // Vicinae grabs this key itself (xcb_grab_key on X11), so qtile must not
+  // bind the same combination.
+  "global_shortcuts": {
+    "toggle": "super+r"
+  }
+}
+// vim: ft=jsonc

@@ -137,7 +137,7 @@ dnf_install: [
   dunst, light, brightnessctl, nitrogen, azote,
   python3-xlib,                                       # for ~/.local/bin/clipboard-manager.py (X11 ICCCM clipboard manager daemon)
   arandr, autorandr, autorandr-bash-completion,
-  dex-autostart, rofi, ulauncher,
+  dex-autostart, rofi, ulauncher, vicinae,
   xsecurelock, xss-lock,
   udiskie, blueman, battray,
   network-manager-applet, NetworkManager-tui, NetworkManager-openvpn-gnome,

@@ -349,6 +349,9 @@ floating_layout = layout.Floating(
         Match(wm_class="telegram-desktop"),
         Match(wm_class="Slack"),
         Match(wm_class="FreeCAD") & Match(wm_class="FreeCAD"),
+        # vicinae: the launcher already floats through has_fixed_size, but the
+        # settings window only fixes its width, so match the class instead.
+        Match(wm_class="vicinae"),
         # float all windows that are transient windows for a parent window
         Match(func=lambda c: bool(c.is_transient_for())),
     ],
@@ -583,12 +586,10 @@ keys += [
     ),
     Key("M-<Return>", lazy.spawn(terminal), desc="Launch terminal"),
     Key("M-A-a", lazy.spawn("autorandr 01"), desc="Call autorandr"),
-    Key("M-r", lazy.spawn("ulauncher-toggle"), desc="Call ulauncher"),
     Key(
         "M-<Escape>",
-        lazy.spawn("ulauncher-toggle"),
-        lazy.spawn("xdotool sleep 0.2 type --clearmodifiers 'sm '"),
-        desc="Call ulauncher plugin for logout, reboot, etc.",
+        lazy.spawn("vicinae deeplink vicinae://launch/power?toggle=true"),
+        desc="Open vicinae restricted to the power commands (logout, reboot, etc.)",
     ),
     Key("C-A-l", lazy.spawn("xset s activate"), desc="Activate screensaver"),
     Key("M-y", lazy.spawn("thunar"), desc="Open file browser"),

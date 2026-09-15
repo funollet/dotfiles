@@ -61,6 +61,7 @@ tasks:
         gnome-keyring-daemon.service
         ssh-agent.socket
         ulauncher.service
+        vicinae.service
         xdg-user-dirs.service
     cmds:
       - systemctl --user daemon-reload
