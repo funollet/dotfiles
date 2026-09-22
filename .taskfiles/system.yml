@@ -14,6 +14,7 @@ tasks:
     cmds:
       - task: dnf-remove
       - task: dnf-install
+      - task: mscorefonts
 
   dnf-install:
     desc: Install the dnf_install list from dnf-packages.yml.
@@ -31,6 +32,23 @@ tasks:
     cmds:
       # Packages already gone are "Nothing to do" for dnf5, not an error.
       - sudo dnf remove -y {{.PKGS}}
+
+  mscorefonts:
+    desc: Install the Microsoft core fonts installer rpm.
+    vars:
+      RPM: msttcore-fonts-installer-2.6-1.noarch.rpm
+      URL: https://downloads.sourceforge.net/project/mscorefonts2/rpms/{{.RPM}}
+    # The rpm was built in 2013 with rpm 4.10 and carries no header or payload
+    # digest, so today's rpm (%_pkgverify_level digest) refuses it and dnf has
+    # no per-package override. It is installed with plain rpm and --nodigest
+    # instead, after dnf-install has put its dependencies in place. --nodigest
+    # only skips the digest check on this one transaction.
+    status:
+      - rpm -q msttcore-fonts-installer
+    cmds:
+      - curl -fsSL -o /tmp/{{.RPM}} {{.URL}}
+      - sudo rpm -i --nodigest /tmp/{{.RPM}}
+      - rm -f /tmp/{{.RPM}}
 
   fusuma:
     desc: Install fusuma and its plugins as user gems.
