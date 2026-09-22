@@ -111,7 +111,7 @@ dnf_install: [
   vlc,                                              # require: RPMfusion repositories
   # joystick
   linuxconsoletools,
-  dropbox, google-chrome-stable,
+  dropbox, google-chrome-stable, brave-browser,
   # from local.repo
   #aws-shell, sublime-text, rubygem-watson,
   # 

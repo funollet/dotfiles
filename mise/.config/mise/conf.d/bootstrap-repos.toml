@@ -17,6 +17,9 @@ run = [
 # it disabled; declaring the whole file keeps it enabled across upgrades.
 [bootstrap.files]
 "/etc/yum.repos.d/1password.repo" = { source = "../files/etc/yum.repos.d/1password.repo" }
+# brave-browser.repo is the file upstream serves at
+# https://brave-browser-rpm-release.s3.brave.com/brave-browser.repo
+"/etc/yum.repos.d/brave-browser.repo" = { source = "../files/etc/yum.repos.d/brave-browser.repo" }
 "/etc/yum.repos.d/claude-desktop.repo" = { source = "../files/etc/yum.repos.d/claude-desktop.repo" }
 "/etc/yum.repos.d/cursor.repo" = { source = "../files/etc/yum.repos.d/cursor.repo" }
 "/etc/yum.repos.d/google-chrome.repo" = { source = "../files/etc/yum.repos.d/google-chrome.repo" }
