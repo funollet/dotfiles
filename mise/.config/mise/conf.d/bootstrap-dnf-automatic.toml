@@ -12,6 +12,7 @@
 
 [bootstrap.directories]
 "/etc/systemd/system/timers.target.wants/dnf5-automatic.timer.d" = { state = "absent" }
+"/etc/systemd/system/dnf5-automatic.timer.d" = { state = "present" }
 
 [bootstrap.services."dnf5-automatic.timer"]
 state = "running"
