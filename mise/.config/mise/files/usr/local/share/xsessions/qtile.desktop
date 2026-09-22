@@ -1,0 +1,32 @@
+# Local override of the qtile package's session file.
+#
+# Managed by mise bootstrap (.config/mise/files). Do not edit here.
+#
+# Why this exists:
+#   qtile 0.37 changed the packaged /usr/share/xsessions/qtile.desktop to
+#   Exec=/bin/sh -c "systemctl --user import-environment ...; exec systemctl
+#   --user start --wait qtile.service". sddm 0.21 launches X11 sessions as
+#   Xsession "<Exec>" split by QProcess::splitCommand, which only knows double
+#   quotes and no escaping, so the nested quotes make Fedora's Xsession receive
+#   a dozen arguments. Its dispatch handles exactly one; anything else falls
+#   through to /etc/X11/xinit/Xclients, which starts the first desktop it
+#   finds: Plasma. The unit it names, qtile.service, is not packaged either;
+#   qtile/.config/qtile/autostart.sh plays that role here.
+#
+#   sddm searches /usr/local/share/xsessions before /usr/share/xsessions and
+#   dedupes sessions by file name, so this copy shadows the packaged one
+#   without editing an rpm-owned file. The search order is pinned in
+#   /etc/sddm.conf.d/10-session-dirs.conf.
+#
+#   DesktopNames makes sddm export XDG_CURRENT_DESKTOP=qtile itself;
+#   /etc/X11/xinit/xinitrc.d/50-qtile-desktop.sh keeps covering other display
+#   managers. Keep the value lowercase, it is compared literally against the
+#   autostart entries' OnlyShowIn/NotShowIn keys.
+
+[Desktop Entry]
+Name=Qtile
+Comment=Qtile Session
+Exec=qtile start
+DesktopNames=qtile
+Type=Application
+Keywords=wm;tiling

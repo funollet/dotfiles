@@ -3,9 +3,11 @@
 # Managed by mise bootstrap (.config/mise/files). Do not edit here.
 #
 # Why this exists:
-#   /usr/share/xsessions/qtile.desktop carries no DesktopNames= key (compare
-#   plasmax11.desktop, which has DesktopNames=KDE), so the display manager
-#   never exports XDG_CURRENT_DESKTOP. Everything qtile spawns from a
+#   The packaged /usr/share/xsessions/qtile.desktop carried no DesktopNames=
+#   key before 0.37 (compare plasmax11.desktop, DesktopNames=KDE), so the
+#   display manager never exported XDG_CURRENT_DESKTOP. The local override in
+#   /usr/local/share/xsessions/qtile.desktop now sets it for sddm; this hook
+#   stays for any other display manager. Everything qtile spawns from a
 #   keybinding then runs with no desktop identity at all, which is the sort of
 #   gap that "Exec=env XDG_CURRENT_DESKTOP=Unity dropbox start -i" works
 #   around one app at a time.

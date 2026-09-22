@@ -46,6 +46,11 @@ groups = ["wheel", "dialout", "input", "uinput", "docker", "plugdev"]
 # SessionCommand runs the xinitrc-common loop, which sources every file
 # regardless of mode, but sddm's own Xsession script tests for -x first.
 "/etc/X11/xinit/xinitrc.d/50-qtile-desktop.sh" = { source = "../files/etc/X11/xinit/xinitrc.d/50-qtile-desktop.sh", mode = "0755" }
+# Shadows the rpm's /usr/share/xsessions/qtile.desktop, whose 0.37 Exec line
+# sddm cannot launch (it fell back to Plasma). The drop-in pins sddm's session
+# search order so the local copy wins. Rationale in the desktop file itself.
+"/usr/local/share/xsessions/qtile.desktop" = { source = "../files/usr/local/share/xsessions/qtile.desktop" }
+"/etc/sddm.conf.d/10-session-dirs.conf" = { source = "../files/etc/sddm.conf.d/10-session-dirs.conf" }
 # udev rules. A change reloads udevd, which is what `udevadm control --reload`
 # does under the hood.
 "/etc/udev/rules.d/50-wally.rules" = { source = "../files/etc/udev/rules.d/50-wally.rules", notify = [
@@ -54,6 +59,12 @@ groups = ["wheel", "dialout", "input", "uinput", "docker", "plugdev"]
 "/etc/udev/rules.d/98-uinput.rules" = { source = "../files/etc/udev/rules.d/98-uinput.rules", notify = [
   "systemd-udevd",
 ] }
+
+# Parents of the sddm override files above. Neither exists on a stock Fedora
+# install, and managed files do not create their parents.
+[bootstrap.directories]
+"/etc/sddm.conf.d" = { state = "present" }
+"/usr/local/share/xsessions" = { state = "present" }
 
 # Declared only as the reload target for the udev rules above. The unit is
 # static: enabled = true would never be satisfied, enabled = false is.
