@@ -2,8 +2,11 @@
 glow = [
   { run = 'glow --pager %s', block = true, desc = "Render with glow" },
 ]
+leaf = [
+  { run = 'leaf %s1', block = true, desc = "Render with leaf" },
+]
 
 [open]
 prepend_rules = [
-  { url = "*.md", use = ["glow", "edit"] },
+  { url = "*.md", use = ["glow", "leaf", "edit"] },
 ]
