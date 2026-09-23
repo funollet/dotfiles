@@ -1,0 +1,9 @@
+[opener]
+glow = [
+  { run = 'glow --pager %s', block = true, desc = "Render with glow" },
+]
+
+[open]
+prepend_rules = [
+  { url = "*.md", use = ["glow", "edit"] },
+]
