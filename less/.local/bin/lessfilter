@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+# Input preprocessor for less (see LESSOPEN in bash/.bash.d/less.bash).
+# Renders markdown with glow and syntax-highlights everything else.
+
+case "$1" in
+    *.md | *.markdown)
+        # glow drops colors when stdout is a pipe; force them back on.
+        CLICOLOR_FORCE=1 COLORTERM=truecolor \
+            exec glow --style dark --width "${COLUMNS:-$(tput cols 2>/dev/null || echo 80)}" "$1"
+        ;;
+    *)
+        exec highlight "$1" --out-format xterm256 --force -s molokai --no-trailing-nl
+        ;;
+esac

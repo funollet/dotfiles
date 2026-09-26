@@ -12,8 +12,18 @@ fi
 # pless () { pygmentize -l $1 $2 | less ; }
 
 export PAGER=less
-export LESSOPEN="| $(which highlight) %s --out-format xterm256 --force -s molokai --no-trailing-nl"
+export LESSOPEN="| $HOME/bin/lessfilter %s"
 export LESS='-R'
+
+# glow can only emit 16 colors into a pipe (LESSOPEN), so let it render
+# markdown on the real terminal and page it through less itself.
+less() {
+    if [ $# -eq 1 ] && [[ $1 == *.md || $1 == *.markdown ]] && [ -f "$1" ]; then
+        glow --pager "$1"
+    else
+        command less "$@"
+    fi
+}
 # Colorized man pages with 'less'.
 export LESS_TERMCAP_mb=$'\E[01;31m'
 export LESS_TERMCAP_md=$'\E[01;31m'
