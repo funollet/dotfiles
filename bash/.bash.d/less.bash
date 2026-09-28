@@ -11,7 +11,7 @@ fi
 # pless () { pygmentize -l $1 $2 | less ; }
 
 export PAGER=less
-export LESSOPEN="| $HOME/bin/lessfilter %s"
+export LESSOPEN="| $HOME/.local/bin/lessfilter %s"
 export LESS='-R'
 
 # glow can only emit 16 colors into a pipe (LESSOPEN), so let it render
