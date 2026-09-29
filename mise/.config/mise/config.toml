@@ -127,6 +127,9 @@ fc-cache -f
 yazi = "latest"
 "github:bjarneo/ku" = "latest"
 gh = "latest"
+"github:ouch-org/ouch" = "latest"
+node = "lts"
+"npm:excalidraw-brute-export-cli" = "latest"
 
 
 [tools."http:keymapp"]
