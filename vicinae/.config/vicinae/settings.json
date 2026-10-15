@@ -109,7 +109,14 @@
          }
       },
       "snippets": {
-         "enabled": false
+         "enabled": false,
+         "preferences": {
+            "enabled": true,
+            "keyDelay": "2",
+            "layout": "",
+            "prePasteDelay": "0",
+            "undo": true
+         }
       },
       "system": {
          "entrypoints": {
