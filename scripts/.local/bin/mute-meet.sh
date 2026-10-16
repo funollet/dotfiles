@@ -11,7 +11,7 @@ trap "rmdir $lockdir" EXIT
 
 get_active_call() {
   xdotool search --name \
-    'Slack call with|Zoom Meeting$|^Meet - | - Discord$' getwindowname %@ \
+    'Slack call with|Zoom Meeting$|^Meet (-|–) | - Discord$' getwindowname %@ \
     | grep -Eio '(slack|zoom|meet|discord)' | uniq \
     | tr '[:upper:]' '[:lower:]'
 }
@@ -36,7 +36,8 @@ active_call=$(get_active_call)
 case ${active_call} in
   slack) focus_and_toggle_audio 'Slack call with' 'm' "${active_call}" ;;
   zoom) focus_and_toggle_audio 'Zoom Meeting' 'alt+a' "${active_call}" ;;
-  meet) focus_and_toggle_audio 'Meet -' 'ctrl+d' "${active_call}" ;;
+  # Brave titles Meet windows with an en dash ("Meet – <name>").
+  meet) focus_and_toggle_audio '^Meet (-|–) ' 'ctrl+d' "${active_call}" ;;
   discord) focus_and_toggle_audio 'Discord' 'ctrl+shift+h' "${active_call}" ;;
 esac
 
