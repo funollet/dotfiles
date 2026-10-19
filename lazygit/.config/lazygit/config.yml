@@ -1,6 +1,7 @@
 # https://github.com/jesseduffield/lazygit/blob/master/docs/Config.md
 
 gui:
+  showCommandLog: false
   showIcons: true
   nerdFontsVersion: "3"
 git:
