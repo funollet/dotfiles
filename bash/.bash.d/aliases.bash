@@ -10,8 +10,6 @@ alias cal='cal -m'
 alias ssh='TERM=xterm-256color ssh'
 alias ssh-blindly='TERM=xterm-256color ssh -o StrictHostKeyChecking=no  -o CheckHostIP=no -o UserKnownHostsFile=/dev/null'
 alias xssh='pdsh 2>/dev/null -t3 -f100 -g'
-alias lg='lazygit'
-alias lzd='lazydocker'
 alias bring-back-window='wmctrl -l | fzf | cut -d\  -f1 | xargs wmctrl -iR'
 alias serie='serie --protocol kitty'
 # go to git root folder 'zr' stands for z-root because zoxide doesn't do it
@@ -33,7 +31,11 @@ alias lessj='jq -C . | less'
 alias lessy='bat -l yaml'
 alias xclip='xclip -selection clipboard'
 
+alias lg='lazygit'
+alias lzd='lazydocker'
+
 alias weight.edit='vim ~/workingon/pim/weight.dat'
+
 weight() {
   echo "$(date -I)  $1" >>~/workingon/pim/weight.dat
 }
@@ -75,4 +77,6 @@ alias tn='todo.sh ls @next'
 alias cl='claude'
 alias clr='claude --resume'
 alias sonnet='claude --model=sonnet --effort=medium'
-alias opus='claude --model opus --effort low'
+alias cllow='claude --effort low'
+alias clmedium='claude --effort medium'
+alias clhigh='claude --effort high'
