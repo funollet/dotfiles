@@ -259,6 +259,7 @@
 #
 [[pre-start]]
 mise = "mise trust"
+direnv = "direnv allow"
 
 [[post-start]]
 copy = "wt step copy-ignored"
