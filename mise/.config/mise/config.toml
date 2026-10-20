@@ -131,6 +131,7 @@ gh = "latest"
 node = "lts"
 "npm:excalidraw-brute-export-cli" = "latest"
 hunk = "latest"
+"github:kyu08/fzf-make" = "latest"
 
 
 [tools."http:keymapp"]

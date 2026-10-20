@@ -33,6 +33,7 @@ alias xclip='xclip -selection clipboard'
 
 alias lg='lazygit'
 alias lzd='lazydocker'
+alias m='fzf-make'
 
 alias weight.edit='vim ~/workingon/pim/weight.dat'
 
