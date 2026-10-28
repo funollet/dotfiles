@@ -30,7 +30,6 @@ ruff = "latest"
 python = "3.10"
 awscli = "latest"
 kubectl = "latest"
-gcloud = "latest"
 eksctl = "latest"
 
 "cargo:andrewshadura/inputplug" = "latest"
