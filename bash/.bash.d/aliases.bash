@@ -81,3 +81,6 @@ alias sonnet='claude --model=sonnet --effort=medium'
 alias cllow='claude --effort low'
 alias clmedium='claude --effort medium'
 alias clhigh='claude --effort high'
+
+# watch latest ansible package build on main (run inside the ansible repo)
+alias gh-run-watch-main='gh run watch $(gh run list -w build_and_upload_code_package.yaml -b main -L 1 --json databaseId -q ".[0].databaseId") --exit-status'
