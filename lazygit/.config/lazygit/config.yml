@@ -52,13 +52,19 @@ customCommands:
 
   - key: "<alt-w>"
     context: localBranches
+    # Watch the latest run of the current PR's branch. Without a PR, on main,
+    # same as the gh-run-watch-main bash alias.
     command: |
-      gh pr checks --watch ; \
-      summary=$(gh pr view --json headRepository,headRefName,number | jq -r '"[\(.headRepository.name)#\(.number)] \(.headRefName)"')
-      notify-send --expire-time 0 "$summary" \
-        "$(gh pr checks --json state,name | jq -r '.[] | [.state, .name] | @tsv')"
-    description: "Watch PR workflows"
-    output: log
+      if branch=$(gh pr view --json headRefName -q .headRefName 2>/dev/null); then
+        run=$(gh run list -b "$branch" -L 1 --json databaseId -q '.[0].databaseId')
+      elif [ "$(git branch --show-current)" = main ]; then
+        run=$(gh run list -w build_and_upload_code_package.yaml -b main -L 1 --json databaseId -q '.[0].databaseId')
+      else
+        echo "No PR for this branch and not on main"; exit 1
+      fi
+      gh run watch "$run" --exit-status
+    description: "Watch PR (or main) workflow run"
+    output: terminal
 
   - key: "<c-d>"
     context: "localBranches"
