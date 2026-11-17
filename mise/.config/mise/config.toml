@@ -135,6 +135,7 @@ hunk = "latest"
 "github:kyu08/fzf-make" = "latest"
 "pypi:ubi_reader" = "latest"
 handy = { version = "latest", asset_pattern = "Handy_*_amd64.AppImage", bin = "handy" }
+zellij = "latest"
 
 
 [tools."http:keymapp"]

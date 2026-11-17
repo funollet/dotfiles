@@ -84,6 +84,7 @@ dnf_install: [
   hyphen, hyphen-ca, hyphen-en, hyphen-es,
   autocorr-ca, autocorr-en, autocorr-es,
   pandoc, moreutils, xclip, tmux, abduco, lastpass-cli, powerline-go,
+  wireshark-cli,                                      # provides tshark
   inotify-tools, tiptop, w3m, w3m-img, vpnc, timew, imapfilter,
   java-latest-openjdk-headless,
   powertop, cheat, cheat-bash-completion,
