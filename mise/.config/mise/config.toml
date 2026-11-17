@@ -131,6 +131,7 @@ node = "lts"
 "npm:excalidraw-brute-export-cli" = "latest"
 hunk = "latest"
 "github:kyu08/fzf-make" = "latest"
+"pypi:ubi_reader" = "latest"
 
 
 [tools."http:keymapp"]
