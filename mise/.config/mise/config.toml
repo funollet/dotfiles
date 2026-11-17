@@ -125,6 +125,7 @@ ln -sfn "$MISE_TOOL_INSTALL_PATH" ~/.local/share/fonts/Hack
 fc-cache -f
 """ }
 yazi = "latest"
+resvg = "latest"                                        # yazi SVG previews
 "github:bjarneo/ku" = "latest"
 gh = "latest"
 "github:ouch-org/ouch" = "latest"
