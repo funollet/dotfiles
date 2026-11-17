@@ -126,6 +126,10 @@ fc-cache -f
 """ }
 yazi = "latest"
 resvg = "latest"                                        # yazi SVG previews
+# yazi 3D previews (f3d.yazi). Upstream build, not the Fedora rpm: the rpm
+# lacks the assimp/occt plugins (no 3mf, fbx, step...). The raytracing
+# variant is skipped.
+"github:f3d-app/f3d" = { version = "latest", asset_pattern = "F3D-*-Linux-x86_64.tar.xz" }
 "github:bjarneo/ku" = "latest"
 gh = "latest"
 "github:ouch-org/ouch" = "latest"

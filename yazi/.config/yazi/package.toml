@@ -1,0 +1,7 @@
+[[plugin.deps]]
+use = "DervexDev/f3d"
+rev = "82353d7"
+hash = "6a43beac3ee8008ed5f5e99e97f7cb35"
+
+[flavor]
+deps = []
