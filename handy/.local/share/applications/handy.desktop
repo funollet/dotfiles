@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Handy
+Comment=Offline speech-to-text
+# handy is a mise shim; environment.d puts the shims on the session PATH.
+TryExec=handy
+Exec=handy
+StartupWMClass=handy
+Icon=handy
+Terminal=false
+Type=Application
+Categories=Utility;

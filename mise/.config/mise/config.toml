@@ -2,6 +2,7 @@
 ambr = "github:dalance/amber"
 ambs = "github:dalance/amber"
 fonts-hack = "github:ryanoasis/nerd-fonts"
+handy = "github:cjpais/Handy"
 
 [tools]
 act = "latest"
@@ -132,6 +133,7 @@ node = "lts"
 hunk = "latest"
 "github:kyu08/fzf-make" = "latest"
 "pypi:ubi_reader" = "latest"
+handy = { version = "latest", asset_pattern = "Handy_*_amd64.AppImage", bin = "handy" }
 
 
 [tools."http:keymapp"]
